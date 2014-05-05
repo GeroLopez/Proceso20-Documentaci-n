@@ -60,13 +60,13 @@ namespace Proceso20
         /// <summary>
         /// Número de trazas máximo.
         /// </summary>
-        public const int Ma = 500;                       
+        public const int Ma = 500;
         /// <summary>
         /// Permite convertir el tiempo en formato SUDS al tiempo del visual c#.
         /// </summary>
-        public const double Fei = 621355968000000000.0;  
+        public const double Fei = 621355968000000000.0;
         /// <summary>
-        /// Permite convertir del tiempo visual c# al tiempo en SUDS.
+        /// Permite convertir del tiempo visual c# al tiempo en formato SUDS.
         /// </summary>
         const double Feisuds = 621355968000000000.0;
         /// <summary>
@@ -143,7 +143,9 @@ namespace Proceso20
         /// Es la traza escogida del panel de clasificacion usada para el espectro.
         /// </summary>
         ushort idc = 10000;
-
+        /// <summary>
+        /// 
+        /// </summary>
         ushort esp = 0;
         /// <summary>
         /// cuenta sismos clsafificados en un lapso de tiempo seleccionado.
@@ -178,7 +180,7 @@ namespace Proceso20
         /// </summary>
         short PROMEDIO = 0;
         /// <summary>
-        /// variables para el calculo del espectro
+        /// Variables para el cálculo del espectro.
         /// </summary>
         short np = 1024;
         short yesp = 0;
@@ -193,11 +195,9 @@ namespace Proceso20
         /// </summary>
         short utNeic = 0;
         /// <summary>
-        /// cajinigcf es el tabindex inicial de las estaciones en formato GCF en el panel de Trajetas.
+        /// Es el tabindex inicial de las estaciones en formato GCF en el panel de Trajetas.
         /// </summary>
         short cajinigcf = 0;
-
-
         /// <summary>
         /// Posición en x inicial del arrastre del mouse. 
         /// </summary>
@@ -246,30 +246,53 @@ namespace Proceso20
         /// Periodo p1.
         /// </summary>
         int p1;
+        /// <summary>
+        /// 
+        /// </summary>
         int p2;
+        /// <summary>
+        /// 
+        /// </summary>
         int bloTremor = 0;
         /// <summary>
-        /// duracion del intervalo arrastrado
+        /// Duración del intervalo arrastrado.
         /// </summary>
         float dur = 300.0F;
         /// <summary>
-        /// amplitud de visualización
+        /// Valor de la amplitud de visualización.
         /// </summary>
         float ampli = 1.0F;
         /// <summary>
-        /// tamaño de las pepas
+        /// Tamaño de las pepas.
         /// </summary>
         float tam = 10.0F;
         /// <summary>
         /// tamaños visuales 
         /// </summary>
         float ampcod = 1.0F;
+        /// <summary>
+        /// 
+        /// </summary>
         float ampamp = 1.0F;
+        /// <summary>
+        /// 
+        /// </summary>
         float ampclas = 1.0F;
-
+        /// <summary>
+        /// 
+        /// </summary>
         float periodo = 0F;
+        /// <summary>
+        /// Tiempo mínimo de en que se registro una traza, o dicho de otra forma la lectura que empezó primera. 
+        /// </summary>
         double timin;
+        /// <summary>
+        /// Es el mayor tiempo que hay de lectura.
+        /// </summary>
         double timax;
+        /// <summary>
+        /// El tiempo mayor que se registro de una lectura.
+        /// </summary>
         double timaxmin;
         /// <summary>
         /// Tiempo 1 de coda.
@@ -287,20 +310,37 @@ namespace Proceso20
         /// Tiempo 2 de la amplitud.
         /// </summary>
         double t2amp;
-
+        /// <summary>
+        /// 
+        /// </summary>
         double t1hu;
+        /// <summary>
+        /// 
+        /// </summary>
         double t2hu;
         /// <summary>
-        /// tiempo en formato suds 
+        /// Tiempo en formato SUDS del valor P en la clasificación de un sismo. 
         /// </summary>
         double Pti;
+        /// <summary>
+        /// Tiempo en formato SUDS del valor S en la clasificación de un sismo. 
+        /// </summary>
         double Sti;
+        /// <summary>
+        /// Tiempo en formato SUDS del valor CODA en la clasificación de un sismo. 
+        /// </summary>
         double Cti;
+        /// <summary>
+        /// Tiempo en formato SUDS del valor AMPLITUD en la clasificación de un sismo. 
+        /// </summary>
         double Ati;
         /// <summary>
-        /// Frecuencia de corte para trabajar el octave
+        /// Frecuencia de corte para trabajar el Octave en el panel principal. 
         /// </summary>
         double Fc;
+        /// <summary>
+        /// Frecuencia de corte para trabajar el Octave en el panel coda. 
+        /// </summary>
         double Fccod;
         double tinitremor = 0;
         double tifintremor = 0;
@@ -313,7 +353,7 @@ namespace Proceso20
         /// <summary>
         /// Frecuencias de corte para filtro en el panel auxiliar.
         /// </summary>
-        double Fcx2 = 8.0; 
+        double Fcx2 = 8.0;
         /// <summary>
         /// Muestras iniciales para filtro.
         /// </summary>
@@ -322,11 +362,11 @@ namespace Proceso20
         double factmm = -1.0;
         double tigrabacion = 0;
         /// <summary>
-        /// durac es una variable usada en la rutina Vista.
+        /// Es una variable usada en la rutina Vista.
         /// </summary>
         double durac = 60.0;
         /// <summary>
-        /// initic es una variable usada en la rutina Vista.
+        /// Es una variable usada en la rutina Vista.
         /// </summary>
         double initic = 0;//durac e initic son variables usadas en la rutina Vista
         /// <summary>
@@ -438,7 +478,7 @@ namespace Proceso20
         /// </summary>
         bool nolec = false;
         /// <summary>
-        /// tiene que ver con los circulos con los que se estima la localizacion epicentro del sismo esta en vista.
+        /// Tiene que ver con los circulos con los que se estima la localización, epicentro del sismo esta en vista.
         /// </summary>
         bool kilometro = true;
         /// <summary>
@@ -451,10 +491,13 @@ namespace Proceso20
         /// Variable utilizada para la validación de guardado de detalles de Magnitud local en la base.
         /// </summary>
         public bool MagnitudLocal = false; //si True, guarda detalles de la ML en la Base
+        /// <summary>
+        /// 
+        /// </summary>
         char leclec = ' ';
-       /// <summary>
-       /// Valor que representa la intencidad del color rojo de la pepa de un sismo ya clasificado.
-       /// </summary>
+        /// <summary>
+        /// Valor que representa la intencidad del color rojo de la pepa de un sismo ya clasificado.
+        /// </summary>
         byte[] clR;
         /// <summary>
         /// Valor que representa la intencidad del color verde de la pepa de un sismo ya clasificado.
@@ -473,18 +516,25 @@ namespace Proceso20
         /// </summary>
         ushort[] durdmx;
         /// <summary>
-        /// lo que hay que sumar para convertirlo a la hora local.
+        /// El valor que hay que sumar en los tiempos DMUX para convertirlo a la hora local.
         /// </summary>
         short[] utdmx;
+        /// <summary>
+        /// El valor que hay que sumar en los tiempos MUX para convertirlo a la hora local.
+        /// </summary>
         short[] utmux;
         /// <summary>
-        /// si existe, se guarda tiempo adicional en segundos para la tarjeta en cuestion.
+        /// Si existe, se guarda tiempo adicional en segundos para la tarjeta en cuestion.
         /// </summary>
         double[] tiadimux; // si existe, se guarda tiempo adicional en segundos para la tarjeta en cuestion.
-     
+
         int[] analog;
+
         string[] estanalog;
-        short nuanalog = 0;//cantidad de estaciones
+        /// <summary>
+        /// Cantidad de estaciones analogas.
+        /// </summary>
+        short nuanalog = 0;//cantidad de estaciones analogas
 
         string[] rutmux;
         string[] rutdmx;
@@ -516,23 +566,27 @@ namespace Proceso20
         /// Contiene la ruta de donde encontrar el archivo GCF auxiliar.
         /// </summary>
         string archgcfaux = "";
-
+        /// <summary>
+        /// Tarjeta por defecto para disparos.
+        /// </summary>
         char tardis = 'Z';// tarjeta por defecto para disparos
-       
+        /// <summary>
+        /// 
+        /// </summary>
         float UTdisp = 0;
         /// <summary>
         /// Nombres de las tarjetas YA sea J o T para el formato MUX.
         /// </summary>
         char[] tarmux;
         /// <summary>
-        /// Nombres de las tarjetas YA sea J o T para el formato DMUX.
+        /// Nombres de las tarjetas YA sea J,T,Z para el formato DMUX.
         /// </summary>
         char[] tardmx;
-        
-        // estas variables (sianmux....)permiten saber si se debe buscar las carpetas por año y/o mes y/o día.
-       /// <summary>
-       /// Vector que indica si hay un año definido para cada lectura del formato MUX.
-       /// </summary>
+
+        /// estas variables (sianmux....)permiten saber si se debe buscar las carpetas por año y/o mes y/o día.
+        /// <summary>
+        /// Vector que indica si hay un año definido para cada lectura del formato MUX.
+        /// </summary>
         bool[] sianmux;
         /// <summary>
         /// Vector que indica si hay un año definido para cada lectura del formato DMUX.
@@ -574,11 +628,11 @@ namespace Proceso20
         /// </summary>
         string[] estarro;
         /// <summary>
-        /// 
+        /// Es la fecha inicial que se escoje en el panel de selección de fechas.
         /// </summary>
         string fe1 = "";
         /// <summary>
-        /// 
+        /// Es la fecha final que se escoje en el panel de selección de fechas.
         /// </summary>
         string fe2 = "";
         /// <summary>
@@ -595,9 +649,9 @@ namespace Proceso20
         char[] letampl;
         char[] volampl;
         //********************************************************************************
-       /// <summary>
-       /// Tiempo inicial de duración del archivo clasificado.
-       /// </summary>
+        /// <summary>
+        /// Tiempo inicial de duración del archivo clasificado.
+        /// </summary>
         double[] tiar;
         /// <summary>
         /// Tiempos para la visualizacion de arribos.
@@ -612,16 +666,32 @@ namespace Proceso20
         /// </summary>
         string[] nomar;
         /// <summary>
-        /// promedio para cada estación.el cero de la señal para cada traza.
+        /// Promedio para cada estación, el cero de la señal para cada traza.
         /// </summary>
         int[] promEst;
-
+        /// <summary>
+        /// Representa la fecha inicial seleccionada para mostrar trazas expresada en fromato C#.
+        /// </summary>
         long ll1 = 0;
+        /// <summary>
+        /// Representa la fecha final seleccionada para mostrar trazas expresada en fromato C#.
+        /// </summary>
         long ll2 = 0;
-
+        /// <summary>
+        /// Es la cantidad de trazas leidas.
+        /// </summary>
         public ushort nutra = 0;
+        /// <summary>
+        /// 
+        /// </summary>
         public short vol;
+        /// <summary>
+        /// Cantidad de clasificaciones disponibles.
+        /// </summary>
         public short nucla;
+        /// <summary>
+        /// La cantidad de volcanes leidos.
+        /// </summary>
         public short nuvol;
         /// <summary>
         /// Horas a agregar para convertir  tiempos a hora local.
@@ -639,9 +709,13 @@ namespace Proceso20
         /// Se usa para el momento de guardar el sismo con su respectivo año.
         /// </summary>
         public long añoML;
-
-        // variables para convertir coordenadas Internacional a WGS84
+        /// <summary>
+        /// Variable para convertir coordenadas Internacional a WGS84.
+        /// </summary>
         public double la84 = 0;
+        /// <summary>
+        /// Variable para convertir coordenadas Internacional a WGS84.
+        /// </summary>
         public double lo84 = 0;
         /// <summary>
         /// Guarda la ruta de la base donde se guardan los archivos de sismos clasificados.
@@ -2360,9 +2434,9 @@ namespace Proceso20
             }
             for (j = 0; j < nuvol; j++)
             {
-                if (j == vol) 
+                if (j == vol)
                     bvol[j].BackColor = Color.Yellow;
-                else 
+                else
                     bvol[j].BackColor = Color.LightYellow;
             }
             loscajones = true;
@@ -2382,7 +2456,7 @@ namespace Proceso20
                     radhicod.BackColor = Color.White;
                     panelAmp.Visible = false;
                 }
-                else 
+                else
                     DibujoClascoda(); // rutina que pinta en color claro en el panel de clasificacion, la estacion y el sector seleccionado para la lectura de la coda.
             }
 
@@ -2397,10 +2471,10 @@ namespace Proceso20
             }
             if (k == 1)
                 boTodas.BackColor = Color.PaleVioletRed; // si no estan todas las estaciones presentes, se le avisa al usuario, pintando el boton TODAS, en color rozado.
-            else 
+            else
                 boTodas.BackColor = Color.White;
 
-            for (j = 0; j < totalbotoncajon; j++) 
+            for (j = 0; j < totalbotoncajon; j++)
                 best[j].BackColor = Color.Peru;
             n = bt.TabIndex - 1;
             best[n].BackColor = Color.Red;
@@ -2643,7 +2717,7 @@ namespace Proceso20
                 }
             }
 
-            if (panel2.Visible == true) 
+            if (panel2.Visible == true)
                 panel2.Visible = false;
             cargar = true;
             promEst = new int[nutra];// Variable que guarda el promedio para cada traza.
@@ -2803,7 +2877,7 @@ namespace Proceso20
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             int i;
-            for (i = 0; i < numux; i++) 
+            for (i = 0; i < numux; i++)
                 yamux[i] = false;
             for (i = 0; i < nudmx; i++)
                 yadmx[i] = false;
@@ -2822,7 +2896,7 @@ namespace Proceso20
             NoMostrar = true;
             yaInterp = false;
             suma = 0;
-            if (panelParti.Visible == true) 
+            if (panelParti.Visible == true)
                 panelParti.Visible = false;
             panelFFTzoom.Visible = false;
             panelInterP.Visible = false;
@@ -2917,7 +2991,7 @@ namespace Proceso20
                     k = 60;
                 listBox2.Size = new Size(65, k - 10);
                 listBox2.Visible = true;
-                if (octa == true) 
+                if (octa == true)
                     panelFiltro.Visible = true;
                 boInterp.Visible = true;
                 bosube.Visible = true;
@@ -3024,7 +3098,7 @@ namespace Proceso20
         /// <param name="e">El evento que se lanzó.</param>
         private void listBox2_SelectedIndexChanged(object sender, EventArgs e)
         {
-           int i;
+            int i;
             yaInterp = false;
             suma = 0;
             valDR = 0;
@@ -3144,14 +3218,14 @@ namespace Proceso20
         /// y busca sismos clasificados en la Base, dentro del intervalo de tiempo seleccionado.
         /// </summary>
         void LLenaBox()
-        { 
+        {
             ushort i = 0, j = 0, contdatos = 0;
             long ll;
             string fecha = "", cla = "___", lin = "";
             string[] listcla;
             long[] llist;
 
-            if (disparo == true) 
+            if (disparo == true)
                 return;
             listBox1.Items.Clear();
 
@@ -3232,7 +3306,7 @@ namespace Proceso20
                 try
                 {
                     lin = pr.ReadLine();
-                    if (lin == null) 
+                    if (lin == null)
                         break;
                     contampl += 1;
                 }
@@ -5971,7 +6045,7 @@ namespace Proceso20
             Point[] dat;
 
 
-            if (nutra == 0 || cargar == false) 
+            if (nutra == 0 || cargar == false)
                 return;
             if (pan == panel1)
             {
@@ -6070,7 +6144,7 @@ namespace Proceso20
                         numda[jj] += 1;
                     }
                 }
-                if (sipro == 2) 
+                if (sipro == 2)
                     pro = (int)((mxp + mnp) / 2.0);
                 else
                 {
@@ -7642,8 +7716,8 @@ namespace Proceso20
             return;
         }
         /// <summary>
-        ///  panel de dialogo para entrar la fecha inicial y final, asi como la duracion de la traza 
-        ///  de la estacion escogida. Panel Principal
+        ///  Panel de dialogo para entrar la fecha inicial y final, asi como la duración de la traza 
+        ///  dependiendo la estación escogida, Panel Principal.
         /// </summary>
         void fecha()
         {// panel de dialogo para entrar la fecha inicial y final, asi como la duracion de la traza 
@@ -8709,7 +8783,7 @@ namespace Proceso20
                 return;
             bcxi = e.X;
             bcyi = e.Y;
-            if (panelmarca.Visible == true) 
+            if (panelmarca.Visible == true)
                 panelmarca.Visible = false;
 
             if (e.Button == MouseButtons.Left)
@@ -9792,7 +9866,7 @@ namespace Proceso20
                             diff = dif * fy;
                             y1 = (float)(iniy - diff);
                             x1 = (float)(10.0 + (tim[nucod][k] - t1amp) * fax);
-                            if (pto == true) 
+                            if (pto == true)
                                 dc.DrawEllipse(lapiz2, x1 - 3.0F, y1 - 3.0F, 6.0F, 6.0F);
                             dat[kk].Y = (int)y1;
                             dat[kk].X = (int)x1;
@@ -9808,7 +9882,7 @@ namespace Proceso20
                             diff = dif * fy;
                             y1 = (float)(iniy - diff);
                             x1 = (float)(10.0 + (tim[nucod][k] - t1amp) * fax);
-                            if (pto == true) 
+                            if (pto == true)
                                 dc.DrawEllipse(lapiz2, x1 - 3.0F, y1 - 3.0F, 6.0F, 6.0F);
                             dat[kk].Y = (int)y1;
                             dat[kk].X = (int)x1;
@@ -10017,9 +10091,9 @@ namespace Proceso20
         /// <param name="e"></param>
         private void bopto_Click(object sender, EventArgs e)
         {// visualiza o no los puntos de digitalizacion.
-            if (pto == false) 
+            if (pto == false)
                 pto = true;
-            else 
+            else
                 pto = false;
             panelAmp.Invalidate();
             return;
@@ -10804,28 +10878,35 @@ namespace Proceso20
             //MessageBox.Show("bas=" + bas.ToString());
             if (bas == 0)
             {
-                if (clas[2] == '+') clasi = volcan[vol][0] + clas.Substring(0, 2);
-                else clasi = 'X' + clas.Substring(0, 2);
+                if (clas[2] == '+') 
+                    clasi = volcan[vol][0] + clas.Substring(0, 2);
+                else 
+                    clasi = 'X' + clas.Substring(0, 2);
                 dd = Fei + tie1 * 10000000.0;
                 ll = (long)(dd);
                 DateTime fech = new DateTime(ll);
                 ss = string.Format("{0:yyyy}{0:MM}{0:dd}{0:HH}{0:mm}{0:ss}", fech);
                 dir = rutbas + "\\sud\\" + clas.Substring(0, 2) + "\\" + ss.Substring(2, 2);
                 //MessageBox.Show("dir=" + dir);
-                if (!Directory.Exists(dir)) Directory.CreateDirectory(dir);
+                if (!Directory.Exists(dir)) 
+                    Directory.CreateDirectory(dir);
                 sismo = ss.Substring(4, 8) + "." + clasi.Substring(0, 3);
                 nom = rutbas + "\\sud\\" + clas.Substring(0, 2) + "\\" + ss.Substring(2, 2) + "\\" + sismo;
                 nomsud = nom;
             }
-            else if (bas == 1) nom = "psw.dmx";
-            else if (bas == 2) nom = "demux.dmx";
+            else if (bas == 1) 
+                nom = "psw.dmx";
+            else if (bas == 2) 
+                nom = "demux.dmx";
 
             //MessageBox.Show("nom=" + nom);
             FileInfo ar = new FileInfo(nom);
             BinaryWriter br = new BinaryWriter(ar.OpenWrite());
 
-            if (estru30 == true) sie13 = 0.0001;
-            else sie13 = -0.0001;
+            if (estru30 == true) 
+                sie13 = 0.0001;
+            else 
+                sie13 = -0.0001;
             for (i = 0; i < nutra; i++)
             {
                 //MessageBox.Show("i="+i.ToString()+" siest="+siEst[i].ToString());                
@@ -11007,7 +11088,7 @@ namespace Proceso20
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void boAten_Click(object sender, EventArgs e)
-        { 
+        {
             Form3 frm3 = new Form3(this);
             frm3.Show();
             frm3.BringToFront();
