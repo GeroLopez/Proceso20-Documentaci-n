@@ -132,11 +132,11 @@ namespace Proceso20
         /// </summary>
         ushort contampl = 0;
         /// <summary>
-        /// Indica que esta clasificando en el panel principal. 
+        /// Indica la estación que se tiene seleccionada y se esta clasificando en el panel principal. 
         /// </summary>
         ushort id = 1;
         /// <summary>
-        /// Indica que esta clasificando en el panel secundario. 
+        /// Indica la estación que se tiene seleccionada y se esta clasificando en el panel secundario. 
         /// </summary>
         ushort ida = 1;
         /// <summary>
@@ -778,13 +778,37 @@ namespace Proceso20
         /// 
         /// </summary>
         public double[] ra = new double[Ma]; //puede ser float
+        /// <summary>
+        /// 
+        /// </summary>
         public double[][] tim = new double[Ma][];
+        /// <summary>
+        /// Se almacena el valor de las cuentas con las que posteriormente se construye las señales de las trazas.
+        /// </summary>
         public int[][] cu = new int[Ma][];
+        /// <summary>
+        /// 
+        /// </summary>
         public double[] fcnan;
+        /// <summary>
+        /// 
+        /// </summary>
         public double[] fcDR;
+        /// <summary>
+        /// 
+        /// </summary>
         public double[] laD;
+        /// <summary>
+        /// 
+        /// </summary>
         public double[] loD;
+        /// <summary>
+        /// 
+        /// </summary>
         public string[] Unidad;
+        /// <summary>
+        /// 
+        /// </summary>
         char[] VD;
         /// <summary>
         /// Contiene los datos de factores para convertir de cuentas a micrometros/seg (archivos fcms?.txt).
@@ -794,6 +818,9 @@ namespace Proceso20
         /// Contiene los datos para convertir de cuentas a mm (archivos fcam?.txt).
         /// </summary>
         ArrayList fcmm = new ArrayList(); //contiene los datos para convertir de cuentas a mm (archivos fcam?.txt).
+        /// <summary>
+        /// Contiene la lista con los huecos encontrados en cada traza.
+        /// </summary>
         ArrayList huecolist = new ArrayList();
         int[] cf;
         int[] cfx;
@@ -819,9 +846,14 @@ namespace Proceso20
         short[] valumbral;
         string[] estumbral;
 
-        public Color colfondo, colinea, colotr1, colP, colS, colC;
+        public Color colfondo;
+        public Color colinea;
+        public Color colotr1;
+        public Color colP;
+        public Color colS;
+        public Color colC;
         /// <summary>
-        /// 
+        /// Si es true indica que el Octave esta instalado, en caso de ser false quiere decir que no esta instalado o que no esta configurado correctamente.
         /// </summary>
         bool octa = false;
         /// <summary>
@@ -970,7 +1002,7 @@ namespace Proceso20
         double microDR = 0;
         double[] zDR;
 
-        // variables para filtro en panel de Clasificacion
+        // variables para filtro en panel de Clasificación
         int[][] cff;  // variables para el filtro
         int[] mxF, mnF;
         //short MM = 256;
@@ -2103,7 +2135,11 @@ namespace Proceso20
 
             return;
         }
-
+        /// <summary>
+        /// Marca o desmarca el checkBox que representa una tarjeta, y modifica el valor booleano del arreglo que representa la tarjeta específica del checkBox.
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void cajon_CheckedChanged(object sender, EventArgs e)
         {
             int i, j;
@@ -2184,7 +2220,6 @@ namespace Proceso20
                 }
             }
         }
-
         /// <summary>
         /// La idea con esta rutina y la siguiente, es que para las trazas en GCF cuando se active
         /// un cajón con el botón derecho del ratón y se suelte y enseguida se desplace el ratón por encima
@@ -2357,11 +2392,12 @@ namespace Proceso20
                 }
                 else bvol[i].BackColor = Color.LightYellow;
             }
-            if (vol >= 16) bMas.BackColor = Color.Yellow;
-            else if (nuvol > 15) bMas.BackColor = Color.Aquamarine;
+            if (vol >= 16)
+                bMas.BackColor = Color.Yellow;
+            else if (nuvol > 15) 
+                bMas.BackColor = Color.Aquamarine;
             return;
         }// bvol_Click
-
         /// <summary>
         /// Comprueba si se ha seleccionado una clasificacion y llama a la rutina que graba los datos.
         /// </summary>
@@ -2481,7 +2517,6 @@ namespace Proceso20
 
             return;
         }
-
         /// <summary>
         ///  Rutina que se encarga de leer Todas las trazas de TODAS las tarjetas. Realmente
         ///  hace llamado a las rutinas respectivas, las cuales especificamente, leen el formato
@@ -2965,9 +3000,12 @@ namespace Proceso20
                     return;
                 }
                 // id, corresponde al numero de la traza que se visualiza.
-                if (listBox2.Items.Count > 0 && id >= listBox2.Items.Count) id = (ushort)(listBox2.Items.Count - 1);
-                if (listBox2.Items.Count > 0 && ida >= listBox2.Items.Count) ida = (ushort)(listBox2.Items.Count - 1);
-                if (listBox2.Items.Count > 0) listBox2.SelectedIndex = id;
+                if (listBox2.Items.Count > 0 && id >= listBox2.Items.Count) 
+                    id = (ushort)(listBox2.Items.Count - 1);
+                if (listBox2.Items.Count > 0 && ida >= listBox2.Items.Count) 
+                    ida = (ushort)(listBox2.Items.Count - 1);
+                if (listBox2.Items.Count > 0) 
+                    listBox2.SelectedIndex = id;
 
                 //Existe un programa llamado Vigilancia.exe, el cual puede hacer llamado al Proceso.
                 //Dicho programa crea en el directorio de trabajo, el archivo vigilancia.txt
@@ -3092,7 +3130,8 @@ namespace Proceso20
             return;
         }
         /// <summary>
-        /// Caja con la lista de estaciones.
+        /// ListBox2, contiene las estaciones, este método se lanza cuando ocurre un cambio de selección en uno de los ítems del listBox2
+        /// y esta encargado de configurar las variables necesarias para la clasificación de una traza al cambiar de estación.
         /// </summary>
         /// <param name="sender">El objeto que lanza el evento.</param>
         /// <param name="e">El evento que se lanzó.</param>
@@ -3212,7 +3251,6 @@ namespace Proceso20
             {
             }
         }
-
         /// <summary>
         /// Rutina que modifica el intervalo de fechas, en la caja de fechas por minuto (listBox1) 
         /// y busca sismos clasificados en la Base, dentro del intervalo de tiempo seleccionado.
