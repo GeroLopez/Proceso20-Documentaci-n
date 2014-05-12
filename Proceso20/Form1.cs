@@ -825,6 +825,9 @@ namespace Proceso20
         int[] cf;
         int[] cfx;
         int[] cfD;
+        /// <summary>
+        /// Contiene los nombres de las estaciones.
+        /// </summary>
         public string[] est = new string[Ma];
         public char[] comp = new char[Ma];
         public char[] tar = new char[Ma];
@@ -2921,7 +2924,9 @@ namespace Proceso20
             SeleccionarMinuto(true);
         }
         /// <summary>
-        /// 
+        /// Configura el tamaño del listBox2 donde se muestran las estaciones,
+        /// el ítem en el que va a tener seleccionado por defecto y hace visibles
+        /// algunos botones necesarios para la clasificación de sismos.
         /// </summary>
         /// <param name="cond"></param>
         void SeleccionarMinuto(bool cond)
@@ -3071,7 +3076,6 @@ namespace Proceso20
 
             return;
         }
-
         /// <summary>
         /// Rutina que sirve para escoger el volcan automaticamente cuando se escoge una
         /// estacion en el panel principal. Para que esto funcione, la estacion escogida
@@ -3323,7 +3327,6 @@ namespace Proceso20
 
             return;
         }
-
         /// <summary>
         /// El archivo amplis.txt es creado por la rutina util.Leerbase() y contiene todas las
         /// lecturas de amplitud de la Base, realizadas en el intervalo de tiempo seleccionado, con
@@ -6022,7 +6025,8 @@ namespace Proceso20
             return;
         }
         /// <summary>
-        /// Calcula el promedio por trazas 
+        /// Calcula el promedio inicial por trazas sumando los primeros 100 valores en la matriz cu, 
+        /// y guarda dichos promedios en el vector que almacena los promedios por estación.
         /// </summary>
         void PromediosIniciales()
         {
@@ -6400,7 +6404,7 @@ namespace Proceso20
         }
         /// <summary>
         /// Esta rutina adecua el panel de clasificacion y hace llamado a la rutina que
-        /// Grafica las trazas: DibujoTrazas()
+        /// Grafica las trazas: DibujoTrazas().
         /// </summary>
         void Clasificar()
         {
@@ -6408,9 +6412,9 @@ namespace Proceso20
              * Esta rutina adecua el panel de clasificacion y hace llamado a la rutina que
              * Grafica las trazas: DibujoTrazas()
             */
-            int i, j, xx, yy;
+            int i, j;// xx, yy;
             double dd;
-            string ca = "";
+            //string ca = "";
 
             j = -1;
             for (i = 0; i < nutra; i++)
@@ -6421,8 +6425,10 @@ namespace Proceso20
                     break;
                 }
             }
-            if (j == 1) boTodas.BackColor = Color.PaleVioletRed;
-            else boTodas.BackColor = Color.White;
+            if (j == 1) 
+                boTodas.BackColor = Color.PaleVioletRed;
+            else
+                boTodas.BackColor = Color.White;
             clas = "__";
             marca = "********";
             bomarca.BackColor = Color.White;
@@ -6430,12 +6436,16 @@ namespace Proceso20
             boHypo71.Visible = false;
             boAten.Visible = false;
             bovar.Text = "Varias";
-            if (File.Exists("c:\\scilab\\bin\\wscilex.exe") && File.Exists(".\\sci\\demux.sce")) boScilab.Visible = true;
+            if (File.Exists("c:\\scilab\\bin\\wscilex.exe") && File.Exists(".\\sci\\demux.sce")) 
+                boScilab.Visible = true;
             nuampvar = 0;
             // amplivarias.txt, es el archivo que lleva los datos cuando se realizan varias lecturas
             // de amplitud y coda.
-            if (File.Exists("amplivarias.txt")) File.Delete("amplivarias.txt");
-            if (Math.Abs(tie2 - tie1) < 0.1) return;// tie1 y tie2 corresponden a los extremos del
+            if (File.Exists("amplivarias.txt")) 
+                File.Delete("amplivarias.txt");
+            if (Math.Abs(tie2 - tie1) < 0.1) 
+                return;
+            // tie1 y tie2 corresponden a los extremos del
             // intervalo de tiempo seleccionado en el panel principal y con respecto al cual se
             // grafican las trazas en el panel de clasificacion.
             Pti = 0;
@@ -6512,10 +6522,10 @@ namespace Proceso20
             return;
         }
         /// <summary>
-        /// Rutina que inicializa variables, cuando se cierra el panel de clasificacion.
+        /// Rutina que inicializa variables, cuando se cierra el panel de clasificación.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void bout_Click(object sender, EventArgs e)
         { // Rutina que inicializa variables, cuando se cierra el panel de clasificacion.
 
@@ -6558,8 +6568,8 @@ namespace Proceso20
         /// <summary>
         /// Rutina que magnifica el panel de clasificacion a toda la pantalla.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void bozoom_Click(object sender, EventArgs e)
         {// Rutina que magnifica el panel de clasificacion a toda la pantalla.
 
@@ -6584,23 +6594,22 @@ namespace Proceso20
             return;
         }
         /// <summary>
-        /// PanelClas sup der: Coloca el panel de clasificacion en la parte superior derecha de la pantalla
+        /// PanelClas superior  dererecha: Coloca el panel de clasificación en la parte superior derecha de la pantalla.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void bosude_Click(object sender, EventArgs e)
-        {// panelClas sup der: Coloca el panel de clasificacion en la parte superior derecha de la pantalla
-
+        {
             panelcla.Location = new Point(Size.Width - panelcla.Width, 1);
             panelcla.BringToFront();
             panel1.Invalidate();
             return;
         }
         /// <summary>
-        /// PanelClas sup izq: Coloca el panel de clasificacion en la parte superior izquierda de la pantalla
+        /// PanelClas superior izquierda: Coloca el panel de clasificación en la parte superior izquierda de la pantalla.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void bosuiz_Click(object sender, EventArgs e)
         {// panelClas sup izq: Coloca el panel de clasificacion en la parte superior izquierda de la pantalla
             panelcla.Location = new Point(1, 1);
@@ -6609,22 +6618,22 @@ namespace Proceso20
             return;
         }
         /// <summary>
-        ///  PanelClas inf der: Coloca el panel de clasificacion en la parte inferior derecha de la pantalla
+        ///  PanelClas inferiror dererecha: Coloca el panel de clasificación en la parte inferior derecha de la pantalla
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void boinde_Click(object sender, EventArgs e)
-        {// PanelClas inf der: Coloca el panel de clasificacion en la parte inferior derecha de la pantalla
+        {
             panelcla.Location = new Point(Size.Width - panelcla.Width, Size.Height - (panelcla.Height + 56));
             panelcla.BringToFront();
             panel1.Invalidate();
             return;
         }
         /// <summary>
-        /// PanelClas inf izq: Coloca el panel de clasificacion en la parte inferior izquierda de la pantalla 
+        /// PanelClas inferior izquierda: Coloca el panel de clasificación en la parte inferior izquierda de la pantalla. 
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void boiniz_Click(object sender, EventArgs e)
         {// panelClas inf izq: Coloca el panel de clasificacion en la parte inferior izquierda de la pantalla            
             panelcla.Location = new Point(1, Size.Height - (panelcla.Height + 56));
@@ -6635,10 +6644,10 @@ namespace Proceso20
         /// <summary>
         /// Botón de estacion de referencia.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void boref_Click(object sender, EventArgs e)
-        {// boton de estacion de referencia
+        {
             if (refe == true)
                 refe = false;
             else
@@ -6648,12 +6657,12 @@ namespace Proceso20
             return;
         }
         /// <summary>
-        /// Botón que marca el sismo a clasificar (ver manual)
+        /// Botón que marca el sismo a clasificar (ver manual).
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void bomarca_Click(object sender, EventArgs e)
-        {// boton que marca el sismo a clasificar (ver manual)
+        {
             if (panelmarca.Visible == false)
             {
                 panelmarca.Visible = true;
@@ -6669,17 +6678,14 @@ namespace Proceso20
             return;
         }
         /// <summary>
-        /// Panel donde aparecen en 8 columnas, los caracteres que sirven de marca a los sismos.
+        /// Panel donde aparecen en 8 columnas, los caracteres que sirven de marca a los sismos,
         /// marca, es la variable que guarda los 8 caracteres de marcacion de un sismo. Cuando el
         /// sismo no esta marcado, todos los caracteres son asteriscos.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void panelmarca_MouseDown(object sender, MouseEventArgs e)
-        {// panel donde aparecen en 8 columnas, los caracteres que sirven de marca a los sismos.
-            // marca, es la variable que guarda los 8 caracteres de marcacion de un sismo. Cuando el
-            // sismo no esta marcado, todos los caracteres son asteriscos.
-
+        {
             int i, j, xf, yf;
             float fax, fay;
 
@@ -6705,10 +6711,10 @@ namespace Proceso20
         /// <summary>
         /// Desplaza el gráfico de las trazas en la ventana de clasificación hacia la izquierda.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void boclaizq_MouseDown(object sender, MouseEventArgs e)
-        {// correr ventana de clasificar a la izquierda
+        {
             int i, lar;
             double tii1, tii2;
 
@@ -6729,10 +6735,10 @@ namespace Proceso20
         /// <summary>
         /// Desplaza el gráfico de las trazas en la ventana de clasificación hacia la derecha.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void boclader_MouseDown(object sender, MouseEventArgs e)
-        {// correr ventana de clasificar a la derecha
+        {
             int i;
             double tii1, tii2;
 
@@ -6750,12 +6756,12 @@ namespace Proceso20
 
         }
         /// <summary>
-        /// Disminuir ventana tiempo en Clasificar o si se quiere 'estira' la señal
+        /// Disminuir ventana tiempo en Clasificar o si se quiere 'estira' la señal.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void bocladil_MouseDown(object sender, MouseEventArgs e)
-        {// disminuir ventana tiempo en Clasificar o si se quiere 'estira' la señal
+        {
             int i;
             double tii;
 
@@ -6778,10 +6784,10 @@ namespace Proceso20
         /// <summary>
         /// Aumentar ventana tiempo en Clasificar, o si se quiere, 'comprime' la señal.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void boclaenc_MouseDown(object sender, MouseEventArgs e)
-        {// aumentar ventana tiempo en Clasificar, o si se quiere, 'comprime' la señal
+        {
             int i, lar;
             double tii;
 
@@ -6799,12 +6805,12 @@ namespace Proceso20
 
         }
         /// <summary>
-        /// selecciona todas las estaciones del sismo.
+        /// Selecciona todas las estaciones del sismo.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void boTodas_Click(object sender, EventArgs e)
-        {// selecciona todas las estaciones del sismo
+        {
             int i;
 
             loscajones = false;
@@ -6823,10 +6829,10 @@ namespace Proceso20
         /// <summary>
         /// Muestra o esconde el panel donde se escoge individualmente las estaciones.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void boEsta_Click(object sender, EventArgs e)
-        {// muestra o esconde el panel donde se escoge individualmente las estaciones.
+        {
             int i;
             if (panelEsta.Visible == false)
             {
@@ -6858,12 +6864,13 @@ namespace Proceso20
             return;
         }
         /// <summary>
-        /// Seleccion individual de las estaciones. Cuando la traza de una estacion no esta visible, su nombre aparece en rojo.
+        /// Selección individual de las estaciones.
+        /// Cuando la traza de una estacion no esta visible, su nombre aparece en rojo.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void panelEsta_MouseDown(object sender, MouseEventArgs e)
-        {// seleccion individual de las estaciones. Cuando la traza de una estacion no esta visible, su nombre aparece en rojo.
+        {
             int i, j, k, val;
 
             if (panelEsta.Visible == false) return;
@@ -6891,7 +6898,7 @@ namespace Proceso20
             return;
         }
         /// <summary>
-        /// Dibbuja las trazas dependiendo el estado del botón boNano 
+        /// Dibuja las trazas dependiendo el estado del botón boNano.
         /// </summary>
         void DibujoTrazas()
         {
@@ -6902,7 +6909,7 @@ namespace Proceso20
             return;
         }
         /// <summary>
-        /// Dibuja las trazas en el panel de clasificacion
+        /// Dibuja las trazas en el panel de clasificación.
         /// </summary>
         void TrazasClas()
         {// dibuja las trazas en el panel de clasificacion
@@ -6911,7 +6918,7 @@ namespace Proceso20
             float x1, y1;
             double dura, fax, fay, fy, diff, iniy, fxsat, fmsat;
             string esta = "";
-            bool[] siesta = new bool[nutra];
+            bool[] siesta = new bool[nutra]; // indica que una traza esta en el rango de tiempo especificado
             bool error = false;
             string err = "Problemas en:\n";
             int[][] val;
@@ -6924,7 +6931,7 @@ namespace Proceso20
             timm = new double[nutra][];
             for (i = 0; i < nutra; i++)
             {
-                lar = tim[i].Length;
+                lar = tim[i].Length; //La ultima columna
                 if (siEst[i] == true && tim[i][lar - 1] <= tie1)
                 {
                     siEst[i] = false;
@@ -6935,17 +6942,19 @@ namespace Proceso20
                 }
                 else
                 {
-                    nmi = (int)((tie1 - tim[i][0]) * ra[i]);                 // muestra inferior del panel de clasificacion
-                    if (nmi < 0) nmi = 0;
-                    nmf = (int)((tie2 - tim[i][0]) * ra[i]);
-                    if (nmf > cu[i].Length) nmf = cu[i].Length;
+                    nmi = (int)((tie1 - tim[i][0]) * ra[i]);                 // muestra inferior del panel de clasificacion numero minutos inicial 
+                    if (nmi < 0) 
+                        nmi = 0;
+                    nmf = (int)((tie2 - tim[i][0]) * ra[i]);        // número minutos final
+                    if (nmf > cu[i].Length) 
+                        nmf = cu[i].Length;
                     if (nmi > cu[i].Length || nmf < 0)
                     {
                         siesta[i] = false;
                     }
                     else
                     {
-                        val[i] = new int[nmf - nmi];
+                        val[i] = new int[nmf - nmi]; // delta de tiempo de la traza
                         timm[i] = new double[nmf - nmi];
                         k = 0;
                         if (sifilt == false)
@@ -6960,7 +6969,8 @@ namespace Proceso20
                         {
                             try
                             {
-                                if (nmi < 0) nmi = 0;
+                                if (nmi < 0) 
+                                    nmi = 0;
                                 for (j = nmi; j < nmf; j++)
                                 {
                                     //val[i][k] = cff[i][k]; // aqui sale el error
@@ -6977,23 +6987,25 @@ namespace Proceso20
                     }
                 }
                 siesta[i] = siEst[i];
-            }
+            }//fin for-----------------------------------------------------------------------------------------------------------------------------------------------------
             panelcladib.BackColor = colfondo;
             panelcladib.Visible = false;
             panelcladib.Visible = true;
             xf = panelcladib.Size.Width - 40;
             yf = panelcladib.Size.Height;
-            numtotra = 0;
+            numtotra = 0; // seguramente es número total de trazas
             for (i = 0; i < nutra; i++)
             {
-                if (siesta[i] == true) numtotra += 1;
+                if (siesta[i] == true) 
+                    numtotra += 1;
             }
             // MessageBox.Show("nutra="+nutra.ToString()+" numtotra="+numtotra.ToString()+" id="+id.ToString());
             dura = tie2 - tie1;          // duracion en segundos de la ventana. La duracion de todo el sismo se guarda en la variable durx.
             fax = xf / dura;             // factor en la horizontal
             fay = yf / (numtotra + 0.5); // factor en la vertical
             tamlet = (int)(fay);         // tamaño de las letras para el nombre de las estaciones
-            if (tamlet > 10) tamlet = 10;
+            if (tamlet > 10) 
+                tamlet = 10;
 
             Graphics dc = panelcladib.CreateGraphics();
             Pen lapiz = new Pen(colinea, 1);
@@ -7116,13 +7128,16 @@ namespace Proceso20
             lapiz.Dispose();
             brocha.Dispose();
 
-            if (Cladat[1].X == 0 && Cladat[1].Y == 0) return;
+            if (Cladat[1].X == 0 && Cladat[1].Y == 0) 
+                return;
             Graphics dc2 = panel1.CreateGraphics();
             Pen laap = new Pen(Color.Aquamarine, 1);
             i = (int)(Math.Abs(Cladat[1].X - Cladat[0].X));
-            if (i < 4) i = 4;
+            if (i < 4) 
+                i = 4;
             j = (int)(Math.Abs(Cladat[1].Y - Cladat[0].Y));
-            if (j < 2) j = 2;
+            if (j < 2) 
+                j = 2;
             dc2.DrawRectangle(laap, Cladat[0].X, Cladat[0].Y, i, j);
             laap.Dispose();
 
@@ -7137,7 +7152,7 @@ namespace Proceso20
 
 
         /// <summary>
-        /// Dibuja las trazas en el panel de clasificacion
+        /// Dibuja las trazas en el panel de clasificación.
         /// </summary>
         void TrazasClasCuentas()
         {// dibuja las trazas en el panel de clasificacion
@@ -7392,7 +7407,9 @@ namespace Proceso20
 
             return;
         }
-
+        /// <summary>
+        /// Este método no se esta usando.
+        /// </summary>
         void TrazasClasCuentas2()
         {// dibuja las trazas en el panel de clasificacion
             int xf, yf, i, j, jj, k, kk, lar, max, min, pro, tamlet, numtotra;
