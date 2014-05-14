@@ -702,7 +702,7 @@ namespace Proceso20
         /// </summary>
         public int hor_rsn = 10000;
         /// <summary>
-        /// sSe usa para graficar cuando se hace analogico.
+        /// Se usa para graficar cuando se hace analogico.
         /// </summary>
         public int CuentasAnalogico = 0;
         /// <summary>
@@ -6912,7 +6912,7 @@ namespace Proceso20
         /// Dibuja las trazas en el panel de clasificación.
         /// </summary>
         void TrazasClas()
-        {// dibuja las trazas en el panel de clasificacion
+        {
             int xf, yf, i, j = 0, jj, k, kk, lar, max, min, pro, dif = 0, tamlet, numtotra;
             int nmi = 0, nmf = 0;
             float x1, y1;
@@ -6993,7 +6993,7 @@ namespace Proceso20
             panelcladib.Visible = true;
             xf = panelcladib.Size.Width - 40;
             yf = panelcladib.Size.Height;
-            numtotra = 0; // seguramente es número total de trazas
+            numtotra = 0; // seguramente es número total de trazas que hay en el rango de tiempo que se arrastró
             for (i = 0; i < nutra; i++)
             {
                 if (siesta[i] == true) 
@@ -7025,21 +7025,28 @@ namespace Proceso20
                                 min = max; // aqui se va a buscar el valor maximo de cuenta del intervalo de interes.
                                 for (k = 1; k < val[j].Length; k++)
                                 {
-                                    if (max < val[j][k]) max = val[j][k];
-                                    else if (min > val[j][k]) min = val[j][k];
+                                    if (max < val[j][k]) 
+                                        max = val[j][k];
+                                    else if (min > val[j][k]) 
+                                        min = val[j][k];
                                 }
-                                if (analogico == false) pro = (int)((max + min) / 2.0F);
+                                if (analogico == false) 
+                                    pro = (int)((max + min) / 2.0F);
                                 else
                                 {
                                     pro = (int)((max + min) / 2.0F);
                                     max = pro + (int)(CuentasAnalogico / 2.0);
                                     min = pro - (int)(CuentasAnalogico / 2.0);
                                 }
-                                if (max - pro != 0) fy = ((fay / 2) / ((max - pro)));
-                                else fy = 1.0;
+                                if (max - pro != 0) 
+                                    fy = ((fay / 2) / ((max - pro)));
+                                else 
+                                    fy = 1.0;
                                 iniy = 5 + jj * fay + fay / 2;
-                                if (est[j].Length > 4 && !char.IsLetterOrDigit(est[j][4])) esta = est[j].Substring(0, 4);
-                                else esta = est[j];
+                                if (est[j].Length > 4 && !char.IsLetterOrDigit(est[j][4])) 
+                                    esta = est[j].Substring(0, 4);
+                                else 
+                                    esta = est[j];
                                 dc.DrawString(esta, new Font("Times New Roman", tamlet, FontStyle.Bold), brocha, 1, (float)(iniy - tamlet));
                                 dat = new Point[val[j].Length];
                                 kk = 0;
@@ -7086,8 +7093,10 @@ namespace Proceso20
                                         {
                                             dif = val[j][k] - pro;
                                             diff = dif * fy;
-                                            if (diff > fxsat) diff = fxsat;
-                                            else if (diff < fmsat) diff = fmsat;
+                                            if (diff > fxsat) 
+                                                diff = fxsat;
+                                            else if (diff < fmsat) 
+                                                diff = fmsat;
                                             y1 = (float)(iniy - diff);
                                             x1 = (float)(40.0 + (timm[j][k] - tie1) * fax);
                                             dat[k].Y = (int)y1;
@@ -7100,8 +7109,10 @@ namespace Proceso20
                                         {
                                             dif = pro - val[j][k];
                                             diff = dif * fy;
-                                            if (diff > fxsat) diff = fxsat;
-                                            else if (diff < fmsat) diff = fmsat;
+                                            if (diff > fxsat) 
+                                                diff = fxsat;
+                                            else if (diff < fmsat) 
+                                                diff = fmsat;
                                             y1 = (float)(iniy - diff);
                                             x1 = (float)(40.0 + (timm[j][k] - tie1) * fax);
                                             dat[k].Y = (int)y1;
@@ -7111,7 +7122,8 @@ namespace Proceso20
                                 }
                                 dc.DrawLines(lapiz, dat);
                             }// if lar....
-                            else siEst[j] = false;
+                            else 
+                                siEst[j] = false;
                             jj += 1;
                         }//try
                         catch
@@ -7138,7 +7150,7 @@ namespace Proceso20
             j = (int)(Math.Abs(Cladat[1].Y - Cladat[0].Y));
             if (j < 2) 
                 j = 2;
-            dc2.DrawRectangle(laap, Cladat[0].X, Cladat[0].Y, i, j);
+           dc2.DrawRectangle(laap, Cladat[0].X, Cladat[0].Y, i, j);
             laap.Dispose();
 
             if (error == true)
