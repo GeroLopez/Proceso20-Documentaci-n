@@ -1019,12 +1019,6 @@ namespace Proceso20
         ToolTip tip = new ToolTip();
         Util util = new Util();
         Fourier four = new Fourier();
-        //
-        // Resumen:
-        //  prueba para ver si me comenta econ resumen mi variable.
-        int mivariable;
-        //protected PerformanceCounter cpuCounter;
-        // protected PerformanceCounter ramCounter; 
         protected PerformanceCounter ramCounter = new PerformanceCounter("Memory", "Available MBytes");
 
         public Form1()
@@ -6903,13 +6897,17 @@ namespace Proceso20
         void DibujoTrazas()
         {
             if (analogico == true || boNano.Text == "Tra")
+            {
                 TrazasClas();
+               
+            }
             else
                 TrazasClasCuentas();
+            
             return;
         }
         /// <summary>
-        /// Dibuja las trazas en el panel de clasificación.
+        /// Se encarga de dibujar las trazas en el panel de clasificación según la porción de traza seleccionada, hace el dibujo semejante a la señal analógica.
         /// </summary>
         void TrazasClas()
         {
@@ -6954,7 +6952,7 @@ namespace Proceso20
                     }
                     else
                     {
-                        val[i] = new int[nmf - nmi]; // delta de tiempo de la traza
+                        val[i] = new int[nmf - nmi]; // por cada traza almacena un vector con los valores de las cuentas 
                         timm[i] = new double[nmf - nmi];
                         k = 0;
                         if (sifilt == false)
@@ -7161,10 +7159,10 @@ namespace Proceso20
 
             return;
         }
-
-
         /// <summary>
-        /// Dibuja las trazas en el panel de clasificación.
+        /// Se encarga de dibujar las trazas en el panel de clasificación según la porción de traza seleccionada,
+        /// dependiendo del texto del botón boNano puede hacer el dibujo de las trazas de 2 formas distintas
+        /// con base a la unidad de cuentas o en base a los nanómetros/seg.
         /// </summary>
         void TrazasClasCuentas()
         {// dibuja las trazas en el panel de clasificacion
@@ -7182,7 +7180,8 @@ namespace Proceso20
             double[][] timm;
             Point[] dat;
 
-            for (i = 0; i < nutra; i++) siesta[i] = siEst[i];
+            for (i = 0; i < nutra; i++) 
+                siesta[i] = siEst[i];
 
             val = new int[nutra][];
             timm = new double[nutra][];
@@ -7200,7 +7199,8 @@ namespace Proceso20
                 else
                 {
                     nmi = (int)((tie1 - tim[i][0]) * ra[i]);                 // muestra inferior del panel de clasificacion
-                    if (nmi < 0) nmi = 0;
+                    if (nmi < 0) 
+                        nmi = 0;
                     nmf = (int)((tie2 - tim[i][0]) * ra[i]);
                     if (nmi > cu[i].Length || nmf < 0)
                     {
@@ -7223,7 +7223,7 @@ namespace Proceso20
                         {
                             for (j = nmi; j < nmf; j++)
                             {
-                                val[i][k] = cff[i][k];
+                                val[i][k] = cff[i][k]; 
                                 timm[i][k++] = tim[i][j];
                             }
                         }
@@ -7236,7 +7236,8 @@ namespace Proceso20
             {
                 for (i = 0; i < nutra; i++)
                 {
-                    if (fcnan[i] <= 0) siesta[i] = false;
+                    if (fcnan[i] <= 0) 
+                        siesta[i] = false;
                     factor[i] = fcnan[i];
                     ganan[i] = (double)(ga[i]);
                 }
@@ -7257,7 +7258,8 @@ namespace Proceso20
             numtotra = 0;
             for (i = 0; i < nutra; i++)
             {
-                if (siesta[i] == true) numtotra += 1;
+                if (siesta[i] == true) 
+                    numtotra += 1;
             }
             // MessageBox.Show("nutra="+nutra.ToString()+" numtotra="+numtotra.ToString()+" id="+id.ToString());
             dura = tie2 - tie1;          // duracion en segundos de la ventana. La duracion de todo el sismo se guarda en la variable durx.
@@ -7674,9 +7676,14 @@ namespace Proceso20
         // las rutinas siguientes, tienen que ver con el panel principal, el cual visualiza la señal de
         // la estacion activa:
 
+        /// <summary>
+        /// Controla el estado de la variable sipro la cual indica el promedio de la señal, además
+        /// cambia el color del botón boprom dependiendo dicho estado.
+        /// </summary>
         void Promedio()
         {// boton para seleccionar el promedio de la señal, el cual sirve como cero de referencia.
-            if (boprom.Visible == false) return;
+            if (boprom.Visible == false) 
+                return;
             if (sipro == 0)
             {
                 sipro = 1;
@@ -7689,79 +7696,139 @@ namespace Proceso20
                 panel1.Invalidate();
             }
         }
-
+        /// <summary>
+        /// Lanza el método Promedio().
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void boprom_Click(object sender, EventArgs e)
         {
             Promedio();
         }
-
+        /// <summary>
+        /// Lanza el método Subir(MouseEventArgs e).
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento MouseEventArgs que se lanzó.</param>
         private void bosube_MouseDown(object sender, MouseEventArgs e)
         {// desplaza la señal hacia arriba.
-
             Subir(e);
         }
+        /// <summary>
+        /// Desplaza la señal hacia arriba.
+        /// </summary>
+        /// <param name="e">El evento MouseEventArgs que se lanzó.</param>
         void Subir(MouseEventArgs e)
         {
-            if (e == null) incy -= 1;
+            if (e == null)
+                incy -= 1;
             else
             {
-                if (e.Button == MouseButtons.Left) incy -= 1;
-                else incy -= 15;
+                if (e.Button == MouseButtons.Left)
+                    incy -= 1;
+                else 
+                    incy -= 15;
             }
             panel1.Invalidate();
         }
+        /// <summary>
+        /// Lanza el método Bajar(MouseEventArgs e).
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento MouseEventArgs que se lanzó.</param>
         private void bobaja_MouseDown(object sender, MouseEventArgs e)
         {// desplaza la señal hacia abajo
             Bajar(e);
         }
+        /// <summary>
+        /// Desplaza la señal hacia abajo.
+        /// </summary>
+        /// <param name="e">El evento MouseEventArgs que se lanzó.</param>
         void Bajar(MouseEventArgs e)
         {
-            if (e == null) incy += 1;
+            if (e == null)
+                incy += 1;
             else
             {
                 if (e.Button == MouseButtons.Left) incy += 1;
-                else incy += 15;
+                else
+                    incy += 15;
             }
             panel1.Invalidate();
         }
+        /// <summary>
+        /// Aumenta el valor de la variable ampli, amplificando el tamaño de la señal en el panel principal.
+        /// </summary>
+        /// <param name="e">El evento MouseEventArgs que se lanzó.</param>
         void Aumentar(MouseEventArgs e)
         {
-            if (e == null) ampli = 1.2F * ampli;
+            if (e == null) 
+                ampli = 1.2F * ampli;
             else
             {
-                if (e.Button == MouseButtons.Left) ampli = 1.2F * ampli;
-                else ampli = 2.0F * ampli;
+                if (e.Button == MouseButtons.Left) 
+                    ampli = 1.2F * ampli;
+                else
+                    ampli = 2.0F * ampli;
             }
-            if (ampli != 1.0F) boUno.BackColor = Color.Tomato;
-            else boUno.BackColor = Color.MistyRose;
+            if (ampli != 1.0F) 
+                boUno.BackColor = Color.Tomato;
+            else 
+                boUno.BackColor = Color.MistyRose;
             panel1.Invalidate();
             return;
         }
+        /// <summary>
+        /// Lanza el método Aumentar(MouseEventArgs e)
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento MouseEventArgs que se lanzó.</param>
         private void boaum_MouseDown(object sender, MouseEventArgs e)
         {// aumenta la amplitud de la señal
-
             Aumentar(e);
         }
+        /// <summary>
+        /// Disminuye el valor de la variable ampli, disminuyendo el tamaño de la señal en el panel principal.
+        /// </summary>
+        /// <param name="e">El evento MouseEventArgs que se lanzó.</param>
         void Disminuir(MouseEventArgs e)
         {
-            if (e == null) ampli = 0.8F * ampli;
+            if (e == null) 
+                ampli = 0.8F * ampli;
             else
             {
-                if (e.Button == MouseButtons.Left) ampli = 0.8F * ampli;
-                else ampli = 0.5F * ampli;
+                if (e.Button == MouseButtons.Left) 
+                    ampli = 0.8F * ampli;
+                else 
+                    ampli = 0.5F * ampli;
             }
-            if (ampli != 1.0F) boUno.BackColor = Color.Tomato;
-            else boUno.BackColor = Color.MistyRose;
+            if (ampli != 1.0F) 
+                boUno.BackColor = Color.Tomato;
+            else 
+                boUno.BackColor = Color.MistyRose;
             panel1.Invalidate();
         }
+        /// <summary>
+        /// Lanza el método Disminuir(MouseEventArgs e)
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento MouseEventArgs que se lanzó.</param>
         private void bodis_MouseDown(object sender, MouseEventArgs e)
         {// disminuye la amplitud de la señal
             Disminuir(e);
         }
+        /// <summary>
+        /// Lanza el Uno()
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento MouseEventArgs que se lanzó.</param>
         private void boUno_Click(object sender, EventArgs e)
         {// vuelve la amplitud de la señal a las condiciones iniciales.
             Uno();
         }
+        /// <summary>
+        /// Modifica el valor de la varible ampli haciendolo = 1.0f (condición inicial).
+        /// </summary>
         void Uno()
         {
             ampli = 1.0F;
@@ -7771,12 +7838,17 @@ namespace Proceso20
         }
 
         // ************************************
-
+        /// <summary>
+        /// Hace llamado a la rutina fecha(), la cual visualiza el panel para seleccionar la fecha inicial y final.
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void butfech_Click(object sender, EventArgs e)
-        {// Hace llamado a la rutina fecha(), la cual visualiza el panel para seleccionar la fecha inicial y final
+        {
             NoMostrar = true;
             yaInterp = false;
-            if (panelParti.Visible == true) panelParti.Visible = false;
+            if (panelParti.Visible == true) 
+                panelParti.Visible = false;
             suma = 0;
             fecha();
 
@@ -7787,8 +7859,7 @@ namespace Proceso20
         ///  dependiendo la estación escogida, Panel Principal.
         /// </summary>
         void fecha()
-        {// panel de dialogo para entrar la fecha inicial y final, asi como la duracion de la traza 
-            // de la estacion escogida. Panel Principal
+        {
             int an, me, dia, du, xx, yy;
             string ca = "", feant1 = "", feant2 = "";
             diag1 di = new diag1();
@@ -7849,15 +7920,12 @@ namespace Proceso20
             return;
         }
         /// <summary>
-        /// Boton Parametros donde se puede escoger la duracion en minutos de la lineas de
-        /// visualizacion, el espaciamiento entre lineas, la duracion total de visualizacion
+        /// Presta la funcionalidad donde se puede escoger la duración en minutos de las lineas de
+        /// visualizacion, el espaciamiento entre lineas, la duración total de visualización
         /// y el tamaño de las pepas.
         /// </summary>
         void Parametros()
-        {// Boton Parametros donde se puede escoger la duracion en minutos de la lineas de
-            // visualizacion, el espaciamiento entre lineas, la duracion total de visualizacion
-            // y el tamaño de las pepas.
-
+        {
             int i, totvenant;
             double ff, ff2;
             bool cond = false;
@@ -7886,10 +7954,12 @@ namespace Proceso20
                     if (totven != totvenant)
                     {
                         i = listBox1.SelectedIndex;
-                        if (i < 0) return;
+                        if (i < 0)
+                            return;
                         listBox1.SetSelected(i, true);
                     }
-                    if (listBox2.Visible == true) panel1.Invalidate();
+                    if (listBox2.Visible == true)
+                        panel1.Invalidate();
                 }
             }
             catch
@@ -7903,24 +7973,34 @@ namespace Proceso20
 
             return;
         }
-
+        /// <summary>
+        /// Lanza el método Parametros().
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void butparam_Click(object sender, EventArgs e)
         {
             NoMostrar = true;
             Parametros();
         }
-
+        /// <summary>
+        /// Rutina que permite visualizar la continuación en el tiempo de la traza de la estación seleccionada, cambia el índice del listBox de las estaciones.
+        /// </summary>
+        /// <param name="cond">Si es true hace el cálculo de la estación siguiente, en caso sontrario usa el parámetro ii.</param>
+        /// <param name="ii">Índice de la estación siguiente a la estación a la que se le esta leyendo la traza.</param>
         void Seguir(bool cond, int ii)
-        {// Rutina que permite visualizar la continuacion en el tiempo de la traza de la estaction 
+        {// Rutina que permite visualizar la continuacin en el tiempo de la traza de la estactión 
             // seleccionada
             int i;
 
             if (cond == false)
             {
                 listBox1.Focus();
-                if (listBox1.SelectedIndex < 0) return;
+                if (listBox1.SelectedIndex < 0) 
+                    return;
                 i = listBox1.SelectedIndex + totven - 1;
-                if (i < listBox1.Items.Count) listBox1.SelectedIndex = i;
+                if (i < listBox1.Items.Count) 
+                    listBox1.SelectedIndex = i;
             }
             else
             {
