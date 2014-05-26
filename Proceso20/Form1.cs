@@ -148,7 +148,7 @@ namespace Proceso20
         /// </summary>
         ushort esp = 0;
         /// <summary>
-        /// cuenta sismos clsafificados en un lapso de tiempo seleccionado.
+        /// Almacena la cantidadsismos clsafificados en un lapso de tiempo seleccionado.
         /// </summary>
         ushort contarch = 0;
         /// <summary>
@@ -283,7 +283,7 @@ namespace Proceso20
         /// </summary>
         float periodo = 0F;
         /// <summary>
-        /// Tiempo mínimo de en que se registro una traza, o dicho de otra forma la lectura que empezó primera. 
+        /// Tiempo mínimo del en que se registro una traza, o dicho de otra forma la lectura que empezó primero. 
         /// </summary>
         double timin;
         /// <summary>
@@ -8008,23 +8008,33 @@ namespace Proceso20
             }
             return;
         }
-
+        /// <summary>
+        /// Lanza el método Seguir(bool cond, int ii)
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void butsigue_MouseDown(object sender, MouseEventArgs e)
         {// se llama a la rutina anterior
-            if (panelcla.Visible == true) panelcla.Visible = false;
+            if (panelcla.Visible == true) 
+                panelcla.Visible = false;
             Seguir(false, 0);
         }
-
+        /// <summary>
+        /// Permite visualizar la extensión de tiempo de la traza de los archivos ya clasificados.
+        /// </summary>
+        /// <param name="e"></param>
         void Archivo(MouseEventArgs e)
         {// Boton que permite visualizar la extension en la traza de los archivos clasificados. Si se activa
-            // con el boton derecho, se actualiza los datos de clasificacion y lecturas.
+            // con el boton derecho, se actualiza los datos de clasificación y lecturas.
             // se llama a la rutina (util.Verarchi) que visualiza los archivos ya clasificados.
-
-            if (butarch.Visible == false) return;
+            
+            if (butarch.Visible == false)
+                return;
             if (e == null)
             {
                 siArch = true;
-                util.Leerbase(panel2, rutbas, ll1, ll2, cl, volcan); // rutina que escribe en los archivos datos.txt y amplis.txt los datos respectivos en caso de que existan sismos clasificados
+                util.Leerbase(panel2, rutbas, ll1, ll2, cl, volcan); 
+                // rutina que escribe en los archivos datos.txt y amplis.txt los datos respectivos en caso de que existan sismos clasificados
                 //sihayclas = Reviarch(); // rutina que revisa si hay archivos clasificados y devuelve verdadero o falso
                 util.VerArchi(panel1, timin, tim[id], tiar, duar, esp, dur, contarch); // dibuja un rectangulo correspondiente al intervalo de tiempo del sismo clasificado.
                 butarch.BackColor = Color.Gold;
@@ -8055,17 +8065,27 @@ namespace Proceso20
                     sihayclas = Reviarch();
                 }
                 util.VerArchi(panel1, timin, tim[id], tiar, duar, esp, dur, contarch);
-                if (sihayclas == true) boEliClas.Visible = true;
+                if (sihayclas == true)
+                    boEliClas.Visible = true;
             }
 
             return;
         }
-
+        /// <summary>
+        /// Lanza el método Archivo(MouseEventArgs e)
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void butarch_MouseDown(object sender, MouseEventArgs e)
         {
             Archivo(e);
         }
-
+        /// <summary>
+        /// Rutina que revisa los archivos de clasificación con el fin de averiguar los intervalos
+        /// de tiempo que se encuentran clasificados. En Datos.txt se encuentran los tiempos
+        /// en formato visual c#.
+        /// </summary>
+        /// <returns>Retona true en caso de encontrar trazas ya clasificadas, false en caso de no encontrar trazas clasificadas.</returns>
         bool Reviarch()
         {// rutina que revisa los archivos de clasificacion con el fin de averiguar los intervalos
             // de tiempo que se encuentran clasificados. En Datos.txt se encuentran los tiempos
@@ -8098,11 +8118,13 @@ namespace Proceso20
                 try
                 {
                     lin = ar.ReadLine();
-                    if (lin == null) break;
+                    if (lin == null) 
+                        break;
                     ti1 = (double.Parse(lin.Substring(34, 19)) - Feisuds) / 10000000.0;
                     ti2 = ti1 + double.Parse(lin.Substring(29, 5));
                     //MessageBox.Show("ti1="+ti1.ToString()+"ti2="+ti2.ToString());
-                    if (ti1 >= t1 && ti2 <= t2) contarch += 1;// si existe archivos clasificados en el intervalo visualizado de la traza activa.
+                    if (ti1 >= t1 && ti2 <= t2) 
+                        contarch += 1;// si existe archivos clasificados en el intervalo visualizado de la traza activa.
                 }
                 catch
                 {
@@ -8130,7 +8152,8 @@ namespace Proceso20
                     try
                     {
                         lin = ar2.ReadLine();
-                        if (lin == null) break;
+                        if (lin == null) 
+                            break;
                         ti1 = (double.Parse(lin.Substring(34, 19)) - Feisuds) / 10000000.0;
                         ti2 = ti1 + double.Parse(lin.Substring(29, 5));
                         if (ti1 >= t1 && ti2 <= t2)
@@ -8157,26 +8180,37 @@ namespace Proceso20
                 }
                 ar2.Close();
             }
-            if (contarch > 0) butarch.Visible = true;
-            else butarch.Visible = false;
+            if (contarch > 0)
+                butarch.Visible = true;
+            else 
+                butarch.Visible = false;
             siArch = false;
             butarch.BackColor = Color.White;
             si = butarch.Visible;
 
             return (si);
         }
-
+        /// <summary>
+        /// Se regresa al tiempo inicial por defecto.
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void boini_Click(object sender, EventArgs e)
         {//se vuelve al tiempo tiempo inicial por defecto
             int i;
-
             timin = tim[id][0];
-            for (i = 0; i < nutra; i++) if (timin > tim[i][0]) timin = tim[i][0];
+            for (i = 0; i < nutra; i++) 
+                if (timin > tim[i][0]) 
+                    timin = tim[i][0];
             boini.BackColor = Color.PaleGoldenrod;
             panel1.Invalidate();
             return;
         }
-
+        /// <summary>
+        /// Oculta o hace visibles las marcas de tiempo en las trazas.
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void botim_Click(object sender, EventArgs e)
         {// coloca o esconde las marcas de tiempo
             int denom;
@@ -8192,12 +8226,17 @@ namespace Proceso20
                 marcati = true;
                 botim.BackColor = Color.Orange;
                 denom = (int)(Math.Abs(Math.Ceiling((tim[id][cu[id].Length - 1] - timin) / dur)));
-                if (denom <= 0) denom = 1;
+                if (denom <= 0) 
+                    denom = 1;
                 util.MarcaTiempo(panel1, timin, tim[id], esp, dur, denom);
             }
             return;
         }
-
+        /// <summary>
+        /// Oculta o hace visibles las pepas que indican donde se clasificó un sismo.
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void bopep_MouseDown(object sender, MouseEventArgs e)
         {// coloca o esconde las Pepas si las hay
             int denom;
@@ -8230,9 +8269,12 @@ namespace Proceso20
             }
 
             return;
-
         }
-
+        /// <summary>
+        /// Hace solo visibles las pepas de las trazas clasificadas que pertenezcan al volcán activo en el momento.
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void boPepVol_MouseDown(object sender, MouseEventArgs e)
         {// coloca solo las pepas correspondientes al volcan de la estacion activada
             if (pepasvol == false)
@@ -8253,7 +8295,11 @@ namespace Proceso20
 
             return;
         }
-
+        /// <summary>
+        /// Desplaza la traza a la derecha.
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void boder_MouseDown(object sender, MouseEventArgs e)
         {// desplaza la traza a la derecha
             if (e.Button == MouseButtons.Left) timin -= 5.0;
@@ -8263,7 +8309,11 @@ namespace Proceso20
             panel1.Invalidate();
             return;
         }
-
+        /// <summary>
+        /// Desplaza la traza a la izquierda.
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void boizq_MouseDown(object sender, MouseEventArgs e)
         {// desplaza la traza a izquierda
             if (e.Button == MouseButtons.Left) timin += 5.0;
@@ -8272,20 +8322,24 @@ namespace Proceso20
             panel1.Invalidate();
             return;
         }
-
+        /// <summary>
+        /// Rutina que presenta un rectángulo indicando la duración de los archivos de "tremor",
+        /// con el fin que el usuario realice las lecturas de amplitud, dentro de dicho rectángulo,
+        /// el cual se va desplazando consecutivamente y automáticamente, una vez se realicen dichas lecturas.
+        /// </summary>
         void Cuadro_Tremor()
         {
-            // rutina que presenta un rectangulo indicando la duracion de los archivos de "tremor", con el
-            // fin que el usuario realice las lecturas de amplitud, dentro de dicho rectángulo, el cual
-            // se va desplazando consecutivamente y automaticamente, una vez se realicen dichas lecturas.
             int jj, xf, yf, b1, b2, lar;
             float fax, fay, h, w, y1, x1, x2, y2;
             double incre;
 
-            if (tremor == false) return;
+            if (tremor == false) 
+                return;
 
-            if (tremofin == false) incre = incTremor; // tiempo de duracion de los archivos.
-            else incre = tifintremor - tinitremor;
+            if (tremofin == false) 
+                incre = incTremor; // tiempo de duracion de los archivos.
+            else 
+                incre = tifintremor - tinitremor;
             if (incre <= 0)
             {
                 //MessageBox.Show("incre=" + incre.ToString() + "???");
@@ -8295,8 +8349,10 @@ namespace Proceso20
             yf = panel1.Size.Height;
             lar = tim[id].Length;
             jj = 1 + (int)((tim[id][lar - 1] - timin) / dur);
-            if (esp == 0) fay = (yf - 45) / jj;
-            else fay = esp;
+            if (esp == 0) 
+                fay = (yf - 45) / jj;
+            else 
+                fay = esp;
             fax = xf / dur;
 
             Graphics dc = panel1.CreateGraphics();
@@ -8329,14 +8385,23 @@ namespace Proceso20
 
             return;
         }
-
+        /// <summary>
+        /// Se encarga de calcular los valores de las variables para el posterior cálculo del espectro y 
+        /// posicionar la gráfica del mismo.
+        /// </summary>
+        /// <param name="pan">Panel principal donde se están mostrando las trazas, puede ser el panel principal panel1 o el panel secundario panel1a.</param>
+        /// <param name="panelBar">Panel donde se grafica el espectro.</param>
+        /// <param name="id">El id de la estación de la traza a la que se desea calcular el espectro.</param>
+        /// <param name="e">Evento de mouse que se genera al dar click sobre el panel.</param>
         void CalcularEspectro(Panel pan, Panel panelBar, ushort id, MouseEventArgs e)
         {
             int xf, yf, jb, jj, j2;
             double t2, fax, fay;
 
-            if (VerEspectro == false) return;
-            if (estado == false) return; // la variable estado es false si no existe ninguna lectura de trazas en memoria.
+            if (VerEspectro == false)
+                return;
+            if (estado == false) 
+                return; // la variable estado es false si no existe ninguna lectura de trazas en memoria.
 
             xf = pan.Size.Width;
             yf = pan.Size.Height;
@@ -8346,18 +8411,23 @@ namespace Proceso20
                 do
                 {
                     jb -= 1;
-                    if (tim[id][jb - 1] > 0) break;
+                    if (tim[id][jb - 1] > 0) 
+                        break;
                 } while (jb > 0);
                 jb -= 1;
             }
-            if (jb < 2) return;
+            if (jb < 2) 
+                return;
             jj = 1 + (int)((tim[id][jb] - timin) / dur);
-            if (esp == 0) fay = (yf - 45.0) / jj; // esp es la variable que guarda el espaciamiento entre lineas.
-            else fay = esp;
+            if (esp == 0) // esp es la variable que guarda el espaciamiento entre lineas.
+                fay = (yf - 45.0) / jj; 
+            else 
+                fay = esp;
             fax = dur / xf;
             j2 = (int)((e.Y - 45.0) / fay);
             t2 = (timin + e.X * fax + j2 * dur);
-            if (t2 < tim[id][0]) return;
+            if (t2 < tim[id][0]) 
+                return;
 
             xesp = (short)(e.X);
             yesp = (short)(e.Y);
@@ -8515,10 +8585,11 @@ namespace Proceso20
             }
             return;
         }
-
+        
         private void panel1_MouseMove(object sender, MouseEventArgs e)
         {
-            if (moveresp == false) return;
+            if (moveresp == false) 
+                return;
             CalcularEspectro(panel1, panelBarEsp1, id, e);
         }
 
@@ -9926,7 +9997,8 @@ namespace Proceso20
             Point[] dat;
 
             if (t1amp == t2amp) return;
-            if (panelmarca.Visible == true) panelmarca.Visible = false;
+            if (panelmarca.Visible == true) 
+                panelmarca.Visible = false;
             panelAmp.BringToFront();
             util.borra(panelAmp, colfondo);
             xf = panelAmp.Size.Width - 10;

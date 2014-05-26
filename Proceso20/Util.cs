@@ -35,7 +35,11 @@ namespace Proceso20
             p.Close();
             return;
         }
-
+        /// <summary>
+        /// Pinta el interior del panel del color que se pasa como parámetro.
+        /// </summary>
+        /// <param name="panel">Panel a pintar.</param>
+        /// <param name="col">Color con el que se desea rellenar el panel.</param>
         public void borra(Panel panel,Color col)
         {
             int xf, yf;
@@ -81,8 +85,9 @@ namespace Proceso20
         }
 
         /// <summary>
-        /// Rutina que chequea si a determinado minuto corresponde sismos clasificados y si 
-        /// tienen lectura de amplitud y de coda.
+        /// Revisa si a determinado minuto corresponde sismos clasificados y si tienen lectura de amplitud y de coda,
+        /// en otras palabras chequea y cuenta los minutos que correspondan a sismos clasificados en la base,
+        /// escribe en los archivos datos.txt y amplis.txt los datos respectivos en caso de que existan sismos clasificados.
         /// </summary>
         /// <param name="panel">Panel utilizado para informar que se está leyendo la base.</param>
         /// <param name="rutbas">Dirección de la base de datos.</param>
@@ -432,7 +437,14 @@ namespace Proceso20
 
             return;
         }
-
+        /// <summary>
+        /// Pinta el nombre de usuario que está trabajando en la clasificación de trazas.
+        /// </summary>
+        /// <param name="panel">Panel donde se dibuja el letrero.</param>
+        /// <param name="x">Coordenada x del panel.</param>
+        /// <param name="y">Coordenada y del panel.</param>
+        /// <param name="let">Texto que se dibuja en el panel.</param>
+        /// <param name="col">Color del texto que se dibuja.</param>
         public void Letreros(Panel panel, int x, int y, string let, Color col)
         {
             Graphics dc = panel.CreateGraphics();
