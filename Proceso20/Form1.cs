@@ -148,7 +148,7 @@ namespace Proceso20
         /// </summary>
         ushort esp = 0;
         /// <summary>
-        /// Almacena la cantidadsismos clsafificados en un lapso de tiempo seleccionado.
+        /// Almacena la cantidad de sismos clasificados en un lapso de tiempo seleccionado.
         /// </summary>
         ushort contarch = 0;
         /// <summary>
@@ -255,7 +255,7 @@ namespace Proceso20
         /// </summary>
         int bloTremor = 0;
         /// <summary>
-        /// Duración del intervalo arrastrado.
+        /// Duración del tiempo del intervalo de traza sobre el cual se arrastró el mouse.
         /// </summary>
         float dur = 300.0F;
         /// <summary>
@@ -283,7 +283,7 @@ namespace Proceso20
         /// </summary>
         float periodo = 0F;
         /// <summary>
-        /// Tiempo mínimo del en que se registro una traza, o dicho de otra forma la lectura que empezó primero. 
+        /// Tiempo mínimo del en que se registró una traza, o dicho de otra forma la lectura que empezó primero. 
         /// </summary>
         double timin;
         /// <summary>
@@ -656,7 +656,7 @@ namespace Proceso20
         /// <summary>
         /// Tiempos para la visualizacion de arribos.
         /// </summary>
-        double[][] time; // tiempos para la visualizacion de arribos.
+        double[][] time;
         /// <summary>
         /// Duración del archivo clasificado. Archi
         /// </summary>
@@ -6383,7 +6383,8 @@ namespace Proceso20
                 // la variable siArch, es verdadera cuando se quiere visualizar la duración de los 
                 // archivos clasificados en la traza de la estacion activa. Se visualiza con la rutina
                 // VerArchi, que se encuentra en las utilidades (Util.cs)
-                if (siArch == true) util.VerArchi(pan, timin, tim[id], tiar, duar, esp, dur, contarch);
+                if (siArch == true) 
+                    util.VerArchi(pan, timin, tim[id], tiar, duar, esp, dur, contarch);
             }
             catch
             {
@@ -8440,7 +8441,8 @@ namespace Proceso20
             int xf, yf, jb;
             double t2, fax;
 
-            if (VerEspectro == false || e.X < 40) return;
+            if (VerEspectro == false || e.X < 40) 
+                return;
             if (estado == false) return; // la variable estado es false si no existe ninguna lectura de trazas en memoria.
 
             xf = panelcladib.Width - 40;
@@ -10038,7 +10040,8 @@ namespace Proceso20
                 tot = tim[nucod].Length; // se busca a que muestras corresponde el intervalo de la ventana.
                 for (k = 0; k < tot; k++)
                 {
-                    if (tim[nucod][k] >= t1amp) break;
+                    if (tim[nucod][k] >= t1amp) 
+                        break;
                 }
                 nmi = k;
                 for (k = nmi; k < tot; k++)
@@ -12907,8 +12910,10 @@ namespace Proceso20
             xf = panel1.Size.Width;
             yf = panel1.Size.Height;
 
-            if (esp == 0) fay = (yf - 45.0F) / denom;
-            else fay = esp;
+            if (esp == 0) 
+                fay = (yf - 45.0F) / denom;
+            else
+                fay = esp;
             fax = xf / dur;
 
             Graphics dc = panel1.CreateGraphics();
@@ -14142,7 +14147,15 @@ namespace Proceso20
 
             return;
         }
-
+        /// <summary>
+        /// Se encarga de calcular el espectro de una porción de traza y preparar el panel donde se muestra el resultado.
+        /// </summary>
+        /// <param name="pan">Panel en el que se está clasificando la traza actual, panel1 en caso de ser el panel principal,
+        /// y panel1a en caso de ser el panel secundario.</param>
+        /// <param name="panelBar">Se usa para dibujar una barra de ubicación.</param>
+        /// <param name="id">Id de la traza que se está clasificando.</param>
+        /// <param name="cond">Se usa para verificar si se modifica o no la localización del panel panelFFTzoom,
+        /// si cond es true se cambia la posición del panel, si es false no. </param>
         void Espectro(Panel pan, Panel panelBar, ushort id, bool cond)
         {
             short py;
@@ -14150,32 +14163,42 @@ namespace Proceso20
             int max, min, cero;
             double fax, fay, ff, facra;
 
-            if (VerEspectro == false) return;
+            if (VerEspectro == false) 
+                return;
 
-            tota = cu[id].Length;
+            tota = cu[id].Length; //ultimo valor de cuenta de la traza actual
             denom = (int)(Math.Abs(Math.Ceiling((tim[id][tota - 1] - timin) / dur)));
-            if (denom <= 0) denom = 1;
+            if (denom <= 0) 
+                denom = 1;
             xf = pan.Size.Width;
             yf = pan.Size.Height;
-            if (esp == 0) fay = (yf - 45.0F) / denom;
-            else fay = esp;
+            if (esp == 0) 
+                fay = (yf - 45.0F) / denom;
+            else 
+                fay = esp;
             fax = xf / dur;
             ff = (yesp + 10) - (fay / 2.0);
             nu = (int)(ff / fay);
             py = (short)((nu + 2) * fay);
-            if (py + panelFFTzoom.Size.Height > pan.Height) py = (short)((nu + 1) * fay - (panelFFTzoom.Size.Height + 1 * fay));
-            if (cond == true) panelFFTzoom.Location = new Point(10, py);
+            if (py + panelFFTzoom.Size.Height > pan.Height) 
+                py = (short)((nu + 1) * fay - (panelFFTzoom.Size.Height + 1 * fay));
+            if (cond == true) 
+                panelFFTzoom.Location = new Point(10, py);
             if (yloc != py)
             {
-                if (yloc != -1) TrazasClas();
+                if (yloc != -1) 
+                    TrazasClas();
                 yloc = py;
             }
 
-            if (panelFFTzoom.Visible == false) panelFFTzoom.Visible = true;
+            if (panelFFTzoom.Visible == false)
+                panelFFTzoom.Visible = true;
             panelFFTzoom.BringToFront();
             nmi = (int)((t1esp - tim[id][0]) * ra[id]);
-            if (nmi + np >= cu[id].Length) nmi = cu[id].Length - (np + 1);
-            if (nmi < 0) nmi = 0;
+            if (nmi + np >= cu[id].Length) 
+                nmi = cu[id].Length - (np + 1);
+            if (nmi < 0)
+                nmi = 0;
 
             vaesp = new double[np];
 
@@ -14183,12 +14206,15 @@ namespace Proceso20
             min = max;
             for (i = 1; i < np; i++)
             {
-                if (max < cu[id][i + nmi]) max = cu[id][i + nmi];
-                else if (min > cu[id][i + nmi]) min = cu[id][i + nmi];
+                if (max < cu[id][i + nmi])
+                    max = cu[id][i + nmi];
+                else if (min > cu[id][i + nmi]) 
+                    min = cu[id][i + nmi];
             }
             cero = (int)((max + min) / 2.0);
 
-            for (i = 0; i < np; i++) vaesp[i] = cu[id][i + nmi] - cero;
+            for (i = 0; i < np; i++) 
+                vaesp[i] = cu[id][i + nmi] - cero;
 
             vacioesp = false;
             facra = 1.0 / ra[id];
@@ -14209,8 +14235,10 @@ namespace Proceso20
                     silog = true;
                     for (i = 0; i < vaesp.Length; i++)
                     {
-                        if (vaesp[i] > 0) vaesp[i] = Math.Log10(vaesp[i]);
-                        else vaesp[i] = -1000000.0;
+                        if (vaesp[i] > 0) 
+                            vaesp[i] = Math.Log10(vaesp[i]);
+                        else 
+                            vaesp[i] = -1000000.0;
                     }
                 }
                 else silog = false;
@@ -14220,21 +14248,31 @@ namespace Proceso20
             cual = (int)((yesp - 45) / fay);
             y = (int)((fay / 2.0) + fay * cual);
             anch = (int)((np / ra[id]) * fax);
-            if (x + anch > pan.Size.Width) x = pan.Size.Width - anch;
-            else if (x < 0) x = 0;
+            if (x + anch > pan.Size.Width) 
+                x = pan.Size.Width - anch;
+            else if (x < 0) 
+                x = 0;
 
             // dibuja una barra de ubicacion.
-            Graphics dc = pan.CreateGraphics();
+           // Graphics dc = pan.CreateGraphics();
             panelBar.Size = new Size(anch, 2);
             panelBar.Visible = true;
             panelBar.Location = new Point(x, y);
 
-            if (silog == false) GraficaEspectro(id, vaesp, checkBoxFFT1.Checked, vacioesp);
-            else GraficaEspectroLog(id, vaesp, vacioesp);
+            if (silog == false) 
+                GraficaEspectro(id, vaesp, checkBoxFFT1.Checked, vacioesp);
+            else 
+                GraficaEspectroLog(id, vaesp, vacioesp);
 
             return;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id">Id de la traza que se está clasificando.</param>
+        /// <param name="va">Los valores del espectro.</param>
+        /// <param name="cond"></param>
+        /// <param name="vacioesp">true si hay vacios en el espectro, false si el cálculo fue continuo.</param>
         void GraficaEspectro(int id, double[] va, bool cond, bool vacioesp)
         {
             int i, j, k, yini, x, y, fin, offset;
@@ -14242,10 +14280,13 @@ namespace Proceso20
             Color col;
             Point[] dat;
 
-            if (cu[id].Length < np) return;
+            if (cu[id].Length < np) 
+                return;
 
-            if (cond == false) offset = 0;
-            else offset = offsetesp;
+            if (cond == false) 
+                offset = 0;
+            else 
+                offset = offsetesp;
             fin = va.Length;
 
             ddx = (panelFFTzoom.Width - 90) / (double)(va.Length);
@@ -14254,8 +14295,10 @@ namespace Proceso20
             mnesp = mxesp;
             for (i = offset + 1; i < va.Length; i++)
             {
-                if (mxesp < va[i]) mxesp = va[i];
-                else if (mnesp > va[i]) mnesp = va[i];
+                if (mxesp < va[i]) 
+                    mxesp = va[i];
+                else if (mnesp > va[i]) 
+                    mnesp = va[i];
             }
             j = (int)((mxesp + mnesp) / 2.0);
             ddy = (panelFFTzoom.Height - 70) / (double)(mxesp - j);
@@ -14281,7 +14324,8 @@ namespace Proceso20
                 lapp.Dispose();
                 broo.Dispose();
 
-                if (cond == false) return;
+                if (cond == false) 
+                    return;
 
                 //Pen lapHz = new Pen(Color.Magenta, 1);
                 j = (int)(ra[id] / 2.0);
@@ -14295,8 +14339,10 @@ namespace Proceso20
                         col = Color.Blue;
                         k = 7;
                     }
-                    else if (Math.IEEERemainder(i, 5) == 0) k = 5;
-                    else k = 2;
+                    else if (Math.IEEERemainder(i, 5) == 0) 
+                        k = 5;
+                    else 
+                        k = 2;
                     Pen lapHz = new Pen(col, 1);
                     dc.DrawLine(lapHz, x, 0, x, k);
                     lapHz.Dispose();
@@ -14339,7 +14385,8 @@ namespace Proceso20
             ffr[0] = -1000000.00;
             for (i = 1; i < va.Length; i++) ffr[i] = Math.Log10(i * deltafr); ;
             offset = offsetesp;
-            if (offset < 1) offset = 1;
+            if (offset < 1) 
+                offset = 1;
             fin = va.Length;
 
             ddx = (panelFFTzoom.Width - 90) / (ffr[va.Length - 1] - ffr[1]);

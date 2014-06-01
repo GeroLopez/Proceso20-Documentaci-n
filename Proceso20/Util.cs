@@ -15,6 +15,9 @@ namespace Proceso20
     {
         const int Ma = 300;
         const double Fei = 621355968000000000.0;
+        /// <summary>
+        /// Permite convertir del tiempo visual c# al tiempo en SUDS.
+        /// </summary>
         const double Feisuds = 621355968000000000.0;  // permite convertir del tiempo visual c# al tiempo en SUDS
         /// <summary>
         /// Crea un proceso cmd para ejecutar líneas de comandos. 
@@ -96,8 +99,7 @@ namespace Proceso20
         /// <param name="cl">Arreglo de strings que contiene el tipo de clasificaciones que hay guardados para los volcanes, VT, LP, TL etc.</param>
         /// <param name="volcan">Arreglo de strings que contiene los volcanes que se encuentran en la base, RUIZ, MACHIN etc.</param>
         /// <returns></returns>
-        public ushort Leerbase(Panel panel,string rutbas,long ll1,long ll2,string[] cl,
-               string[] volcan)
+        public ushort Leerbase(Panel panel,string rutbas,long ll1,long ll2,string[] cl,string[] volcan)
         {
             // rutina que chequea si a determinado minuto corresponde sismos clasificados y si 
             // tienen lectura de amplitud y de coda.
@@ -1334,11 +1336,19 @@ namespace Proceso20
 
             return;
         }
-
-        public void VerArchi(Panel panel,double timin,double[] tim,double[] tiar,ushort[] duar,ushort esp, 
-            float dur,ushort contarch)
+        /// <summary>
+        /// Dibuja un rectángulo sin relleno sobre la traza en el intervalo de tiempo correspondiente a un sismo clasificado.
+        /// </summary>
+        /// <param name="panel">Panel donde se dibuja el rectángulo.</param>
+        /// <param name="timin">Tiempo mínimo del en que se registró una traza, o dicho de otra forma la lectura que empezó primero.</param>
+        /// <param name="tim">Vector que almacena los valores de los tiempos de las cuentas de una traza especifica.</param>
+        /// <param name="tiar">Tiempo inicial de la duración del archivo clasificado.</param>
+        /// <param name="duar">Duración del archivo clasificado</param>
+        /// <param name="esp">Valor del espectro.</param>
+        /// <param name="dur">Duración del tiempo del intervalo de traza sobre el cual se arrastró el mouse.</param>
+        /// <param name="contarch">Almacena la cantidad de sismos clasificados en un lapso de tiempo seleccionado.</param>
+        public void VerArchi(Panel panel,double timin,double[] tim,double[] tiar,ushort[] duar,ushort esp,float dur,ushort contarch)
         {
-            // rutina que dibuja un rectangulo en el intervalo de tiempo correspondiente a un sismo clasificado.
             short cont = 0;
             int xf,yf,jj,j,b1,b2,lar;
             float x1,x2,y1,y2,w,h;
@@ -1346,12 +1356,14 @@ namespace Proceso20
             Pen[] lap= new Pen[3];
 
 
-            if (contarch == 0) return;
+            if (contarch == 0) 
+                return;
             xf = panel.Size.Width;
             yf = panel.Size.Height;
             lar = tim.Length;
             jj = 1 + (int)((tim[lar-1] - timin) / dur);
-            if (esp == 0) fay = (yf - 45) / jj;
+            if (esp == 0) 
+                fay = (yf - 45) / jj;
             else fay = esp;
             fax = xf / dur;
 
@@ -1383,7 +1395,8 @@ namespace Proceso20
                 }
                 //if (y1 != y2) MessageBox.Show("x1="+x1.ToString()+" y1="+y1.ToString()+" x2="+x2.ToString()+" y2="+y2.ToString());
                 cont += 1;
-                if (cont >= 3) cont = 0;
+                if (cont >= 3) 
+                    cont = 0;
             }
 
             lap[0].Dispose();
