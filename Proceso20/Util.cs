@@ -25,7 +25,7 @@ namespace Proceso20
         /// <param name="strCmdLine">Linea que se ejecuta en la consola de octave</param>
         /// <param name="cond">Valor que se utiliza para decidir si se despliega la ventana del proceso creado.
         /// True si no quiere mostrar la ventana, false si quiere desplegar la ventana.</param>
-        public void Dos(string strCmdLine,bool cond)
+        public void Dos(string strCmdLine, bool cond)
         {
             Process p = new Process();
             p.StartInfo.FileName = "cmd.exe";
@@ -43,7 +43,7 @@ namespace Proceso20
         /// </summary>
         /// <param name="panel">Panel a pintar.</param>
         /// <param name="col">Color con el que se desea rellenar el panel.</param>
-        public void borra(Panel panel,Color col)
+        public void borra(Panel panel, Color col)
         {
             int xf, yf;
 
@@ -60,9 +60,9 @@ namespace Proceso20
             return;
         }
 
-        public void Mensaje(Panel panel, string mensa,bool cond)
+        public void Mensaje(Panel panel, string mensa, bool cond)
         {
-            int xf,yf,x1,y1;
+            int xf, yf, x1, y1;
 
             xf = panel.Size.Width;
             yf = panel.Size.Height;
@@ -81,7 +81,7 @@ namespace Proceso20
             dc.FillRectangle(brocha2, 0, 0, xf, yf);
             brocha2.Dispose();
             SolidBrush brocha = new SolidBrush(Color.Black);
-            dc.DrawString(mensa, new Font("Times New Roman", 10), brocha,x1,y1);
+            dc.DrawString(mensa, new Font("Times New Roman", 10), brocha, x1, y1);
             brocha.Dispose();
 
             return;
@@ -99,36 +99,36 @@ namespace Proceso20
         /// <param name="cl">Arreglo de strings que contiene el tipo de clasificaciones que hay guardados para los volcanes, VT, LP, TL etc.</param>
         /// <param name="volcan">Arreglo de strings que contiene los volcanes que se encuentran en la base, RUIZ, MACHIN etc.</param>
         /// <returns></returns>
-        public ushort Leerbase(Panel panel,string rutbas,long ll1,long ll2,string[] cl,string[] volcan)
+        public ushort Leerbase(Panel panel, string rutbas, long ll1, long ll2, string[] cl, string[] volcan)
         {
             // rutina que chequea si a determinado minuto corresponde sismos clasificados y si 
             // tienen lectura de amplitud y de coda.
             ushort contdatos;
             uint contampl = 0;
-            int i,j;
+            int i, j;
             int an, me, di, ho, mi, se;
             long ll, llsis;
             string nom = "", fee = "", li = "";
-   
+
 
             panel.Visible = true;
-            Mensaje(panel, "Leyendo de la Base...\n",false);
-            if (File.Exists("datos2.txt")) 
+            Mensaje(panel, "Leyendo de la Base...\n", false);
+            if (File.Exists("datos2.txt"))
                 File.Delete("datos2.txt"); // archivos de clasificacion ordenados
-            if (File.Exists("datos.txt")) 
+            if (File.Exists("datos.txt"))
                 File.Delete("datos.txt");
-            if (File.Exists("amplis2.txt")) 
+            if (File.Exists("amplis2.txt"))
                 File.Delete("amplis2.txt"); // archivos de amplitud ordenados
-            if (File.Exists("amplis.txt")) 
+            if (File.Exists("amplis.txt"))
                 File.Delete("amplis.txt");
-            
+
             StreamWriter le = new StreamWriter("amplis2.txt");
             // 86400000000 corresponde a un dia en centenares de nanosegundos, que es la unidad de tiempo 
             // que maneja la vartiable ticks del visual C#
 
             contampl = 0;
             //MessageBox.Show(ll2 - (ll1 += 864000000000) + "");
-            
+
             for (ll = ll1; ll <= ll2; ll += 864000000000)
             {
                 DateTime fech = new DateTime(ll);
@@ -142,7 +142,7 @@ namespace Proceso20
                             nom = rutbas + "\\lec\\" + cl[i].Substring(0, 2) + "\\" + volcan[j][0] + cl[i][1] + fee + ".txt";
                             //MessageBox.Show(nom);
                             if (!File.Exists(nom)) continue;
-                            if (File.Exists("cla.txt")) 
+                            if (File.Exists("cla.txt"))
                                 File.Delete("cla.txt");
                             File.Copy(nom, "cla.txt", true);
                             if (File.Exists("cla.txt"))
@@ -172,7 +172,7 @@ namespace Proceso20
                     }// if cl.....
                     else
                     {
-                        nom = rutbas+"\\lec\\"+cl[i].Substring(0,2)+"\\X"+cl[i][1]+fee+".txt";
+                        nom = rutbas + "\\lec\\" + cl[i].Substring(0, 2) + "\\X" + cl[i][1] + fee + ".txt";
                         if (!File.Exists(nom)) continue;
                         if (File.Exists("cla.txt")) File.Delete("cla.txt");
                         File.Copy(nom, "cla.txt", true);
@@ -201,28 +201,28 @@ namespace Proceso20
                     }
                 } // for i....
             }// for ll....
-                    
+
             le.Close();
-            
+
             if (contampl > 0)
             {
                 //li = "/C sort /+88 amplis2.txt > amplis.txt";
                 li = "/C sort amplis2.txt > amplis.txt";
-                Dos(li,true);
-               // MessageBox.Show("contampli="+contampl.ToString()+" li="+li);
+                Dos(li, true);
+                // MessageBox.Show("contampli="+contampl.ToString()+" li="+li);
             }
 
             contdatos = 0;
             StreamWriter pr = new StreamWriter("datos2.txt");
             for (ll = ll1; ll <= ll2; ll += 864000000000)
             {
-                if (File.Exists("cla.txt")) 
+                if (File.Exists("cla.txt"))
                     File.Delete("cla.txt");
                 DateTime fech2 = new DateTime(ll);
                 nom = rutbas + "\\cla\\" + string.Format("{0:yy}{0:MM}.txt", fech2);
-                if (File.Exists(nom)) 
+                if (File.Exists(nom))
                     File.Copy(nom, "cla.txt", true);
-                else 
+                else
                     continue;
                 fee = string.Format("{0:yy}{0:MM}{0:dd}", fech2);
                 if (File.Exists("cla.txt"))
@@ -234,7 +234,7 @@ namespace Proceso20
                         try
                         {
                             li = ar2.ReadLine();
-                            if (li == null) 
+                            if (li == null)
                                 break;
                             if (string.Compare(fee, li.Substring(0, 6)) == 0)
                             {
@@ -248,7 +248,7 @@ namespace Proceso20
                                 se = int.Parse(li.Substring(13, 2));
                                 DateTime fechsis = new DateTime(an, me, di, ho, mi, se);
                                 llsis = fechsis.Ticks;
-                                pr.WriteLine(li.Substring(0,28)+" "+li.Substring(40,4)+" "+llsis.ToString()+" "+li.Substring(48));
+                                pr.WriteLine(li.Substring(0, 28) + " " + li.Substring(40, 4) + " " + llsis.ToString() + " " + li.Substring(48));
                                 contdatos += 1;
                             }
                         }
@@ -272,124 +272,124 @@ namespace Proceso20
                     File.Delete("datos.txt");
             }
 
-            panel.Visible = false;    
+            panel.Visible = false;
 
             return (contdatos);
         }
 
-      /*  public ushort Leerbase2(Panel panel, string rutbas, long ll1, long ll2, string[] cl, string[] volcan)
-        {
-            // rutina que chequea si a determinado minuto corresponde sismos clasificados y si 
-            // tienen lectura de amplitud y de coda.
-            ushort contdatos;
-            uint contampl = 0;
-            int an, me, di, ho, mi, se;
-            long ll, llsis;
-            string nom = "", fee = "", lin = "", nomlec = "", linle = "";
+        /*  public ushort Leerbase2(Panel panel, string rutbas, long ll1, long ll2, string[] cl, string[] volcan)
+          {
+              // rutina que chequea si a determinado minuto corresponde sismos clasificados y si 
+              // tienen lectura de amplitud y de coda.
+              ushort contdatos;
+              uint contampl = 0;
+              int an, me, di, ho, mi, se;
+              long ll, llsis;
+              string nom = "", fee = "", lin = "", nomlec = "", linle = "";
 
-            contdatos = 0;
-            panel.Visible = true;
-            Mensaje(panel, "Leyendo de la Base...\n", false);
-            if (File.Exists("datos2.txt")) File.Delete("datos2.txt"); // archivos de clasificacion ordenados
-            if (File.Exists("datos.txt")) File.Delete("datos.txt");
-            if (File.Exists("amplis2.txt")) File.Delete("amplis2.txt"); // archivos de amplitud ordenados
-            if (File.Exists("amplis.txt")) File.Delete("amplis.txt");
+              contdatos = 0;
+              panel.Visible = true;
+              Mensaje(panel, "Leyendo de la Base...\n", false);
+              if (File.Exists("datos2.txt")) File.Delete("datos2.txt"); // archivos de clasificacion ordenados
+              if (File.Exists("datos.txt")) File.Delete("datos.txt");
+              if (File.Exists("amplis2.txt")) File.Delete("amplis2.txt"); // archivos de amplitud ordenados
+              if (File.Exists("amplis.txt")) File.Delete("amplis.txt");
 
-            StreamWriter pr = new StreamWriter("datos2.txt");
-            StreamWriter le = new StreamWriter("amplis2.txt");
-            // 86400000000 corresponde a un dia en centenares de nanosegundos, que es la unidad de tiempo 
-            // que maneja la variable ticks del visual C#
-            for (ll = ll1; ll <= ll2; ll += 864000000000)
-            {
-                if (File.Exists("cla.txt")) File.Delete("cla.txt");
-                DateTime fech = new DateTime(ll);
-                nom = rutbas + "\\cla\\" + string.Format("{0:yy}{0:MM}.txt", fech);
-                if (File.Exists(nom)) File.Copy(nom, "cla.txt", true);
-                else continue;
-                fee = string.Format("{0:yy}{0:MM}{0:dd}", fech);
-                //if (File.Exists(nom))
-                if (File.Exists("cla.txt"))
-                {
-                    lin = "";
-                    StreamReader ar = new StreamReader("cla.txt");
-                    while (lin != null)
-                    {
-                        try
-                        {
-                            lin = ar.ReadLine();
-                            if (lin == null) break;
-                            if (string.Compare(fee, lin.Substring(0, 6)) == 0)
-                            {
-                                an = int.Parse(lin.Substring(0, 2));
-                                if (an < 85) an += 2000;
-                                else an += 1900;
-                                me = int.Parse(lin.Substring(2, 2));
-                                di = int.Parse(lin.Substring(4, 2));
-                                ho = int.Parse(lin.Substring(7, 2));
-                                mi = int.Parse(lin.Substring(10, 2));
-                                se = int.Parse(lin.Substring(13, 2));
-                                DateTime fechsis = new DateTime(an, me, di, ho, mi, se);
-                                if (File.Exists("lectu.txt")) File.Delete("lectu.txt");
-                                nomlec = rutbas + "\\lec\\" + lin.Substring(26, 2) + "\\" + lin.Substring(25, 1) + lin.Substring(27, 1) + lin.Substring(0, 6) + ".txt";
-                                if (File.Exists(nomlec))
-                                {
-                                    llsis = fechsis.Ticks;
-                                    pr.WriteLine(lin.Substring(0, 28) + " " + lin.Substring(40, 4) + " " + llsis.ToString() + " " + lin.Substring(48));
-                                    File.Copy(nomlec, "lectu.txt", true);
-                                }
-                                linle = "";
-                                if (File.Exists("lectu.txt"))
-                                {
-                                    StreamReader ler = new StreamReader("lectu.txt");
-                                    while (linle != null)
-                                    {
-                                        try
-                                        {
-                                            linle = ler.ReadLine();
-                                            if (linle == null) break;
-                                            if (string.Compare(lin.Substring(16,12),linle.Substring(74,12)) == 0)
-                                            {
-                                                le.WriteLine(linle);
-                                                contampl += 1;// lleva la cuenta del numero de lecturas de amplitud
-                                            }
-                                        }
-                                        catch
-                                        {
-                                        }
-                                    }
-                                    ler.Close();
-                                }
-                                contdatos += 1; // lleva la cuenta del numero de clasificaciones.
-                            }// stringcompare
-                        }
-                        catch
-                        {
-                            // break;
-                        }
-                    }
-                    ar.Close();
-                }
-            }
-            panel.Visible = false;
-            pr.Close();
-            le.Close();
-            if (contdatos > 0)
-            {
-                lin = "/C sort /+35 datos2.txt > datos.txt";
-                Dos(lin, true);
-            }
-            else
-            {
-                if (File.Exists("datos.txt")) File.Delete("datos.txt");
-            }
-            if (contampl > 0)
-            {
-                lin = "/C sort /+88 amplis2.txt > amplis.txt";
-                Dos(lin, true);
-            }
+              StreamWriter pr = new StreamWriter("datos2.txt");
+              StreamWriter le = new StreamWriter("amplis2.txt");
+              // 86400000000 corresponde a un dia en centenares de nanosegundos, que es la unidad de tiempo 
+              // que maneja la variable ticks del visual C#
+              for (ll = ll1; ll <= ll2; ll += 864000000000)
+              {
+                  if (File.Exists("cla.txt")) File.Delete("cla.txt");
+                  DateTime fech = new DateTime(ll);
+                  nom = rutbas + "\\cla\\" + string.Format("{0:yy}{0:MM}.txt", fech);
+                  if (File.Exists(nom)) File.Copy(nom, "cla.txt", true);
+                  else continue;
+                  fee = string.Format("{0:yy}{0:MM}{0:dd}", fech);
+                  //if (File.Exists(nom))
+                  if (File.Exists("cla.txt"))
+                  {
+                      lin = "";
+                      StreamReader ar = new StreamReader("cla.txt");
+                      while (lin != null)
+                      {
+                          try
+                          {
+                              lin = ar.ReadLine();
+                              if (lin == null) break;
+                              if (string.Compare(fee, lin.Substring(0, 6)) == 0)
+                              {
+                                  an = int.Parse(lin.Substring(0, 2));
+                                  if (an < 85) an += 2000;
+                                  else an += 1900;
+                                  me = int.Parse(lin.Substring(2, 2));
+                                  di = int.Parse(lin.Substring(4, 2));
+                                  ho = int.Parse(lin.Substring(7, 2));
+                                  mi = int.Parse(lin.Substring(10, 2));
+                                  se = int.Parse(lin.Substring(13, 2));
+                                  DateTime fechsis = new DateTime(an, me, di, ho, mi, se);
+                                  if (File.Exists("lectu.txt")) File.Delete("lectu.txt");
+                                  nomlec = rutbas + "\\lec\\" + lin.Substring(26, 2) + "\\" + lin.Substring(25, 1) + lin.Substring(27, 1) + lin.Substring(0, 6) + ".txt";
+                                  if (File.Exists(nomlec))
+                                  {
+                                      llsis = fechsis.Ticks;
+                                      pr.WriteLine(lin.Substring(0, 28) + " " + lin.Substring(40, 4) + " " + llsis.ToString() + " " + lin.Substring(48));
+                                      File.Copy(nomlec, "lectu.txt", true);
+                                  }
+                                  linle = "";
+                                  if (File.Exists("lectu.txt"))
+                                  {
+                                      StreamReader ler = new StreamReader("lectu.txt");
+                                      while (linle != null)
+                                      {
+                                          try
+                                          {
+                                              linle = ler.ReadLine();
+                                              if (linle == null) break;
+                                              if (string.Compare(lin.Substring(16,12),linle.Substring(74,12)) == 0)
+                                              {
+                                                  le.WriteLine(linle);
+                                                  contampl += 1;// lleva la cuenta del numero de lecturas de amplitud
+                                              }
+                                          }
+                                          catch
+                                          {
+                                          }
+                                      }
+                                      ler.Close();
+                                  }
+                                  contdatos += 1; // lleva la cuenta del numero de clasificaciones.
+                              }// stringcompare
+                          }
+                          catch
+                          {
+                              // break;
+                          }
+                      }
+                      ar.Close();
+                  }
+              }
+              panel.Visible = false;
+              pr.Close();
+              le.Close();
+              if (contdatos > 0)
+              {
+                  lin = "/C sort /+35 datos2.txt > datos.txt";
+                  Dos(lin, true);
+              }
+              else
+              {
+                  if (File.Exists("datos.txt")) File.Delete("datos.txt");
+              }
+              if (contampl > 0)
+              {
+                  lin = "/C sort /+88 amplis2.txt > amplis.txt";
+                  Dos(lin, true);
+              }
 
-            return (contdatos);
-        }*/
+              return (contdatos);
+          }*/
 
         public void VerMarca(Panel panel, string marca)
         {
@@ -458,14 +458,14 @@ namespace Proceso20
             return;
         }
 
-        public void MarcaTiempo(Panel panel,double timin,double[] tim,ushort esp,
-               float dur,int denom)
+        public void MarcaTiempo(Panel panel, double timin, double[] tim, ushort esp,
+               float dur, int denom)
         {
             int i;
-            int xf,yf,jb,b;
+            int xf, yf, jb, b;
             long ll;
             float x1, y1;
-            double fax,fay;
+            double fax, fay;
             double ti1, ti2, tii;
 
 
@@ -476,7 +476,7 @@ namespace Proceso20
             jb = tim.Length - 1;
             if (esp == 0) fay = (yf - 45.0) / (double)(denom);
             else fay = esp;
-            fax = xf / dur;           
+            fax = xf / dur;
 
             ll = (long)timin;
             ti1 = (double)(ll);
@@ -512,10 +512,10 @@ namespace Proceso20
             return;
         }
 
-        public void PonePepas(Panel panel,double timin,double[] tim,ushort esp,float dur,
-              ushort contampl,double[] valampl,byte[] clR,byte[] clG,byte[] clB,char[] letampl,
-                 string[] cl,float tam,short nucla,bool[] siPampl,char[] volampl,char voll,bool cond,
-                   bool nolec,double tigrabacion,char leclec,int denom)
+        public void PonePepas(Panel panel, double timin, double[] tim, ushort esp, float dur,
+              ushort contampl, double[] valampl, byte[] clR, byte[] clG, byte[] clB, char[] letampl,
+                 string[] cl, float tam, short nucla, bool[] siPampl, char[] volampl, char voll, bool cond,
+                   bool nolec, double tigrabacion, char leclec, int denom)
         {
             int xf, yf, jb, j, b, kk, kkk, i;
             float x1, y1;
@@ -601,7 +601,7 @@ namespace Proceso20
             catch
             {
                 StreamWriter wr = File.AppendText(".\\pro\\ERROR_en_Pepas.txt");
-                wr.WriteLine("dura="+dur.ToString()+" tam="+tam.ToString());
+                wr.WriteLine("dura=" + dur.ToString() + " tam=" + tam.ToString());
                 wr.Close();
             }
 
@@ -666,13 +666,26 @@ namespace Proceso20
 
             return (kk);
         }
-
-        public int EscribePanelEsta(Panel panelEsta,ushort nutra,string[] est,bool[] siEst)
+        /// <summary>
+        /// Dibuja los nombres de las estaciones en el panel panelEsta, si la estación esta activa en la clasificación que se está 
+        /// realizando esta se pinta de color negro, sino se pinta de color rojo para indicar que no se tiene en cuenta 
+        /// en la clasificación de ese sismo.
+        /// </summary>
+        /// <param name="panelEsta">Panel donde se grafican los nombres de las estaciones activas,
+        /// este panel está dentro del panel de clasificación.</param>
+        /// <param name="nutra">Es la cantidad de trazas leídas.</param>
+        /// <param name="est">Contiene los nombres de las estaciones.</param>
+        /// <param name="siEst">Indica que estaciones están seleccionadas como activas.</param>
+        /// <returns>-1 en caso de que todas las estaciones estén activas.
+        ///           1 en caso de que por lo menos 1 de las estaciones no este activa.
+        ///</returns>
+        public int EscribePanelEsta(Panel panelEsta, ushort nutra, string[] est, bool[] siEst)
         {
             int i, ii, j, k, xx, yy, kk;
             string esta = "";
 
-            if (panelEsta.Visible == false) return(-1);
+            if (panelEsta.Visible == false)
+                return (-1);
 
             ii = (nutra - 1) / 50;
             xx = 42 + ii * 35;
@@ -697,11 +710,13 @@ namespace Proceso20
             {
                 for (i = 0; i < 50; i++)
                 {
-                    if (!char.IsLetterOrDigit(est[k][4])) esta = est[k].Substring(0, 4);
-                    else esta = est[k];
+                    if (!char.IsLetterOrDigit(est[k][4]))
+                        esta = est[k].Substring(0, 4);
+                    else
+                        esta = est[k];
                     if (siEst[k] == true)
                         //dc.DrawString(esta, new Font("Times New Roman", 9), brocha, 1 + j * 35, i * 10 - 3);
-                        dc.DrawString(esta, new Font("Times New Roman",8), brocha, 1 + j * 35, i * 10 - 3);
+                        dc.DrawString(esta, new Font("Times New Roman", 8), brocha, 1 + j * 35, i * 10 - 3);
                     else
                     {
                         //dc.DrawString(esta, new Font("Times New Roman", 9), brocha2, 1 + j * 35, i * 10 - 3);
@@ -709,17 +724,18 @@ namespace Proceso20
                         kk = 1;
                     }
                     k += 1;
-                    if (k >= nutra) break;
+                    if (k >= nutra)
+                        break;
                     //dc.DrawString(li, new Font("Times New Roman", 9, FontStyle.Bold), brocha, 1, i * 10);
                 }
             }
             brocha.Dispose();
             brocha2.Dispose();
 
-           // if (kk == 1) boTodas.BackColor = Color.PaleVioletRed;
-           // else boTodas.BackColor = Color.White;
+            // if (kk == 1) boTodas.BackColor = Color.PaleVioletRed;
+            // else boTodas.BackColor = Color.White;
 
-            return(kk);
+            return (kk);
         }
 
 
@@ -729,9 +745,9 @@ namespace Proceso20
               double laER, double loER)
         {
             int iniX, iniY, xf, yf, x1, y1, x2, y2;
-            double f1,fcpi,fclo;
+            double f1, fcpi, fclo;
             string linea = "";
-            string nombre,ca="";
+            string nombre, ca = "";
             char[] delim = { ' ', '\t' };
             string[] pa = null;
             GraphicsPath path;
@@ -764,7 +780,7 @@ namespace Proceso20
                 ca = ".\\ima\\" + nomvol[0] + ".jpg";
                 if (File.Exists(ca))
                 {
-                    PonerImagen(panel,nomvol,facm,la,lo,lasi,losi,fclo);
+                    PonerImagen(panel, nomvol, facm, la, lo, lasi, losi, fclo);
                 }
                 return;
             }
@@ -817,11 +833,11 @@ namespace Proceso20
                             path.CloseAllFigures();
                         }
                     }
-                      else if (linea[0] == 'E')
-                      {
-                          dc.FillRectangle(brocha, x1 - 3, y1 - 3, 6, 6);
-                          dc.DrawRectangle(lapiz2, x1 - 3, y1 - 3, 6, 6);
-                      }
+                    else if (linea[0] == 'E')
+                    {
+                        dc.FillRectangle(brocha, x1 - 3, y1 - 3, 6, 6);
+                        dc.DrawRectangle(lapiz2, x1 - 3, y1 - 3, 6, 6);
+                    }
                     else if (linea[1] == 'P')
                     {
                         dc.FillEllipse(brocha, x1, y1, 6, 6);
@@ -876,8 +892,8 @@ namespace Proceso20
             y1 = iniY - (int)f1;
             f1 = fclo * (losi - lo);
             x1 = iniX + (int)f1;
-            dc.DrawLine(lapiz3, x1+5, y1, x1-5, y1);
-            dc.DrawLine(lapiz3, x1, y1-5, x1, y1+5);
+            dc.DrawLine(lapiz3, x1 + 5, y1, x1 - 5, y1);
+            dc.DrawLine(lapiz3, x1, y1 - 5, x1, y1 + 5);
 
             brocha.Dispose();
             lapiz2.Dispose();
@@ -889,9 +905,9 @@ namespace Proceso20
         } // topo
 
         public void TopoMapaArribos(Panel panel, double facm, double la, double lo,
-             char map)         
+             char map)
         {
-            int    iniX, iniY, xf, yf, x1, y1, y1x=0, x2, y2;
+            int iniX, iniY, xf, yf, x1, y1, y1x = 0, x2, y2;
             double f1, fcpi, fclo;
             string linea = "";
             string ca = "";
@@ -918,10 +934,10 @@ namespace Proceso20
             fclo = facm * ((Math.PI / 180.0) * Math.Cos(la * fcpi) * 6367.449) / 110.9;
 
             Graphics dc = panel.CreateGraphics();
-            Pen lapiz = new Pen(Color.Gray,1);
-            Pen lapizVia = new Pen(Color.Orange,1);
-            Pen lapizF = new Pen(Color.Red,1);
-            Pen lapizR = new Pen(Color.LightBlue,3);
+            Pen lapiz = new Pen(Color.Gray, 1);
+            Pen lapizVia = new Pen(Color.Orange, 1);
+            Pen lapizF = new Pen(Color.Red, 1);
+            Pen lapizR = new Pen(Color.LightBlue, 3);
             SolidBrush brocha = new SolidBrush(Color.BlueViolet);
             SolidBrush bro = new SolidBrush(Color.Black);
 
@@ -986,7 +1002,7 @@ namespace Proceso20
                             dc.FillPath(brocha, path);
                             dc.DrawPath(lapiz, path);
                             path.CloseAllFigures();
-                            if (pa.Length == 5) dc.DrawString(pa[4],new Font("Arial",8,FontStyle.Regular),bro,x1-10,y1x+5);
+                            if (pa.Length == 5) dc.DrawString(pa[4], new Font("Arial", 8, FontStyle.Regular), bro, x1 - 10, y1x + 5);
                         }
                     }
                     else if (linea[1] == 'P')
@@ -1081,14 +1097,14 @@ namespace Proceso20
 
         public void FocosArribos(Panel panel, double facm, double laa, double loo, char map)
         {
-            int    i, iniX, iniY, xf, yf, x1, y1, nu;
+            int i, iniX, iniY, xf, yf, x1, y1, nu;
             double fcpi, fclo, laf, lof, Norte, Oeste, inc, zz, dd;
             string li = "";
             char[] delim = { ' ', '\t' };
             string[] pa = null;
             Color col;
 
-            if (File.Exists("locML.txt")) File.Delete("locML.txt");            
+            if (File.Exists("locML.txt")) File.Delete("locML.txt");
             if (!File.Exists(".\\h\\r.pun")) return;
             xf = panel.Size.Width;
             yf = panel.Size.Height;
@@ -1104,7 +1120,7 @@ namespace Proceso20
             nu = MejorRms();
 
             Graphics dc = panel.CreateGraphics();
-            Pen lap = new Pen(Color.Black,1);
+            Pen lap = new Pen(Color.Black, 1);
 
             StreamReader ar = new StreamReader(".\\h\\r.pun");
             li = ar.ReadLine();
@@ -1116,14 +1132,14 @@ namespace Proceso20
             while (li != null)
             {
                 try
-                {                    
+                {
                     li = ar.ReadLine();
                     if (li == null) break;
-                    laf=Norte*((double)(int.Parse(li.Substring(18,2)))+(double.Parse(li.Substring(21,5))/60.0));
-                    lof=Oeste*((double)(int.Parse(li.Substring(27,3)))+(double.Parse(li.Substring(31,5))/60.0));
-                    zz = double.Parse(li.Substring(37,6));
-                    y1 = iniY - (int)(facm*(laf-laa));
-                    x1 = iniX + (int)(fclo*(lof-loo));                    
+                    laf = Norte * ((double)(int.Parse(li.Substring(18, 2))) + (double.Parse(li.Substring(21, 5)) / 60.0));
+                    lof = Oeste * ((double)(int.Parse(li.Substring(27, 3))) + (double.Parse(li.Substring(31, 5)) / 60.0));
+                    zz = double.Parse(li.Substring(37, 6));
+                    y1 = iniY - (int)(facm * (laf - laa));
+                    x1 = iniX + (int)(fclo * (lof - loo));
                     if (zz < inc) col = Color.Yellow;
                     else if (zz < inc * 2.0) col = Color.Orange;
                     else if (zz < inc * 3.0) col = Color.Red;
@@ -1136,11 +1152,11 @@ namespace Proceso20
                     if (i == nu)
                     {
                         StreamWriter wr = File.CreateText("locML.txt");
-                        wr.WriteLine(laf.ToString()+" "+lof.ToString());
+                        wr.WriteLine(laf.ToString() + " " + lof.ToString());
                         wr.Close();
                         dc.DrawRectangle(lap, x1 - 5, y1 - 5, 10, 10);
                         SolidBrush bro2 = new SolidBrush(Color.BlueViolet);
-                        dc.DrawString(li,new Font("Lucida Console",10,FontStyle.Bold),bro2,113,panel.Height-20);
+                        dc.DrawString(li, new Font("Lucida Console", 10, FontStyle.Bold), bro2, 113, panel.Height - 20);
                         bro2.Dispose();
                     }
                     bro.Dispose();
@@ -1154,7 +1170,7 @@ namespace Proceso20
 
             ColocarMLVista(panel);
 
-            lap.Dispose();            
+            lap.Dispose();
         }
 
         public void ColocarMLVista(Panel panel)
@@ -1195,8 +1211,8 @@ namespace Proceso20
 
         int MejorRms()
         {
-            int i,nu=-1;
-            double rms=1000.0,dd;
+            int i, nu = -1;
+            double rms = 1000.0, dd;
             string li = "";
 
             if (!File.Exists(".\\h\\r.pun")) return (-1);
@@ -1227,13 +1243,13 @@ namespace Proceso20
 
             ar.Close();
 
-            return(nu);
+            return (nu);
         }
 
         public void UnaEstacionArribo(Panel panel, double facm, double la, double lo, double lae,
              double loe, Color col)
         {
-            int    iniX, iniY, xf, yf, x1, y1;
+            int iniX, iniY, xf, yf, x1, y1;
             double f1, fcpi, fclo;
 
             xf = panel.Size.Width;
@@ -1255,24 +1271,24 @@ namespace Proceso20
             x1 = iniX + (int)f1;
             dc.FillRectangle(brocha, x1 - 3, y1 - 3, 6, 6);
             dc.DrawRectangle(lapiz, x1 - 3, y1 - 3, 6, 6);
-            
+
             brocha.Dispose();
             lapiz.Dispose();
 
             return;
-        } 
+        }
 
-        void PonerImagen(Panel panel, string nomvol, double facMapa, 
-            double la,double lo,double lasi,double losi,double fclo)
+        void PonerImagen(Panel panel, string nomvol, double facMapa,
+            double la, double lo, double lasi, double losi, double fclo)
         {
             PointF ulCorner1 = new PointF(0.0F, 0.0F);
             PointF urCorner1 = new PointF(panel.Width, 0.0F);
             PointF llCorner1 = new PointF(0.0F, panel.Height);
             PointF[] destPara1 = { ulCorner1, urCorner1, llCorner1 };
-            int xf,yf,x1,y1,iniX,iniY,inixim,iniyim,anchoim,altoim;
+            int xf, yf, x1, y1, iniX, iniY, inixim, iniyim, anchoim, altoim;
             double la1, la2, lo1, lo2, faclaim, facloim, f1;
-            double latim1=0,latim2=0,lonim1=0,lonim2=0;
-            string ca,ca2,linea;
+            double latim1 = 0, latim2 = 0, lonim1 = 0, lonim2 = 0;
+            string ca, ca2, linea;
             char[] delim = { ' ', '\t' };
             string[] pa = null;
             Image Imagen;
@@ -1307,9 +1323,9 @@ namespace Proceso20
                 yf = panel.Size.Height;
                 iniX = xf / 2;
                 iniY = yf / 2;
-                lo1 = lo + (double)(1-iniX) / fclo;
+                lo1 = lo + (double)(1 - iniX) / fclo;
                 la1 = la + (double)(iniY - 1) / facMapa;
-                lo2 = lo + (double)(xf-iniX) / fclo;
+                lo2 = lo + (double)(xf - iniX) / fclo;
                 la2 = la + (double)(iniY - yf) / facMapa;
                 faclaim = Imagen.Height / (latim1 - latim2);
                 facloim = Imagen.Width / (lonim1 - lonim2);
@@ -1347,22 +1363,22 @@ namespace Proceso20
         /// <param name="esp">Valor del espectro.</param>
         /// <param name="dur">Duración del tiempo del intervalo de traza sobre el cual se arrastró el mouse.</param>
         /// <param name="contarch">Almacena la cantidad de sismos clasificados en un lapso de tiempo seleccionado.</param>
-        public void VerArchi(Panel panel,double timin,double[] tim,double[] tiar,ushort[] duar,ushort esp,float dur,ushort contarch)
+        public void VerArchi(Panel panel, double timin, double[] tim, double[] tiar, ushort[] duar, ushort esp, float dur, ushort contarch)
         {
             short cont = 0;
-            int xf,yf,jj,j,b1,b2,lar;
-            float x1,x2,y1,y2,w,h;
-            double fax,fay;
-            Pen[] lap= new Pen[3];
+            int xf, yf, jj, j, b1, b2, lar;
+            float x1, x2, y1, y2, w, h;
+            double fax, fay;
+            Pen[] lap = new Pen[3];
 
 
-            if (contarch == 0) 
+            if (contarch == 0)
                 return;
             xf = panel.Size.Width;
             yf = panel.Size.Height;
             lar = tim.Length;
-            jj = 1 + (int)((tim[lar-1] - timin) / dur);
-            if (esp == 0) 
+            jj = 1 + (int)((tim[lar - 1] - timin) / dur);
+            if (esp == 0)
                 fay = (yf - 45) / jj;
             else fay = esp;
             fax = xf / dur;
@@ -1376,7 +1392,7 @@ namespace Proceso20
             {
                 b1 = (int)((tiar[j] - timin) / dur);
                 y1 = (float)(45.0 + b1 * fay + fay / 3.0);
-                b2 = (int)(((tiar[j]+duar[j]) - timin) / dur);
+                b2 = (int)(((tiar[j] + duar[j]) - timin) / dur);
                 y2 = (float)(45.0 + b2 * fay + fay / 3.0);
                 h = (float)(fay / 3.0);
                 x1 = (float)(((tiar[j] - timin) - b1 * dur) * fax);
@@ -1395,7 +1411,7 @@ namespace Proceso20
                 }
                 //if (y1 != y2) MessageBox.Show("x1="+x1.ToString()+" y1="+y1.ToString()+" x2="+x2.ToString()+" y2="+y2.ToString());
                 cont += 1;
-                if (cont >= 3) 
+                if (cont >= 3)
                     cont = 0;
             }
 
@@ -1493,13 +1509,13 @@ namespace Proceso20
             if (!Directory.Exists(".\\mat")) Directory.CreateDirectory(".\\mat");
             File.Copy("mat1.txt", ".\\mat\\VARSATE.M", true);
             ca = "/C sort /R /+6 mat2.txt >> .\\mat\\VARSATE.M";
-            Dos(ca,true);
+            Dos(ca, true);
 
             return;
         }
 
         public void VerMapa(Panel panel, char nmvol, double la, double lo, string pun, double diff,
-           double laat, double loot,Color col)
+           double laat, double loot, Color col)
         {
             int iniX, iniY, xf, yf, x1, y1, x2, y2, i;
             double f1, laf, lof, dif, la1, lo1, facm, fcpi, fclo, ff;
@@ -1524,11 +1540,11 @@ namespace Proceso20
 
             if (pun != "")
             {
-                i = int.Parse(pun.Substring(17,3));
-                f1 = double.Parse(pun.Substring(20,6)) / 60.0;
+                i = int.Parse(pun.Substring(17, 3));
+                f1 = double.Parse(pun.Substring(20, 6)) / 60.0;
                 laf = (double)(i) + f1;
-                i = int.Parse(pun.Substring(26,4));
-                f1 = double.Parse(pun.Substring(30,6)) / 60.0;
+                i = int.Parse(pun.Substring(26, 4));
+                f1 = double.Parse(pun.Substring(30, 6)) / 60.0;
                 lof = (double)(i) + f1;
                 la1 = laf - la;
                 lo1 = lof - lo;
@@ -1706,7 +1722,7 @@ namespace Proceso20
             {
                 laf = la + (iniY - yy) / facm;
                 //lof = lo + (iniX - xx) / facm;
-                lof = lo + (xx-iniX) / facm;
+                lof = lo + (xx - iniX) / facm;
             }
 
             Graphics dc = panel.CreateGraphics();
@@ -1715,7 +1731,7 @@ namespace Proceso20
             k = 0;
             for (i = 0; i < can; i++)
             {
-                if (lae[i] > -500.0 && siest[i] == true && lectu[i]>=0)
+                if (lae[i] > -500.0 && siest[i] == true && lectu[i] >= 0)
                 {
                     Pen lap = new Pen(Color.FromArgb(clR[i], clG[i], clB[i]), 2);
                     f1 = facm * (lae[i] - la);
@@ -1772,24 +1788,24 @@ namespace Proceso20
             return;
         }
 
-        public bool EliminaClasificacion(double tii,string sis,string rutbas)
+        public bool EliminaClasificacion(double tii, string sis, string rutbas)
         {
             long ll;
-            string fech="",rusis="",ruamp="",ruloc="",ruate1="",ruate2="",ruclas="",ca="";
-            string li="";
-            bool sud=false,atn=false,ate=false,loc=false,amp=false,si=false,clas=false;
+            string fech = "", rusis = "", ruamp = "", ruloc = "", ruate1 = "", ruate2 = "", ruclas = "", ca = "";
+            string li = "";
+            bool sud = false, atn = false, ate = false, loc = false, amp = false, si = false, clas = false;
 
-            
+
             ll = (long)(Fei + tii * 10000000.0);
             DateTime fee = new DateTime(ll);
-            fech = string.Format("{0:yyyy}/{0:MM}/{0:dd} {0:HH}:{0:mm}:{0:ss}",fee);
+            fech = string.Format("{0:yyyy}/{0:MM}/{0:dd} {0:HH}:{0:mm}:{0:ss}", fee);
 
-            rusis = rutbas+"\\sud\\"+sis.Substring(10,2)+"\\"+fech.Substring(2,2)+"\\"+sis;
-            ruclas = rutbas+"\\cla\\"+fech.Substring(2,2)+fech.Substring(5,2)+".txt";
-            ruamp = rutbas+"\\lec\\"+sis.Substring(10,2)+"\\"+sis.Substring(9,1)+sis.Substring(11,1)+fech.Substring(2,2)+fech.Substring(5,2)+fech.Substring(8,2)+".txt";
-            ruloc=rutbas+"\\loc\\"+fech.Substring(2,2)+fech.Substring(5,2)+".ipn";
-            ruate1=rutbas+"\\ate\\"+fech.Substring(2,2)+fech.Substring(5,2)+".atn";
-            ruate2=rutbas+"\\ate\\"+fech.Substring(2,2)+fech.Substring(5,2)+"ate.txt";
+            rusis = rutbas + "\\sud\\" + sis.Substring(10, 2) + "\\" + fech.Substring(2, 2) + "\\" + sis;
+            ruclas = rutbas + "\\cla\\" + fech.Substring(2, 2) + fech.Substring(5, 2) + ".txt";
+            ruamp = rutbas + "\\lec\\" + sis.Substring(10, 2) + "\\" + sis.Substring(9, 1) + sis.Substring(11, 1) + fech.Substring(2, 2) + fech.Substring(5, 2) + fech.Substring(8, 2) + ".txt";
+            ruloc = rutbas + "\\loc\\" + fech.Substring(2, 2) + fech.Substring(5, 2) + ".ipn";
+            ruate1 = rutbas + "\\ate\\" + fech.Substring(2, 2) + fech.Substring(5, 2) + ".atn";
+            ruate2 = rutbas + "\\ate\\" + fech.Substring(2, 2) + fech.Substring(5, 2) + "ate.txt";
             //MessageBox.Show(sis + " sud=" + sud.ToString() + " amp=" + amp.ToString() + " loc=" + loc.ToString() + " atn=" + atn.ToString() + " ate=" + ate.ToString());
             if (File.Exists(rusis)) sud = true;
             else
@@ -1808,7 +1824,7 @@ namespace Proceso20
                     {
                         li = ar.ReadLine();
                         if (li == null) break;
-                        if (string.Compare(li.Substring(16,12), sis.Substring(0,12)) != 0) le.WriteLine(li);
+                        if (string.Compare(li.Substring(16, 12), sis.Substring(0, 12)) != 0) le.WriteLine(li);
                         else clas = true;
                     }
                     catch
@@ -1846,7 +1862,7 @@ namespace Proceso20
             }
             else
             {
-                ca = rutbas+"\\lec\\"+sis.Substring(10,2);
+                ca = rutbas + "\\lec\\" + sis.Substring(10, 2);
                 if (!Directory.Exists(ca)) MessageBox.Show("NO EXISTE " + ca + " !!!!");
             }
             if (File.Exists(ruloc))
@@ -1864,7 +1880,7 @@ namespace Proceso20
                         if (li == null) break;
                         if (char.IsDigit(li[0]))
                         {
-                            if (string.Compare(li.Substring(84,12),sis.Substring(0,12)) != 0) si = true;
+                            if (string.Compare(li.Substring(84, 12), sis.Substring(0, 12)) != 0) si = true;
                             else
                             {
                                 loc = true;
@@ -1898,7 +1914,7 @@ namespace Proceso20
                         if (li == null) break;
                         if (char.IsDigit(li[0]))
                         {
-                            if (string.Compare(li.Substring(0,12),sis.Substring(0,12)) != 0) si = true;
+                            if (string.Compare(li.Substring(0, 12), sis.Substring(0, 12)) != 0) si = true;
                             else
                             {
                                 atn = true;
@@ -1930,7 +1946,7 @@ namespace Proceso20
                     {
                         li = ar.ReadLine();
                         if (li == null) break;
-                        if (string.Compare(li.Substring(84,12),sis.Substring(0,12)) != 0) le.WriteLine(li);
+                        if (string.Compare(li.Substring(84, 12), sis.Substring(0, 12)) != 0) le.WriteLine(li);
                         else ate = true;
                     }
                     catch
@@ -1952,21 +1968,21 @@ namespace Proceso20
             }
             catch
             {
-            }        
+            }
 
-            return(true);
+            return (true);
         }
 
-        public double[] Codigo_Irig_E(int[] cu,double timblo,double ct,double ra)
+        public double[] Codigo_Irig_E(int[] cu, double timblo, double ct, double ra)
         {
             int i, ii, j, jj, k, kk, nublo, año, lar, segm, mmx, mmn, PROM;
-            int mx,mn,bloque=0,vez=0;
-            int   ddd=0,hhh=0,mmm=0,sss=0;
+            int mx, mn, bloque = 0, vez = 0;
+            int ddd = 0, hhh = 0, mmm = 0, sss = 0;
             int[] muestra = new int[2];
             int[] irig;
             int[] prom = new int[5];
-            long ll0,ll1,ll;
-            double dd, ddA, ddB, facra, timirig,fcra;
+            long ll0, ll1, ll;
+            double dd, ddA, ddB, facra, timirig, fcra;
             double[] dift = new double[3];
             string codigo = "";
             bool eureka = false, inicio = false;
@@ -1998,7 +2014,7 @@ namespace Proceso20
             ll1 = (long)(Fei + timblo * 10000000.0);
             DateTime fech = new DateTime(ll1);
             año = int.Parse(string.Format("{0:yyyy}", fech));
-            ll1 = (long)(ll1/10000000.0);
+            ll1 = (long)(ll1 / 10000000.0);
             DateTime fech1 = new DateTime(año, 1, 1, 0, 0, 0);
             ll0 = fech1.Ticks;
             timirig = ((double)(ll0) - Feisuds) / 10000000.0;
@@ -2028,7 +2044,7 @@ namespace Proceso20
                     if (k == 8) nublo += 1;
                 }
             }
-            if (nublo == 0) return(dift);
+            if (nublo == 0) return (dift);
 
             k = 0;
             kk = 0;
@@ -2105,7 +2121,7 @@ namespace Proceso20
                                                 timirig += (double)(ll1);
                                                 dift[0] = timirig - (timblo + muestra[0] / ra);
                                             }
-                                            else if (vez==1)
+                                            else if (vez == 1)
                                             {
                                                 ll = (ddd - 1) * 86400 + hhh * 3600 + mmm * 60 + sss;
                                                 ll0 = ll - ll1;
@@ -2117,7 +2133,7 @@ namespace Proceso20
                                             }
                                             inicio = false;
                                             vez += 1;
-                                            if (vez>=2) break;
+                                            if (vez >= 2) break;
                                         }
 
                                         bloque += 1;
@@ -2142,7 +2158,7 @@ namespace Proceso20
                         if (dd > 0 && dd < 0.03 && eureka == true)
                         {
                             muestra[vez] = ii;
-                            inicio = true;                         
+                            inicio = true;
                             bloque = 0;
                             sss = 0;
                             mmm = 0;
@@ -2157,12 +2173,12 @@ namespace Proceso20
                 }
             }
 
-            return(dift);
-        }               
+            return (dift);
+        }
 
         public void MapaMundo(Panel panel)
         {
-            int    j = 0, k = 0, xf, yf, x1 = 0, y1 = 0, x2 = 0, y2 = 0;
+            int j = 0, k = 0, xf, yf, x1 = 0, y1 = 0, x2 = 0, y2 = 0;
             double lat = 0, lon = 0, faclon, facla, facpi;
             string lin = "";
             bool condi = false;
@@ -2256,12 +2272,12 @@ namespace Proceso20
             return;
         }
 
-        public double[] HBajo(short M,float rat,double Fc)
+        public double[] HBajo(short M, float rat, double Fc)
         {
             int i, j;
             double fpi = 2.0 * Math.PI;
             double fpi2 = 4.0 * Math.PI;
-            double fac,ff,sum;
+            double fac, ff, sum;
             double[] h;
 
             ff = Fc * (1.0 / rat);
@@ -2296,7 +2312,7 @@ namespace Proceso20
         public double[] HBand(short M, float rat, double Fc1, double Fc2)
         {
             int i, j;
-            double[] h1,h2,h;
+            double[] h1, h2, h;
 
             h = new double[M];
             h1 = new double[M];
@@ -2313,7 +2329,7 @@ namespace Proceso20
             return (h);
         }
 
-        public int[] PasaBajos(int[] dat,short M,float rat,double Fc)
+        public int[] PasaBajos(int[] dat, short M, float rat, double Fc)
         {
             int i, j, k;
             double fpi = 2.0 * Math.PI;
@@ -2329,7 +2345,7 @@ namespace Proceso20
             for (i = 0; i < dat.Length; i++) cf[i] = 0;
 
             h = HBajo(M, rat, Fc);
-            
+
             for (j = (int)(M / 2.0); j < (dat.Length - (int)(M / 2.0)); j++)
             {
                 dd = 0;
@@ -2338,10 +2354,10 @@ namespace Proceso20
                 cf[j] = (int)(dd);
             }
 
-            return(cf);
+            return (cf);
         }
 
-        public int[] PasaAltos(int[] dat,short M,float rat,double Fc)
+        public int[] PasaAltos(int[] dat, short M, float rat, double Fc)
         {
             int i, j, k;
             double dd;
@@ -2360,10 +2376,10 @@ namespace Proceso20
                 cf[j] = (int)(dd);
             }
 
-            return(cf);
+            return (cf);
         }
 
-        public int[] PasaBanda(int[] dat,short M,float rat,double Fc1,double Fc2)
+        public int[] PasaBanda(int[] dat, short M, float rat, double Fc1, double Fc2)
         {
             int i, j, k;
             double dd;
@@ -2374,22 +2390,22 @@ namespace Proceso20
             cf = new int[dat.Length];
             for (i = 0; i < dat.Length; i++) cf[i] = 0;
 
-            h=HBand(M, rat, Fc1, Fc2);
-           
+            h = HBand(M, rat, Fc1, Fc2);
+
             for (j = (int)(M / 2.0); j < (dat.Length - (int)(M / 2.0)); j++)
             {
                 dd = 0;
                 k = 0;
-                for (i=(int)(-M/2.0);i<(int)(M/2.0);i++) dd += dat[j+i]*h[k++];
+                for (i = (int)(-M / 2.0); i < (int)(M / 2.0); i++) dd += dat[j + i] * h[k++];
                 cf[j] = (int)(dd);
             }
 
-            return(cf);
+            return (cf);
         }
 
-        
 
-       
+
+
 
 
     }

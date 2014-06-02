@@ -180,11 +180,20 @@ namespace Proceso20
         /// </summary>
         short PROMEDIO = 0;
         /// <summary>
-        /// Variables para el cálculo del espectro.
+        /// Cantidad de pixels de la porción de traza la que se le calcula el espectro.
         /// </summary>
         short np = 1024;
+        /// <summary>
+        /// Posición y del espectro.
+        /// </summary>
         short yesp = 0;
+        /// <summary>
+        /// Posición x del espectro.
+        /// </summary>
         short xesp = 0;
+        /// <summary>
+        /// variables para el cálculo del espectro.
+        /// </summary>
         double t1esp;
         short yloc = -1;
         bool VerEspectro = false;
@@ -831,6 +840,9 @@ namespace Proceso20
         public string[] est = new string[Ma];
         public char[] comp = new char[Ma];
         public char[] tar = new char[Ma];
+        /// <summary>
+        /// Indica que estaciones están seleccionadas como activas.
+        /// </summary>
         public Boolean[] siEst = new Boolean[Ma];
         Boolean[] siRoto = new Boolean[Ma];
         Boolean[] siTraslapo = new Boolean[Ma];
@@ -2435,13 +2447,16 @@ namespace Proceso20
             short i, j, k;
             int n;
 
-            if (totestaloc <= 0) return;
+            if (totestaloc <= 0) 
+                return;
             Button bt = (Button)sender;
 
             for (j = 0; j < nutra; j++)
             {
-                if (string.Compare(est[j].Substring(0, 4), "IRIG") == 0) siEst[j] = true;// se asegura que si esta presente el codigo del tiempo, se tenga en cuenta.
-                else siEst[j] = false;
+                if (string.Compare(est[j].Substring(0, 4), "IRIG") == 0)
+                    siEst[j] = true;// se asegura que si esta presente el codigo del tiempo, se tenga en cuenta.
+                else 
+                    siEst[j] = false;
             }
             for (i = 0; i < totestaloc; i++)
             {
@@ -2527,15 +2542,6 @@ namespace Proceso20
         /// <returns>Retorna 1 si el número de trazas es mayor a 0, en caso contrario retorna un 0.</returns>
         int lecturas(bool cond)
         {
-            /*
-             * Rutina que se encarga de leer Todas las trazas de TODAS las tarjetas. Realmente
-             * hace llamado a las rutinas respectivas, las cuales especificamente, leen el formato
-             * sismico correspondiente.
-             * Es importante recalcar la importancia de la estructura 30 en los sismos SUDS multiplexados,
-             * ya que sino existe, los tiempos muy probablemente esten desfazados y se pueden tener
-             * errores importantes (localizaciones por ejemplo) cuando se ensamblan con las trazas
-             * de otros formatos o tarjetas.
-             */
             int i, j, jj, k, fe, fe1, fe2, num = 0;
             int largo;
             long lll;
@@ -6403,10 +6409,6 @@ namespace Proceso20
         /// </summary>
         void Clasificar()
         {
-            /*
-             * Esta rutina adecua el panel de clasificacion y hace llamado a la rutina que
-             * Grafica las trazas: DibujoTrazas()
-            */
             int i, j;// xx, yy;
             double dd;
             //string ca = "";
@@ -6523,7 +6525,6 @@ namespace Proceso20
         /// <param name="e">El evento que se lanzó.</param>
         private void bout_Click(object sender, EventArgs e)
         { // Rutina que inicializa variables, cuando se cierra el panel de clasificacion.
-
             //loscajones = false;
             if (panelcla.Visible == false) return;
             if (panel2.Visible == true) panel2.Visible = false;
@@ -6555,7 +6556,8 @@ namespace Proceso20
             radhicod.BackColor = Color.White;
             panelAmp.Visible = false;
             panelEsta.Visible = false;
-            if (panelmarca.Visible == true) panelmarca.Visible = false;
+            if (panelmarca.Visible == true) 
+                panelmarca.Visible = false;
             panel1.Invalidate();
 
             return;
@@ -9495,9 +9497,11 @@ namespace Proceso20
 
             return;
         }
-
+        /// <summary>
+        /// Dibuja en color naranja, en el panel de clasificación, el sector de coda seleccionado por el usuario.
+        /// </summary>
         void DibujoClascoda()
-        { // dibuja en color naranja, en el panel de clasificacion, el sector de coda seleccionado por el usuario.
+        { 
             int xf, yf, i, jj, k, kk, lar, max, min, pro, dif = 0, numtotra, nm1, nm2, tot;
             int[] nmi = new int[3];
             int[] nmf = new int[3];
@@ -9506,7 +9510,8 @@ namespace Proceso20
             Point[] dat;
 
 
-            if (panelcoda.Visible == false) return;
+            if (panelcoda.Visible == false) 
+                return;
 
             jj = -1;
             k = 0;
@@ -9522,13 +9527,16 @@ namespace Proceso20
                     k += 1;
                 }
             }
-            if (jj == -1) return;
+            if (jj == -1) 
+                return;
             // MessageBox.Show("DibujoClasCoda jj=" + jj.ToString());
 
             xf = (panelcladib.Size.Width - 40);
             yf = panelcladib.Size.Height;
             numtotra = 0;
-            for (i = 0; i < nutra; i++) if (siEst[i] == true) numtotra += 1;
+            for (i = 0; i < nutra; i++) 
+                if (siEst[i] == true) 
+                    numtotra += 1;
             dura = tie2 - tie1;
             fax = xf / dura;
             fay = yf / (numtotra + 0.5);
@@ -14258,7 +14266,7 @@ namespace Proceso20
             panelBar.Size = new Size(anch, 2);
             panelBar.Visible = true;
             panelBar.Location = new Point(x, y);
-
+            
             if (silog == false) 
                 GraficaEspectro(id, vaesp, checkBoxFFT1.Checked, vacioesp);
             else 
@@ -14267,11 +14275,12 @@ namespace Proceso20
             return;
         }
         /// <summary>
-        /// 
+        /// Realiza el gráfico del espectro de una porción de traza, y lo despliega en el panel panelFFTzoom.
         /// </summary>
         /// <param name="id">Id de la traza que se está clasificando.</param>
         /// <param name="va">Los valores del espectro.</param>
-        /// <param name="cond"></param>
+        /// <param name="cond">Indica que el checkBoxFFT1 está seleccionado,
+        /// por ende que se aplique la FFT (transformada rápida de Fourier) a la señal.</param>
         /// <param name="vacioesp">true si hay vacios en el espectro, false si el cálculo fue continuo.</param>
         void GraficaEspectro(int id, double[] va, bool cond, bool vacioesp)
         {
@@ -14287,7 +14296,7 @@ namespace Proceso20
                 offset = 0;
             else 
                 offset = offsetesp;
-            fin = va.Length;
+            fin = va.Length;/// cantida de valores de espectro
 
             ddx = (panelFFTzoom.Width - 90) / (double)(va.Length);
 
@@ -14300,7 +14309,7 @@ namespace Proceso20
                 else if (mnesp > va[i]) 
                     mnesp = va[i];
             }
-            j = (int)((mxesp + mnesp) / 2.0);
+            j = (int)((mxesp + mnesp) / 2.0); //promedio entre el espectro máximo y el mínimo
             ddy = (panelFFTzoom.Height - 70) / (double)(mxesp - j);
             yini = (int)(panelFFTzoom.Height / 2.0);
             try
@@ -14367,7 +14376,13 @@ namespace Proceso20
 
             return;
         }
-
+        /// <summary>
+        /// Realiza el gráfico del espectro de una porción de traza, y lo despliega en el panel panelFFTzoom,
+        /// anexa un factor al cual le aplica logaritmo en base 10 y con este modifica la gráfica del espectro antes calculado.
+        /// </summary>
+        /// <param name="id">Id de la traza que se está clasificando.</param>
+        /// <param name="va">Los valores del espectro.</param>
+        /// <param name="vacioesp">true si hay vacios en el espectro, false si el cálculo fue continuo.</param>
         void GraficaEspectroLog(int id, double[] va, bool vacioesp)
         {
             int i, j, k, yini, x, y, fin, offset;
@@ -14378,14 +14393,16 @@ namespace Proceso20
             Pen Lapiz;
 
             //if (lar[id] < np) return;
-            if (cu[id].Length < np) return;
+            if (cu[id].Length < np) 
+                return;
 
             mxfr = ra[id] / 2.0;
             deltafr = mxfr / (np / 2.0);
             ffr[0] = -1000000.00;
-            for (i = 1; i < va.Length; i++) ffr[i] = Math.Log10(i * deltafr); ;
+            for (i = 1; i < va.Length; i++) 
+                ffr[i] = Math.Log10(i * deltafr);
             offset = offsetesp;
-            if (offset < 1) 
+            if (offset < 1)
                 offset = 1;
             fin = va.Length;
 
@@ -14394,8 +14411,10 @@ namespace Proceso20
             min = max;
             for (i = offset + 1; i < fin; i++)
             {
-                if (max < va[i]) max = va[i];
-                else if (min > va[i]) min = va[i];
+                if (max < va[i]) 
+                    max = va[i];
+                else if (min > va[i]) 
+                    min = va[i];
             }
             ddy = (panelFFTzoom.Height - 15) / (max - min);
             yini = (int)(5);
