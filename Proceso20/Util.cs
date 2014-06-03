@@ -390,7 +390,11 @@ namespace Proceso20
 
               return (contdatos);
           }*/
-
+        /// <summary>
+        /// Configura y dibuja el panel donde se puede generar la marca que se le asigna a un sismo para posteriores búsquedas.
+        /// </summary>
+        /// <param name="panel">Panel donde se muestran los caracteres para generar la marca.</param>
+        /// <param name="marca">Etiqueta que se le da al sismo para futuras búsquedas.</param>
         public void VerMarca(Panel panel, string marca)
         {
             string cc = "";
@@ -413,8 +417,10 @@ namespace Proceso20
             for (ii = 0; ii < 8; ii++)
             {
                 k = (int)(marcachar[ii]);
-                if (k == 42) kk = 0;
-                else kk = k - 47;
+                if (k == 42) 
+                    kk = 0;
+                else
+                    kk = k - 47;
                 i = (int)(ii * fax);
                 jj = (int)(kk * fay);
                 dc.DrawRectangle(lapiz, i, jj, fax, fay);

@@ -6141,7 +6141,8 @@ namespace Proceso20
                 else
                 {
                     if (pan == panel1a) inicio = M;
-                    else inicio = 1;
+                    else 
+                        inicio = 1;
                 }
                 xf = pan.Size.Width;
                 yf = pan.Size.Height;
@@ -6686,8 +6687,8 @@ namespace Proceso20
             int i, j, xf, yf;
             float fax, fay;
 
-            if (panelmarca.Visible == false) return;
-
+            if (panelmarca.Visible == false) 
+                return;
             util.VerMarca(panelmarca, marca);
             char[] marcachar = marca.ToCharArray();
             xf = panelmarca.Size.Width;
@@ -9544,33 +9545,39 @@ namespace Proceso20
             tot = tim[nucod].Length;
             for (k = 0; k < tot; k++)
             {
-                if (tim[nucod][k] >= tie1) break;
+                if (tim[nucod][k] >= tie1) 
+                    break;
             }
             nm1 = k;
             for (k = 0; k < tot; k++)
             {
-                if (tim[nucod][k] > tie2 || tim[nucod][k] <= 0) break;
+                if (tim[nucod][k] > tie2 || tim[nucod][k] <= 0) 
+                    break;
             }
             nm2 = k - 1;
             max = cu[nucod][nm1];
             min = max;
             for (k = nm1 + 1; k < nm2; k++)
             {
-                if (max < cu[nucod][k]) max = cu[nucod][k];
-                else if (min > cu[nucod][k]) min = cu[nucod][k];
+                if (max < cu[nucod][k]) 
+                    max = cu[nucod][k];
+                else if (min > cu[nucod][k]) 
+                    min = cu[nucod][k];
             }
 
             nmi[0] = nm1;
             nmf[2] = nm2;
             for (k = 0; k < tot; k++)
             {
-                if (tim[nucod][k] >= t1cod) break;
+                if (tim[nucod][k] >= t1cod) 
+                    break;
             }
             nmi[1] = k;
             nmf[0] = k;
             for (k = 0; k < tot; k++)
             {
-                if (tim[nucod][k] >= t2cod) break;
+                if (tim[nucod][k] >= t2cod) 
+                    break;
             }
             nmi[2] = k;
             nmf[1] = k;
@@ -9582,10 +9589,13 @@ namespace Proceso20
             {
                 for (i = 0; i < 3; i++)
                 {
-                    if (i != 1) lapiz = new Pen(colinea, 1);
-                    else lapiz = new Pen(Color.Orange, 1);
+                    if (i != 1) 
+                        lapiz = new Pen(colinea, 1);
+                    else 
+                        lapiz = new Pen(Color.Orange, 1);
                     lar = nmf[i] - nmi[i];
-                    if (analogico == false) pro = (int)((max + min) / 2.0F);
+                    if (analogico == false) 
+                        pro = (int)((max + min) / 2.0F);
                     else
                     {
                         pro = promEst[id];
@@ -9593,8 +9603,10 @@ namespace Proceso20
                         min = pro - (int)(CuentasAnalogico / 2.0);
                     }
 
-                    if (max - pro != 0) fy = ((fay / 2) / ((max - pro)));
-                    else fy = 1;
+                    if (max - pro != 0) 
+                        fy = ((fay / 2) / ((max - pro)));
+                    else
+                        fy = 1;
                     //pro = (int)(pro * ampclas);
                     iniy = 5 + jj * fay + fay / 2;
                     dat = new Point[lar];
@@ -9605,7 +9617,8 @@ namespace Proceso20
                         {
                             for (k = nmi[i]; k < nmf[i]; k++)
                             {
-                                if (kk >= lar) break;
+                                if (kk >= lar) 
+                                    break;
                                 //dif = pro - (int)(cu[nucod][k] * ampclas);
                                 dif = (int)(cu[nucod][k] * ampclas) - pro;
                                 diff = dif * fy;
@@ -9620,7 +9633,8 @@ namespace Proceso20
                         {
                             for (k = nmi[i]; k < nmf[i]; k++)
                             {
-                                if (kk >= lar) break;
+                                if (kk >= lar) 
+                                    break;
                                 dif = pro - (int)(cu[nucod][k] * ampclas);
                                 //dif = (int)(cu[nucod][k] * ampclas) - pro;
                                 diff = dif * fy;
@@ -9644,12 +9658,15 @@ namespace Proceso20
                         {
                             for (k = nmi[i]; k < nmf[i]; k++)
                             {
-                                if (kk >= lar) break;
+                                if (kk >= lar) 
+                                    break;
                                 //dif = (int)(cu[j][k] * ampclas) - pro;
                                 dif = cu[nucod][k] - pro;
                                 diff = dif * fy;
-                                if (diff > fxsat) diff = fxsat;
-                                else if (diff < fmsat) diff = fmsat;
+                                if (diff > fxsat) 
+                                    diff = fxsat;
+                                else if (diff < fmsat) 
+                                    diff = fmsat;
                                 y1 = (float)(iniy - diff);
                                 x1 = (float)(40.0 + (tim[nucod][k] - tie1) * fax);
                                 dat[kk].Y = (int)y1;
@@ -9661,11 +9678,14 @@ namespace Proceso20
                         {
                             for (k = nmi[i]; k < nmf[i]; k++)
                             {
-                                if (kk >= lar) break;
+                                if (kk >= lar) 
+                                    break;
                                 dif = pro - cu[nucod][k];
                                 diff = dif * fy;
-                                if (diff > fxsat) diff = fxsat;
-                                else if (diff < fmsat) diff = fmsat;
+                                if (diff > fxsat) 
+                                    diff = fxsat;
+                                else if (diff < fmsat) 
+                                    diff = fmsat;
                                 y1 = (float)(iniy - diff);
                                 x1 = (float)(40.0 + (tim[nucod][k] - tie1) * fax);
                                 dat[kk].Y = (int)y1;
@@ -9676,7 +9696,7 @@ namespace Proceso20
                     }
                     dc.DrawLines(lapiz, dat);
                     lapiz.Dispose();
-                }
+                }/// fin del for
             }
             catch
             {
