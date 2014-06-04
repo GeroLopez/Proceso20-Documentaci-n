@@ -220,35 +220,35 @@ namespace Proceso20
         /// </summary>
         int bxf = 0;
         /// <summary>
-        /// 
+        /// Posición en x inicial del lugar donde se va a poner la coda.
         /// </summary>
         int bcxi;
         /// <summary>
-        /// 
+        /// Posición en y inicial del lugar donde se va a poner la coda.
         /// </summary>
         int bcyi;
         /// <summary>
-        /// 
+        /// Posición en x inicial del lugar donde se va a poner la la P sel sismo a clasificar.
         /// </summary>
         int bpxi;
         /// <summary>
-        /// 
+        /// Posición en y inicial del lugar donde se va a poner la la P sel sismo a clasificar.
         /// </summary>
         int bpyi;
         /// <summary>
-        /// 
+        /// Posición en x donde inicia el intervalo de lectura de amplitud.
         /// </summary>
         int baxi;
         /// <summary>
-        /// 
+        /// Posición en y donde inicia el intervalo de lectura de amplitud.
         /// </summary>
         int bayi;
         /// <summary>
-        /// 
+        /// Posición en x donde inicia la lectura de huecos.
         /// </summary>
         int bhxi;
         /// <summary>
-        /// amplitud
+        /// Amplitud.
         /// </summary>
         int ampp;
         /// <summary>
@@ -256,7 +256,7 @@ namespace Proceso20
         /// </summary>
         int p1;
         /// <summary>
-        /// 
+        /// Periodo p2.
         /// </summary>
         int p2;
         /// <summary>
@@ -543,7 +543,7 @@ namespace Proceso20
         /// <summary>
         /// Cantidad de estaciones analogas.
         /// </summary>
-        short nuanalog = 0;//cantidad de estaciones analogas
+        short nuanalog = 0;
 
         string[] rutmux;
         string[] rutdmx;
@@ -691,7 +691,7 @@ namespace Proceso20
         /// </summary>
         public ushort nutra = 0;
         /// <summary>
-        /// 
+        /// posición de un volcan en el arreglo de volcanes.
         /// </summary>
         public short vol;
         /// <summary>
@@ -788,7 +788,7 @@ namespace Proceso20
         /// </summary>
         public double[] ra = new double[Ma]; //puede ser float
         /// <summary>
-        /// 
+        /// Representa el tiempo de cada valor de cuenta. 
         /// </summary>
         public double[][] tim = new double[Ma][];
         /// <summary>
@@ -7840,7 +7840,6 @@ namespace Proceso20
             panel1.Invalidate();
             return;
         }
-
         // ************************************
         /// <summary>
         /// Hace llamado a la rutina fecha(), la cual visualiza el panel para seleccionar la fecha inicial y final.
@@ -8484,9 +8483,6 @@ namespace Proceso20
             textBox1.Text = string.Format("{0:00.00}", Fcx1);
             textBox2.Text = string.Format("{0:00.00}", Fcx2);
         }
-
-
-
         private void panel1a_MouseMove(object sender, MouseEventArgs e)
         {
             if (moveresp == false) return;
@@ -9246,7 +9242,8 @@ namespace Proceso20
 
         private void panelcladib_MouseMove(object sender, MouseEventArgs e)
         {
-            if (movespcla == false) return;
+            if (movespcla == false) 
+                return;
             CalcularEspectroCla(panelBarEsp1, idc, e);
         }
 
