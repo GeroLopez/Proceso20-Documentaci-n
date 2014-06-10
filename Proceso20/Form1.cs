@@ -796,7 +796,7 @@ namespace Proceso20
         /// </summary>
         public int[][] cu = new int[Ma][];
         /// <summary>
-        /// 
+        /// Guarda los factores de conversión de las cuentas a nanometros/segundo.
         /// </summary>
         public double[] fcnan;
         /// <summary>
@@ -889,6 +889,9 @@ namespace Proceso20
         bool satu = false;
         bool sihayclas = false;
         bool elimiclas = false;
+        /// <summary>
+        /// Es false si no existe ninguna lectura de trazas en memoria, true en caso contrario.
+        /// </summary>
         bool estado = false;
         bool tremor = false;
         bool tremofin = false;
@@ -8473,7 +8476,10 @@ namespace Proceso20
             CalcularEspectro(panel1a, panelBarEsp1a, ida, e);
         }
         /// <summary>
-        /// 
+        /// (panel1a) Aquí se busca saber si hay arrastre del mouse sobre la traza. Si se activa el botón izquierdo y se
+        /// desplaza el mouse, se entra al panel de clasificación (si no se arrastra, no se hace nada
+        /// por el momento). Con el botón derecho, se indica el tiempo, absoluto si no hay arrastre o
+        /// el intervalo correspondiente al arrastre.
         /// </summary>
         /// <param name="sender">El objeto que lanza el evento.</param>
         /// <param name="e">El evento que se lanzó.</param>
@@ -8485,7 +8491,8 @@ namespace Proceso20
 
             moveresp = false;
 
-            if (estado == false) return; // la variable estado es false si no existe ninguna lectura de trazas en memoria.
+            if (estado == false)
+                return; // la variable estado es false si no existe ninguna lectura de trazas en memoria.
             bxf = e.X;
             byf = e.Y;
             xf = panel1a.Size.Width;
@@ -8496,14 +8503,18 @@ namespace Proceso20
                 do
                 {
                     jb -= 1;
-                    if (tim[ida][jb - 1] > 0) break;
+                    if (tim[ida][jb - 1] > 0) 
+                        break;
                 } while (jb > 0);
                 jb -= 1;
             }
-            if (jb < 2) return;
+            if (jb < 2)
+                return;
             jj = 1 + (int)((tim[ida][jb] - timin) / dur);
-            if (esp == 0) fay = (yf - 45.0) / jj; // esp es la variable que guarda el espaciamiento entre lineas.
-            else fay = esp;
+            if (esp == 0) 
+                fay = (yf - 45.0) / jj; // esp es la variable que guarda el espaciamiento entre lineas.
+            else
+                fay = esp;
             fax = dur / xf;
             j1 = (int)((byi - 45.0) / fay);
             t1 = timin + bxi * fax + j1 * dur;
@@ -8525,20 +8536,22 @@ namespace Proceso20
                 boprom.BackColor = Color.SpringGreen;
                 p1 = (int)((t1 - tim[ida][0]) * ra[ida]);
                 p2 = (int)((t2 - tim[ida][0]) * ra[ida]);
-                if (p1 < 0) p1 = 0;
+                if (p1 < 0) 
+                    p1 = 0;
                 if (p2 <= 0)
                 {
                     sipro = 1;
                     boprom.BackColor = Color.IndianRed;
                 }
-                else if (tremor == false) panel1a.Invalidate();
+                else if (tremor == false) 
+                    panel1a.Invalidate();
                 return;
             }
-
             //MessageBox.Show("tie1="+tie1.ToString()+" tie2="+tie2.ToString()+" clSola="+clSola.ToString());
             if (tie1 != tie2)
             {
-                if (File.Exists("datos.txt")) YaClasificados();
+                if (File.Exists("datos.txt")) 
+                    YaClasificados();
                 if (clSola == -1)
                 {
                     //MessageBox.Show("1");
@@ -8548,14 +8561,17 @@ namespace Proceso20
                         ca = "VENTANA MENOR DE 10 SEGUNDOS!!!\nNO se GRABA en la BASE sismos con\nDuracion Menor a 10 Segundos\n\nSALIR??";
                         DialogResult result = MessageBox.Show(ca,
                                                      "Duracion Menor de 10 Segundos", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                        if (result == DialogResult.Yes) return;
+                        if (result == DialogResult.Yes) 
+                            return;
                     }
                     Cladat[0].X = bxi;
                     Cladat[0].Y = byi;
                     Cladat[1].X = e.X;
                     Cladat[1].Y = e.Y;
                     //MessageBox.Show("0.X="+Cladat[0].X.ToString()+" 0.Y="+Cladat[0].Y.ToString()+" 1.X="+Cladat[1].X.ToString()+" 1.Y="+Cladat[1].Y.ToString());
-                    if (loscajones == false) for (i = 0; i < nutra; i++) siEst[i] = true;
+                    if (loscajones == false) 
+                        for (i = 0; i < nutra; i++) 
+                            siEst[i] = true;
                     panelcla.BringToFront();
                     Clasificar();
                 }
@@ -8608,15 +8624,18 @@ namespace Proceso20
             return;
         }
         /// <summary>
-        /// Aquí se busca saber si hay arrastre del mouse sobre la traza. Si se activa el botón izquierdo y se
+        /// (panel1) Aquí se busca saber si hay arrastre del mouse sobre la traza. Si se activa el botón izquierdo y se
         /// desplaza el mouse, se entra al panel de clasificación (si no se arrastra, no se hace nada
         /// por el momento). Con el botón derecho, se indica el tiempo, absoluto si no hay arrastre o
         /// el intervalo correspondiente al arrastre.
+        /// 
+        /// (El nivel de detalle del proceso de este método en el archivo de contratos es bajo.)
         /// </summary>
         /// <param name="sender">El objeto que lanza el evento.</param>
         /// <param name="e">El evento que se lanzó.</param>
         private void panel1_MouseUp(object sender, MouseEventArgs e)
         {
+            
             int xf, yf, i, j, k, nuar, j1, j2, jb, jj, byf, dfcu, mmx, mmn;
             double fax, fay, fcra;
             long tii1 = 0;
@@ -8645,7 +8664,8 @@ namespace Proceso20
                 do
                 {
                     jb -= 1;
-                    if (tim[id][jb - 1] > 0) break;
+                    if (tim[id][jb - 1] > 0) 
+                        break;
                 } while (jb > 0);
                 jb -= 1;
             }
@@ -8685,7 +8705,8 @@ namespace Proceso20
                 }
                 tDR1 = t1;
                 tDR2 = t2;
-                if (checkBoxHz.Checked == true && DR == 1) PromedioFiltrado();
+                if (checkBoxHz.Checked == true && DR == 1) 
+                    PromedioFiltrado();
                 panelDR.Visible = true;
                 panelDR.BringToFront();
                 panelDR.Invalidate();
@@ -8737,7 +8758,8 @@ namespace Proceso20
                     fcra = 2.0 * 1.0 / ra[id];
                     if (t2 - t1 <= fcra)
                     {
-                        if (tremofin == true) tifintremor = t1;
+                        if (tremofin == true) 
+                            tifintremor = t1;
                     }
                     else
                     {
@@ -8757,7 +8779,8 @@ namespace Proceso20
 
             if (e.Button == MouseButtons.Right)
             {
-                if (panelcla.Visible == true) return;
+                if (panelcla.Visible == true) 
+                    return;
                 if (bxi == bxf && byi == byf)
                 {
                     DateTime fech1 = new DateTime(tii1);
@@ -8769,17 +8792,21 @@ namespace Proceso20
                     ss = string.Format("{0:0.00}", dif) + " seg";
                     ss += string.Format(" ({0:0.00}')", dif / 60.0);
                     i = (int)((t1 - tim[id][0]) * ra[id]);
-                    if (i < 0) i = 0;
+                    if (i < 0) 
+                        i = 0;
                     j = (int)((t2 - tim[id][0]) * ra[id]);
-                    if (j > jb) j = jb;
+                    if (j > jb) 
+                        j = jb;
                     if (j > 0 && j > i)
                     {
                         mmx = cu[id][i];
                         mmn = mmx;
                         for (k = i + 1; k < j; k++)
                         {
-                            if (mmx < cu[id][k]) mmx = cu[id][k];
-                            else if (mmn > cu[id][k]) mmn = cu[id][k];
+                            if (mmx < cu[id][k])
+                                mmx = cu[id][k];
+                            else if (mmn > cu[id][k])
+                                mmn = cu[id][k];
                         }
                         dfcu = mmx - mmn;
                         ss += " " + dfcu.ToString() + " cue";
@@ -8813,9 +8840,12 @@ namespace Proceso20
                 {
                     ip1 = (int)((t1 - tim[id][0]) * ra[id]);
                     ip2 = (int)((t2 - tim[id][0]) * ra[id]);
-                    if (ip1 < 0) ip1 = 0;
-                    if (ip2 >= tim[id].Length) ip2 = tim[id].Length - 1;
-                    if (ip2 - ip1 <= 2) return;
+                    if (ip1 < 0)
+                        ip1 = 0;
+                    if (ip2 >= tim[id].Length)
+                        ip2 = tim[id].Length - 1;
+                    if (ip2 - ip1 <= 2)
+                        return;
                     ipb1 = ip1; ipb2 = ip2;
                     si = CalculoInterpolacion(id);
                     if (si == true)
@@ -8833,20 +8863,23 @@ namespace Proceso20
                     boprom.BackColor = Color.SpringGreen;
                     p1 = (int)((t1 - tim[id][0]) * ra[id]);
                     p2 = (int)((t2 - tim[id][0]) * ra[id]);
-                    if (p1 < 0) p1 = 0;
+                    if (p1 < 0) 
+                        p1 = 0;
                     if (p2 <= 0)
                     {
                         sipro = 1;
                         boprom.BackColor = Color.IndianRed;
                     }
-                    else if (tremor == false) panel1.Invalidate();
+                    else if (tremor == false) 
+                        panel1.Invalidate();
                     return;
                 }
 
                 //MessageBox.Show("tie1="+tie1.ToString()+" tie2="+tie2.ToString()+" clSola="+clSola.ToString());
                 if (tie1 != tie2)
                 {
-                    if (File.Exists("datos.txt")) YaClasificados();
+                    if (File.Exists("datos.txt")) 
+                        YaClasificados();
                     if (clSola == -1)
                     {
                         //MessageBox.Show("2");
@@ -8856,14 +8889,17 @@ namespace Proceso20
                             ca = "VENTANA MENOR DE 10 SEGUNDOS!!\nNO se GRABA en la BASE sismos con\nDuracion Menor a 10 Segundos\n\nSALIR??";
                             DialogResult result = MessageBox.Show(ca,
                                                          "Duracion Menor de 10 Segundos", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                            if (result == DialogResult.Yes) return;
+                            if (result == DialogResult.Yes) 
+                                return;
                         }
                         Cladat[0].X = bxi;
                         Cladat[0].Y = byi;
                         Cladat[1].X = e.X;
                         Cladat[1].Y = e.Y;
                         //MessageBox.Show("0.X="+Cladat[0].X.ToString()+" 0.Y="+Cladat[0].Y.ToString()+" 1.X="+Cladat[1].X.ToString()+" 1.Y="+Cladat[1].Y.ToString());
-                        if (loscajones == false) for (i = 0; i < nutra; i++) siEst[i] = true;
+                        if (loscajones == false) 
+                            for (i = 0; i < nutra; i++) 
+                                siEst[i] = true;
                         panelcla.BringToFront();
                         Clasificar();
                     }
@@ -8889,7 +8925,8 @@ namespace Proceso20
                     {
                         if (t1 > tiar[i] && t2 < (tiar[i] + duar[i]))
                         {
-                            for (j = 0; j < nutra; j++) siEst[j] = false;
+                            for (j = 0; j < nutra; j++) 
+                                siEst[j] = false;
                             StreamReader ar = new StreamReader("datos.txt");
                             lin = "";
                             while (lin != null)
@@ -8897,7 +8934,8 @@ namespace Proceso20
                                 try
                                 {
                                     lin = ar.ReadLine();
-                                    if (lin == null) break;
+                                    if (lin == null) 
+                                        break;
                                     ttt = (double.Parse(lin.Substring(34, 19)) - Feisuds) / 10000000.0;
                                     if (ttt == tiar[i] && string.Compare(nomar[i].Substring(0, 12), lin.Substring(16, 12)) == 0)
                                     {
@@ -8925,7 +8963,8 @@ namespace Proceso20
                             }
                             ar.Close();
                             if (elimiclas == false)
-                            { // se llama al programa clasificador si se activa dentro del cajon que muestra la duracion del archivo, siempre y cuando no se hayya activado el boton de eliminar la clasificacion.
+                            { // se llama al programa clasificador si se activa dentro del cajon que muestra la duración del archivo, 
+                              // siempre y cuando no se hayya activado el boton de eliminar la clasificacion.
                                 Form2 frm2 = new Form2(this);
                                 frm2.Show();
                                 frm2.BringToFront();
@@ -8940,7 +8979,8 @@ namespace Proceso20
                                 elimiclas = false;
                                 boEliClas.BackColor = Color.White;
                                 util.Leerbase(panel2, rutbas, ll1, ll2, cl, volcan);
-                                if (File.Exists("amplis.txt")) LeerAmplitud();
+                                if (File.Exists("amplis.txt"))
+                                    LeerAmplitud();
                                 Reviarch();
                                 panel2.Visible = false;
                                 panel1.Invalidate();
