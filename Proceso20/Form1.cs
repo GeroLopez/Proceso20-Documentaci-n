@@ -140,11 +140,11 @@ namespace Proceso20
         /// </summary>
         ushort ida = 1;
         /// <summary>
-        /// Es la traza escogida del panel de clasificacion usada para el espectro.
+        /// Es la traza escogida del panel de clasificación usada para el espectro.
         /// </summary>
         ushort idc = 10000;
         /// <summary>
-        /// 
+        /// Registra el espaciamiento entre lineas.
         /// </summary>
         ushort esp = 0;
         /// <summary>
@@ -3420,20 +3420,6 @@ namespace Proceso20
         /// <returns></returns>
         int LeeMux(int inu)
         {
-            /*
-             * Esta rutina lee las trazas en formato SUDS Multiplexado. Los datos de las cuentas vienen
-             * entonces por paquetes o bloques; se utiliza entonces una variable provisional en un 
-             * arreglo tridimensional (cuu). La primera dimension corresponde al numero de archivo; la
-             * segunda al numero del bloque en el archivo y la tercera a la posicion de la cuenta en 
-             * el bloque. El tiempo y la rata de muestreo, se guardan en variables locales 
-             * bidimensionales, ya que ambos valores vienen indicados solo al inicio de los bloques. 
-             * Lo mismo para las variables bby (numero de bytes de los datos); dmx (numero de muestras 
-             * por bloque para cada estacion); compo (componente vertical, Este o Norte); gana (ganancia de la
-             * estacion en la tarjeta).
-             * Una vez guardados los valores en estas variables, se comprueba si hay huecos o 
-             * traslapos entre los archivos y finalmente se asignan los valores a las variables 
-             * globales (cu, tim, ra, etc.).
-             */
             int[] cana, blo;
             double[] tc, rc;
             int[][] dmx;
@@ -3983,15 +3969,6 @@ namespace Proceso20
         /// <param name="inu"></param>
         void LeeDmx(int inu)
         {
-            /*
-             * Esta rutina lee los datos en formato SUDS Demultiplexado. Los datos de cuentas se guardan en una
-             * variable tridimensional (cuu), donde primeramente se asigna el numero de archivo, luego el numero de 
-             * traza y por ultimo los datos de cuentas. La mayoria de las demas variables son bidimensionales, donde 
-             * se guarda primeramente el numero de archivo y luego el valor de acuerdo al numero de traza. Por
-             * ultimo, se asignan los datos a las variables globales, estacion por estacion.
-             * En esencia la rutina es muy parecida a la anterior (SUDS Multiplexado), solo que aqui,
-             * los datos se desglozan completamente por estacion.
-             */
             int[] cana, siete;
             double[] tc, rc;
             int[][] dmx;
@@ -5075,11 +5052,6 @@ namespace Proceso20
         /// </summary>
         void LeeSeisan()
         {
-            //   Rutina que lee el formato SEISAN. La variable con los datos de cuentas, es tridimensional, donde primero se le asigna el numero 
-            //   de archivo, luego el numero de bloque en el archivo y por ultimo los datos de las cuentas. La 
-            //   mayoria de las demas variables son bidimensionales, donde se les asigna primero el numero de archivo
-            //   y el valor de acuerdo al numero de bloque.
-
             short[][] bby;
             int[][][] cuu;
             char[][][] cc;
@@ -6068,13 +6040,6 @@ namespace Proceso20
         /// <param name="va"></param>
         void Dibujo(Panel pan, ushort id, int[] va)
         {
-            /*
-             * Rutina que dibuja toda la traza de la estacion seleccionada y la cual sirve de 
-             * referencia para la clasificacion. id corresponde al numero de traza de la estacion 
-             * seleccionada. La variable 'va' contiene los datos de las cuentas (aqui la traza puede 
-             * estar filtrada o no). La variable tim, contiene el valor del tiempo en formato SUDS.
-             * denom: variable que guarda el numero de lineas para graficar.
-            */
             int i, xf, yf, ix, iy, jj, k, kk, ini, fin, pro, denom, max, min, mxx, mnn, dif = 0;
             int tota, inicio, final, mxp, mnp, cuentana;
             long ll;
@@ -8437,7 +8402,13 @@ namespace Proceso20
             t1esp = t2;
             Espectro(pan, panelBar, id, true);
         }
-
+        /// <summary>
+        /// Determina la posición inicial del espectro y el tiempo desde donde se empieza a calcular.
+        /// </summary>
+        /// <param name="panelBar">Panel que se usa para pasar como parámetro del método Espectro() que llama al final del método.</param>
+        /// <param name="idc">Es la traza escogida del panel de clasificación usada para el espectro.</param>
+        /// <param name="e">Es el evento que desencadena la ejecución del método, este parámetro es usado para determinar
+        /// la posición donde se desencadeno el evento.</param>
         void CalcularEspectroCla(Panel panelBar, ushort idc, MouseEventArgs e)
         {
             int xf, yf, jb;
@@ -8445,31 +8416,38 @@ namespace Proceso20
 
             if (VerEspectro == false || e.X < 40) 
                 return;
-            if (estado == false) return; // la variable estado es false si no existe ninguna lectura de trazas en memoria.
+            if (estado == false) 
+                return; // la variable estado es false si no existe ninguna lectura de trazas en memoria.
 
             xf = panelcladib.Width - 40;
             yf = panelcladib.Height;
-            jb = tim[idc].Length - 1; // tiempo de la ultima muestra
+            jb = tim[idc].Length - 1; // número de la penultima muestra de tiempo de la traza.
             if (tim[idc][jb - 1] <= 0)
             {
                 do
                 {
                     jb -= 1;
-                    if (tim[idc][jb - 1] > 0) break;
+                    if (tim[idc][jb - 1] > 0) 
+                        break;
                 } while (jb > 0);
                 jb -= 1;
             }
-            if (jb < 2) return;
+            if (jb < 2) 
+                return;
             fax = (tie2 - tie1) / xf;
             t2 = (tie1 + (e.X - 40) * fax);
-            if (t2 < tim[idc][0]) return;
-
+            if (t2 < tim[idc][0]) 
+                return;
             xesp = (short)(e.X);
             yesp = (short)(e.Y);
             t1esp = t2;
             Espectro(panelcladib, panelBar, idc, true);
         }
-
+        /// <summary>
+        /// Lanza el método para calcular el espectro dentro del panel de clasificación secundario.
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void panel1a_MouseDown(object sender, MouseEventArgs e)
         {
             CualPanel = 1;
@@ -8483,12 +8461,22 @@ namespace Proceso20
             textBox1.Text = string.Format("{0:00.00}", Fcx1);
             textBox2.Text = string.Format("{0:00.00}", Fcx2);
         }
+        /// <summary>
+        /// Lanza el método  CalcularEspectro(panel1a, panelBarEsp1a, ida, e).
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void panel1a_MouseMove(object sender, MouseEventArgs e)
         {
-            if (moveresp == false) return;
+            if (moveresp == false) 
+                return;
             CalcularEspectro(panel1a, panelBarEsp1a, ida, e);
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void panel1a_MouseUp(object sender, MouseEventArgs e)
         {
             int i, jj, jb, j1, j2, xf, yf, byf;
@@ -8586,14 +8574,23 @@ namespace Proceso20
             }
             return;
         }
-        
+        /// <summary>
+        /// Lanza el método CalcularEspectro() para el panel de clasificación principal (panel1).
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void panel1_MouseMove(object sender, MouseEventArgs e)
         {
             if (moveresp == false) 
                 return;
             CalcularEspectro(panel1, panelBarEsp1, id, e);
         }
-
+        /// <summary>
+        /// Lanza el método CalcularEspectro() en el panel1 e identifica el panel1 como el panel en el que
+        /// se esta realizando la clasificación en ese momento.
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void panel1_MouseDown(object sender, MouseEventArgs e)
         {// el panel1 es donde se dibuja la traza activa.
             CualPanel = 0;
@@ -8610,14 +8607,16 @@ namespace Proceso20
              }*/
             return;
         }
-
+        /// <summary>
+        /// Aquí se busca saber si hay arrastre del mouse sobre la traza. Si se activa el botón izquierdo y se
+        /// desplaza el mouse, se entra al panel de clasificación (si no se arrastra, no se hace nada
+        /// por el momento). Con el botón derecho, se indica el tiempo, absoluto si no hay arrastre o
+        /// el intervalo correspondiente al arrastre.
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void panel1_MouseUp(object sender, MouseEventArgs e)
-        {// el panel1 es donde se dibuja la traza activa. Aqui se busca saber si el raton se desplaza
-            // entre el hundido y el soltado del boton del raton. Si se activa el boton izquierdo y se
-            // desplaza el raton, se entra al panel de clasificacion ( si no se desplaza, no se hace nada
-            // por el momento). Con el boton derecho, se indica el tiempo, absoluto si no hay desplazo o
-            // el intervalo correspondiente al arrastre.
-
+        {
             int xf, yf, i, j, k, nuar, j1, j2, jb, jj, byf, dfcu, mmx, mmn;
             double fax, fay, fcra;
             long tii1 = 0;
@@ -8634,7 +8633,8 @@ namespace Proceso20
                 panel2.Location = new Point(243, 254);
                 panel2.Visible = false;
             }
-            if (estado == false) return; // la variable estado es false si no existe ninguna lectura de trazas en memoria.
+            if (estado == false) 
+                return; // la variable estado es false si no existe ninguna lectura de trazas en memoria.
             bxf = e.X;
             byf = e.Y;
             xf = panel1.Size.Width;
@@ -8649,10 +8649,13 @@ namespace Proceso20
                 } while (jb > 0);
                 jb -= 1;
             }
-            if (jb < 2) return;
+            if (jb < 2) 
+                return;
             jj = 1 + (int)((tim[id][jb] - timin) / dur);
-            if (esp == 0) fay = (yf - 45.0) / jj; // esp es la variable que guarda el espaciamiento entre lineas.
-            else fay = esp;
+            if (esp == 0)
+                fay = (yf - 45.0) / jj; // esp es la variable que guarda el espaciamiento entre lineas.
+            else
+                fay = esp;
             fax = dur / xf;
             j1 = (int)((byi - 45.0) / fay); // se calcula cuantas lineas existen antes de la actual.
             t1 = timin + bxi * fax + j1 * dur; // se tiene en cuenta el tiempo de las lineas anteriores
@@ -9053,8 +9056,8 @@ namespace Proceso20
         }
 
         private void panelcladib_MouseUp(object sender, MouseEventArgs e)
-        { // se busca saber si se ha arrastrado el raton en el panel de clasificacion y si se hace con
-            // el boton derecho (informacion sobre el tiempo o duracion) o izquierdo ( se entra en el panel 
+        { // se busca saber si se ha arrastrado el raton en el panel de clasificación y si se hace con
+            // el botón derecho (informacion sobre el tiempo o duracion) o izquierdo ( se entra en el panel 
             // de coda).
             int xf, yf, bcxf, bcyf, numtotra, i, j, nuu, nuu0, nue, k, jb, dfcu, mmx, mmn;
             long tii1 = 0;
@@ -9239,7 +9242,11 @@ namespace Proceso20
 
             return;
         }
-
+        /// <summary>
+        /// Lanza el método CalcularEspectroCla().
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void panelcladib_MouseMove(object sender, MouseEventArgs e)
         {
             if (movespcla == false) 
@@ -9702,7 +9709,12 @@ namespace Proceso20
             // MessageBox.Show("Fin dibujoClasCoda");
             return;
         }
-
+        /// <summary>
+        /// Indica que se va a asignar el valor de P por ende reinicia los valores de Pti, Sti y Cti,
+        /// con este método se controla la asignación del tiempo de P en el panelcoda.
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void boP_Click(object sender, EventArgs e)
         {// boton de lectura de P en el panel de coda
             Pti = 0;
@@ -9715,9 +9727,14 @@ namespace Proceso20
             BotonesCoda();// rutina que muestra que lectura (P, S o Coda) esta activa. 
             return;
         }
+        /// <summary>
+        /// Indica que se va a asignar el valor de S por ende reinicia el valor de Sti,
+        /// con este método se controla la asignación del tiempo de S en el panelcoda.
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void boS_Click(object sender, EventArgs e)
         {// boton de lectura de S en el panel de coda
-
             Sti = 0;
             Pcd = false;
             Scd = true;
@@ -9726,6 +9743,12 @@ namespace Proceso20
             BotonesCoda();
             return;
         }
+        /// <summary>
+        /// Indica que se va a asignar el valor de C por ende reinicia el valor de Cti,
+        /// con este método se controla la asignación del tiempo de C en el panelcoda.
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void boC_Click(object sender, EventArgs e)
         {// boton de lectura de Coda en el panel de coda
             Cti = 0;
@@ -9736,20 +9759,30 @@ namespace Proceso20
             BotonesCoda();
             return;
         }
+        /// <summary>
+        /// Controla el color con el que se dibujan los botones boP,boS y boC con el fin de indicar gráficamente 
+        /// que ya se a asignado el valor de P, S o C.
+        /// </summary>
         void BotonesCoda()
         {// muestra cual boton es el activo.
             boP.BackColor = Color.Lavender;
             boS.BackColor = Color.Lavender;
             boC.BackColor = Color.Lavender;
-            if (Pcd == true) boP.BackColor = Color.MediumSeaGreen;
-            else if (Scd == true) boS.BackColor = Color.MediumSeaGreen;
-            else if (Ccd == true) boC.BackColor = Color.MediumSeaGreen;
+            if (Pcd == true) 
+                boP.BackColor = Color.MediumSeaGreen;
+            else if (Scd == true) 
+                boS.BackColor = Color.MediumSeaGreen;
+            else if (Ccd == true) 
+                boC.BackColor = Color.MediumSeaGreen;
         }
-
+        /// <summary>
+        /// Desplaza la traza en el panelcoda hacia la izquierda.
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void boizqco_MouseDown(object sender, MouseEventArgs e)
-        {// desplaza la traza en el panel de coda hacia la izquierda.
+        {
             double tii1, tii2;
-
             if (e.Button == MouseButtons.Left)
             {
                 tii1 = t1cod + 2.0;
@@ -9760,16 +9793,22 @@ namespace Proceso20
                 tii1 = t1cod + 10.0;
                 tii2 = t2cod + 10.0;
             }
-            if (tii2 > tie2) return;
+            if (tii2 > tie2) 
+                return;
             t1cod = tii1;
             t2cod = tii2;
-            if (t2cod > tie2) t2cod = tie2;
+            if (t2cod > tie2) 
+                t2cod = tie2;
             panelcoda.Invalidate();
             return;
         }
-
+        /// <summary>
+        /// Desplaza la traza en el panelcoda hacia la derecha.
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void boderco_MouseDown(object sender, MouseEventArgs e)
-        {// desplaza la traza en el panel de coda hacia la derecha.
+        {
             double tii1, tii2;
 
             if (e.Button == MouseButtons.Left)
@@ -9789,12 +9828,15 @@ namespace Proceso20
             panelcoda.Invalidate();
             return;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void bodilco_MouseDown(object sender, MouseEventArgs e)
         {// Zoom positivo a la traza de coda.
             int lar;
             double tii;
-
             if (e.Button == MouseButtons.Left)
             {
                 tii = t2cod - 2.0;
