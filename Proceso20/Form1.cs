@@ -886,6 +886,9 @@ namespace Proceso20
         bool filtcod = false;
         bool calcfiltcod = false;
         bool tipofiltcod = true;
+        /// <summary>
+        /// Controla la saturación en la visualización de la señal.
+        /// </summary>
         bool satu = false;
         bool sihayclas = false;
         bool elimiclas = false;
@@ -898,6 +901,9 @@ namespace Proceso20
         bool seguir = false;
         bool analogico = false;
         bool promecod = false;
+        /// <summary>
+        /// Indica si la traza en el panelcoda se debe dibujar de forma analógica o no.
+        /// </summary>
         bool analogcoda = false;
         bool vista = false;
         bool pausa = false;
@@ -9010,18 +9016,24 @@ namespace Proceso20
 
             return;
         }
-
+        /// <summary>
+        /// Esta pendiente
+        /// </summary>
         void PromedioFiltrado()
         {
             int i, mxx, mnn, nmi, nmf;
 
-            if (VD[id] == '*') return;
+            if (VD[id] == '*') 
+                return;
             nmi = (int)((tDR1 - tim[id][0]) * ra[id]);
-            if (nmi < 0) nmi = 0;
+            if (nmi < 0)
+                nmi = 0;
             nmf = (int)((tDR2 - tim[id][0]) * ra[id]);
-            if (nmf > cu[id].Length) nmf = cu[id].Length;
+            if (nmf > cu[id].Length)
+                nmf = cu[id].Length;
             //MessageBox.Show("nmi=" + nmi.ToString() + " nmf=" + nmf.ToString() + " <10=" + (nmf - nmi).ToString());
-            if (nmf - nmi < 10) return;
+            if (nmf - nmi < 10)
+                return;
             cfD = new int[cu[id].Length];
             cfD = util.PasaAltos(cu[id], M, (float)(ra[id]), 0.5);
 
@@ -9030,11 +9042,17 @@ namespace Proceso20
             for (i = nmi + 1; i <= nmf; i++)
             {
                 if (mxx < cfD[i]) mxx = cfD[i];
-                else if (mnn > cfD[i]) mnn = cfD[i];
+                else if (mnn > cfD[i]) 
+                    mnn = cfD[i];
             }
             promDR = (int)((mxx + mnn) / 2.0);
         }
-
+        /// <summary>
+        /// Método que se ejecuta cuando se da click con el  mouse sobre el panel de clasificación 
+        /// para desplegar el panel donde se muestra el espectro de una porción de la traza. 
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void panelcladib_MouseDown(object sender, MouseEventArgs e)
         {// panelcladib: panel de clasificacion.
             int numtotra, i, j, nuu, nuesp, yf;
@@ -9055,10 +9073,13 @@ namespace Proceso20
                     for (i = 0; i < nutra; i++)
                     {
                         siesta[i] = siEst[i];
-                        if (boNano.Text == "Nan" && fcnan[i] <= 0) siesta[i] = false;
+                        if (boNano.Text == "Nan" && fcnan[i] <= 0) 
+                            siesta[i] = false;
                     }
                     numtotra = 0;
-                    for (i = 0; i < nutra; i++) if (siesta[i] == true) numtotra += 1;
+                    for (i = 0; i < nutra; i++) 
+                        if (siesta[i] == true) 
+                            numtotra += 1;
                     yf = panelcladib.Size.Height;
                     fay = yf / (double)(numtotra);
                     nuu = (int)(e.Y / fay);
@@ -9076,7 +9097,8 @@ namespace Proceso20
                             j += 1;
                         }
                     }
-                    if (nuesp > -1) idc = (ushort)(nuesp);
+                    if (nuesp > -1) 
+                        idc = (ushort)(nuesp);
                     CalcularEspectroCla(panelBarEsp1, idc, e);
                     movespcla = true;
                 }
@@ -9094,11 +9116,14 @@ namespace Proceso20
 
             return;
         }
-
+        /// <summary>
+        /// Se busca saber si se ha arrastrado el mouse en el panel de clasificación,
+        /// si se hace con el botón derecho (información sobre el tiempo o duración) o izquierdo (entra en el panel de coda).
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void panelcladib_MouseUp(object sender, MouseEventArgs e)
-        { // se busca saber si se ha arrastrado el raton en el panel de clasificación y si se hace con
-            // el botón derecho (informacion sobre el tiempo o duracion) o izquierdo ( se entra en el panel 
-            // de coda).
+        { 
             int xf, yf, bcxf, bcyf, numtotra, i, j, nuu, nuu0, nue, k, jb, dfcu, mmx, mmn;
             long tii1 = 0;
             double dif = 0, ti1, ti2, fax, fay, dd;
@@ -9107,7 +9132,8 @@ namespace Proceso20
 
             NoMostrar = true;
             movespcla = false;
-            if (panelFFTzoom.Visible == true) return;
+            if (panelFFTzoom.Visible == true) 
+                return;
             bcxf = e.X;
             bcyf = e.Y;
             //MessageBox.Show("bcxf=" + bcxf.ToString() + " bcyf=" + bcyf.ToString());
@@ -9123,7 +9149,8 @@ namespace Proceso20
                 boguiCla.BackColor = Color.White;
                 return;
             }
-            if ((int)(Math.Abs(e.X - bcxi)) < 5 && e.Button == MouseButtons.Left) return;
+            if ((int)(Math.Abs(e.X - bcxi)) < 5 && e.Button == MouseButtons.Left) 
+                return;
             fax = (tie2 - tie1) / xf;
             ti1 = tie1 + ((bcxi - 40) * fax);
             ti2 = tie1 + ((bcxf - 40) * fax);
@@ -9137,10 +9164,13 @@ namespace Proceso20
             for (i = 0; i < nutra; i++)
             {
                 siesta[i] = siEst[i];
-                if (boNano.Text == "Nan" && fcnan[i] <= 0) siesta[i] = false;
+                if (boNano.Text == "Nan" && fcnan[i] <= 0) 
+                    siesta[i] = false;
             }
             numtotra = 0;
-            for (i = 0; i < nutra; i++) if (siesta[i] == true) numtotra += 1;
+            for (i = 0; i < nutra; i++) 
+                if (siesta[i] == true) 
+                    numtotra += 1;
             //fay = yf / (numtotra + 0.5);
             fay = yf / (double)(numtotra);
             //nuu = (int)((e.Y+(fay/2.0))/fay);
@@ -9179,17 +9209,21 @@ namespace Proceso20
                         if (nue > -1)
                         {
                             i = (int)((ti1 - tim[nue][0]) * ra[nue]);
-                            if (i < 0) i = 0;
+                            if (i < 0)
+                                i = 0;
                             j = (int)((ti2 - tim[nue][0]) * ra[nue]);
-                            if (j > jb) j = jb;
+                            if (j > jb) 
+                                j = jb;
                             if (j > 0 && j > i)
                             {
                                 mmx = cu[nue][i];
                                 mmn = mmx;
                                 for (k = i + 1; k < j; k++)
                                 {
-                                    if (mmx < cu[nue][k]) mmx = cu[nue][k];
-                                    else if (mmn > cu[nue][k]) mmn = cu[nue][k];
+                                    if (mmx < cu[nue][k]) 
+                                        mmx = cu[nue][k];
+                                    else if (mmn > cu[nue][k]) 
+                                        mmn = cu[nue][k];
                                 }
                                 dfcu = mmx - mmn;
                                 ss += " " + dfcu.ToString() + " cue";
@@ -9257,7 +9291,8 @@ namespace Proceso20
                 numtotra = 0;
                 for (i = 0; i < nutra; i++)
                 {
-                    if (siesta[i] == true) numtotra += 1;
+                    if (siesta[i] == true) 
+                        numtotra += 1;
                 }
                 fay = yf / (numtotra + 0.5);
                 nuu = (int)(e.Y / fay);
@@ -9293,9 +9328,13 @@ namespace Proceso20
                 return;
             CalcularEspectroCla(panelBarEsp1, idc, e);
         }
-
+        /// <summary>
+        /// Dibuja la traza de la estación seleccionada, en el panel de Coda.
+        /// </summary>
+        /// <param name="va">Vector con las cuentas que forman una traza especifica.</param>
+        /// <param name="idd">El id de la estación a la que se va asignar los valores P, S, C.</param>
         void Dibujocoda(int[] va, short idd)
-        {// Dibuja la traza de la estacion seleccionada, en el panel de Coda.
+        {
             int xf, yf, pro = 0, max, min, lar, kk, k, dif, tot;
             int i, nmi = 0, nmf = 0, minu, seg, frac, cuentana;
             float x1, y1, SP;
@@ -9306,12 +9345,14 @@ namespace Proceso20
 
             // t1cod: tiempo inicial de la ventana de coda.
             // t2cod: tiempo final de la ventana de coda.
-            if (t1cod == t2cod) return;
+            if (t1cod == t2cod) 
+                return;
             panelcoda.BackColor = colfondo;
 
             try
             {
-                if (panelmarca.Visible == true) panelmarca.Visible = false;
+                if (panelmarca.Visible == true) 
+                    panelmarca.Visible = false;
                 panelcoda.BringToFront();
                 util.borra(panelcoda, colfondo);
                 xf = panelcoda.Size.Width - 70;
@@ -9335,7 +9376,8 @@ namespace Proceso20
                 nmf = tot;
                 for (k = 0; k < tot; k++)
                 {
-                    if (tim[idd][k] >= t1cod) break;
+                    if (tim[idd][k] >= t1cod) 
+                        break;
                 }
                 nmi = k;
                 for (k = nmi; k < tot; k++)
@@ -9348,8 +9390,10 @@ namespace Proceso20
                 min = max;
                 for (k = nmi + 1; k < nmf; k++)
                 {
-                    if (max < va[k]) max = va[k];
-                    else if (min > va[k]) min = va[k];
+                    if (max < va[k]) 
+                        max = va[k];
+                    else if (min > va[k]) 
+                        min = va[k];
                 }
 
                 //if (analogico == false && analogcoda == false)
@@ -9373,21 +9417,25 @@ namespace Proceso20
                         }
                     }
                     pro = promEst[idd];
-                    if (pro == 0) pro = (int)((max + min) / 2.0F);
+                    if (pro == 0) 
+                        pro = (int)((max + min) / 2.0F);
                     fayy = (float)(100.0 / (cuentana * ga[idd]));
                 }
                 //if (analogico == false && analogcoda==false)
                 if (analogcoda == false)
                 {
-                    if (max - pro != 0) fy = ((fayy / 2) / ((max - pro)));
+                    if (max - pro != 0) 
+                        fy = ((fayy / 2) / ((max - pro)));
                     else fy = 1;
                 }
                 else fy = fayy;
 
                 //pro = (int)(pro * ampcod);
                 iniy = panelcoda.Size.Height / 2;
-                if (!char.IsLetterOrDigit(est[idd][4])) esta = est[nucod].Substring(0, 4);
-                else esta = est[nucod];
+                if (!char.IsLetterOrDigit(est[idd][4])) 
+                    esta = est[nucod].Substring(0, 4);
+                else 
+                    esta = est[nucod];
                 dc.DrawString(esta, new Font("Times New Roman", 8, FontStyle.Bold), brocha, 1, 10);
                 dat = new Point[lar];
                 kk = 0;
@@ -9435,11 +9483,14 @@ namespace Proceso20
                     {
                         for (k = nmi; k < nmf; k++)
                         {
-                            if (kk >= lar) break;
+                            if (kk >= lar) 
+                                break;
                             dif = (int)(ampcod * va[k] - pro);
                             diff = dif * fy;
-                            if (diff > fxsat) diff = fxsat;
-                            else if (diff < fmsat) diff = fmsat;
+                            if (diff > fxsat) 
+                                diff = fxsat;
+                            else if (diff < fmsat) 
+                                diff = fmsat;
                             y1 = (float)(iniy - diff);
                             x1 = (float)(40.0 + (tim[idd][k] - t1cod) * fax);
                             dat[kk].Y = (int)y1;
@@ -9451,11 +9502,14 @@ namespace Proceso20
                     {
                         for (k = nmi; k < nmf; k++)
                         {
-                            if (kk >= lar) break;
+                            if (kk >= lar)
+                                break;
                             dif = (int)(pro - (ampcod * va[k]));
                             diff = dif * fy;
-                            if (diff > fxsat) diff = fxsat;
-                            else if (diff < fmsat) diff = fmsat;
+                            if (diff > fxsat)
+                                diff = fxsat;
+                            else if (diff < fmsat) 
+                                diff = fmsat;
                             y1 = (float)(iniy - diff);
                             x1 = (float)(40.0 + (tim[idd][k] - t1cod) * fax);
                             dat[kk].Y = (int)y1;
@@ -9478,8 +9532,10 @@ namespace Proceso20
                         if (seg == 0)
                         {
                             minu = int.Parse(string.Format("{0:mm}", fech));
-                            if (minu == 0) dc.DrawLine(lap1, x1, 1, x1, 14);
-                            else dc.DrawLine(lap2, x1, 1, x1, 10);
+                            if (minu == 0)
+                                dc.DrawLine(lap1, x1, 1, x1, 14);
+                            else
+                                dc.DrawLine(lap2, x1, 1, x1, 10);
                         }
                         else dc.DrawLine(lap0, x1, 1, x1, 6);
                     }
@@ -9869,7 +9925,7 @@ namespace Proceso20
             return;
         }
         /// <summary>
-        /// 
+        /// Zoom positivo a la traza de coda.
         /// </summary>
         /// <param name="sender">El objeto que lanza el evento.</param>
         /// <param name="e">El evento que se lanzó.</param>
@@ -9886,14 +9942,19 @@ namespace Proceso20
                 tii = t2cod - 10.0;
             }
             lar = tim[nucod].Length;
-            if (tii - t1cod < 0.1) return;
+            if (tii - t1cod < 0.1) 
+                return;
             t2cod = tii;
             panelcoda.Invalidate();
             return;
         }
-
+        /// <summary>
+        /// Zoom negativo a la traza de coda.
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void bocomco_MouseDown(object sender, MouseEventArgs e)
-        {// Zoom negativo a la traza de coda.
+        {
             int lar;
             double tii;
 
@@ -9912,7 +9973,11 @@ namespace Proceso20
             panelcoda.Invalidate();
             return;
         }
-
+        /// <summary>
+        /// Cierra el panel de coda.
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void boXcod_Click(object sender, EventArgs e)
         {// se cierra el panel de coda
             panelcoda.Visible = false;
@@ -9930,21 +9995,30 @@ namespace Proceso20
             return;
 
         }
-
+        /// <summary>
+        /// Detecta el punto donde se desea poner P en el panelcoda. 
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void panelcoda_MouseDown(object sender, MouseEventArgs e)
         {
             bpxi = e.X;
             bpyi = e.Y;
-            if (panelmarca.Visible == true) panelmarca.Visible = false;
+            if (panelmarca.Visible == true) 
+                panelmarca.Visible = false;
             return;
         }
-
+        /// <summary>
+        /// Busca saber si se arrastra o no el mouse en el panel de coda.
+        /// Si se arrastra el mouse se entra en el panel para la lectura de la amplitud y frecuencia.
+        /// Si no se arrastra y se pulsa el botón izquierdo, se hace las lecturas secuenciales de P, S y Coda.
+        /// Si es con el botón derecho, siempre se lee la coda. Si el botón HUECO existe y está activado,
+        /// las lecturas corresponden a los huecos para los cálculos de energía, de acuerdo al Observatorio de Pasto.
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void panelcoda_MouseUp(object sender, MouseEventArgs e)
-        {// se busca saber si se arrastra o no el raton en el panel de coda. Si se arrastra el raton,
-            // se entra en el panel para la lectura de la amplitud y frecuencia. Si no se arrastra y se
-            // pulsa el boton izquierdo, se hace las lecturas secuenciales de P, S y Coda. Si es con el
-            // boton derecho, siempre se lee la coda. Si el boton HUECO existe y esta activado, las lecturas
-            // corresponden a los huecos para los calculos de energia, de acuerdo al Observatorio de Pasto.
+        {
             int bpxf, bpyf, i, xf, yf, i1, i2, mx, mn;
             double ti1, ti2, tii, fax, dura, tt1, tt2, dif;
             char[] delim = { ' ', '\t' };
@@ -9959,9 +10033,12 @@ namespace Proceso20
             fax = dura / xf;
             ti1 = t1cod + ((bpxi - 40.0) * fax);
             ti2 = t1cod + ((bpxf - 40.0) * fax);
-            if (Pcd == true) i = 0;
-            else if (Scd == true) i = 1;
-            else i = 2;
+            if (Pcd == true)
+                i = 0;
+            else if (Scd == true) 
+                i = 1;
+            else 
+                i = 2;
 
             if (e.Button == MouseButtons.Right && Math.Abs(bpxf - bpxi) >= 3)
             { // se indica el intervalo de tiempo equivalente al sector de arrastre.               
@@ -9980,7 +10057,8 @@ namespace Proceso20
                         Pcd = false;
                         Scd = false;
                         Ccd = false;
-                        if (e.Button == MouseButtons.Right) i = 2; // si boton derecho se lee coda
+                        if (e.Button == MouseButtons.Right) 
+                            i = 2; // si boton derecho se lee coda
                         if (i == 0)
                         {
                             Pti = ti1;
@@ -9991,8 +10069,10 @@ namespace Proceso20
                             }
                             leido = false;
                         }
-                        else if (i == 1) Sti = ti1;
-                        else Cti = ti1;
+                        else if (i == 1)
+                            Sti = ti1;
+                        else
+                            Cti = ti1;
                         if (Sti > 0 && Sti <= Pti)
                         {
                             NoMostrar = true;
@@ -10006,7 +10086,8 @@ namespace Proceso20
                             NoMostrar = true;
                             DialogResult result = MessageBox.Show("S-P > 300 segundos, CONTINUAR??",
                                             "CONTINUAR ???", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                            if (result == DialogResult.No) return;
+                            if (result == DialogResult.No) 
+                                return;
                         }
                         if (Cti > 0 && (Cti <= Pti || Cti <= Sti) && leido == false)
                         {
@@ -10016,9 +10097,12 @@ namespace Proceso20
                             Ccd = true;
                             return;
                         }
-                        if (i == 0) Scd = true;
-                        else if (i == 1) Ccd = true;
-                        else Pcd = true;
+                        if (i == 0) 
+                            Scd = true;
+                        else if (i == 1)
+                            Ccd = true;
+                        else 
+                            Pcd = true;
                         BotonesCoda(); // rutina que muestra el boton activo
                         panelcoda.Invalidate();
                     }
@@ -10056,6 +10140,8 @@ namespace Proceso20
                         if (promecod == false)
                         {
                             panelAmp.Visible = true;
+                            bool cond = panelAmp.Visible;///esto es mio
+                            if (cond) MessageBox.Show("hola");///esto es mio
                             labelMrc.Text = "";
                             t1amp = ti1; // tiempo inicial y final en que se busca el valor del periodo
                             t2amp = ti2; // y la maxima amplitud pico a pico
@@ -10068,8 +10154,10 @@ namespace Proceso20
                             promecod = false;
                             boPromCoda.BackColor = Color.PaleGoldenrod;
                             if (i1 < 0) i1 = 0;
-                            if (i2 <= 0) return;
-                            if (i2 >= cu[nucod].Length) i2 = cu[nucod].Length - 1;
+                            if (i2 <= 0) 
+                                return;
+                            if (i2 >= cu[nucod].Length)
+                                i2 = cu[nucod].Length - 1;
                             mx = cu[nucod][i1];
                             mn = mx;
                             for (i = i1 + 1; i <= i2; i++)
@@ -10105,7 +10193,8 @@ namespace Proceso20
             string ss = "";
             Point[] dat;
 
-            if (t1amp == t2amp) return;
+            if (t1amp == t2amp)
+                return;
             if (panelmarca.Visible == true) 
                 panelmarca.Visible = false;
             panelAmp.BringToFront();
@@ -10439,7 +10528,8 @@ namespace Proceso20
             Point[] dat;
 
 
-            if (panelAmp.Visible == false) return;
+            if (panelAmp.Visible == false) 
+                return;
 
             xf = panelcoda.Size.Width - 70;
             yf = panelcoda.Size.Height - 30;
@@ -11551,7 +11641,8 @@ namespace Proceso20
             if (nucod < 0) return;
             if (ampcod == 1.0F) boaumco.BackColor = Color.White;
             else boaumco.BackColor = Color.Brown;
-            if (filtcod == false) Dibujocoda(cu[nucod], nucod);
+            if (filtcod == false) 
+                Dibujocoda(cu[nucod], nucod);
             else Dibujocoda(cf, nucod);
             if (panelbotinfcoda.Visible == true)
             {
