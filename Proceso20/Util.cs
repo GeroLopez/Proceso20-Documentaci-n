@@ -276,7 +276,6 @@ namespace Proceso20
 
             return (contdatos);
         }
-
         /*  public ushort Leerbase2(Panel panel, string rutbas, long ll1, long ll2, string[] cl, string[] volcan)
           {
               // rutina que chequea si a determinado minuto corresponde sismos clasificados y si 
@@ -463,9 +462,16 @@ namespace Proceso20
 
             return;
         }
-
-        public void MarcaTiempo(Panel panel, double timin, double[] tim, ushort esp,
-               float dur, int denom)
+        /// <summary>
+        /// Calcula a que distancia se deben pintar las líneas zapotes que se pintan como marcas de tiempo y  pinta las lineas.
+        /// </summary>
+        /// <param name="panel">El panel donde se pintan las marcas.</param>
+        /// <param name="timin">Tiempo mínimo del que se registró una traza.</param>
+        /// <param name="tim">Representa el tiempo de cada valor de cuenta para una traza especifica.</param>
+        /// <param name="esp">Es el espaciamiento entre líneas.</param>
+        /// <param name="dur">Duración de tiempo del intervalo donde se arrastra el mouse.</param>
+        /// <param name="denom">Denominador que se tiene en cuenta a la hora de dibujar las líneas.</param>
+        public void MarcaTiempo(Panel panel, double timin, double[] tim, ushort esp, float dur, int denom)
         {
             int i;
             int xf, yf, jb, b;
@@ -480,8 +486,10 @@ namespace Proceso20
             yf = panel.Size.Height;
 
             jb = tim.Length - 1;
-            if (esp == 0) fay = (yf - 45.0) / (double)(denom);
-            else fay = esp;
+            if (esp == 0) 
+                fay = (yf - 45.0) / (double)(denom);
+            else
+                fay = esp;
             fax = xf / dur;
 
             ll = (long)timin;
@@ -517,10 +525,33 @@ namespace Proceso20
 
             return;
         }
-
-        public void PonePepas(Panel panel, double timin, double[] tim, ushort esp, float dur,
-              ushort contampl, double[] valampl, byte[] clR, byte[] clG, byte[] clB, char[] letampl,
-                 string[] cl, float tam, short nucla, bool[] siPampl, char[] volampl, char voll, bool cond,
+        /// <summary>
+        /// Dibuja las pepas que indican en donde se ha clasificado un sismo.
+        /// </summary>
+        /// <param name="panel">El panel donde se pintan las pepas.</param>
+        /// <param name="timin">Tiempo mínimo del que se registró una traza.</param>
+        /// <param name="tim">Representa el tiempo de cada valor de cuenta para una traza especifica.</param>
+        /// <param name="esp">Es el espaciamiento entre líneas.</param>
+        /// <param name="dur">Duración de tiempo del intervalo donde se arrastra el mouse.</param>
+        /// <param name="contampl">Cantidad de lecturas de amplitud de la base.</param>
+        /// <param name="valampl"></param>
+        /// <param name="clR">Representa la intensidad del color rojo.</param>
+        /// <param name="clG">Representa la intensidad del celor verde.</param>
+        /// <param name="clB">Representa la intensidad del color azul.</param>
+        /// <param name="letampl"></param>
+        /// <param name="cl">Tipos de clasificaciones que se pueden asignar a un sismo.</param>
+        /// <param name="tam">Tamaño de las pepas.</param>
+        /// <param name="nucla">Cantidad de clasificaciones disponibles.</param>
+        /// <param name="siPampl"></param>
+        /// <param name="volampl"></param>
+        /// <param name="voll">Primera inicial del volcán.</param>
+        /// <param name="cond">Visualización de pepas del volcán activo.</param>
+        /// <param name="nolec">Indica si hay o no lecturas.</param>
+        /// <param name="tigrabacion"></param>
+        /// <param name="leclec"></param>
+        /// <param name="denom">Denominador que se tiene en cuenta a la hora de dibujar las líneas.</param>
+        public void PonePepas(Panel panel, double timin, double[] tim, ushort esp, float dur, ushort contampl, double[] valampl, byte[] clR,
+            byte[] clG, byte[] clB, char[] letampl, string[] cl, float tam, short nucla, bool[] siPampl, char[] volampl, char voll, bool cond,
                    bool nolec, double tigrabacion, char leclec, int denom)
         {
             int xf, yf, jb, j, b, kk, kkk, i;
@@ -534,15 +565,18 @@ namespace Proceso20
                 xf = panel.Size.Width;
                 yf = panel.Size.Height;
                 jb = tim.Length - 1;
-                if (esp == 0) fay = (yf - 45.0) / (double)(denom);
-                else fay = esp;
+                if (esp == 0) 
+                    fay = (yf - 45.0) / (double)(denom);
+                else 
+                    fay = esp;
                 fax = xf / dur;
                 tf = tim[jb - 1];
 
                 Graphics dc = panel.CreateGraphics();
                 Pen lapiz = new Pen(Color.Black, 1);
 
-                if (tam == 2.0F) tam = 1.9F;
+                if (tam == 2.0F) 
+                    tam = 1.9F;
 
                 if (contampl > 0)
                 {
@@ -557,13 +591,15 @@ namespace Proceso20
                             kk = -1;
                             for (i = 0; i < nucla; i++)
                             {
-                                if (letampl[j] == cl[i][1]) kk = i;
+                                if (letampl[j] == cl[i][1]) 
+                                    kk = i;
                             }
                             if (cond == true && kk > -1)
                             {
                                 kkk = kk;
                                 kk = -1;
-                                if (volampl[j] == voll) kk = kkk;
+                                if (volampl[j] == voll) 
+                                    kk = kkk;
                             }
                             if (kk > -1)
                             {
@@ -2300,7 +2336,13 @@ namespace Proceso20
 
             return (h);
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="M"></param>
+        /// <param name="rat"></param>
+        /// <param name="Fc"></param>
+        /// <returns></returns>
         public double[] HAlto(short M, float rat, double Fc)
         {
             int i, j;
@@ -2308,7 +2350,8 @@ namespace Proceso20
 
             h = new double[M];
             h = HBajo(M, rat, Fc);
-            for (i = 0; i < M; i++) h[i] = -h[i];
+            for (i = 0; i < M; i++) 
+                h[i] = -h[i];
             j = (int)(M / 2.0);
             h[j] = h[j] + 1.0;
 
@@ -2362,7 +2405,14 @@ namespace Proceso20
 
             return (cf);
         }
-
+        /// <summary>
+        /// Se utiliza para aplicar un filtro que atenue las frecuencias mas bajas de la señal.
+        /// </summary>
+        /// <param name="dat"></param>
+        /// <param name="M"></param>
+        /// <param name="rat"></param>
+        /// <param name="Fc"></param>
+        /// <returns></returns>
         public int[] PasaAltos(int[] dat, short M, float rat, double Fc)
         {
             int i, j, k;
@@ -2372,7 +2422,8 @@ namespace Proceso20
 
             h = new double[M];
             cf = new int[dat.Length];
-            for (i = 0; i < dat.Length; i++) cf[i] = 0;
+            for (i = 0; i < dat.Length; i++) 
+                cf[i] = 0;
             h = HAlto(M, rat, Fc);
             for (j = (int)(M / 2.0); j < (dat.Length - (int)(M / 2.0)); j++)
             {
