@@ -13486,7 +13486,7 @@ namespace Proceso20
             orden = new double[nucan];
             ya = new bool[nucan];
             fax = xf / durac;         // factor en la horizontal
-            fay = yf / (nucan + 0.5); // factor en la vertical
+            fay = yf / (nucan + 0.5); // factor en la vertical vertical
 
             for (i = 0; i < nucan; i++)
             {
