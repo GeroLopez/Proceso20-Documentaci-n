@@ -276,11 +276,11 @@ namespace Proceso20
         /// </summary>
         float tam = 10.0F;
         /// <summary>
-        /// tamaños visuales 
+        /// Factor para el tamaño de la amplitud en el panelcoda. 
         /// </summary>
         float ampcod = 1.0F;
         /// <summary>
-        /// 
+        /// Factor para el tamaño de la amplitud en el panelamp. 
         /// </summary>
         float ampamp = 1.0F;
         /// <summary>
@@ -924,7 +924,10 @@ namespace Proceso20
         public bool desactivado = false;
         public bool MLVista = false;
         public bool MLsi = false;
-        public Boolean[] invertido;// si se quiere visualizar invertida una traza
+        /// <summary>
+        /// Determina si se dibuja o no invertida una traza.
+        /// </summary>
+        public Boolean[] invertido;
 
         bool vigilancia = false;
         string estvig = "";
@@ -3423,7 +3426,6 @@ namespace Proceso20
 
             return;
         }
-
         /// <summary>
         /// Esta rutina lee las trazas en formato SUDS Multiplexado. Los datos de las cuentas vienen
         /// entonces por paquetes o bloques; se utiliza entonces una variable provisional en un 
@@ -3978,7 +3980,6 @@ namespace Proceso20
 
             return (1);
         }
-
         /// <summary>
         /// Esta rutina lee los datos en formato SUDS Demultiplexado. Los datos de cuentas se guardan en una
         /// variable tridimensional (cuu), donde primeramente se asigna el numero de archivo, luego el numero de 
@@ -4386,15 +4387,15 @@ namespace Proceso20
         /// <summary>
         /// Rutina que adecua el nombre del archivo con ciertas caracteristicas (ver la rutina siguiente)
         /// </summary>
-        /// <param name="sian"></param>
-        /// <param name="sime"></param>
-        /// <param name="sidi"></param>
-        /// <param name="nomprincipal"></param>
-        /// <param name="nomext"></param>
-        /// <param name="fech"></param>
+        /// <param name="sian">Si existe la carpeta del año es igual a true en caso contrario es false.</param>
+        /// <param name="sime">Si existe la carpeta del mes es igual a true en caso contrario es false.</param>
+        /// <param name="sidi">Si existe la carpeta del día es igual a true en caso contrario es false.</param>
+        /// <param name="nomprincipal">El nombre principal de la traza.</param>
+        /// <param name="nomext">La extensión de archive de la traza.</param>
+        /// <param name="fech">La fecha que registra la traza.</param>
         /// <returns></returns>
         string Nombre10(bool sian, bool sime, bool sidi, string nomprincipal, string nomext, DateTime fech)
-        {// Rutina que adecua el nombre del archivo con ciertas caracteristicas (ver la rutina siguiente)
+        {
             short numcara = 0;
             int j, k;
             string nom = "";
@@ -4408,13 +4409,16 @@ namespace Proceso20
                     do
                     {
                         numcara += 1;
-                        if (nomprincipal[k++] != 'Y') break;
+                        if (nomprincipal[k++] != 'Y')
+                            break;
                     } while (nomprincipal[k - 1] == 'Y');
                     j += numcara - 1;
                     if (numcara > 0)
                     {
-                        if (numcara == 4) nom += string.Format("{0:yyyy}", fech);
-                        else if (numcara == 2) nom += string.Format("{0:yy}", fech);
+                        if (numcara == 4) 
+                            nom += string.Format("{0:yyyy}", fech);
+                        else if (numcara == 2) 
+                            nom += string.Format("{0:yy}", fech);
                     }
                 }
                 else if (nomprincipal[j] == 'M')
@@ -4443,7 +4447,21 @@ namespace Proceso20
 
             return (nom);
         }
-
+        /// <summary>
+        /// Rutina que lee el formato GCF de las Guralp. Debe tenerse encuenta que en este formato, los
+        /// datos se encuentran invertidos (little endian vs. big endian. El manual no lo dice), asi que
+        /// hay que invertir los datos. Normalmente el visual c# tiene la instrucción array.reverse() 
+        /// para invertir el arreglo. Aqui se usa la notación binaria tal y como se usaba en los 
+        /// programas en D.O.S. (C de la Borland, version 3.1). (Se debe leer el manual del scream, para
+        /// conocer este formato). Aqui a diferencia del formato SUDS, los datos se desglozan en 
+        /// archivos individuales por traza, por lo que es necesario tener un archivo adicional, donde 
+        /// se encuentre el nombre de las carpetas y su ruta. La variable con los datos de cuentas, es 
+        /// tridimensional, donde primero se le asigna el numero de archivo, luego el numero de bloque 
+        /// en el archivo y por ultimo los datos de las cuentas. La  mayoria de las demas variables son 
+        /// bidimensionales, donde se les asigna primero el numero de archivo y el valor de acuerdo al 
+        /// numero de bloque.
+        /// </summary>
+        /// <returns></returns>
         int LeeGcf()
         {
             /*
@@ -4494,7 +4512,8 @@ namespace Proceso20
             bool[] sidi;
             bool[] siho;
             bool[] simi;
-            string nomarch = "", nomini = "";
+            string nomarch = "";
+            string nomini = "";
 
 
             nomarch = ".\\pro\\" + archgcf;
@@ -4623,7 +4642,8 @@ namespace Proceso20
                         if (sidi[ii] == true) nom += "\\" + string.Format("{0:dd}", fech2);
                         nom += "\\" + nomgcf[ii] + "\\";
                         if (largo[ii] == 9) nom += string.Format("{0:MM}{0:dd}{0:HH}{0:mm}.", fech2) + nomext[ii];
-                        else if (largo[ii] == 10) nom += Nombre10(sian[ii], sime[ii], sidi[ii], nomprincipal[ii], nomext[ii], fech2);
+                        else if (largo[ii] == 10) 
+                            nom += Nombre10(sian[ii], sime[ii], sidi[ii], nomprincipal[ii], nomext[ii], fech2);
                         if (File.Exists(nom))
                         {
                             si = true;
@@ -4852,8 +4872,8 @@ namespace Proceso20
                             if (sidi[ii] == true) nom += "\\" + string.Format("{0:dd}", fech4);
                             nom += "\\" + nomgcf[ii] + "\\";
                             if (largo[ii] == 9) nom += string.Format("{0:MM}{0:dd}{0:HH}{0:mm}.", fech4) + nomext[ii];
-                            else if (largo[ii] == 10) nom += Nombre10(sian[ii],
-                             sime[ii], sidi[ii], nomprincipal[ii], nomext[ii], fech4);
+                            else if (largo[ii] == 10) 
+                                nom += Nombre10(sian[ii],sime[ii], sidi[ii], nomprincipal[ii], nomext[ii], fech4);
 
                             if (tiempotot > totven * 60.0) break;
                         } while (ide < listBox1.Items.Count);
@@ -5069,8 +5089,8 @@ namespace Proceso20
         /// <summary>
         /// Rutina que lee el formato SEISAN. La variable con los datos de cuentas, es tridimensional, donde primero se le asigna el numero 
         /// de archivo, luego el numero de bloque en el archivo y por ultimo los datos de las cuentas. La 
-        ///  mayoria de las demas variables son bidimensionales, donde se les asigna primero el numero de archivo
-        ///  y el valor de acuerdo al numero de bloque.
+        /// mayoria de las demas variables son bidimensionales, donde se les asigna primero el numero de archivo
+        /// y el valor de acuerdo al numero de bloque.
         /// </summary>
         void LeeSeisan()
         {
@@ -5712,7 +5732,12 @@ namespace Proceso20
 
             return;
         }
-
+        /// <summary>
+        /// Este formato corresponde a las Oriones de la Kinemetrics. Los datos se encuentran desglozados
+        /// por estaciones con carpetas diferentes. No se pudo contar con suficientes datos en este formato,
+        /// por lo que se sigue la costumbre de la RSNC, donde los datos se encuentran por HORAS, comenzando
+        /// en la hora exacta. En versiones posteriores debe mejorarse esta rutina.
+        /// </summary>
         void LeeYfile() // provisional. se presume sismos por hora y comienzan en la hora exacta.
         {
             /*
@@ -6052,14 +6077,14 @@ namespace Proceso20
         }
         /// <summary>
         /// Rutina que dibuja toda la traza de la estación seleccionada y la cual sirve de 
-        /// referencia para la clasificación. id corresponde al numero de traza de la estacion 
+        /// referencia para la clasificación, 'id' corresponde al numero de traza de la estación 
         /// seleccionada. La variable 'va' contiene los datos de las cuentas (aqui la traza puede 
         /// estar filtrada o no). La variable tim, contiene el valor del tiempo en formato SUDS.
         /// denom: variable que guarda el numero de lineas para graficar.
         /// </summary>
-        /// <param name="pan"></param>
-        /// <param name="id"></param>
-        /// <param name="va"></param>
+        /// <param name="pan">Panel donde se dibuja la traza, generalmente son los paneles panel1 y panel1a.</param>
+        /// <param name="id">Corresponde al número de traza de la estación seleccionada.</param>
+        /// <param name="va">Contiene los datos de las cuentas.</param>
         void Dibujo(Panel pan, ushort id, int[] va)
         {
             int i, xf, yf, ix, iy, jj, k, kk, ini, fin, pro, denom, max, min, mxx, mnn, dif = 0;
@@ -6084,31 +6109,40 @@ namespace Proceso20
             else
             {
                 col = Color.DarkGoldenrod;
-                if (colfondo != Color.Black) col2 = Color.Linen;
-                else col2 = Color.DarkGray;
+                if (colfondo != Color.Black)
+                    col2 = Color.Linen;
+                else
+                    col2 = Color.DarkGray;
             }
-            mxp = 0; mnp = 0;
-            if (!char.IsLetterOrDigit(est[id][1]) && !char.IsLetterOrDigit(est[id][2])) return;
+            mxp = 0;
+            mnp = 0;
+            if (!char.IsLetterOrDigit(est[id][1]) && !char.IsLetterOrDigit(est[id][2]))
+                return;
 
             try
             {
                 pan.BackColor = col2;
                 util.borra(pan, col2);
-                if (pan == panel1a) tota = va.Length - M;
-                else tota = va.Length;
+                if (pan == panel1a)
+                    tota = va.Length - M;
+                else
+                    tota = va.Length;
                 if (tim[id][tota - 1] <= 0)
                 {
                     do
                     {
                         tota -= 1;
-                        if (tim[id][tota - 1] > 0) break;
+                        if (tim[id][tota - 1] > 0)
+                            break;
                     } while (tota > 0);
                 }
                 jj = 0;
-                if (tota < 2) return;
+                if (tota < 2)
+                    return;
                 dd = totven * 60.0;
                 denom = (int)(Math.Abs(Math.Ceiling((tim[id][tota - 1] - timin) / dur)));
-                if (denom <= 0) denom = 1;
+                if (denom <= 0)
+                    denom = 1;
 
                 // En el caso que sipro=2, es porque se ha buscado el promedio de un sector de traza, 
                 // el cual esta comprendido entre la muestra p1 y la p2.
@@ -6120,25 +6154,33 @@ namespace Proceso20
                     mnp = mxp;
                     for (k = inicio + 1; k < final; k++)
                     {
-                        if (mxp < va[k]) mxp = va[k];
-                        else if (mnp > va[k]) mnp = va[k];
+                        if (mxp < va[k])
+                            mxp = va[k];
+                        else if (mnp > va[k])
+                            mnp = va[k];
                     }
                 }
-                if (filt == true) inicio = 250;
+                if (filt == true)
+                    inicio = 250;
                 else
                 {
-                    if (pan == panel1a) inicio = M;
+                    if (pan == panel1a)
+                        inicio = M;
                     else
                         inicio = 1;
                 }
                 xf = pan.Size.Width;
                 yf = pan.Size.Height;
                 numda = new int[denom];
-                for (k = 0; k < denom; k++) numda[k] = 0;
+                for (k = 0; k < denom; k++)
+                    numda[k] = 0;
 
-                if (esp == 0) fay = (float)((yf - 45.0F) / (double)(denom));
-                else fay = esp;
-                if (analogico == false) fayy = fay;// provi
+                if (esp == 0)
+                    fay = (float)((yf - 45.0F) / (double)(denom));
+                else
+                    fay = esp;
+                if (analogico == false)
+                    fayy = fay;// provi
                 else
                 {
                     cuentana = CuentasAnalogico;
@@ -6160,17 +6202,21 @@ namespace Proceso20
                 min = max;
                 for (k = inicio + 1; k < tota; k++)
                 {
-                    if (max < va[k]) max = va[k];
-                    else if (min > va[k]) min = va[k];
+                    if (max < va[k])
+                        max = va[k];
+                    else if (min > va[k])
+                        min = va[k];
                 }
                 for (k = inicio + 1; k < tota; k++)
                 {
                     jj = (int)((tim[id][k] - timin) / dur);
-                    if (jj > denom || jj < 0) continue;
+                    if (jj > denom || jj < 0)
+                        continue;
 
                     if (jj > -1)
                     {
-                        if (jj >= denom) break;
+                        if (jj >= denom)
+                            break;
                         numda[jj] += 1;
                     }
                 }
@@ -6178,15 +6224,18 @@ namespace Proceso20
                     pro = (int)((mxp + mnp) / 2.0);
                 else
                 {
-                    if (PROMEDIO <= 0) pro = (int)((max + min) / 2.0F);
+                    if (PROMEDIO <= 0)
+                        pro = (int)((max + min) / 2.0F);
                     else
                     {
                         mxx = va[0];
                         mnn = mxx;
                         for (i = 1; i < PROMEDIO; i++)
                         {
-                            if (mxx < va[i]) mxx = va[i];
-                            else if (mnn > va[i]) mnn = va[i];
+                            if (mxx < va[i])
+                                mxx = va[i];
+                            else if (mnn > va[i])
+                                mnn = va[i];
                         }
                         pro = (int)((mxx + mnn) / 2.0);
                     }
@@ -6194,16 +6243,23 @@ namespace Proceso20
                 //if (est[id].Substring(0, 4) == "GREZ") MessageBox.Show("sipro="+sipro.ToString()+" pro="+pro.ToString());
                 if (analogico == false)
                 {
-                    if (max - pro != 0) fy = ((fayy / 2) / ((max - pro)));
-                    else fy = 1;
+                    if (max - pro != 0)
+                        fy = ((fayy / 2) / ((max - pro)));
+                    else
+                        fy = 1;
                 }
-                else fy = fayy;
-                if (est[id].Length > 4 && !char.IsLetterOrDigit(est[id][4])) esta = est[id].Substring(0, 4);
-                else esta = est[id];
+                else
+                    fy = fayy;
+                if (est[id].Length > 4 && !char.IsLetterOrDigit(est[id][4]))
+                    esta = est[id].Substring(0, 4);
+                else
+                    esta = est[id];
                 //promEst[id] = pro;
 
-                if (max - pro != 0) fsatu = ((fay / 2) / ((max - pro)));
-                else fsatu = 1;
+                if (max - pro != 0)
+                    fsatu = ((fay / 2) / ((max - pro)));
+                else
+                    fsatu = 1;
                 dif = max - pro;
                 diff = dif * fsatu;
                 fxsat = (float)(diff + satur * diff * 0.5);   // fxsat y fmsat, son variables para la opcion de saturacion.
@@ -6219,7 +6275,8 @@ namespace Proceso20
                 SolidBrush brocha4 = new SolidBrush(Color.Goldenrod);
                 SolidBrush brocha5 = new SolidBrush(Color.Gray);
 
-                kk = 0; iniy = 0;
+                kk = 0;
+                iniy = 0;
                 ll = (long)(Fei + timin * 10000000.0);
                 DateTime fech = new DateTime(ll);
                 ss = string.Format("{0:yyyy}/{0:MM}/{0:dd} {0:HH}:{0:mm}:{0:ss}", fech);
@@ -6231,10 +6288,13 @@ namespace Proceso20
                 ss = "usuario: " + usu;
                 dc.DrawString(ss, new Font("Times New Roman", 10), brocha5, 170, 3);
                 ca = "";
-                if (no30[id] == true) ca = "## ";
-                if (siTraslapo[id] == true) ca += "!!   ";
+                if (no30[id] == true)
+                    ca = "## ";
+                if (siTraslapo[id] == true)
+                    ca += "!!   ";
                 ca += esta + "   (" + tar[id] + ")";
-                if (siRoto[id] == true) ca += "   !! ";
+                if (siRoto[id] == true)
+                    ca += "   !! ";
                 dc.DrawString(ca, new Font("Times New Roman", 12, FontStyle.Bold), brocha, xf / 2 - 50, 10);
                 if (invertido[id] == true)
                 {
@@ -6259,7 +6319,8 @@ namespace Proceso20
                             jj = 0;
                             dat = new Point[numda[k]];
                             fin = ini + numda[k];
-                            if (fin > tota) fin = tota;
+                            if (fin > tota)
+                                fin = tota;
                             iniy = incy + 45 + k * fay + fay / 2;
                             //Pen laaa = new Pen(Color.Red, 1);
                             //dc.DrawLine(laaa, 1, iniy, xf, iniy);
@@ -6334,7 +6395,7 @@ namespace Proceso20
                                     }
                                 }
                             }
-                            dc.DrawLines(lapiz, dat);
+                            dc.DrawLines(lapiz, dat);//Aca es donde grafica
                             ini += numda[k];
                         }
                     }
@@ -6345,10 +6406,14 @@ namespace Proceso20
 
                 if (kk > 0 && iniy > 0 && iniy < yf)
                 {
-                    if (x1 < xf - 110) ix = (int)(x1);
-                    else ix = xf - 110;
-                    if (esp == 0) iy = yf - 20;
-                    else iy = (int)(iniy + fay);
+                    if (x1 < xf - 110)
+                        ix = (int)(x1);
+                    else
+                        ix = xf - 110;
+                    if (esp == 0)
+                        iy = yf - 20;
+                    else
+                        iy = (int)(iniy + fay);
                     ll = (long)(Fei + tim[id][kk - 1] * 10000000.0);
                     DateTime fech2 = new DateTime(ll);
                     ss = string.Format("{0:yyyy}/{0:MM}/{0:dd} {0:HH}:{0:mm}:{0:ss}", fech2);
@@ -7670,7 +7735,7 @@ namespace Proceso20
 
         /// <summary>
         /// Controla el estado de la variable sipro la cual indica el promedio de la señal, además
-        /// cambia el color del botón boprom dependiendo dicho estado.
+        /// cambia el color del botón boprom dependiendo del estado de dicha variable.
         /// </summary>
         void Promedio()
         {// boton para seleccionar el promedio de la señal, el cual sirve como cero de referencia.
@@ -11490,7 +11555,7 @@ namespace Proceso20
         }
 
         /// <summary>
-        /// 
+        /// Hace llamado al programa PSW del sismologo Jaime Raigosa
         /// </summary>
         /// <param name="sender">El objeto que lanza el evento.</param>
         /// <param name="e">El evento que se lanzó.</param>
@@ -11603,9 +11668,11 @@ namespace Proceso20
             util.Dos(ca, true);
             return;
         }
-
+        /// <summary>
+        /// Invierte los colores del fondo.
+        /// </summary>
         void Invertir()
-        {// invierte los colores del fondo.
+        {
             if (colfondo == Color.Black)
             {
                 colinea = Color.Black;
@@ -11625,20 +11692,27 @@ namespace Proceso20
                 colC = Color.Orange;
             }
 
-            if (panelcla.Visible == true) DibujoTrazas();
-            if (panelcoda.Visible == true) panelcoda.Invalidate();
-            if (panelAmp.Visible == true) panelAmp.Invalidate();
+            if (panelcla.Visible == true) 
+                DibujoTrazas();
+            if (panelcoda.Visible == true)
+                panelcoda.Invalidate();
+            if (panelAmp.Visible == true)
+                panelAmp.Invalidate();
 
             panel1.Invalidate();
             return;
         }
-
+        /// <summary>
+        /// hace llamado a la rutina que invierte el color del fondo
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void boInv_Click(object sender, EventArgs e)
-        {// hace llamado a la rutina que invierte el color del fondo
+        {
             Invertir();
         }
         /// <summary>
-        /// Repinta el panel principal (panel1).
+        /// Repinta los paneles principales (panel1)y (panel1a).
         /// </summary>
         /// <param name="sender">El objeto que lanza el evento.</param>
         /// <param name="e">El evento que se lanzó.</param>
@@ -11655,8 +11729,10 @@ namespace Proceso20
                 NoMostrar = false;
                 desactivado = false;
             }
-            if (panelValFFt.Visible == true) return;
-            if (panelBarEsp1.Visible == true && moveresp == true) return;
+            if (panelValFFt.Visible == true) 
+                return;
+            if (panelBarEsp1.Visible == true && moveresp == true) 
+                return;
             if (stop == true)
             {
                 splitContainer1.Visible = false;
@@ -11664,21 +11740,27 @@ namespace Proceso20
                 stop = false;
                 vista = false;
             }
-            if (estado == false) return;
+            if (estado == false) 
+                return;
             try
             {
-                if (id >= nutra && nutra > 0) id = 1;
+                if (id >= nutra && nutra > 0) 
+                    id = 1;
                 if (filt == false)
                 {
                     Dibujo(panel1, id, cu[id]);
                     if (panel1a.Visible == true)
                     {
-                        if (filtx == false) Dibujo(panel1a, ida, cu[ida]);
-                        else Dibujo(panel1a, ida, cfx);
+                        if (filtx == false) 
+                            Dibujo(panel1a, ida, cu[ida]);
+                        else 
+                            Dibujo(panel1a, ida, cfx);
                     }
                 }
-                else Dibujo(panel1, id, cf);
-                if (tremor == true && tinitremor > 0) Cuadro_Tremor();
+                else  
+                    Dibujo(panel1, id, cf);
+                if (tremor == true && tinitremor > 0) 
+                    Cuadro_Tremor();
             }
             catch
             {

@@ -470,7 +470,7 @@ namespace Proceso20
         /// <param name="tim">Representa el tiempo de cada valor de cuenta para una traza especifica.</param>
         /// <param name="esp">Es el espaciamiento entre líneas.</param>
         /// <param name="dur">Duración de tiempo del intervalo donde se arrastra el mouse.</param>
-        /// <param name="denom">Denominador que se tiene en cuenta a la hora de dibujar las líneas.</param>
+        /// <param name="denom">Cantidad de lineas que se dibujan.</param>
         public void MarcaTiempo(Panel panel, double timin, double[] tim, ushort esp, float dur, int denom)
         {
             int i;
@@ -655,7 +655,8 @@ namespace Proceso20
             int i, ii, j, k, xx, yy, kk, xf, yf;
             string esta = "", ca = "";
 
-            if (panelEsta.Visible == false) return (-1);
+            if (panelEsta.Visible == false) 
+                return (-1);
 
             xf = panelEsta.Size.Width;
             yf = panelEsta.Size.Height;
