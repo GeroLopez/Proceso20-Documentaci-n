@@ -3427,21 +3427,18 @@ namespace Proceso20
             return;
         }
         /// <summary>
-        /// Esta rutina lee las trazas en formato SUDS Multiplexado. Los datos de las cuentas vienen
-        /// entonces por paquetes o bloques; se utiliza entonces una variable provisional en un 
-        /// arreglo tridimensional (cuu). La primera dimension corresponde al numero de archivo; la
-        /// segunda al numero del bloque en el archivo y la tercera a la posicion de la cuenta en 
-        /// el bloque. El tiempo y la rata de muestreo, se guardan en variables locales 
-        /// bidimensionales, ya que ambos valores vienen indicados solo al inicio de los bloques. 
-        /// Lo mismo para las variables bby (numero de bytes de los datos); dmx (numero de muestras 
-        /// por bloque para cada estacion); compo (componente vertical, Este o Norte); gana (ganancia de la
-        /// estacion en la tarjeta).
-        /// Una vez guardados los valores en estas variables, se comprueba si hay huecos o 
-        /// traslapos entre los archivos y finalmente se asignan los valores a las variables 
-        /// globales (cu, tim, ra, etc.).
+        /// Esta rutina lee las trazas en formato SUDS Multiplexado. Los datos de las cuentas vienen entonces por paquetes o bloques;
+        /// se utiliza una variable provisional en un arreglo tridimensional (cuu). La primera dimensión corresponde al número de archivo;
+        /// la segunda al número del bloque en el archivo y la tercera a la posición de la cuenta en el bloque.
+        /// El tiempo y la rata de muestreo, se guardan en variables locales bidimensionales, ya que ambos valores vienen indicados
+        /// solo al inicio de los bloques. Lo mismo para las variables bby (número de bytes de los datos);
+        /// dmx (número de muestras por bloque para cada estación); compo (componente vertical, Este o Norte);
+        /// gana (ganancia de la estación en la tarjeta).
+        /// Una vez guardados los valores en estas variables, se comprueba si hay huecos o traslapos entre los archivos
+        /// y finalmente se asignan los valores a las variables globales (cu, tim, ra, etc.).
         /// </summary>
-        /// <param name="inu"></param>
-        /// <returns></returns>
+        /// <param name="inu">Indica la tarjeta en formato MUX a leer.</param>
+        /// <returns>1 en caso de que el método se ejecute exitosamente, 0 en caso contrario.</returns>
         int LeeMux(int inu)
         {
             int[] cana, blo;
@@ -3474,13 +3471,16 @@ namespace Proceso20
             char cc = ' ';
 
 
-            if (yamux[inu] == true) return (0);
+            if (yamux[inu] == true) 
+                return (0);
             ininutra = nutra;
             dift[0] = 0.0;
             dift[1] = 0.0;
             cont = 0;
-            if (utmux[inu] != 0) ut = (double)(utmux[inu]) * 3600.0;
-            else ut = 0;
+            if (utmux[inu] != 0) 
+                ut = (double)(utmux[inu]) * 3600.0;
+            else 
+                ut = 0;
             lis = listBox1.SelectedItem.ToString();
             nulis = (short)(listBox1.SelectedIndex);
             num = (ushort)(durmux[inu] / 60.0);
@@ -3981,15 +3981,15 @@ namespace Proceso20
             return (1);
         }
         /// <summary>
-        /// Esta rutina lee los datos en formato SUDS Demultiplexado. Los datos de cuentas se guardan en una
-        /// variable tridimensional (cuu), donde primeramente se asigna el numero de archivo, luego el numero de 
-        /// traza y por ultimo los datos de cuentas. La mayoria de las demas variables son bidimensionales, donde 
-        /// se guarda primeramente el numero de archivo y luego el valor de acuerdo al numero de traza. Por
-        /// ultimo, se asignan los datos a las variables globales, estacion por estacion.
-        /// En esencia la rutina es muy parecida a la anterior (SUDS Multiplexado), solo que aqui,
-        /// los datos se desglozan completamente por estacion.
+        /// Esta rutina lee los datos en formato SUDS Demultiplexado.
+        /// Los datos de cuentas se guardan en una variable tridimensional (cuu),
+        /// donde primeramente se asigna el número de archivo, luego el número de traza y por último los datos de cuentas.
+        /// La mayoría de las demás variables son bidimensionales, donde se guarda primeramente el número de archivo y luego
+        /// el valor de acuerdo al número de traza. Por último, se asignan los datos a las variables globales, estación por estación.
+        /// En esencia la rutina es muy parecida a la anterior (SUDS Multiplexado), solo que aquí,
+        /// los datos se desglosan completamente por estación.
         /// </summary>
-        /// <param name="inu"></param>
+        /// <param name="inu">Indica la tarjeta en formato MUX a leer.</param>
         void LeeDmx(int inu)
         {
             int[] cana, siete;
@@ -4448,36 +4448,20 @@ namespace Proceso20
             return (nom);
         }
         /// <summary>
-        /// Rutina que lee el formato GCF de las Guralp. Debe tenerse encuenta que en este formato, los
-        /// datos se encuentran invertidos (little endian vs. big endian. El manual no lo dice), asi que
-        /// hay que invertir los datos. Normalmente el visual c# tiene la instrucción array.reverse() 
-        /// para invertir el arreglo. Aqui se usa la notación binaria tal y como se usaba en los 
-        /// programas en D.O.S. (C de la Borland, version 3.1). (Se debe leer el manual del scream, para
-        /// conocer este formato). Aqui a diferencia del formato SUDS, los datos se desglozan en 
-        /// archivos individuales por traza, por lo que es necesario tener un archivo adicional, donde 
-        /// se encuentre el nombre de las carpetas y su ruta. La variable con los datos de cuentas, es 
-        /// tridimensional, donde primero se le asigna el numero de archivo, luego el numero de bloque 
-        /// en el archivo y por ultimo los datos de las cuentas. La  mayoria de las demas variables son 
-        /// bidimensionales, donde se les asigna primero el numero de archivo y el valor de acuerdo al 
-        /// numero de bloque.
+        /// Rutina que lee el formato GCF de las Guralp. Debe tenerse en cuenta que en este formato, los datos se encuentran
+        /// invertidos (little endian vs. big endian. El manual no lo dice), así que hay que invertir los datos.
+        /// Normalmente el visual c# tiene la instrucción array.reverse() para invertir el arreglo.
+        /// Aquí se usa la notación binaria tal y como se usaba en los programas en D.O.S. (C de la Borland, versión 3.1).
+        /// (Se debe leer el manual del scream, para conocer este formato). Aquí a diferencia del formato SUDS, los datos se desglosan
+        /// en  archivos individuales por traza, por lo que es necesario tener un archivo adicional,
+        /// donde se encuentre el nombre de las carpetas y su ruta. La variable con los datos de cuentas, es tridimensional,
+        /// donde primero se le asigna el número de archivo, luego el número de bloque en el archivo y por último los datos de las cuentas.
+        /// La  mayoría de las demás variables son bidimensionales, donde se les asigna primero el número de archivo
+        /// y el valor de acuerdo al número de bloque.
         /// </summary>
         /// <returns></returns>
         int LeeGcf()
         {
-            /*
-             * Rutina que lee el formato GCF de las Guralp. Debe tenerse encuenta que en este formato, los
-             * datos se encuentran invertidos (little endian vs. big endian. El manual no lo dice), asi que
-             * hay que invertir los datos. Normalmente el visual c# tiene la instruccion array.reverse() 
-             * para invertir el arreglo. Aqui se usa la notacion binaria tal y como se usaba en los 
-             * programas en D.O.S. (C de la Borland, version 3.1). (Se debe leer el manual del scream, para
-             * conocer este formato). Aqui a diferencia del formato SUDS, los datos se desglozan en 
-             * archivos individuales por traza, por lo que es necesario tener un archivo adicional, donde 
-             * se encuentre el nombre de las carpetas y su ruta. La variable con los datos de cuentas, es 
-             * tridimensional, donde primero se le asigna el numero de archivo, luego el numero de bloque 
-             * en el archivo y por ultimo los datos de las cuentas. La  mayoria de las demas variables son 
-             * bidimensionales, donde se les asigna primero el numero de archivo y el valor de acuerdo al 
-             * numero de bloque.
-            */
             int[][] rat;
             int[][][] cuu;
             double[][] tii;
@@ -5087,10 +5071,10 @@ namespace Proceso20
             return (1);
         }
         /// <summary>
-        /// Rutina que lee el formato SEISAN. La variable con los datos de cuentas, es tridimensional, donde primero se le asigna el numero 
-        /// de archivo, luego el numero de bloque en el archivo y por ultimo los datos de las cuentas. La 
-        /// mayoria de las demas variables son bidimensionales, donde se les asigna primero el numero de archivo
-        /// y el valor de acuerdo al numero de bloque.
+        /// Rutina que lee el formato SEISAN. La variable con los datos de cuentas, es tridimensional,
+        /// donde primero se le asigna el número de archivo, luego el número de bloque en el archivo y por último los datos de las cuentas.
+        /// La mayoría de las demás variables son bidimensionales, donde se les asigna primero el número de archivo y el
+        /// valor de acuerdo al número de bloque.
         /// </summary>
         void LeeSeisan()
         {
@@ -10261,9 +10245,12 @@ namespace Proceso20
 
             return;
         }
+        /// <summary>
+        /// Rutina que dibuja el sector de traza escogido en el panel de coda y donde se efectua la
+        /// lectura de la amplitud y el periodo.
+        /// </summary>
         void DibAmpl()
-        { // rutina que dibuja el sector de traza escogido en el panel de coda y donde se efectua la
-            // lectura de la amplitud y el periodo.
+        {
             int xf, yf, pro = 0, max, min, lar, kk, k, dif, tot = 0;
             int nmi = 0, nmf = 0;
             float x1, x2, y1;
@@ -10615,10 +10602,11 @@ namespace Proceso20
             panelAmp.Invalidate();
             return;
         }
-
+        /// <summary>
+        /// Dibuja en el panel de coda, el sector correspondiente al periodo y amplitud leídas.
+        /// </summary>
         void DibujoCodaAmp()
         {
-            // dibuja en el panel de coda, el sector correspondiente al periodo y amplitud leidas.
             int xf, yf, i, k, kk, lar, max, min, pro, dif = 0, nm1, nm2, tot;
             int[] nmi = new int[3];
             int[] nmf = new int[3];
@@ -10653,8 +10641,10 @@ namespace Proceso20
                 min = max;
                 for (k = nm1 + 1; k < nm2; k++)
                 {
-                    if (max < cu[nucod][k]) max = cu[nucod][k];
-                    else if (min > cu[nucod][k]) min = cu[nucod][k];
+                    if (max < cu[nucod][k]) 
+                        max = cu[nucod][k];
+                    else if (min > cu[nucod][k]) 
+                        min = cu[nucod][k];
                 }
             }
             else
@@ -10693,15 +10683,18 @@ namespace Proceso20
                     if (i != 1) lapiz = new Pen(colinea, 1);
                     else lapiz = new Pen(Color.Orange, 1);
                     lar = nmf[i] - nmi[i];
-                    if (analogico == false && analogcoda == false) pro = (int)((max + min) / 2.0F);
+                    if (analogico == false && analogcoda == false) 
+                        pro = (int)((max + min) / 2.0F);
                     else
                     {
                         pro = promEst[nucod];
                         max = pro + (int)(CuentasAnalogico / 2.0);
                         min = pro - (int)(CuentasAnalogico / 2.0);
                     }
-                    if (max - pro != 0) fy = ((fay / 2) / ((max - pro)));
-                    else fy = 1;
+                    if (max - pro != 0) 
+                        fy = ((fay / 2) / ((max - pro)));
+                    else 
+                        fy = 1;
                     //pro = (int)(pro * ampcod);
                     iniy = panelcoda.Size.Height / 2.0;
                     dat = new Point[lar];
@@ -10801,10 +10794,15 @@ namespace Proceso20
             bayi = e.Y;
             return;
         }
-
+        /// <summary>
+        /// Fin del intervalo de lectura del panel de amplitud.
+        /// Dicho intervalo equivale al Periodo.
+        /// Se buscca ademas el valor maximo de cuentas pico a pico.
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void panelAmp_MouseUp(object sender, MouseEventArgs e)
         {
-            // fin del intervalo de lectura del panel de amplitud. Dicho intervalo equivale al Periodo. Se buscca ademas el valor maximo de cuentas pico a pico.
             int baxf, bayf, xf, yf, nmi, nmf, max, min, k, tot;
             double fax, facra, Vel, mmW, sp = 0, val = 8.0;
             double ti1, ti2, tii;
@@ -10913,6 +10911,7 @@ namespace Proceso20
 
             return;
         }
+       
         void variasamplitudes(string clasi, string clas, string ss)
         {
             // rutina que lee el archivo donde se guardan los valores de las lecturas cuando 
@@ -21039,21 +21038,5 @@ You need to replace yoursmtphost with your host address.
 
         }
         */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 }

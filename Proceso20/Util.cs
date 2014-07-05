@@ -463,7 +463,7 @@ namespace Proceso20
             return;
         }
         /// <summary>
-        /// Calcula a que distancia se deben pintar las líneas zapotes que se pintan como marcas de tiempo y  pinta las lineas.
+        /// Calcula a que distancia se deben pintar las líneas zapotes que se pintan como marcas de tiempo y pinta las líneas.
         /// </summary>
         /// <param name="panel">El panel donde se pintan las marcas.</param>
         /// <param name="timin">Tiempo mínimo del que se registró una traza.</param>
