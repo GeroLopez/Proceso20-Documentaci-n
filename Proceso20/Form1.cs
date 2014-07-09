@@ -3471,15 +3471,15 @@ namespace Proceso20
             char cc = ' ';
 
 
-            if (yamux[inu] == true) 
+            if (yamux[inu] == true)
                 return (0);
             ininutra = nutra;
             dift[0] = 0.0;
             dift[1] = 0.0;
             cont = 0;
-            if (utmux[inu] != 0) 
+            if (utmux[inu] != 0)
                 ut = (double)(utmux[inu]) * 3600.0;
-            else 
+            else
                 ut = 0;
             lis = listBox1.SelectedItem.ToString();
             nulis = (short)(listBox1.SelectedIndex);
@@ -4415,9 +4415,9 @@ namespace Proceso20
                     j += numcara - 1;
                     if (numcara > 0)
                     {
-                        if (numcara == 4) 
+                        if (numcara == 4)
                             nom += string.Format("{0:yyyy}", fech);
-                        else if (numcara == 2) 
+                        else if (numcara == 2)
                             nom += string.Format("{0:yy}", fech);
                     }
                 }
@@ -4626,7 +4626,7 @@ namespace Proceso20
                         if (sidi[ii] == true) nom += "\\" + string.Format("{0:dd}", fech2);
                         nom += "\\" + nomgcf[ii] + "\\";
                         if (largo[ii] == 9) nom += string.Format("{0:MM}{0:dd}{0:HH}{0:mm}.", fech2) + nomext[ii];
-                        else if (largo[ii] == 10) 
+                        else if (largo[ii] == 10)
                             nom += Nombre10(sian[ii], sime[ii], sidi[ii], nomprincipal[ii], nomext[ii], fech2);
                         if (File.Exists(nom))
                         {
@@ -4856,8 +4856,8 @@ namespace Proceso20
                             if (sidi[ii] == true) nom += "\\" + string.Format("{0:dd}", fech4);
                             nom += "\\" + nomgcf[ii] + "\\";
                             if (largo[ii] == 9) nom += string.Format("{0:MM}{0:dd}{0:HH}{0:mm}.", fech4) + nomext[ii];
-                            else if (largo[ii] == 10) 
-                                nom += Nombre10(sian[ii],sime[ii], sidi[ii], nomprincipal[ii], nomext[ii], fech4);
+                            else if (largo[ii] == 10)
+                                nom += Nombre10(sian[ii], sime[ii], sidi[ii], nomprincipal[ii], nomext[ii], fech4);
 
                             if (tiempotot > totven * 60.0) break;
                         } while (ide < listBox1.Items.Count);
@@ -10246,7 +10246,7 @@ namespace Proceso20
             return;
         }
         /// <summary>
-        /// Rutina que dibuja el sector de traza escogido en el panel de coda y donde se efectua la
+        /// Rutina que dibuja el sector de traza escogido en el panel de coda y donde se efectúa la
         /// lectura de la amplitud y el periodo.
         /// </summary>
         void DibAmpl()
@@ -10641,9 +10641,9 @@ namespace Proceso20
                 min = max;
                 for (k = nm1 + 1; k < nm2; k++)
                 {
-                    if (max < cu[nucod][k]) 
+                    if (max < cu[nucod][k])
                         max = cu[nucod][k];
-                    else if (min > cu[nucod][k]) 
+                    else if (min > cu[nucod][k])
                         min = cu[nucod][k];
                 }
             }
@@ -10683,7 +10683,7 @@ namespace Proceso20
                     if (i != 1) lapiz = new Pen(colinea, 1);
                     else lapiz = new Pen(Color.Orange, 1);
                     lar = nmf[i] - nmi[i];
-                    if (analogico == false && analogcoda == false) 
+                    if (analogico == false && analogcoda == false)
                         pro = (int)((max + min) / 2.0F);
                     else
                     {
@@ -10691,9 +10691,9 @@ namespace Proceso20
                         max = pro + (int)(CuentasAnalogico / 2.0);
                         min = pro - (int)(CuentasAnalogico / 2.0);
                     }
-                    if (max - pro != 0) 
+                    if (max - pro != 0)
                         fy = ((fay / 2) / ((max - pro)));
-                    else 
+                    else
                         fy = 1;
                     //pro = (int)(pro * ampcod);
                     iniy = panelcoda.Size.Height / 2.0;
@@ -10795,9 +10795,8 @@ namespace Proceso20
             return;
         }
         /// <summary>
-        /// Fin del intervalo de lectura del panel de amplitud.
-        /// Dicho intervalo equivale al Periodo.
-        /// Se buscca ademas el valor maximo de cuentas pico a pico.
+        /// Fin del intervalo de lectura del panel de amplitud. Dicho intervalo equivale al Periodo. 
+        /// Se busca además el valor máximo de cuentas pico a pico.
         /// </summary>
         /// <param name="sender">El objeto que lanza el evento.</param>
         /// <param name="e">El evento que se lanzó.</param>
@@ -10820,10 +10819,12 @@ namespace Proceso20
             ti1 = t1amp + ((baxi - 10.0) * fax);
             ti2 = t1amp + ((baxf - 10.0) * fax);
 
-            if (baxf == baxi) return;
+            if (baxf == baxi)
+                return;
             else
             {
-                if (clSola > -1) boClaSola.Visible = true;
+                if (clSola > -1)
+                    boClaSola.Visible = true;
                 if (ti1 > ti2)
                 {
                     tii = ti1;
@@ -10839,8 +10840,10 @@ namespace Proceso20
                     Ati = 0;
                     return;
                 }
-                if (ti2 - ti1 > facra) periodo = (float)(ti2 - ti1);// intervalo de lectura.
-                else periodo = 0;
+                if (ti2 - ti1 > facra)
+                    periodo = (float)(ti2 - ti1);// intervalo de lectura.
+                else
+                    periodo = 0;
 
                 tot = tim[nucod].Length;
                 for (k = 0; k < tot; k++)
@@ -10866,8 +10869,10 @@ namespace Proceso20
                     min = max;
                     for (k = nmi + 1; k <= nmf; k++)
                     {
-                        if (max < cu[nucod][k]) max = cu[nucod][k];
-                        else if (min > cu[nucod][k]) min = cu[nucod][k];
+                        if (max < cu[nucod][k])
+                            max = cu[nucod][k];
+                        else if (min > cu[nucod][k])
+                            min = cu[nucod][k];
                     }
                 }
                 else
@@ -10876,12 +10881,15 @@ namespace Proceso20
                     min = max;
                     for (k = nmi + 1; k <= nmf; k++)
                     {
-                        if (max < cf[k]) max = cf[k];
-                        else if (min > cf[k]) min = cf[k];
+                        if (max < cf[k])
+                            max = cf[k];
+                        else if (min > cf[k])
+                            min = cf[k];
                     }
                 }
                 ampp = max - min;
-                if (ampp < 1) ampp = 0;
+                if (ampp < 1)
+                    ampp = 0;
                 panelAmp.Invalidate();
                 bovar.Visible = true;
 
@@ -10893,7 +10901,8 @@ namespace Proceso20
                     CalculoInterpolacion(id);
                     IntegracionSpl(spl);
                 }
-                if (Sti > 0 && Pti > 0) sp = Sti - Pti;
+                if (Sti > 0 && Pti > 0)
+                    sp = Sti - Pti;
                 Mrc = -5.0F;
                 if (periodo > 0 && ampp > 0 && fcnan[nucod] > 0 && sp > 0)
                 {
@@ -10911,11 +10920,15 @@ namespace Proceso20
 
             return;
         }
-       
+        /// <summary>
+        /// Rutina que lee el archivo donde se guardan los valores de las lecturas cuando 
+        /// se realizan lecturas para varios sismos, y guarda dichas lecturas en la base.
+        /// </summary>
+        /// <param name="clasi">Clasificación con la que se guarda el sismo.</param>
+        /// <param name="clas">Clasificación del sismo.</param>
+        /// <param name="ss">Fecha formateada de la traza. ej: 20140318122045 año-mes-día-hora-minuto-segundo.</param>
         void variasamplitudes(string clasi, string clas, string ss)
         {
-            // rutina que lee el archivo donde se guardan los valores de las lecturas cuando 
-            // se realizan lecturas para varios sismos.
             int cont = 0, codd, ga, cu;
             float mm = 0, fre = 0, sp = 0, rata = 0, pe = 0;
             double A, P, C;
@@ -10935,7 +10948,7 @@ namespace Proceso20
                 mm = float.Parse(lin.Substring(21, 10)); // mm en los analogicos si hay factor de conversion
                 pe = float.Parse(lin.Substring(32, 5));  // periodo 
                 sp = float.Parse(lin.Substring(38, 5));  // S-P
-                esta2 = lin.Substring(44, 5);     // bombre de la estacion
+                esta2 = lin.Substring(44, 5);     // nombre de la estacion
                 cu = int.Parse(lin.Substring(50, 9));  // cuentas pico a pico
                 ga = int.Parse(lin.Substring(60, 2));  // ganacia de las cuentas
                 A = double.Parse(lin.Substring(63, 13)); // tiempo de la lectura del inicio de la amplitud
@@ -10948,7 +10961,8 @@ namespace Proceso20
                 let = rutbas + "\\lec\\" + clas.Substring(0, 2) + "\\" + clasi[0] + clasi[2] + ss.Substring(2, 6) + ".txt";
                 if (pe >= 0.001) fre = 1.0F / pe;
                 else fre = 0;
-                if (fre > 99.99F) fre = 99.99F;
+                if (fre > 99.99F)
+                    fre = 99.99F;
                 ca = "";// variable que guarda los valores que se van a grabar
                 ca = string.Format("{0,13:0.00}", tie1) + " " + string.Format("{0,6:0}", codd) + " ";
                 ca += clasi.Substring(0, 3) + " " + String.Format("{0,10:0.0}", mm) + " ";
@@ -10956,8 +10970,10 @@ namespace Proceso20
                 ca += string.Format("{0,6:0.00}", sp) + " ";
                 ca += esta2.Substring(0, 5) + " " + string.Format("{0,9:0}", cu) + " ";
                 ca += string.Format("{0:00}", ga) + " " + sis + " " + string.Format("{0,13:0.00}", A) + " ";
-                if (by[nucod] == 2) ca += 'C' + " ";
-                else ca += 'B' + " ";
+                if (by[nucod] == 2)
+                    ca += 'C' + " ";
+                else
+                    ca += 'B' + " ";
                 ca += string.Format("{0,13:0.00}", P) + " " + string.Format("{0,13:0.00}", C) + " " + string.Format("{0,6:0.00}", ra[nucod]) + " " + usu.Substring(0, 3) + " " + tar[nucod];
 
                 StreamWriter pr2 = File.AppendText(let);
@@ -10969,21 +10985,32 @@ namespace Proceso20
 
             return;
         }
-
+        /// <summary>
+        /// Boton que efectua las lecturas cuando hay varios sismos y las graba en el archivo amplivarias.txt,
+        /// para ser posteriormente leidas y grabadas en la Base.
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void bovar_Click(object sender, EventArgs e)
-        {// Boton que efectua las lecturas cuando hay varios sismos y las graba en el archivo amplivarias.txt, para ser posteriormente leidas y grabadas en la Base.
+        {
             int codd;
             float sp;
             string ca = "";
 
-            if (Pti == 0 || Ati == 0) return;
+            if (Pti == 0 || Ati == 0)
+                return;
 
-            if (Cti > 0) codd = (int)(Cti - Pti);
-            else codd = (int)(tie2 - Pti);
-            if (Sti > 0) sp = (float)(Sti - Pti);
-            else sp = 0;
+            if (Cti > 0)
+                codd = (int)(Cti - Pti);
+            else
+                codd = (int)(tie2 - Pti);
+            if (Sti > 0)
+                sp = (float)(Sti - Pti);
+            else
+                sp = 0;
             //MessageBox.Show("Sti="+Sti.ToString()+" Pti="+Pti.ToString()+" sp="+sp.ToString());
-            if (sp < 0) sp = 0;
+            if (sp < 0)
+                sp = 0;
             if (sp > 300)
             {
                 NoMostrar = true;
@@ -11017,9 +11044,17 @@ namespace Proceso20
 
             return;
         }
-
+        /// <summary>
+        /// Revisa que se hayan grabado las lecturas y la traza en la Base.
+        /// </summary>
+        /// <param name="nomba"></param>
+        /// <param name="sis"></param>
+        /// <param name="lincla"></param>
+        /// <param name="letlec"></param>
+        /// <param name="dd"></param>
+        /// <param name="cc"></param>
         void RevisaGrabacion(string nomba, string sis, string lincla, string letlec, double dd, char cc)
-        { // revisa que se hayan grabado las lecturas y la traza en la Base.
+        {
             int i, j;
 
             i = lincla.Length;
@@ -11045,10 +11080,12 @@ namespace Proceso20
 
             return;
         }
-
-
+        /// <summary>
+        /// Rutina que Graba Todos los datos en la Base.
+        /// </summary>
+        /// <returns></returns>
         int GrabaBase()
-        { //Rutina que Graba Todos los datos en la Base.
+        { 
             int dur, i, nue, codd, cont = 0;
             long ll;
             float fre = 0, sp = 0;
@@ -11061,15 +11098,18 @@ namespace Proceso20
             string[] pa = null;
             bool gralec = true, si = false;
 
-            if (panelmarca.Visible == true) panelmarca.Visible = false;
+            if (panelmarca.Visible == true) 
+                panelmarca.Visible = false;
             if ((tie2 - tie1) < 10.0 && tremor == false)
             {
                 NoMostrar = true;
                 MessageBox.Show("La duracion es menor de 10 segundos!!\nNO SE GRABA NADA EN LA BASE!!!");
                 return (-1);
             }
-            if (estru30 == true) letiem = 'P';
-            else letiem = 'I';
+            if (estru30 == true) 
+                letiem = 'P';
+            else 
+                letiem = 'I';
             if (tremor == false)
             {
                 if ((Pti == 0 || Ati == 0 || periodo == 0 || clas[1] == '_'))
@@ -11082,7 +11122,8 @@ namespace Proceso20
                     let += " SALIR???\n\n";
                     NoMostrar = true;
                     DialogResult result = MessageBox.Show(let, "", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                    if (result == DialogResult.Yes) return (-1);
+                    if (result == DialogResult.Yes) 
+                        return (-1);
                 }
             }
             else
@@ -11125,7 +11166,8 @@ namespace Proceso20
             panel2.BringToFront();
             util.Mensaje(panel2, "Grabando en la Base...\n  Espere por favor....", false);
 
-            if (clas[2] == '+') clasi = volcan[vol][0] + clas.Substring(0, 2);
+            if (clas[2] == '+')
+                clasi = volcan[vol][0] + clas.Substring(0, 2);
             else
             {
                 clasi = 'X' + clas.Substring(0, 2);
@@ -11691,7 +11733,7 @@ namespace Proceso20
                 colC = Color.Orange;
             }
 
-            if (panelcla.Visible == true) 
+            if (panelcla.Visible == true)
                 DibujoTrazas();
             if (panelcoda.Visible == true)
                 panelcoda.Invalidate();
@@ -11728,9 +11770,9 @@ namespace Proceso20
                 NoMostrar = false;
                 desactivado = false;
             }
-            if (panelValFFt.Visible == true) 
+            if (panelValFFt.Visible == true)
                 return;
-            if (panelBarEsp1.Visible == true && moveresp == true) 
+            if (panelBarEsp1.Visible == true && moveresp == true)
                 return;
             if (stop == true)
             {
@@ -11739,26 +11781,26 @@ namespace Proceso20
                 stop = false;
                 vista = false;
             }
-            if (estado == false) 
+            if (estado == false)
                 return;
             try
             {
-                if (id >= nutra && nutra > 0) 
+                if (id >= nutra && nutra > 0)
                     id = 1;
                 if (filt == false)
                 {
                     Dibujo(panel1, id, cu[id]);
                     if (panel1a.Visible == true)
                     {
-                        if (filtx == false) 
+                        if (filtx == false)
                             Dibujo(panel1a, ida, cu[ida]);
-                        else 
+                        else
                             Dibujo(panel1a, ida, cfx);
                     }
                 }
-                else  
+                else
                     Dibujo(panel1, id, cf);
-                if (tremor == true && tinitremor > 0) 
+                if (tremor == true && tinitremor > 0)
                     Cuadro_Tremor();
             }
             catch
