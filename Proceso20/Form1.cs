@@ -7713,10 +7713,8 @@ namespace Proceso20
 
             return;
         }
-
         // las rutinas siguientes, tienen que ver con el panel principal, el cual visualiza la señal de
         // la estacion activa:
-
         /// <summary>
         /// Controla el estado de la variable sipro la cual indica el promedio de la señal, además
         /// cambia el color del botón boprom dependiendo del estado de dicha variable.
@@ -11047,12 +11045,12 @@ namespace Proceso20
         /// <summary>
         /// Revisa que se hayan grabado las lecturas y la traza en la Base.
         /// </summary>
-        /// <param name="nomba"></param>
-        /// <param name="sis"></param>
-        /// <param name="lincla"></param>
-        /// <param name="letlec"></param>
-        /// <param name="dd"></param>
-        /// <param name="cc"></param>
+        /// <param name="nomba">Ruta de la base.</param>
+        /// <param name="sis">Nombre del archivo con el que se graba el sismo, ej "03181021.MLP"</param>
+        /// <param name="lincla">Linea que se guarda en el archivo de sismos clasificados.</param>
+        /// <param name="letlec">Ruta completa de donde se guarda el archivo.</param>
+        /// <param name="dd">Fecha del sismo completa.</param>
+        /// <param name="cc">Nombre del archivo con el que se graba el sismo, ej "03181021.MLP"</param>
         void RevisaGrabacion(string nomba, string sis, string lincla, string letlec, double dd, char cc)
         {
             int i, j;
@@ -11081,11 +11079,12 @@ namespace Proceso20
             return;
         }
         /// <summary>
-        /// Rutina que Graba Todos los datos en la Base.
+        /// Rutina que Graba Todos los datos del sismo en la Base en su propio archivo y además graba
+        /// en el archivo cla.txt el sismo como ya clasificado.
         /// </summary>
         /// <returns></returns>
         int GrabaBase()
-        { 
+        {
             int dur, i, nue, codd, cont = 0;
             long ll;
             float fre = 0, sp = 0;
@@ -11098,7 +11097,7 @@ namespace Proceso20
             string[] pa = null;
             bool gralec = true, si = false;
 
-            if (panelmarca.Visible == true) 
+            if (panelmarca.Visible == true)
                 panelmarca.Visible = false;
             if ((tie2 - tie1) < 10.0 && tremor == false)
             {
@@ -11106,9 +11105,9 @@ namespace Proceso20
                 MessageBox.Show("La duracion es menor de 10 segundos!!\nNO SE GRABA NADA EN LA BASE!!!");
                 return (-1);
             }
-            if (estru30 == true) 
+            if (estru30 == true)
                 letiem = 'P';
-            else 
+            else
                 letiem = 'I';
             if (tremor == false)
             {
@@ -11122,7 +11121,7 @@ namespace Proceso20
                     let += " SALIR???\n\n";
                     NoMostrar = true;
                     DialogResult result = MessageBox.Show(let, "", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                    if (result == DialogResult.Yes) 
+                    if (result == DialogResult.Yes)
                         return (-1);
                 }
             }
@@ -11145,13 +11144,17 @@ namespace Proceso20
                 Cti = tie2;
             }
 
-            if (Pti == 0 && Ati == 0 && periodo == 0) gralec = false;
-            else gralec = true;
+            if (Pti == 0 && Ati == 0 && periodo == 0)
+                gralec = false;
+            else
+                gralec = true;
 
             mm = 0;
             fre = 0;
-            if (ga[nucod] <= 0) ga[nucod] = 1;
-            if (factmm > 0) mm = ((double)(ampp) / (double)(ga[nucod])) * factmm;
+            if (ga[nucod] <= 0)
+                ga[nucod] = 1;
+            if (factmm > 0)
+                mm = ((double)(ampp) / (double)(ga[nucod])) * factmm;
             if ((int)(mm) == ampp && ampp > 0)
             {
                 NoMostrar = true;
@@ -11173,8 +11176,11 @@ namespace Proceso20
                 clasi = 'X' + clas.Substring(0, 2);
             }
             nue = 0;
-            for (i = 0; i < nutra; i++) if (siEst[i] == true) nue += 1;
-            if (nue == 0) return (-1);
+            for (i = 0; i < nutra; i++)
+                if (siEst[i] == true)
+                    nue += 1;
+            if (nue == 0)
+                return (-1);
             dur = (int)(tie2 - tie1);
             dd = Fei + tie1 * 10000000.0;
             ll = (long)(dd);
@@ -11184,7 +11190,7 @@ namespace Proceso20
             añoML = long.Parse(ss.Substring(0, 8));
             sis = ss.Substring(4, 8) + "." + clasi.Substring(0, 3);
             nomba = rutbas + "\\sud\\" + clasi.Substring(1, 2) + "\\" + ss.Substring(2, 2) + "\\" + sis;
-            //MessageBox.Show("ss=" + ss + "\n" + nomba+"\nUTdisp="+UTdisp.ToString());
+            // MessageBox.Show("ss=" + ss + "\n" + nomba+"\nUTdisp="+UTdisp.ToString());
             if (File.Exists(nomba))
             {
                 NoMostrar = true;
@@ -11231,7 +11237,8 @@ namespace Proceso20
                     pr.Write(lincla);
                     for (i = 0; i < nutra; i++)
                     {
-                        if (siEst[i] == true) pr.Write(" " + est[i].Substring(0, 4));
+                        if (siEst[i] == true)
+                            pr.Write(" " + est[i].Substring(0, 4));
                     }
                     pr.WriteLine();
                     pr.Close();
@@ -11281,10 +11288,12 @@ namespace Proceso20
             if (cont >= 1000) MessageBox.Show("Es posible que NO se haya grabado en CLA!! REvise");
 
             // Datos Amplitud, coda, etc.
-            if (nuampvar > 0) variasamplitudes(clasi, clas, ss);
+            if (nuampvar > 0)
+                variasamplitudes(clasi, clas, ss);
             else if (gralec == true)
             {
-                if (Cti > 0) codd = (int)(Cti - Pti);
+                if (Cti > 0)
+                    codd = (int)(Cti - Pti);
                 //else codd = (int)(tie2 - Pti);
                 else codd = 0;
                 if (codd < 0) codd = 0;
@@ -11358,7 +11367,8 @@ namespace Proceso20
             if (nuhueco > 0 && huecolist.Count > 0)
             {
                 ca = rutbas + "\\hue\\" + ss.Substring(2, 2);
-                if (!Directory.Exists(ca)) Directory.CreateDirectory(ca);
+                if (!Directory.Exists(ca))
+                    Directory.CreateDirectory(ca);
                 ca += "\\" + sis;
                 str2 = est[nucod].Substring(0, 4).ToCharArray();
                 FileInfo arhu = new FileInfo(ca);
@@ -11400,9 +11410,16 @@ namespace Proceso20
 
             return (1);
         }
-
+        /// <summary>
+        /// Rutina que graba las trazas en la Base en formato SUDS Demultiplexado.
+        /// </summary>
+        /// <param name="bas">en la ejecución del programa se lo invoca con 3 parámetros diferentes (0, 1 y 2). 
+        ///Cuando se graba con el parámetro = 0 es el formato por defecto.
+        ///Cuando se graba con el parámetro = 1 es para ser leída por el PSW.
+        ///Cuando se graba con el parámetro = 2 es para ser leída por el SCILAB.
+        ///</param>
         void GrabaSuds(short bas)
-        { // rutina que graba las trazas en la Base en formato SUDS Demultiplexado.
+        {
             int i, k, nmi, nmf, lar, tot;
             long ll;
             double dd;
@@ -11486,10 +11503,13 @@ namespace Proceso20
                     str2 = est[i].Substring(0, 5).ToCharArray();
                     str2[4] = '\0';
                     str3[0] = comp[i];// hasta aqui el statident del suds
-                    if (ga[i] <= 0) ga[i] = 1;
+                    if (ga[i] <= 0) 
+                        ga[i] = 1;
                     str25 = ga[i];
-                    if (by[i] == 4) str17 = 'l';
-                    else str17 = 'i';
+                    if (by[i] == 4) 
+                        str17 = 'l';
+                    else 
+                        str17 = 'i';
                     str26 = (int)(tie1);
                     br.Write(str1);
                     br.Write(str2);
@@ -11543,8 +11563,10 @@ namespace Proceso20
                     br.Write(tag3);
                     br.Write(tag4);
                     // estru 7
-                    if (by[i] == 4) sie3 = 'l';
-                    else sie3 = 'i';
+                    if (by[i] == 4) 
+                        sie3 = 'l';
+                    else 
+                        sie3 = 'i';
                     sie7 = (uint)(lar);
                     sie8 = (float)(ra[i]);
 
@@ -11594,16 +11616,14 @@ namespace Proceso20
 
             return;
         }
-
         /// <summary>
-        /// Hace llamado al programa PSW del sismologo Jaime Raigosa
-        /// </summary>
+        /// Hace llamado al programa PSW del sismologo Jaime Raigosa.
+        /// Graba la última lectura en formato Demultiplexado en el archivo psw.dmx y la abre en el PSW.
         /// <param name="sender">El objeto que lanza el evento.</param>
         /// <param name="e">El evento que se lanzó.</param>
         private void boPSW_Click(object sender, EventArgs e)
-        { // hace llamado al programa PSW del sismologo Jaime Raigosa
+        {
             string lin = "";
-
             NoMostrar = true;
             if (File.Exists("psw.dmx"))
                 File.Delete("psw.dmx");
@@ -11611,12 +11631,15 @@ namespace Proceso20
             lin = "/C .\\psw\\psw.exe psw.dmx";// demux2.dmx " + nomj + " demux.dmx";
             util.Dos(lin, true);
             DibujoTrazas();
-
             return;
         }
-
+        /// <summary>
+        /// Llama al programa libre SCILAB.
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void boScilab_Click(object sender, EventArgs e)
-        { // hace llamado al programa libre SCILAB
+        {
             long ll;
             string lin = "", fe3 = "";
 
@@ -11688,9 +11711,13 @@ namespace Proceso20
             }
             return;
         }
-
+        /// <summary>
+        /// Borra varios de los archivos utilizados al cerrar el programa.
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
-        {// al cerrar el programa, borra varios de los archivos utilizados.
+        {
             string ca;
 
             if (vista == true)
@@ -11980,9 +12007,15 @@ namespace Proceso20
 
             return;
         }
-
+        /// <summary>
+        /// Rutina que adecua y hace llamado al Octave pra filtrar la señal.
+        /// </summary>
+        /// <param name="iid">id de la estación donde se va a calcular el filtro.</param>
+        /// <param name="tipof">tipo de filtro a cálcular.</param>
+        /// <param name="ffc">Frecuencia de corte que se usará para el filtro.</param>
+        /// <param name="pol">Polo del filtro cálculado.</param>
         void FiltroOctave(int iid, bool tipof, double ffc, int pol)
-        {// rutina que adecua y hace llamado al Octave pra filtrar la señal
+        {
             int i, ii, j, k, lar;
             double wc, dd;
             string nom = "", li = "";
@@ -12170,11 +12203,14 @@ namespace Proceso20
             }
             panelcoda.Invalidate();
         }
-
+        /// <summary>
+        /// Rutina que pretende ahorrar tiempo cuando se presenta un enjambre de sismos del mismo tipo.
+        /// Al arrastrar en el panel principal, se hace llamado directamente al panel de coda para las
+        /// lecturas de P, coda, etc.
+        /// </summary>
+        /// <param name="e">El evento MouseEventArgs que se lanzó.</param>
         void UnaClasificacion(MouseEventArgs e)
-        {// rutina que pretende ahorrar tiempo cuando se presenta un enjambre de sismos del mismo tipo.
-            // Al arrastrar en el panel principal, se hace llamado directamente al panel de coda para las
-            // lecturas de P, coda, etc.
+        {
             int ii, xx, yy, yf;
             bool derecho;
 
@@ -12230,23 +12266,36 @@ namespace Proceso20
                 boUnaCla.Text = "1 Cla";
             }
         }
-
+        /// <summary>
+        /// Lanza a el método UnaClasificacion(e).
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void boUnaCla_MouseDown(object sender, MouseEventArgs e)
         {
             UnaClasificacion(e);
         }
-
+        /// <summary>
+        /// Lanza a el método EscribePanelestaClaUna que escribe los nombres de las estaciones en el panel de Una Clasificacion.
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void panelestaclauna_Paint(object sender, PaintEventArgs e)
         {
             EscribePanelestaClaUna();// escribe los nombres de las estaciones en el panel de Una Clasificacion.
         }
-
+        /// <summary>
+        /// Lanza a el método EscribePanelvolClaUna() que escribe los volcanes en el panel de Una Clasificacion.
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void panelvolclauna_Paint(object sender, PaintEventArgs e)
         {
             EscribePanelvolClaUna();// escribe los volcanes en el panel de Una Clasificacion.
         }
-
-
+        /// <summary>
+        /// Escribe los nombres de las estaciones en el panel de Una Clasificacion.
+        /// </summary>
         void EscribePanelestaClaUna()
         {
             int i, j;
@@ -12267,7 +12316,9 @@ namespace Proceso20
 
             return;
         }
-
+        /// <summary>
+        /// Escribe los volcanes en el panel de Una Clasificacion.
+        /// </summary>
         void EscribePanelvolClaUna()
         {
             int i, j;
@@ -12285,10 +12336,14 @@ namespace Proceso20
 
             return;
         }
-
+        /// <summary>
+        /// Panel con el nombre de todas las estaciones y donde el usuario puede escoger o quitar 
+        /// estaciones a voluntad, cuyas trazas quedaran o no grabadas en la Base.
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void panelestaclauna_MouseDown(object sender, MouseEventArgs e)
-        {// panel con el nombre de todas las estaciones y donde el usuario puede escoger o quitar 
-            // estaciones a voluntad, cuyas trazas quedaran o no grabadas en la Base.
+        {
             int nu;
             nu = e.Y / 10;
             if (siEst[nu] == false) siEst[nu] = true;
@@ -12296,10 +12351,13 @@ namespace Proceso20
             panelestaclauna.Invalidate();
             MessageBox.Show("yujuyyyyyyyyyyy");
         }
-
-
+        /// <summary>
+        /// Escoge un volcan en el panel de Una Clasificacion.
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void panelvolclauna_MouseDown(object sender, MouseEventArgs e)
-        {// escoge un volcan en el panel de Una Clasificacion
+        {
             int i, k, j, nu;
 
             nu = e.Y / 18;
@@ -12331,9 +12389,11 @@ namespace Proceso20
 
             return;
         }
-
+        /// <summary>
+        /// Escribe las clasificaciones en el panel de UnaClasificacion.
+        /// </summary>
         void DibujoCla()
-        {// escribe las clasificaciones en el panel de UnaClasificacion
+        {
             int i, j, j2, xf, yf, fx;
 
             xf = panelbotoncla.Size.Width;
@@ -12419,9 +12479,14 @@ namespace Proceso20
 
             return;
         }
-
+        /// <summary>
+        /// Botón que aparece en la parte inferior derecha del panel de Amplitud y al activarlo,
+        /// graba los datos de lecturas en la Base.
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void boClaSola_Click(object sender, EventArgs e)
-        {// boton que aparece en la parte inferior derecha del panel de Amplitud y al activarlo, graba los datos de lecturas en la Base.
+        {
             int i, ii, j;
             long ll;
             double dd;  // provisional
@@ -12634,9 +12699,15 @@ namespace Proceso20
             return;
         }
         // bo1, bo2 y bo3, corresponden a los botones de las componentes en el panel de coda.
+        /// <summary>
+        /// Este botón corresponde a la componente Z,
+        /// este es visible en el panelcoda cuando se esta clasificando una traza que tenga la componente Z 
+        /// y hace que se despliegue la traza de la componente Z de la estación que se esta casificando.
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void bo1_MouseDown(object sender, MouseEventArgs e)
-        {
-
+        {       
             short i;
             filtcod = false;
             calcfiltcod = false;
@@ -12658,7 +12729,13 @@ namespace Proceso20
             }
             return;
         }
-
+        /// <summary>
+        /// Este botón corresponde a la componente N,
+        /// este es visible en el panelcoda cuando se esta clasificando una traza que tenga la componente N 
+        /// y hace que se despliegue la traza de la componente N de la estación que se esta casificando.
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void bo2_MouseDown(object sender, MouseEventArgs e)
         {
             short i;
@@ -12682,11 +12759,16 @@ namespace Proceso20
             }
             return;
         }
-
+        /// <summary>
+        /// Este botón corresponde a la componente E,
+        /// este es visible en el panelcoda cuando se esta clasificando una traza que tenga la componente E 
+        /// y hace que se despliegue la traza de la componente E de la estación que se esta casificando.
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void bo3_MouseDown(object sender, MouseEventArgs e)
         {
             short i;
-            MessageBox.Show(":p " + bo3.Text);
             filtcod = false;
             calcfiltcod = false;
             bofilcod.BackColor = Color.White;
@@ -12729,8 +12811,8 @@ namespace Proceso20
         /// <summary>
         /// Permite en el panel de amplitud, escoger si la lectura es de referencia o no.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void boaste_Click(object sender, EventArgs e)
         {// permite en el panel de amplitud, escoger si la lectura es de referencia o no.
             if (refe == true)
@@ -12757,9 +12839,13 @@ namespace Proceso20
                 boaste.BackColor = Color.White;
             }
         }
-
+        /// <summary>
+        /// Rutina que permite la lectura de datos de un sismo, repartido en varios archivos.
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void boTremor_MouseDown(object sender, MouseEventArgs e)
-        {// rutina que permite la lectura de datos de un sismo, repartido en varios archivos.
+        {
             int ii, xx, yy, yf;
             string ca = "";
             diagtrem di = new diagtrem();
@@ -12893,9 +12979,13 @@ namespace Proceso20
         {
             FinalTremor();
         }
-
+        /// <summary>
+        /// Permite la lectura de huecos.
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void boHueco_MouseDown(object sender, MouseEventArgs e)
-        {// permite la lectura de huecos.
+        {
             if (e.Button == MouseButtons.Left)
             {
                 if (sihueco == false)
@@ -12921,9 +13011,13 @@ namespace Proceso20
                 panelcoda.Invalidate();
             }
         }
-
+        /// <summary>
+        /// Realiza el dibujo de los huecos leidos.
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         void DibHueco()
-        {// rutina que dibuja los huecos leidos.
+        {
             int xf, yf, pro = 0, max, min, lar, kk, k, dif, tot = 0;
             int nmi = 0, nmf = 0;
             float x1, y1;
@@ -13001,9 +13095,11 @@ namespace Proceso20
 
             return;
         }
-
+        /// <summary>
+        /// Señala al usuario el sector del hueco en la señal del panel de coda.
+        /// </summary>
         void DibujoCodaHueco()
-        {// señala al usuario el sector del hueco en la señal del panel de coda.
+        {
             int xf, yf, i, k, kk, lar, max, min, pro, dif = 0, nm1, nm2, tot;
             int[] nmi = new int[3];
             int[] nmf = new int[3];
