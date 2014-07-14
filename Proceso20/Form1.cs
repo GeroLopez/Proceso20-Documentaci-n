@@ -13198,7 +13198,11 @@ namespace Proceso20
         {// redibuja el hueco.
             DibHueco();
         }
-
+        /// <summary>
+        /// Desplaza la visualización del hueco hacia la izquierda.
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void button1_Click(object sender, EventArgs e)
         {// izquierda hueco
             double tii1, tii2, fac;
@@ -13213,7 +13217,11 @@ namespace Proceso20
             return;
 
         }
-
+        /// <summary>
+        /// Desplaza la visualización del hueco hacia la derecha.
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void button2_Click(object sender, EventArgs e)
         {// derecha hueco
             double tii1, tii2, fac;
@@ -13270,7 +13278,12 @@ namespace Proceso20
         {// inicio de la lectura del hueco en el panel de huecos.
             bhxi = e.X;
         }
-
+        /// <summary>
+        /// Selanza cuando se termina la lectura del hueco, determina el valor final del hueco,
+        /// y llama al método que dibuja la lista de huecos.
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void panelhueco_MouseUp(object sender, MouseEventArgs e)
         {// final de la lectura del hueco en el panel de huecos.
             int bhxf, xx, xf;
@@ -13311,9 +13324,11 @@ namespace Proceso20
 
             return;
         }
-
+        /// <summary>
+        /// Señala al usuario graficamente donde estan los huecos leidos en el panel de coda.
+        /// </summary>
         void DibujarHuecosCoda()
-        {// señala al usuario los huecos leidos en el panel de coda.
+        {
             int i, xf, yf;
             float x1, x2;
             double fax, fay, dura, ti1, ti2;
@@ -13347,9 +13362,11 @@ namespace Proceso20
 
             return;
         }
-
+        /// <summary>
+        /// Se revisa que la estacion tenga factor de conversion de cuentas a milimetros en los analogicos.
+        /// </summary>
         void ChequeoFactormm()
-        {// se revisa que la estacion tenga factor de conversion de cuentas a milimetros en los analogicos
+        {
             int i, fe1, fe2, fe;
             long ll;
             char[] delim = { ' ', '\t' };
@@ -13389,9 +13406,12 @@ namespace Proceso20
 
             return;
         }
-
+        /// <summary>
+        /// Rutina que grafica siempre con respecto al numero de cuentas
+        /// que se indica en el archivo inicio.txt, simulando asi un registro con la misma ganancia.
+        /// </summary>
         void SimulacionAnalogico()
-        {// rutina que grafica siempre con respecto al numero de cuentas que se indica en el archivo inicio.txt, simulando asi un registro con la misma ganancia
+        {
             if (analogico == false)
             {
                 analogico = true;
@@ -13416,12 +13436,21 @@ namespace Proceso20
 
             return;
         }
-
+        /// <summary>
+        /// Lanza el método SimulacionAnalogico.
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void boAnalogico_Click(object sender, EventArgs e)
         {
             SimulacionAnalogico();
         }
-
+        /// <summary>
+        /// Cambia el valor de verdad de la variable analogcoda que controla si se dibuja o no de 
+        /// forma analogíca en el panelcoda.
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void boAnaloCoda_Click(object sender, EventArgs e)
         {// analogico solo para el panel de coda.
             if (analogcoda == false)
@@ -13505,7 +13534,9 @@ namespace Proceso20
         {
             CalculoUmbral();
         }
-
+        /// <summary>
+        /// Indica graficamente al usuario aquellas amplitudes que sobrepasan cierto valor.
+        /// </summary>
         void Umbral()
         {// indica al usuario aquellas amplitudes que sobrepasa cierto valor.
             int i, iu, j, k, kk, kkk, mxx, fin;
@@ -13599,10 +13630,17 @@ namespace Proceso20
                 boVista.BackColor = Color.MistyRose;
             }
         }
-
+        /// <summary>
+        /// Rutina que permite ver los arribos secuencialmente, aunque debe calibrase para aquellos sismos de interés.
+        /// Esta parte realiza la búsqueda de los primeros arribos en las estaciones.
+        /// </summary>
+        /// <param name="idcan">Indice de las estaciones en la vista.</param>
+        /// <param name="tii">Representa el momento en punto en la traza donde se inicio el arrastre para la clasificación -1.</param>
+        /// <param name="time">Tiempo para la visualización de arribos.</param>
+        /// <param name="cond">Condición que indica si en el archivo /oct/estaML.txt hay datos de meridiano y longitud para las estaciones.</param>
+        /// <param name="siML">Condición que indica si el nombre de la estación esta en los archivos /oct/estaML.txt y /pro/estavista.txt.</param>
         void VerTrazasArribos(int[] idcan, double tii, double[][] time, bool cond, bool[] siML)
-        {// rutina que permite ver los arribos secuencialmente, aunque debe calibrase para aquellos sismos de interes.
-            // esta parte realiza la busqueda de los primeros arribos en las estaciones.
+        {
             int i, ii, j, k, kk, m, nucan, xf, yf, mmx, mmn, mni, mnf, lar;
             int pro, iniy, tot, nt;
             float x1, y1;
@@ -13725,9 +13763,11 @@ namespace Proceso20
 
             return;
         }
-
+        /// <summary>
+        /// Grafica los primeros arribos en la modalidad de mapa.
+        /// </summary>
         void VerVista()
-        {// se visualizan los primeros arribos.
+        {
             int i, ii, j, jj, k, kk, ktope, nuu, nmi, nmf, mmx = 0, mmn = 0, final, val;
             long lll;
             double laa, loo, ticero, tifin, ms, facmap;
@@ -13775,7 +13815,8 @@ namespace Proceso20
                 li = "";
                 if (LisVis.Count > 0) siMLvista = true;
             }
-            if (File.Exists(".\\oct\\maglocal.txt")) File.Delete(".\\oct\\maglocal.txt");
+            if (File.Exists(".\\oct\\maglocal.txt")) 
+                File.Delete(".\\oct\\maglocal.txt");
 
             if (copiarMod == false)
             {
@@ -13806,7 +13847,7 @@ namespace Proceso20
             nuu = 0;
             StreamReader ar = new StreamReader(".\\pro\\estavista.txt");
             //li = ar.ReadLine();
-            while (li != null)
+            while (li != null)//determina el numero de estaciones en le archivo
             {
                 try
                 {
@@ -13853,8 +13894,6 @@ namespace Proceso20
                 siML[i] = false;
                 facML[i] = "";
             }
-
-
             nuu = 0;
             li = "";
             StreamReader ar2 = new StreamReader(".\\pro\\estavista.txt");
@@ -14169,7 +14208,11 @@ namespace Proceso20
 
             return;
         }
-
+        /// <summary>
+        /// Activa la aparición del boMLVista en pantalla.
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void boHp71Vista_MouseDown(object sender, MouseEventArgs e)
         {
             hpvista = true;
@@ -14177,7 +14220,12 @@ namespace Proceso20
             salto = true;
             if (File.Exists(".\\oct\\MLvista.txt") && File.Exists(".\\oct\\estaML.txt")) boMLVista.Visible = true;
         }
-
+        /// <summary>
+        /// Cambia el estado de verdad de la variable MLsi, y borra el archivo
+        /// con el cual se calcula la magnitud local del sismo en el Octave.
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void boMLVista_MouseDown(object sender, MouseEventArgs e)
         {
             if (MLVista == false) return;
@@ -14190,17 +14238,22 @@ namespace Proceso20
             {
                 MLsi = false;
                 boMLVista.BackColor = Color.White;
-                if (File.Exists(".\\oct\\maglocalVista.txt")) File.Delete(".\\oct\\maglocalVista.txt");
+                if (File.Exists(".\\oct\\maglocalVista.txt")) 
+                    File.Delete(".\\oct\\maglocalVista.txt");
             }
             //MessageBox.Show("1");
         }
-
+        /// <summary>
+        /// Dibuja las iniciales de los volcanes en el mapa.
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void boMapVista_MouseDown(object sender, MouseEventArgs e)
         {
             int i;
             string ss;
             Color col;
-
+                                
             ss = "Debe correr el Hypo para ver el Mapa";
             tip.IsBalloon = false;
             tip.InitialDelay = 0;
@@ -14218,22 +14271,28 @@ namespace Proceso20
 
             for (i = 0; i <= nuvol; i++)
             {
-                if (volcan[i][0] != Maparr) col = Color.Gray;
-                else col = Color.Red;
+                if (volcan[i][0] != Maparr) 
+                    col = Color.Gray;
+                else 
+                    col = Color.Red;
                 SolidBrush bro = new SolidBrush(col);
                 dc.DrawString(volcan[i].Substring(0, 1), new Font("Times New Roman", 9), bro, 2, i * 11);
                 bro.Dispose();
             }
         }
-
+        /// <summary>
+        /// Sirve para seleccionar la inicial del volcán del cual se quiere ver en el mapa.
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void panelModVista_MouseDown(object sender, MouseEventArgs e)
         {
             int i;
-
             try
             {
                 i = (int)(e.Y / 11.0);
-                if (i > nuvol + 1 || i < 0) return;
+                if (i > nuvol + 1 || i < 0) 
+                    return;
                 Maparr = volcan[i][0];
                 boMapVista.Text = "-" + volcan[i].Substring(0, 1) + "-";
                 panelModVista.Visible = false;
@@ -14243,23 +14302,45 @@ namespace Proceso20
             {
             }
         }
-
+        /// <summary>
+        /// Si se da click con el botón  izquierdo la señal en el mapa se amplifica, en caso que el click sea con el botón derecho
+        /// la señal se reduce.
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void boTraVista_MouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Left) durac += durac * 0.2;
+            if (e.Button == MouseButtons.Left) 
+                durac += durac * 0.2;
             else durac -= durac * 0.2;
             salto = true;
         }
-
+        /// <summary>
+        /// Si el click es con el botón izquierdo desplaza la gráfica de la traza hacia la izquierda,
+        /// en caso de que sea el botón derecho desplaza la gráfica hacia la derecha.
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void boDesTraVista_MouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Left) initic += durac * 0.05;
-            else initic -= durac * 0.05;
+            if (e.Button == MouseButtons.Left) 
+                initic += durac * 0.05;
+            else 
+                initic -= durac * 0.05;
             salto = true;
         }
-
-        void Circulos(Panel panel, short can, double facmap, double[] la, double[] lo,
-             double laa, double loo, int[] idcan)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="panel">Panel donde se grafica el mapa.</param>
+        /// <param name="can"></param>
+        /// <param name="facmap"></param>
+        /// <param name="la"></param>
+        /// <param name="lo"></param>
+        /// <param name="laa"></param>
+        /// <param name="loo"></param>
+        /// <param name="idcan"></param>
+        void Circulos(Panel panel, short can, double facmap, double[] la, double[] lo,double laa, double loo, int[] idcan)
         {
             int i, x1, y1, xf, yf, iniX, iniY, dif;
             double km = 0, fcpi, fclo, f1, kmm = 9999999999999.9;
@@ -14302,7 +14383,7 @@ namespace Proceso20
                 }
             }
             lapiz.Dispose();
-
+            
             if (kmm < 9999999999999.9)
             {
                 ss += " " + string.Format("{0:0.00} Km", km);
@@ -14382,10 +14463,11 @@ namespace Proceso20
             boVista.BackColor = Color.MistyRose;
             initic = 0;
         }
-
+        /// <summary>
+        /// Llama al método VerVista si la variable vista es true. 
+        /// </summary>
         void Underground()
         {
-
             if (vista == true)
             {
                 VerVista();
@@ -14393,7 +14475,6 @@ namespace Proceso20
 
             return;
         }
-
         /*  void Hilo()
           {
               MessageBox.Show("hola");
@@ -14415,15 +14496,23 @@ namespace Proceso20
                     MoverNEZinterp(va[0], va[1], va[2], e);
             }
         }
-
+        /// <summary>
+        /// Inicializa la visualizacion de los primeros arribos..
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void boPlay_Click(object sender, EventArgs e)
-        {// inicializa la visualizacion de los primeros arribos.
+        {// 
             velo = 100000;
             salto = true;
         }
-
+        /// <summary>
+        /// Pausa o no la visualización de los primeros arribos.
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void boPausa_Click(object sender, EventArgs e)
-        {// pausa o no la visualizacion de los primeros arribos.
+        {
             if (pausa == true)
             {
                 pausa = false;
@@ -14435,36 +14524,56 @@ namespace Proceso20
                 boPausa.BackColor = Color.Gold;
             }
         }
-
+        /// <summary>
+        /// Desacelera la visualizacion de los primeros arribos.
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void boLow_MouseDown(object sender, MouseEventArgs e)
-        {// desacelera la visualizacion de los primeros arribos
+        {
             if (e.Button == MouseButtons.Left) velo += 1000;
             else velo += 10000;
             salto = true;
         }
-
+        /// <summary>
+        /// Acelera la visualizacion de los primeros arribos.
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void boFast_MouseDown(object sender, MouseEventArgs e)
-        {// acelera la visualizacion de los primeros arribos
+        { 
             if (e.Button == MouseButtons.Left) velo -= 1000;
             else velo -= 10000;
             if (velo < 1000) velo = 1000;
             salto = true;
         }
-
+        /// <summary>
+        /// Aumenta la dimension del mapa.
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void boMapAmp_MouseDown(object sender, MouseEventArgs e)
-        {//aumenta la dimension del mapa
+        {
             if (e.Button == MouseButtons.Left) factormapa = -1;
             else factormapa = 1;
             salto = true;
         }
-
+        /// <summary>
+        /// Inicio de la lectura de S-P en el panel de trazas de los primeros arribos.
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void splitContainer1_Panel1_MouseDown(object sender, MouseEventArgs e)
-        {// inicio de la lectura de S-P en el panel de trazas de los primeros arribos.
+        {
             bxi = e.X;
         }
-
+        /// <summary>
+        /// Final de la lectura de S-P en el panel de trazas de los primeros arribos.
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void splitContainer1_Panel1_MouseUp(object sender, MouseEventArgs e)
-        {// final de la lectura de S-P en el panel de trazas de los primeros arribos.
+        {
             int i, ii, xf, yf, tot, nucan, y1, mu1, mu2, muu, mxx, mnn;
             double fax, fay, tiempo, laf, lof, laesta, loesta;
             double lla, llo, dis;
@@ -14621,7 +14730,11 @@ namespace Proceso20
                 }
             }
         }
-
+        /// <summary>
+        /// Llama al método TrazasClas() para dibujar las trazasdel panel de clasificación.
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void boXfft_Click(object sender, EventArgs e)
         {
             panelFFTzoom.Visible = false;
@@ -14629,7 +14742,12 @@ namespace Proceso20
             if (panelcladib.Visible == true) TrazasClas();
             yloc = -1;
         }
-
+        /// <summary>
+        /// Se lanza cuando cambia el valor del checkBoxLogEsp, si CualPaneles igual a 0 o 1
+        /// llama al método Espectro()
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void checkBoxLogEsp_CheckedChanged(object sender, EventArgs e)
         {
             Panel pan, panelBar;
@@ -14639,23 +14757,32 @@ namespace Proceso20
             {
                 pan = panel1;
                 panelBar = panelBarEsp1;
-                if (panelcladib.Visible == false) idd = id;
-                else idd = idc;
+                if (panelcladib.Visible == false) 
+                    idd = id;
+                else 
+                    idd = idc;
             }
             else if (CualPanel == 1)
             {
                 pan = panel1a;
                 panelBar = panelBarEsp1a;
-                if (panelcladib.Visible == false) idd = ida;
-                else idd = idc;
+                if (panelcladib.Visible == false) 
+                idd = ida;
+                else 
+                idd = idc;
             }
-            else return;
+            else 
+                return;
             Espectro(pan, panelBar, idd, false);
         }
-
+        /// <summary>
+        /// Activa o desactiva (segun el estado de la variable VerEspectro) la funcionalidad que permite ver el espectro de una traza.
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void boEspe_MouseDown(object sender, MouseEventArgs e)
         {
-
+           
             if (VerEspectro == false)
             {
                 VerEspectro = true;
@@ -14678,17 +14805,26 @@ namespace Proceso20
                 boEspCla.BackColor = Color.White;
             }
         }
-
+        /// <summary>
+        /// Con click sostenido sobre el panel que muestra el espectro se pueden ver los datos de la traza
+        /// justo en la posición donde esta situado el mouse.
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void panelFFTzoom_MouseDown(object sender, MouseEventArgs e)
         {
             int x, y, nn;
             Panel panel;
 
-            if (silog == true) return;
-            if (panelcladib.Visible == true) panel = panelcladib;
-            else panel = panel1;
+            if (silog == true) 
+                return;
+            if (panelcladib.Visible == true) 
+                panel = panelcladib;
+            else 
+                panel = panel1;
             nn = np;
-            if (nn < 1024) nn = 1024;
+            if (nn < 1024) 
+                nn = 1024;
             x = (int)(nn * 0.05);
             panelValFFt.Size = new Size(x, panelValFFt.Height);
             x = (int)(e.X + panel.Location.X + panelFFTzoom.Location.X - panelValFFt.Size.Width / 2.0);
@@ -14699,21 +14835,35 @@ namespace Proceso20
 
             ZoomEspectro(e);
         }
-
+        /// <summary>
+        /// Oculta el panel que muestra la información del espectro y llama a al método especifico encargado de graficar el 
+        /// espectro de la traza dependiendo del valor de la variable silog. 
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void panelFFTzoom_MouseUp(object sender, MouseEventArgs e)
         {
-            if (silog == true) return;
+            if (silog == true) 
+                return;
             panelValFFt.Visible = false;
             panelBarEsp.Visible = false;
-            if (silog == false) GraficaEspectro(id, vaesp, checkBoxFFT1.Checked, vacioesp);
-            else GraficaEspectroLog(id, vaesp, vacioesp);
+            if (silog == false) 
+                GraficaEspectro(id, vaesp, checkBoxFFT1.Checked, vacioesp);
+            else 
+                GraficaEspectroLog(id, vaesp, vacioesp);
         }
-
+        /// <summary>
+        /// Actualiza la posición en la que se debe dibujar el panel 
+        /// que muestra la información del espectro en un punto especifico.
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void panelFFTzoom_MouseMove(object sender, MouseEventArgs e)
         {
             int x, y;
 
-            if (silog == true) return;
+            if (silog == true) 
+                return;
             x = (int)(e.X + panel1.Location.X + panelFFTzoom.Location.X - panelValFFt.Size.Width / 2.0);
             y = panelFFTzoom.Location.Y - panelValFFt.Height;
             panelValFFt.Location = new Point(x, y);
@@ -14722,7 +14872,11 @@ namespace Proceso20
 
             return;
         }
-
+        /// <summary>
+        /// Determina los valores mayor y menor del espectro y con estos calcula cual debe ser el alto del panel,
+        /// después tomando los valores del espectro calcula los puntos x,y en que debe dibujar cada punto y los dibuja, esto genera una gráfica.
+        /// </summary>
+        /// <param name="e">Se usa para determinar la posición en donde está ubicado el mouse.</param>
         void ZoomEspectro(MouseEventArgs e)
         {
             int i, j, j1, j2, jj, k, kk, xf, yf, x1, y1, yini;
@@ -14760,7 +14914,8 @@ namespace Proceso20
                         mxx = vaesp[j];
                         kk = j;
                     }
-                    else if (mnn > vaesp[j]) mnn = vaesp[j];
+                    else if (mnn > vaesp[j])
+                        mnn = vaesp[j];
                 }
 
                 fx = xf / (double)(j2 - j1);
@@ -15123,7 +15278,11 @@ namespace Proceso20
 
             return;
         }
-
+        /// <summary>
+        /// Cambia el valor de la variable np a 512 y recalcula el espectro.
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void radioFFT1_CheckedChanged(object sender, EventArgs e)
         {
             Panel pan, panelBar;
@@ -15147,7 +15306,11 @@ namespace Proceso20
             np = 512;
             Espectro(pan, panelBar, idd, false);
         }
-
+        /// <summary>
+        /// Cambia el valor de la variable np a 1024 y recalcula el espectro.
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void radioFFT2_CheckedChanged(object sender, EventArgs e)
         {
             Panel pan, panelBar;
@@ -15171,7 +15334,11 @@ namespace Proceso20
             np = 1024;
             Espectro(pan, panelBar, idd, false);
         }
-
+        /// <summary>
+        /// Cambia el valor de la variable np a 2048 y recalcula el espectro.
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void radioFFT3_CheckedChanged(object sender, EventArgs e)
         {
             Panel pan, panelBar;
@@ -15195,7 +15362,11 @@ namespace Proceso20
             np = 2048;
             Espectro(pan, panelBar, idd, false);
         }
-
+        /// <summary>
+        /// Activa o desactiva la función para calcular el espectro.
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void checkBoxFFT1_CheckedChanged(object sender, EventArgs e)
         {
             Panel pan, panelBar;
@@ -15218,6 +15389,11 @@ namespace Proceso20
             else return;
             Espectro(pan, panelBar, idd, false);
         }
+        /// <summary>
+        /// Cambia el valor de la variable np a 4096 y recalcula el espectro.
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void radioFTT4_CheckedChanged(object sender, EventArgs e)
         {
             Panel pan, panelBar;
@@ -15241,8 +15417,11 @@ namespace Proceso20
             np = 4096;
             Espectro(pan, panelBar, idd, false);
         }
-
-
+        /// <summary>
+        /// Modifica el valor del offset que se le aplica al espectro.
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void boOfsset_MouseDown(object sender, MouseEventArgs e)
         {
             Panel pan, panelBar;
@@ -15271,7 +15450,11 @@ namespace Proceso20
             boOfsset.Text = offsetesp.ToString();
             Espectro(pan, panelBar, idd, false);
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void boParti_MouseDown(object sender, MouseEventArgs e)
         {
             if (vista == true || splitContainer1.Visible == true) return;
@@ -16407,7 +16590,11 @@ namespace Proceso20
 
             return;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void boStartMpt_Click(object sender, EventArgs e)
         {
             int x, x2, y, k;
@@ -16454,7 +16641,11 @@ namespace Proceso20
                 return;
             }
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void boStopMpt_Click(object sender, EventArgs e)
         {
             muimpt = muinimpt;
@@ -16462,7 +16653,11 @@ namespace Proceso20
             pausmpt = false;
             boPausMpt.BackColor = Color.PaleGoldenrod;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void boPausMpt_Click(object sender, EventArgs e)
         {
             if (pausmpt == false)
@@ -16484,7 +16679,11 @@ namespace Proceso20
                 }
             }
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void boAumMpt_MouseDown(object sender, MouseEventArgs e)
         {
             string ca = "";
@@ -16506,7 +16705,11 @@ namespace Proceso20
             dc.DrawString(ca, new Font("Arial", 9/*,FontStyle.Bold*/), bro, 5, 3);
             bro.Dispose();
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void boDisMpt_MouseDown(object sender, MouseEventArgs e)
         {
             string ca = "";
@@ -16529,7 +16732,11 @@ namespace Proceso20
             dc.DrawString(ca, new Font("Arial", 9/*,FontStyle.Bold*/), bro, 5, 3);
             bro.Dispose();
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void bo2Mpt_MouseDown(object sender, MouseEventArgs e)
         {
             string ca;
@@ -16559,7 +16766,11 @@ namespace Proceso20
             if (mptintp == false) TrazaComponente();
             else TrazaComponenteInterp();
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void bo5Mpt_Click(object sender, EventArgs e)
         {
             durmpt = 5.0F;
@@ -16569,7 +16780,11 @@ namespace Proceso20
             if (mptintp == false) TrazaComponente();
             else TrazaComponenteInterp();
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void bo10Mpt_Click(object sender, EventArgs e)
         {
             durmpt = 10.0F;
@@ -16591,21 +16806,33 @@ namespace Proceso20
             //if (e.Button == MouseButtons.Left) ampmpt -= 0.1F;
             //else ampmpt = 1.0F;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void boPtoMpt_Click(object sender, EventArgs e)
         {
             puntompt = true;
             boPtoMpt.BackColor = Color.ForestGreen;
             boLinMpt.BackColor = Color.PaleGoldenrod;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void boLinMpt_Click(object sender, EventArgs e)
         {
             puntompt = false;
             boPtoMpt.BackColor = Color.Gold;
             boLinMpt.BackColor = Color.ForestGreen;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void boXparti_Click(object sender, EventArgs e)
         {
             yaInterp = false;
@@ -16621,7 +16848,11 @@ namespace Proceso20
             boPausMpt.BackColor = Color.PaleGoldenrod;
             if (panelInterP.Visible == false) Clasificar();
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void bosubNmpt_MouseDown(object sender, MouseEventArgs e)
         {
             double dd;
@@ -16632,7 +16863,11 @@ namespace Proceso20
             if (mptintp == false) TrazaComponente();
             else TrazaComponenteInterp();
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void bobajNmpt_MouseDown(object sender, MouseEventArgs e)
         {
             double dd;
@@ -16643,7 +16878,11 @@ namespace Proceso20
             if (mptintp == false) TrazaComponente();
             else TrazaComponenteInterp();
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void bosubEmpt_MouseDown(object sender, MouseEventArgs e)
         {
             double dd;
@@ -16654,7 +16893,11 @@ namespace Proceso20
             if (mptintp == false) TrazaComponente();
             else TrazaComponenteInterp();
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void bobajaEmpt_MouseDown(object sender, MouseEventArgs e)
         {
             double dd;
@@ -16665,7 +16908,11 @@ namespace Proceso20
             if (mptintp == false) TrazaComponente();
             else TrazaComponenteInterp();
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void bosubZmpt_MouseDown(object sender, MouseEventArgs e)
         {
             double dd;
@@ -16676,7 +16923,11 @@ namespace Proceso20
             if (mptintp == false) TrazaComponente();
             else TrazaComponenteInterp();
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void bobajZmpt_MouseDown(object sender, MouseEventArgs e)
         {
             double dd;
@@ -16687,7 +16938,12 @@ namespace Proceso20
             if (mptintp == false) TrazaComponente();
             else TrazaComponenteInterp();
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>/// <param name="sender"></param>
+        /// <param name="e"></param>
         private void panelPartiTraN_MouseDown(object sender, MouseEventArgs e)
         {
             int xf;
@@ -16706,7 +16962,11 @@ namespace Proceso20
             if (mptintp == false) TrazaComponente();
             else TrazaComponenteInterp();
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void panelPartiTraE_MouseDown(object sender, MouseEventArgs e)
         {
             int xf;
@@ -16725,7 +16985,11 @@ namespace Proceso20
             if (mptintp == false) TrazaComponente();
             else TrazaComponenteInterp();
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void panelPartiTraZ_MouseDown(object sender, MouseEventArgs e)
         {
             int xf;
@@ -16744,7 +17008,11 @@ namespace Proceso20
             if (mptintp == false) TrazaComponente();
             else TrazaComponenteInterp();
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void boModX_Click(object sender, EventArgs e)
         {
             int k;
@@ -16764,7 +17032,11 @@ namespace Proceso20
             NoMostrar = true;
             util.VerMapa(panelPartiEN, volcan[k][0], laE, loE, "", difmpt, laE, loE, Color.LightGray);
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void boNeic_MouseDown(object sender, MouseEventArgs e)
         {
             if (nomweb == "") return;
@@ -16816,8 +17088,11 @@ namespace Proceso20
 
             return (res);
         }
-
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void textBoxNeic_TextChanged(object sender, EventArgs e)
         {
             int i, j, jj, k, l, nu, an = 0, me = 0, di = 0, ho = 0, mi = 0, se = 0, ms = 0, mul = 0;
@@ -17086,7 +17361,11 @@ namespace Proceso20
 
             return;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void boXmapamundo_Click(object sender, EventArgs e)
         {
             panelMapaMundo.Visible = false;
@@ -17097,7 +17376,11 @@ namespace Proceso20
             }
             deltAK135 = 0;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void panelMapaMundo_Paint(object sender, PaintEventArgs e)
         {
             int an, me, di, ho, mi;
@@ -17173,7 +17456,11 @@ namespace Proceso20
             }
 
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void cbx_CheckedChanged(object sender, EventArgs e)
         {
             int i, j;
@@ -17367,19 +17654,31 @@ namespace Proceso20
                 }
             }
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void boXNeic_Click(object sender, EventArgs e)
         {
             panelCajTeo.Visible = false;
             panelMapaMundo.Visible = false;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void boPaintEsp_Click(object sender, EventArgs e)
         {
             if (panelcladib.Visible == false) panel1.Invalidate();
             else TrazasClas();
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void Form1_SizeChanged(object sender, EventArgs e)
         {
             int i, j;
@@ -17396,14 +17695,22 @@ namespace Proceso20
             /*if (panel1a.Visible==true)*/
             panel1a.Invalidate();
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void boXpanel1a_Click(object sender, EventArgs e)
         {
             panel1.BorderStyle = BorderStyle.Fixed3D;
             panel1a.Visible = false;
             panel1.Size = new Size(panel1.Size.Width, Height - 57);
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void boTar_MouseDown(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
@@ -17417,13 +17724,21 @@ namespace Proceso20
                 else panelTarAux.Visible = false;
             }
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void checkBox1_MouseDown(object sender, MouseEventArgs e)
         {
             CheckBox ch = (CheckBox)sender;
             //MessageBox.Show("hola ch="+ch.Text);
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void boMx_MouseDown(object sender, MouseEventArgs e)
         {
             cfilx = '0';
@@ -17439,7 +17754,11 @@ namespace Proceso20
             boFilBanX.BackColor = Color.White;
             //boResFiltX.Visible = false;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void boFilBajX_Click(object sender, EventArgs e)
         {
             if (filtx == true)
@@ -17470,7 +17789,11 @@ namespace Proceso20
             panel2.Visible = false;
             panel1a.Invalidate();
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void boFilAltX_Click(object sender, EventArgs e)
         {
             if (filtx == true)
@@ -17501,7 +17824,11 @@ namespace Proceso20
             boResFiltX.Visible = filtx;
             panel1a.Invalidate();
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void boFilBanX_Click(object sender, EventArgs e)
         {
             if (filtx == true)
@@ -17532,7 +17859,11 @@ namespace Proceso20
             boResFiltX.Visible = filtx;
             panel1a.Invalidate();
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void textBox1_KeyDown(object sender, KeyEventArgs e)
         {
             double dd;
@@ -17553,7 +17884,11 @@ namespace Proceso20
                 textBox1.Text = string.Format("{0:00.00}", Fcx1);
             }
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void textBox2_KeyDown(object sender, KeyEventArgs e)
         {
             double dd;
@@ -17574,7 +17909,11 @@ namespace Proceso20
                 textBox2.Text = string.Format("{0:00.00}", Fcx2);
             }
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
 
@@ -17591,7 +17930,11 @@ namespace Proceso20
             }
             Fcx1 = dd;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void textBox2_TextChanged(object sender, EventArgs e)
         {
             double dd;
@@ -17617,7 +17960,11 @@ namespace Proceso20
         {
             textBox2.Text = string.Format("{0:00.00}", Fcx2);
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void boResFiltX_Click(object sender, EventArgs e)
         {
             VerRespuestaFiltro();
@@ -17785,7 +18132,11 @@ namespace Proceso20
 
             return;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void boInterp_MouseDown(object sender, MouseEventArgs e)
         {
             boGraInterpol.BackColor = Color.Wheat;
@@ -17834,7 +18185,11 @@ namespace Proceso20
                 boInterp.BackColor = Color.WhiteSmoke;
             }
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void boXInterp_Click(object sender, EventArgs e)
         {
             suma = 0;
@@ -18123,7 +18478,11 @@ namespace Proceso20
 
             return;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void boRa1_Click(object sender, EventArgs e)
         {
             bool si = false;
@@ -18142,7 +18501,11 @@ namespace Proceso20
             si = CalculoInterpolacion(id);
             if (si == true) panelInterP.Invalidate();
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void boRa2_Click(object sender, EventArgs e)
         {
             bool si = false;
@@ -18161,7 +18524,11 @@ namespace Proceso20
             si = CalculoInterpolacion(id);
             if (si == true) panelInterP.Invalidate();
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void boRa3_Click(object sender, EventArgs e)
         {
             bool si = false;
@@ -18180,17 +18547,30 @@ namespace Proceso20
             si = CalculoInterpolacion(id);
             if (si == true) panelInterP.Invalidate();
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>/// <param name="sender"></param>
+        /// <param name="e"></param>
         private void panelInterP_Paint(object sender, PaintEventArgs e)
         {
             DibujoInterpolacion(ipb1, ipb2);
         }
-
+        /// <summary>
+        /// Hace la variable ixpb = al x donde se efectuó el evento click.
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void panelInterP_MouseDown(object sender, MouseEventArgs e)
         {
             ixpb = e.X;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void panelInterP_MouseUp(object sender, MouseEventArgs e)
         {
             int xf, yf, j, k, ini, fin, factorata, mui;
@@ -18267,7 +18647,11 @@ namespace Proceso20
 
             return;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void boIzqInterp_MouseDown(object sender, MouseEventArgs e)
         {
             int i1, i2, num, nn;
@@ -18291,7 +18675,11 @@ namespace Proceso20
             panelInterP.Invalidate();
             if (panelDesplazamiento.Visible == true) panelDesplazamiento.Invalidate();
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void boderInterp_MouseDown(object sender, MouseEventArgs e)
         {
             int i1, i2, num;
@@ -18313,19 +18701,31 @@ namespace Proceso20
             panelInterP.Invalidate();
             if (panelDesplazamiento.Visible == true) panelDesplazamiento.Invalidate();
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void checkBoxSeis_CheckedChanged(object sender, EventArgs e)
         {
             sei = checkBoxSeis.Checked;
             ChequeoGraInterpol();
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void checkBoxAscii_CheckedChanged(object sender, EventArgs e)
         {
             asc = checkBoxAscii.Checked;
             ChequeoGraInterpol();
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void checkBoxSuds_CheckedChanged(object sender, EventArgs e)
         {
             sud = checkBoxSuds.Checked;
@@ -18339,7 +18739,11 @@ namespace Proceso20
 
             return;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void boGraInterpol_Click(object sender, EventArgs e)
         {
             long ll;
@@ -18787,7 +19191,11 @@ namespace Proceso20
             Directory.SetCurrentDirectory(dir1);
             return;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void boIntegra_MouseDown(object sender, MouseEventArgs e)
         {
             NoMostrar = true;
@@ -18806,7 +19214,6 @@ namespace Proceso20
                 boEspInterP.Visible = false;
             }
         }
-
 
         double Promedio(int canti, double[] dat, bool cond)
         {
@@ -18948,7 +19355,11 @@ namespace Proceso20
 
             return;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void checkBoxFiltAlta_CheckedChanged(object sender, EventArgs e)
         {
             bool si = false;
@@ -18962,7 +19373,11 @@ namespace Proceso20
             if (si == true)
                 panelInterP.Invalidate();
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void panelDesplazamiento_Paint(object sender, PaintEventArgs e)
         {
             DibujoDesplazamiento(ipb1, ipb2);
@@ -18979,12 +19394,20 @@ namespace Proceso20
             lap.Dispose();
             lap2.Dispose();
         }
-
+        /// <summary>
+        /// Hace que la varible ixpb sea igual a la posición en x donde se dio ellcick.
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void panelDesplazamiento_MouseDown(object sender, MouseEventArgs e)
         {
             ixpb = e.X;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void panelDesplazamiento_MouseUp(object sender, MouseEventArgs e)
         {
             int i, xf, yf, j, j1, j2, ispl1, ispl2, ii1, ii2;
@@ -19138,7 +19561,11 @@ namespace Proceso20
 
             }
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void boGuInterpol_Click(object sender, EventArgs e)
         {
             if (guiainterp == false)
@@ -19152,7 +19579,11 @@ namespace Proceso20
                 boGuInterpol.BackColor = Color.AntiqueWhite;
             }
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void boFrInterp_MouseDown(object sender, MouseEventArgs e)
         {
             bool si = false;
@@ -19171,7 +19602,11 @@ namespace Proceso20
             si = CalculoInterpolacion(id);
             if (si == true) panelInterP.Invalidate();
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void boEspInterP_MouseDown(object sender, MouseEventArgs e)
         {
             if (especinterP == false)
@@ -19319,7 +19754,11 @@ namespace Proceso20
         {
 
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void panelEspectros_MouseUp(object sender, MouseEventArgs e)
         {
             if (guiainterp == true)
@@ -19334,7 +19773,11 @@ namespace Proceso20
         private void boObserva_MouseDown(object sender, MouseEventArgs e)
         {
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void splitContainer1_Panel2_MouseDown(object sender, MouseEventArgs e)
         {
             int xf1, yf1, x1, y1, xf, yf, iniX, iniY, grala, gralo;
@@ -19392,11 +19835,16 @@ namespace Proceso20
             tip.AutomaticDelay = 0;
             tip.SetToolTip(splitContainer1.Panel2, ss);
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void Form1_Deactivate(object sender, EventArgs e)
         {
             if (inicio == false) return;
-            if (sidesactiva == true) desactivado = true;
+            if (sidesactiva == true) 
+                desactivado = true;
         }
         /// <summary>
         /// 
@@ -19417,7 +19865,11 @@ namespace Proceso20
 
             return;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void boFIR_MouseDown(object sender, MouseEventArgs e)
         {
             int yf, iniy;
@@ -19509,8 +19961,11 @@ namespace Proceso20
             }
             panel2.Visible = false;
         }
-
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void boM_MouseDown(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left) M = (short)(M * 2);
@@ -19527,7 +19982,11 @@ namespace Proceso20
             textBox1.BackColor = Color.White;
             textBox2.BackColor = Color.White;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void boFilBaj_Click(object sender, EventArgs e)
         {
             if (cfilt != '1') yafilt = false;
@@ -19553,7 +20012,11 @@ namespace Proceso20
             }
             DibujoTrazas();
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void boFilAlt_Click(object sender, EventArgs e)
         {
             if (cfilt != '2') yafilt = false;
@@ -19579,7 +20042,11 @@ namespace Proceso20
             }
             DibujoTrazas();
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void boFilBan_Click(object sender, EventArgs e)
         {
             if (cfilt != '3') yafilt = false;
@@ -19605,7 +20072,11 @@ namespace Proceso20
             }
             DibujoTrazas();
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void textBox3_TextChanged(object sender, EventArgs e)
         {
             float ff;
@@ -19629,7 +20100,11 @@ namespace Proceso20
         {
             textBox3.Text = string.Format("{0:00.00}", Fc1);
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void textBox4_TextChanged(object sender, EventArgs e)
         {
             float ff;
@@ -19653,7 +20128,11 @@ namespace Proceso20
         {
             textBox4.Text = string.Format("{0:00.00}", Fc2);
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void textBox3_KeyDown(object sender, KeyEventArgs e)
         {
             float ff;
@@ -19673,7 +20152,11 @@ namespace Proceso20
                 textBox3.Text = string.Format("{0:00.00}", Fc1);
             }
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void textBox4_KeyDown(object sender, KeyEventArgs e)
         {
             float ff;
@@ -19693,7 +20176,11 @@ namespace Proceso20
                 textBox4.Text = string.Format("{0:00.00}", Fc2);
             }
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void boMptIntp_MouseDown(object sender, MouseEventArgs e)
         {
             suma = 0;
@@ -19712,7 +20199,11 @@ namespace Proceso20
                 boMptIntp.BackColor = Color.LavenderBlush;
             }
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void boDerMpt_MouseDown(object sender, MouseEventArgs e)
         {
             int i = 0, mi = 0;
@@ -19738,7 +20229,11 @@ namespace Proceso20
             if (mptintp == false) TrazaComponente();
             else TrazaComponenteInterp();
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void boIzqMpt_MouseDown(object sender, MouseEventArgs e)
         {
             int i = 0;
@@ -19759,7 +20254,11 @@ namespace Proceso20
             if (mptintp == false) TrazaComponente();
             else TrazaComponenteInterp();
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void boEspCla_MouseDown(object sender, MouseEventArgs e)
         {
             if (VerEspectro == false)
@@ -19779,8 +20278,11 @@ namespace Proceso20
                 yloc = -1;
             }
         }
-
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void boDR_MouseDown(object sender, MouseEventArgs e)
         {
             string ss = "";
@@ -20071,7 +20573,11 @@ namespace Proceso20
              */
             return;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void panelDR_Paint(object sender, PaintEventArgs e)
         {
             if (DR == 1)
@@ -20096,14 +20602,22 @@ namespace Proceso20
                 DibujoVelocidadDR();
             }
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void boMasDR_MouseDown(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left) promDR -= 1.0;
             else promDR -= 10.0;
             panelDR.Invalidate();
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void boMenosDR_MouseDown(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left) promDR += 1.0;
@@ -20136,7 +20650,11 @@ namespace Proceso20
             xiDR = e.X;
             yiDR = e.Y;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void panelDR_MouseUp(object sender, MouseEventArgs e)
         {
             int i, k, xf, yf, nmi, nmf, ni, nf, iniy, mxx, mnn;
@@ -20433,7 +20951,11 @@ You need to replace yoursmtphost with your host address.
             MessageBox.Show("hola");
             boAnotacion.Visible = false;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void boDisparo_MouseDown(object sender, MouseEventArgs e)
         {
             ArrayList lista = new ArrayList();
@@ -20958,7 +21480,11 @@ You need to replace yoursmtphost with your host address.
             {
             }
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void textBoxUT_TextChanged(object sender, EventArgs e)
         {
             float ff;
@@ -20993,7 +21519,11 @@ You need to replace yoursmtphost with your host address.
             tip.ReshowDelay = 0;
             tip.Show("Horas que se añaden al sismo", panel1, 1200);
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void boTarAux_Click(object sender, EventArgs e)
         {
             int i;
