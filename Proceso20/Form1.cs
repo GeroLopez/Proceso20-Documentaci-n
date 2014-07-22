@@ -16,45 +16,31 @@ using System.Net.Mail;
 using System.Net.Mime;
 //using EASendMail; //add EASendMail namespace
 
-/*
- * Este formulario corresponde al menu principal, donde se puede escoger la fecha de interes y la
- * estacion deseada, para posteriormente clasificar los sismos y leer los parametros sismicos basicos.
- * el Form2.cs corresponde al lector de arribos para la localizacion con el hypo71 y el form3.cs, al 
- * atenuador. Util.cs, contiene utilidades usadas en los 3 formularios.
- * El tiempo en formato SUDS, corresponde al numero de segundos, desde el 1 de enero de 1900 a las 
- * 0 horas. El tiempo del formato GCF (Guralp Compressed Format) corresponde al numero de segundos 
- * desde el 1 de enero de 1970 a las 0 horas. El tiempo en visual c# corresponde al numero de 
- * centenares de nanosegundos desde el año cero.
- * En general el nombre dado a las variables es sugestivo. se detallan algunas de las mas importantes:
- * Las variables numux y nudmx, corresponden al numero de tarjetas con archivos en SUDS multiplexado y 
- * demultiplexado respectivamente (relacionadas en archivo inicio.txt).
- * totven, el total de la ventana de tiempo (60 segundos por defecto). contampl, el numero de lecturas 
- * de amplitud. id: corresponde al numero de traza o estacion, visible actualmente. Por defecto es 1 ya 
- * que normalmente la traza 0 corresponde al codigo del tiempo (IRIG).
- * bxi, byi, etc. se usan como variables iniciales en algunos paneles cuando se hace la distincion 
- * entre la bajada del boton del raton y su subida, como por ejemplo cuando se arrastra, donde ambas 
- * posiciones son distintas.
- * estru30 corresponde a la variable asociada con la estructura 30 del formato SUDS, la cual 
- * corresponde a la correccion del tiempo. Esta estructura es muy importante en los formatos SUDS 
- * multiplexados, ya que normalmente la tarjeta digitalizadora toma el tiempo del computador, el cual 
- * comunmente esta desfasado varios segundos con respecto al tiempo exacto.
- * clR, clG y clB, corresponden a los colores de las pepas en codigo RGB. Tarmux, tardmx, guardan la 
- * letra de las trajetas digitalizadoras.
- * nutra: es el numero de canales totales, contabilizando todas las tarjetas digitalizadoras.
- * nucla, nuvol, el numero de clasificaciones y volcanes respectivamente. vol es el volcan actual.
- * el arreglo volcan, guarda las 4 letras de los volcanes (35 como maximo). El arreglo cl, guarda las 
- * 2 letras de las clasificaciones (25 clasificaciones como maximo).
- * Las variables que terminan en ...estaloc, estan asociadas con los botones que asocian una estacion a
- * un cajon y dicho cajon a un volcan (archivo estaloc.txt).
- * tie1 y tie2, corresponden al tiempo inicial y final de las ventanas de los archivos clasificados.
- * Los arreglos: by (numero de bytes de los datos); ra (rata de muestreo); ga (ganacia); tim (tiempo de cada traza); 
- * cu (datos en cuentas); est (nombre de las trazas); comp (componentes de las trazas); 
- * tar (letra que identifica a la tarjeta digitalizadora). fcnan: factor para conversion de cuentas a 
- * nanometros/segundo.
- */
-
+/// <summary>
+/// Este formulario corresponde al menú principal, donde se puede escoger la fecha de interés y la estación deseada,
+/// para posteriormente clasificar los sismos y leer los parámetros sísmicos básicos. El Form2.cs corresponde al lector
+/// de arribos para la localización con el hypo71 y el form3.cs, al atenuador. Util.cs, contiene utilidades usadas en los 3 formularios.
+/// El tiempo en formato SUDS, corresponde al número de segundos, desde el 1 de enero de 1900 a las 0 horas.
+/// El tiempo del formato GCF (Guralp Compressed Format) corresponde al número de segundos desde el 1 de enero de 1970 a las 0 horas.
+/// El tiempo en visual c# corresponde al número de centenares de nanosegundos desde el año cero.
+/// En general el nombre dado a las variables es sugestivo. Se detallan algunas de las más importantes: 
+///1.	Las variables numux y nudmx, corresponden al número de tarjetas con archivos en SUDS multiplexado y demultiplexado respectivamente (relacionadas en archivo inicio.txt). 
+///2.	Totven, el total de la ventana de tiempo (60 segundos por defecto). contampl, el número de lecturas de amplitud. id: corresponde al número de traza o estación, visible actualmente. Por defecto es 1 ya que normalmente la traza 0 corresponde al código del tiempo (IRIG).
+///3.	bxi, byi, etc. se usan como variables iniciales en algunos paneles cuando se hace la distinción entre la bajada del botón del ratón y su subida, como por ejemplo cuando se arrastra, donde ambas posiciones son distintas.
+///4.	estru30 corresponde a la variable asociada con la estructura 30 del formato SUDS, la cual corresponde a la corrección del tiempo. Esta estructura es muy importante en los formatos SUDS multiplexados, ya que normalmente la tarjeta digitalizadora toma el tiempo del computador, el cual comúnmente está desfasado varios segundos con respecto al tiempo exacto.
+///5.	clR, clG y clB, corresponden a los colores de las pepas en código RGB. Tarmux, tardmx, guardan la letra de las tarjetas digitalizadoras.
+///6.	nutra: es el número de canales totales, contabilizando todas las tarjetas digitalizadoras.
+///7.	nucla, nuvol, el número de clasificaciones y volcanes respectivamente. vol es el volcán actual.
+///8.	El arreglo volcán, guarda las 4 letras de los volcanes (35 como máximo). El arreglo cl, guarda las 2 letras de las clasificaciones (25 clasificaciones como máximo).
+///9.	Las variables que terminan en ...estaloc, están asociadas con los botones que asocian una estación a un cajón y dicho cajón a un volcán (archivo estaloc.txt).
+///10.	tie1 y tie2, corresponden al tiempo inicial y final de las ventanas de los archivos clasificados.
+///11.	Los arreglos: by (número de bytes de los datos); ra (rata de muestreo); ga (ganancia); tim (tiempo de cada traza); 
+///12.	cu (datos en cuentas); est (nombre de las trazas); comp (componentes de las trazas); 
+///13.	tar (letra que identifica a la tarjeta digitalizadora). fcnan: factor para conversión de cuentas a nanómetros/segundo.
+/// </summary>
 namespace Proceso20
 {
+    
     public partial class Form1 : Form
     {
         /// <summary>
@@ -192,10 +178,13 @@ namespace Proceso20
         /// </summary>
         short xesp = 0;
         /// <summary>
-        /// variables para el cálculo del espectro.
+        /// Variables para el cálculo del espectro.
         /// </summary>
         double t1esp;
         short yloc = -1;
+        /// <summary>
+        /// Se usa para condicionar la visualización del espectro de las trazas.
+        /// </summary>
         bool VerEspectro = false;
         bool moveresp = false;
         bool movespcla = false;
@@ -284,7 +273,7 @@ namespace Proceso20
         /// </summary>
         float ampamp = 1.0F;
         /// <summary>
-        /// 
+        /// Factor para el tamaño de la amplitud en el panel de clasificación (panelcla). 
         /// </summary>
         float ampclas = 1.0F;
         /// <summary>
@@ -320,11 +309,11 @@ namespace Proceso20
         /// </summary>
         double t2amp;
         /// <summary>
-        /// 
+        /// Tiempo inicial del hueco.
         /// </summary>
         double t1hu;
         /// <summary>
-        /// 
+        /// Tiempo final del hueco.
         /// </summary>
         double t2hu;
         /// <summary>
@@ -351,7 +340,13 @@ namespace Proceso20
         /// Frecuencia de corte para trabajar el Octave en el panel coda. 
         /// </summary>
         double Fccod;
+        /// <summary>
+        /// Tiempo inicial del tremor.
+        /// </summary>
         double tinitremor = 0;
+        /// <summary>
+        /// Tiempo final del tremor.
+        /// </summary>
         double tifintremor = 0;
         double contremor = 0;
         double incTremor = 120.0;
@@ -781,10 +776,11 @@ namespace Proceso20
         public short[] by = new short[Ma];
         /// <summary>
         /// Valor para amplificar digitalmente las cuentas de la traza, esto se usa cuando se quiere tener una traza mas amplia.
+        /// Ganancia.
         /// </summary>
         public short[] ga = new short[Ma];
         /// <summary>
-        /// 
+        /// Rata de muestreo.
         /// </summary>
         public double[] ra = new double[Ma]; //puede ser float
         /// <summary>
@@ -950,12 +946,24 @@ namespace Proceso20
         short Z = -1;
         short idmpt = -1;
         short volmpt = -1;
+        /// <summary>
+        /// Duración del movimiento de particulas.
+        /// </summary>
         float durmpt = 5.0F;
         int muimpt = 0;
         int muinimpt = 0;
         int mufmpt = 0;
+        /// <summary>
+        /// Valor del cero de la señal en la componente N de una traza para el cálculo del movimiento de particulas.
+        /// </summary>
         int ceroN = 0;
+        /// <summary>
+        /// Valor del cero de la señal en la componente E de una traza para el cálculo del movimiento de particulas.
+        /// </summary>
         int ceroE = 0;
+        /// <summary>
+        /// Valor del cero de la señal en la componente Z de una traza para el cálculo del movimiento de particulas.
+        /// </summary>
         int ceroZ = 0;
         //float ampmpt = 2.0F;
         double laE;
@@ -15451,7 +15459,7 @@ namespace Proceso20
             Espectro(pan, panelBar, idd, false);
         }
         /// <summary>
-        /// 
+        /// Activa o desactiva la clasificación del sismo con movimiento de particulas al cambiar el valor de verdad de la variable moverparti.
         /// </summary>
         /// <param name="sender">El objeto que lanza el evento.</param>
         /// <param name="e">El evento que se lanzó.</param>
@@ -15473,7 +15481,9 @@ namespace Proceso20
                 if (panel2.Visible == true) panel2.Visible = false;
             }
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
         void MovimientoParticula()
         {
             int i, id;
@@ -15636,8 +15646,10 @@ namespace Proceso20
             else volmpt = nuvol;
             NoMostrar = true;
             util.VerMapa(panelPartiEN, volcan[k][0], laE, loE, "", difmpt, laE, loE, Color.LightGray);
-            if (mptintp == false) TrazaComponente();
-            else TrazaComponenteInterp();
+            if (mptintp == false) 
+                TrazaComponente();
+            else 
+                TrazaComponenteInterp();
 
             ca = velompt.ToString() + " ms";
             Graphics dc = panelDatosMpt.CreateGraphics();
@@ -15665,7 +15677,9 @@ namespace Proceso20
 
             return;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
         void TrazaComponenteInterp()
         {
             int i, j, k, xf, yf, x, y, idt;
@@ -15833,7 +15847,9 @@ namespace Proceso20
             }
             return;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
         void TrazaComponente()
         {
             int i, j, k, xf, yf, x, y, idt, pico;
@@ -16047,7 +16063,13 @@ namespace Proceso20
 
             return;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="vN"></param>
+        /// <param name="vE"></param>
+        /// <param name="vZ"></param>
+        /// <param name="e"></param>
         void MoverNEZ(int[] vN, int[] vE, int[] vZ, DoWorkEventArgs e)
         {
             int i, idd, j, k, mxN, mnN, mxE, mnE, mxZ, mnZ, yf;
@@ -16332,7 +16354,13 @@ namespace Proceso20
 
             return;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="vN"></param>
+        /// <param name="vE"></param>
+        /// <param name="vZ"></param>
+        /// <param name="e"></param>
         void MoverNEZinterp(int[] vN, int[] vE, int[] vZ, DoWorkEventArgs e)
         {
             int i, idd, j, k, mxN, mnN, mxE, mnE, mxZ, mnZ, yf;
@@ -16591,7 +16619,7 @@ namespace Proceso20
             return;
         }
         /// <summary>
-        /// 
+        /// Es el que marca el inicio del cálculo de movimiento de partículas y desencadena la animación del mismo.
         /// </summary>
         /// <param name="sender">El objeto que lanza el evento.</param>
         /// <param name="e">El evento que se lanzó.</param>
@@ -16600,11 +16628,14 @@ namespace Proceso20
             int x, x2, y, k;
 
             if (modX == false) k = volmpt;
-            else k = nuvol;
+            else
+                k = nuvol;
             NoMostrar = true;
-            util.VerMapa(panelPartiEN, volcan[k][0], laE, loE, "", difmpt, laE, loE, Color.LightGray);
-            if (mptintp == false) TrazaComponente();
-            else TrazaComponenteInterp();
+            util.VerMapa(panelPartiEN, volcan[k][0], laE, loE,"", difmpt, laE, loE, Color.LightGray);
+            if (mptintp == false) 
+                TrazaComponente();
+            else 
+                TrazaComponenteInterp();
             Graphics dc2 = panelPartiNZ.CreateGraphics();
             Graphics dc3 = panelPartiEZ.CreateGraphics();
             Pen lap = new Pen(Color.Black, 1);
@@ -16642,7 +16673,7 @@ namespace Proceso20
             }
         }
         /// <summary>
-        /// 
+        /// Detiene el cálculo de movimiento de partículas y la animación que lo describe.
         /// </summary>
         /// <param name="sender">El objeto que lanza el evento.</param>
         /// <param name="e">El evento que se lanzó.</param>
@@ -16654,7 +16685,8 @@ namespace Proceso20
             boPausMpt.BackColor = Color.PaleGoldenrod;
         }
         /// <summary>
-        /// 
+        /// Pausa el cálculo de movimiento de partículas, cuando se de click sobre el botón start se continua desde el punto dode se pauso,
+        /// pero la animación borra la grafica del cálculo de los puntos anteriores.
         /// </summary>
         /// <param name="sender">El objeto que lanza el evento.</param>
         /// <param name="e">El evento que se lanzó.</param>
@@ -16680,7 +16712,7 @@ namespace Proceso20
             }
         }
         /// <summary>
-        /// 
+        /// Aumenta la amplitud utilizada en el cálculo de movimiento de partículas.
         /// </summary>
         /// <param name="sender">El objeto que lanza el evento.</param>
         /// <param name="e">El evento que se lanzó.</param>
@@ -16706,7 +16738,7 @@ namespace Proceso20
             bro.Dispose();
         }
         /// <summary>
-        /// 
+        /// Disminuye la amplitud utilizada en el cálculo de movimiento de partículas.
         /// </summary>
         /// <param name="sender">El objeto que lanza el evento.</param>
         /// <param name="e">El evento que se lanzó.</param>
@@ -16733,7 +16765,9 @@ namespace Proceso20
             bro.Dispose();
         }
         /// <summary>
-        /// 
+        /// Modifica el valor de la variable durmpt haciendola = 2.0F en caso de que el click sea con el botón izquierdo del mouse,
+        /// o si es con el derecho y su valor actual es mayor de 2.0F,en caso de que se de el click con el botón derecho y que su
+        /// valor sea menor que 2.0F y mayor que 0.5F le resta 0.5F y grafica las trazas involucradas en el movimiento de particulas.
         /// </summary>
         /// <param name="sender">El objeto que lanza el evento.</param>
         /// <param name="e">El evento que se lanzó.</param>
@@ -16767,7 +16801,7 @@ namespace Proceso20
             else TrazaComponenteInterp();
         }
         /// <summary>
-        /// 
+        /// Modifica el valor de la variable durmpt haciendola = 5.0F.
         /// </summary>
         /// <param name="sender">El objeto que lanza el evento.</param>
         /// <param name="e">El evento que se lanzó.</param>
@@ -16781,7 +16815,7 @@ namespace Proceso20
             else TrazaComponenteInterp();
         }
         /// <summary>
-        /// 
+        /// Modifica el valor de la variable durmpt haciendola = 10.0F.
         /// </summary>
         /// <param name="sender">El objeto que lanza el evento.</param>
         /// <param name="e">El evento que se lanzó.</param>
@@ -16791,8 +16825,10 @@ namespace Proceso20
             bo2Mpt.BackColor = Color.White;
             bo5Mpt.BackColor = Color.White;
             bo10Mpt.BackColor = Color.Plum;
-            if (mptintp == false) TrazaComponente();
-            else TrazaComponenteInterp();
+            if (mptintp == false) 
+                TrazaComponente();
+            else 
+                TrazaComponenteInterp();
         }
 
         private void boMasMpt_MouseDown(object sender, MouseEventArgs e)
@@ -16800,14 +16836,15 @@ namespace Proceso20
             //if (e.Button == MouseButtons.Left) ampmpt += 0.1F;
             //else ampmpt = 1.0F;
         }
-
         private void boMenosMpt_MouseDown(object sender, MouseEventArgs e)
         {
             //if (e.Button == MouseButtons.Left) ampmpt -= 0.1F;
             //else ampmpt = 1.0F;
         }
+
         /// <summary>
-        /// 
+        /// Hace que cuando se grafique la animación del movimiento de particulas,
+        /// se grafique con puntos.
         /// </summary>
         /// <param name="sender">El objeto que lanza el evento.</param>
         /// <param name="e">El evento que se lanzó.</param>
@@ -16818,7 +16855,8 @@ namespace Proceso20
             boLinMpt.BackColor = Color.PaleGoldenrod;
         }
         /// <summary>
-        /// 
+        /// Hace que cuando se grafique la animación del movimiento de particulas,
+        /// se grafique con lineas.
         /// </summary>
         /// <param name="sender">El objeto que lanza el evento.</param>
         /// <param name="e">El evento que se lanzó.</param>
@@ -16829,7 +16867,7 @@ namespace Proceso20
             boLinMpt.BackColor = Color.ForestGreen;
         }
         /// <summary>
-        /// 
+        /// Cierra el panel donde se muestra el movimiento de particulas.
         /// </summary>
         /// <param name="sender">El objeto que lanza el evento.</param>
         /// <param name="e">El evento que se lanzó.</param>
@@ -16846,17 +16884,17 @@ namespace Proceso20
             mufmpt = 0;
             pausmpt = false;
             boPausMpt.BackColor = Color.PaleGoldenrod;
-            if (panelInterP.Visible == false) Clasificar();
+            if (panelInterP.Visible == false) 
+                Clasificar();
         }
         /// <summary>
-        /// 
+        /// Desplaza hacia arriba la linea roja que cruza la traza de la componente N en la grafica de movimiento de particulas.
         /// </summary>
         /// <param name="sender">El objeto que lanza el evento.</param>
         /// <param name="e">El evento que se lanzó.</param>
         private void bosubNmpt_MouseDown(object sender, MouseEventArgs e)
         {
             double dd;
-
             dd = (ceroN - mnmpt[0]) / (panelPartiTraN.Height / 2.0);
             if (e.Button == MouseButtons.Left) ceroN += (int)(dd);
             else ceroN += 5 * (int)(dd);
@@ -16864,14 +16902,13 @@ namespace Proceso20
             else TrazaComponenteInterp();
         }
         /// <summary>
-        /// 
+        /// Desplaza hacia abajo la linea roja que cruza la traza de la componente N en la grafica de movimiento de particulas. 
         /// </summary>
         /// <param name="sender">El objeto que lanza el evento.</param>
         /// <param name="e">El evento que se lanzó.</param>
         private void bobajNmpt_MouseDown(object sender, MouseEventArgs e)
         {
             double dd;
-
             dd = (ceroN - mnmpt[0]) / (panelPartiTraN.Height / 2.0);
             if (e.Button == MouseButtons.Left) ceroN -= (int)(dd);
             else ceroN -= 5 * (int)(dd);
@@ -16879,14 +16916,13 @@ namespace Proceso20
             else TrazaComponenteInterp();
         }
         /// <summary>
-        /// 
+        /// Desplaza hacia arriba la linea roja que cruza la traza de la componente E en la grafica de movimiento de particulas. 
         /// </summary>
         /// <param name="sender">El objeto que lanza el evento.</param>
         /// <param name="e">El evento que se lanzó.</param>
         private void bosubEmpt_MouseDown(object sender, MouseEventArgs e)
         {
             double dd;
-
             dd = (ceroE - mnmpt[1]) / (panelPartiTraE.Height / 2.0);
             if (e.Button == MouseButtons.Left) ceroE += (int)(dd);
             else ceroE += 5 * (int)(dd);
@@ -16894,14 +16930,13 @@ namespace Proceso20
             else TrazaComponenteInterp();
         }
         /// <summary>
-        /// 
+        /// Desplaza hacia abajo la linea roja que cruza la traza de la componente E en la grafica de movimiento de particulas. 
         /// </summary>
         /// <param name="sender">El objeto que lanza el evento.</param>
         /// <param name="e">El evento que se lanzó.</param>
         private void bobajaEmpt_MouseDown(object sender, MouseEventArgs e)
         {
             double dd;
-
             dd = (ceroE - mnmpt[1]) / (panelPartiTraE.Height / 2.0);
             if (e.Button == MouseButtons.Left) ceroE -= (int)(dd);
             else ceroE -= 5 * (int)(dd);
@@ -16909,14 +16944,13 @@ namespace Proceso20
             else TrazaComponenteInterp();
         }
         /// <summary>
-        /// 
+        /// Desplaza hacia arriba la linea roja que cruza la traza de la componente Z en la grafica de movimiento de particulas.
         /// </summary>
         /// <param name="sender">El objeto que lanza el evento.</param>
         /// <param name="e">El evento que se lanzó.</param>
         private void bosubZmpt_MouseDown(object sender, MouseEventArgs e)
         {
             double dd;
-
             dd = (ceroZ - mnmpt[2]) / (panelPartiTraZ.Height / 2.0);
             if (e.Button == MouseButtons.Left) ceroZ += (int)(dd);
             else ceroZ += 5 * (int)(dd);
@@ -16924,7 +16958,7 @@ namespace Proceso20
             else TrazaComponenteInterp();
         }
         /// <summary>
-        /// 
+        /// Desplaza hacia anbajo la linea roja que cruza la traza de la componente Z en la grafica de movimiento de particulas.
         /// </summary>
         /// <param name="sender">El objeto que lanza el evento.</param>
         /// <param name="e">El evento que se lanzó.</param>
@@ -16939,31 +16973,38 @@ namespace Proceso20
             else TrazaComponenteInterp();
         }
         /// <summary>
-        /// 
+        /// Panel donde se grafica la porción de traza de la componente N a la que se le calcula el movimiento de particulas.
         /// </summary>
         /// <param name="sender">El objeto que lanza el evento.</param>
-        /// <param name="e">El evento que se lanzó.</param>/// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void panelPartiTraN_MouseDown(object sender, MouseEventArgs e)
         {
             int xf;
             double fax, dd, fac;
 
-            if (e.X < 40) return;
-            if (mptintp == false) fac = 1.0;
-            else fac = facRaInterp;
+            if (e.X < 40) 
+                return;
+            if (mptintp == false) 
+                fac = 1.0;
+            else
+                fac = facRaInterp;
             xf = panelPartiTraN.Size.Width - 50;
             fax = (double)(durmpt) / (double)(xf);
             dd = (e.X - 40) * fax;
             if (dd > (double)(durmpt)) return;
-            if (e.Button == MouseButtons.Left) muimpt = (int)(dd * ra[N] * fac);
-            else mufmpt = (int)(dd * ra[N] * fac);
-            if (mufmpt <= muimpt) mufmpt = 0;
-            if (mptintp == false) TrazaComponente();
-            else TrazaComponenteInterp();
+            if (e.Button == MouseButtons.Left) 
+                muimpt = (int)(dd * ra[N] * fac);
+            else 
+                mufmpt = (int)(dd * ra[N] * fac);
+            if (mufmpt <= muimpt) 
+                mufmpt = 0;
+            if (mptintp == false) 
+                TrazaComponente();
+            else 
+                TrazaComponenteInterp();
         }
         /// <summary>
-        /// 
+        /// Panel donde se grafica la porción de traza de la componente E a la que se le calcula el movimiento de particulas.
         /// </summary>
         /// <param name="sender">El objeto que lanza el evento.</param>
         /// <param name="e">El evento que se lanzó.</param>
@@ -16986,7 +17027,7 @@ namespace Proceso20
             else TrazaComponenteInterp();
         }
         /// <summary>
-        /// 
+        /// Panel donde se grafica la porción de traza de la componente Z a la que se le calcula el movimiento de particulas.
         /// </summary>
         /// <param name="sender">El objeto que lanza el evento.</param>
         /// <param name="e">El evento que se lanzó.</param>
@@ -17009,12 +17050,13 @@ namespace Proceso20
             else TrazaComponenteInterp();
         }
         /// <summary>
-        /// 
+        /// Grafica o esconde el mapa donde se dibuja el movimiento de particulas.
         /// </summary>
         /// <param name="sender">El objeto que lanza el evento.</param>
         /// <param name="e">El evento que se lanzó.</param>
         private void boModX_Click(object sender, EventArgs e)
         {
+            
             int k;
 
             if (modX == false)
@@ -17039,6 +17081,7 @@ namespace Proceso20
         /// <param name="e">El evento que se lanzó.</param>
         private void boNeic_MouseDown(object sender, MouseEventArgs e)
         {
+            MessageBox.Show("este es boneic");
             if (nomweb == "") return;
 
             if (RevisarEstacionNeic() == false)
@@ -20200,7 +20243,8 @@ namespace Proceso20
             }
         }
         /// <summary>
-        /// 
+        /// Desplaza la porción de traza que se ve en los paneles de cada componente(N, E, Z) 
+        /// en el panel de movimieto de particulas haacia la derecha.
         /// </summary>
         /// <param name="sender">El objeto que lanza el evento.</param>
         /// <param name="e">El evento que se lanzó.</param>
@@ -20230,7 +20274,8 @@ namespace Proceso20
             else TrazaComponenteInterp();
         }
         /// <summary>
-        /// 
+        /// Desplaza la porción de traza que se ve en los paneles de cada componente(N, E, Z) 
+        /// en el panel de movimieto de particulas haacia la izquierda.
         /// </summary>
         /// <param name="sender">El objeto que lanza el evento.</param>
         /// <param name="e">El evento que se lanzó.</param>
@@ -20477,100 +20522,6 @@ namespace Proceso20
             }
             dc.DrawLines(lap, dat);
             lap.Dispose();
-
-
-            /* int i, j, jb, k, mmx, mmn, dfcu;
-             double pper, km, dcm, ff, fdr, fdr2, latE, lonE, latV, lonV;
-             double fcpi, fcdislo, disla, dislo;
-             double dr1, dr2;
-             char[] delim = { ' ', '\t' };
-             string[] pa = null;
-             string ca, lin = "";
-
-             jb = tim[id].Length - 1; // tiempo de la ultima muestra
-             ca = ".\\pro\\fcms" + tar[id] + ".txt";
-             if (!File.Exists(ca))
-             {
-                 panelDR.Visible = false;
-                 DR = 0;
-                 boDR.BackColor = Color.Gold;
-                 return;
-             }
-             StreamReader arr = new StreamReader(ca);
-             lin = "";
-             ff = -1.0;
-             fdr = -1.0;
-             latE = 1000.0;
-             lonE = 1000.0;
-             latV = 1000.0;
-             lonV = 1000.0;
-             while (lin != null)
-             {
-                 try
-                 {
-                     lin = arr.ReadLine();
-                     if (lin == null) break;
-                     if (lin.Substring(0, 4) == est[id].Substring(0, 4))
-                     {
-                         pa = lin.Split(delim);
-                         ff = double.Parse(pa[1]);
-                         latE = double.Parse(pa[4]);
-                         lonE = double.Parse(pa[5]);
-                         latV = double.Parse(pa[7]);
-                         lonV = double.Parse(pa[8]);
-                         if (pa.Length >= 9) fdr = double.Parse(pa[9]);
-                         break;
-                     }
-                 }
-                 catch
-                 {
-                 }
-             }
-             arr.Close();
-             if (ff <= 0 || fdr <= 0)
-             {
-                 panelDR.Visible = false;
-                 DR = 0;
-                 boDR.BackColor = Color.Gold;
-                 return;
-             }
-
-             fcpi = Math.PI / 180.0;
-             fcdislo = fcpi * Math.Cos(laD[id] * fcpi) * 6367.449;
-             disla = Math.Abs(latV - latE) * 111.12;
-             dislo = Math.Abs(lonV - lonE) * fcdislo;
-             km = Math.Sqrt(disla * disla + dislo * dislo);
-             dcm = km * 100000.0;
-             pper = tDR2 - tDR1;
-             fdr2 = dcm / (4.0 * Math.PI * Math.Sqrt(2.0) * (Math.Pow(10.0, 7) / ff));
-             i = (int)((tDR1 - tim[id][0]) * ra[id]);
-             if (i < 0) i = 0;
-             j = (int)((tDR2 - tim[id][0]) * ra[id]);
-             if (j > jb) j = jb;
-             if (j > 0 && j > i)
-             {
-                 mmx = cu[id][i];
-                 mmn = mmx;
-                 for (k = i + 1; k < j; k++)
-                 {
-                     if (mmx < cu[id][k]) mmx = cu[id][k];
-                     else if (mmn > cu[id][k]) mmn = cu[id][k];
-                 }
-                 dfcu = mmx - mmn;
-             }
-             else
-             {
-                 panelDR.Visible = false;
-                 DR = 0;
-                 boDR.BackColor = Color.Gold;
-                 return;
-             }
-             dr1 = dfcu * pper * fdr;
-             dr2 = dfcu * pper * fdr2;
-
-             panelDR.Visible = true;
-             //MessageBox.Show("ff=" + ff.ToString() + " fdr=" + fdr.ToString() + " fdr2=" + fdr2.ToString() + " dr1=" + dr1.ToString() + " dr2=" + dr2.ToString());
-             */
             return;
         }
         /// <summary>
@@ -20603,7 +20554,8 @@ namespace Proceso20
             }
         }
         /// <summary>
-        /// 
+        /// En caso de que el click sea con el botón izquierdo del mouse resta 1 al valor de promDR,
+        /// si el click es con el botón derecho se resta 10 a promDR.
         /// </summary>
         /// <param name="sender">El objeto que lanza el evento.</param>
         /// <param name="e">El evento que se lanzó.</param>
@@ -20614,37 +20566,60 @@ namespace Proceso20
             panelDR.Invalidate();
         }
         /// <summary>
-        /// 
+        /// En caso de que el click sea con el botón izquierdo del mouse agrega 1 al valor de promDR,
+        /// si el click es con el botón derecho se agrega 10 a promDR.
         /// </summary>
         /// <param name="sender">El objeto que lanza el evento.</param>
         /// <param name="e">El evento que se lanzó.</param>
         private void boMenosDR_MouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Left) promDR += 1.0;
+            if (e.Button == MouseButtons.Left) 
+                promDR += 1.0;
             else promDR += 10.0;
             panelDR.Invalidate();
         }
-
+        /// <summary>
+        /// Esconde el panelDR y cambia el valor de valDR a 0. 
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void boXDR_Click(object sender, EventArgs e)
         {
             panelDR.Visible = false;
             valDR = 0;
         }
-
+        /// <summary>
+        /// Si se da click sobre el botón con el click izquierdo resta 50 al valor de promDR,
+        /// si se da con el click derecho se resta 500 al valor de promDR.
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void boMasmasDR_MouseDown(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left) promDR -= 50.0;
             else promDR -= 500.0;
             panelDR.Invalidate();
         }
-
+        /// <summary>
+        /// Si se da click sobre el botón con el click izquierdo agrega 50 al valor de promDR,
+        /// si se da con el click derecho se agrega 500 al valor de promDR.
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void boMenosmenosDR_MouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Left) promDR += 50.0;
-            else promDR += 500.0;
+            if (e.Button == MouseButtons.Left) 
+                promDR += 50.0;
+            else
+                promDR += 500.0;
             panelDR.Invalidate();
         }
-
+        /// <summary>
+        /// Se lanza cuando se da click sobre el panel panelDR y asigna los valores a xiDR = x donde se dio el click,
+        /// yiDR = y donde se dio el click.
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void panelDR_MouseDown(object sender, MouseEventArgs e)
         {
             xiDR = e.X;
@@ -20772,67 +20747,6 @@ namespace Proceso20
                         dat[k++].Y = (int)(iniy + (proVelDR - cu[id][nmi + i]) * fy);
                     }
                     dc.DrawLines(lap, dat);
-
-                    /* ca = ".\\pro\\fcms" + tar[id] + ".txt";
-                     if (!File.Exists(ca))
-                     {
-                         panelDR.Visible = false;
-                         DR = 0;
-                         boDR.BackColor = Color.Gold;
-                         return;
-                     }
-                     StreamReader arr = new StreamReader(ca);
-                     lin = "";
-                     ff = -1.0;
-                     fdr = -1.0;
-                     latE = 1000.0;
-                     lonE = 1000.0;
-                     latV = 1000.0;
-                     lonV = 1000.0;
-                     while (lin != null)
-                     {
-                         try
-                         {
-                             lin = arr.ReadLine();
-                             if (lin == null) break;
-                             if (lin.Substring(0,4)==est[id].Substring(0,4))
-                             {
-                                 pa = lin.Split(delim);
-                                 if (pa[3][0] == '0')
-                                 {
-                                     ff = double.Parse(pa[1]);
-                                     latE = double.Parse(pa[4]);
-                                     lonE = double.Parse(pa[5]);
-                                     latV = double.Parse(pa[7]);
-                                     lonV = double.Parse(pa[8]);
-                                     if (pa.Length >= 9) fdr = double.Parse(pa[9]);
-                                     break;
-                                 }
-                             }
-                         }
-                         catch
-                         {
-                         }
-                     }
-                     arr.Close();
-                     if (ff <= 0 || fdr <= 0)
-                     {
-                         panelDR.Visible = false;
-                         DR = 0;
-                         boDR.BackColor = Color.Gold;
-                         return;
-                     }
-
-                     fcpi = Math.PI / 180.0;
-                     fcdislo = fcpi * Math.Cos(laD[id] * fcpi) * 6367.449;
-                     disla = Math.Abs(latV - latE) * 111.12;
-                     dislo = Math.Abs(lonV - lonE) * fcdislo;
-                     km = Math.Sqrt(disla * disla + dislo * dislo);
-                     dcm = km * 100000.0;
-                     pper = tim[id][nmi + nf] - tim[id][nmi + ni];
-                     fdr2 = dcm / (4.0 * Math.PI * Math.Sqrt(2.0) * (Math.Pow(10.0, 7) / ff));
-                     * */
-
                     pper = tim[id][nmi + nf] - tim[id][nmi + ni];
                     ccu = (int)(max - min);
                     dfcu = (int)((max - min) / (double)(ga[id]));
@@ -20869,25 +20783,20 @@ namespace Proceso20
             dc.DrawString(ca, new Font("Lucida Console", 16, FontStyle.Bold), br, 240, 2);
             br.Dispose();
         }
-
+        /// <summary>
+        /// Si el botón boTarCarga esta visible lo esconde, reasigna el indice seleccionado del listBox1 = 0
+        /// y lanza el método SeleccionarMinuto().
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void boTarCarga_MouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Right) panelTar.Visible = false;
-            if (listBox1.SelectedIndex < 0) listBox1.SelectedIndex = 0;
+            if (e.Button == MouseButtons.Right) 
+                panelTar.Visible = false;
+            if (listBox1.SelectedIndex < 0) 
+                listBox1.SelectedIndex = 0;
             SeleccionarMinuto(false);
         }
-
-        /*
-         * System.Net.Mail.MailMessage message = new System.Net.Mail.MailMessage();
-message.To.Add("luckyperson@online.microsoft.com");
-message.Subject = "This is the Subject line";
-message.From = new System.Net.Mail.MailAddress("From@online.microsoft.com");
-message.Body = "This is the message body";
-System.Net.Mail.SmtpClient smtp = new System.Net.Mail.SmtpClient("yoursmtphost");
-smtp.Send(message);
-
-You need to replace yoursmtphost with your host address.
-         * */
 
         void EnviarMensaje0()
         {
@@ -20938,17 +20847,27 @@ You need to replace yoursmtphost with your host address.
                 MessageBox.Show(ex.Message.ToString());
             }
         }
-
+        /// <summary>
+        /// Se lanza cuando cambia de estado el checkBox checkBoxHz, en caso de estar seleccionado lanza el método PromedioFiltrado(),
+        /// si no esta seleccionado asigna el valor del promedio de la estación activa a la varible promDR.
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void checkBoxHz_CheckedChanged(object sender, EventArgs e)
         {
-            if (checkBoxHz.Checked == true) PromedioFiltrado();
-            else promDR = promEst[id];
+            if (checkBoxHz.Checked == true) 
+                PromedioFiltrado();
+            else 
+                promDR = promEst[id];
             panelDR.Invalidate();
         }
-
+        /// <summary>
+        /// Esconde el botón boAnotación.
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void boAnotacion_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("hola");
             boAnotacion.Visible = false;
         }
         /// <summary>
@@ -21468,7 +21387,11 @@ You need to replace yoursmtphost with your host address.
 
             return;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void textBoxDisparo_TextChanged(object sender, EventArgs e)
         {
             try
@@ -21501,7 +21424,11 @@ You need to replace yoursmtphost with your host address.
                 textBoxUT.BackColor = Color.Pink;
             }
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void textBoxDisparo_MouseHover(object sender, EventArgs e)
         {
             ToolTip tip = new ToolTip();
@@ -21510,7 +21437,11 @@ You need to replace yoursmtphost with your host address.
             tip.ReshowDelay = 0;
             tip.Show("Letra de Tarjeta para Factores", panel1, 1200);
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void textBoxUT_MouseHover(object sender, EventArgs e)
         {
             ToolTip tip = new ToolTip();
@@ -21548,7 +21479,11 @@ You need to replace yoursmtphost with your host address.
             dimensionar = false;
             DimensionarPanelTarjetas();
         }
-
+        /// <summary>
+        /// Esconde el panel panelTarAux.Visible.
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void boXAux_Click(object sender, EventArgs e)
         {
             panelTarAux.Visible = false;
