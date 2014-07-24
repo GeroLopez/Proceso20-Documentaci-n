@@ -16,28 +16,7 @@ using System.Net.Mail;
 using System.Net.Mime;
 //using EASendMail; //add EASendMail namespace
 
-/// <summary>
-/// Este formulario corresponde al menú principal, donde se puede escoger la fecha de interés y la estación deseada,
-/// para posteriormente clasificar los sismos y leer los parámetros sísmicos básicos. El Form2.cs corresponde al lector
-/// de arribos para la localización con el hypo71 y el form3.cs, al atenuador. Util.cs, contiene utilidades usadas en los 3 formularios.
-/// El tiempo en formato SUDS, corresponde al número de segundos, desde el 1 de enero de 1900 a las 0 horas.
-/// El tiempo del formato GCF (Guralp Compressed Format) corresponde al número de segundos desde el 1 de enero de 1970 a las 0 horas.
-/// El tiempo en visual c# corresponde al número de centenares de nanosegundos desde el año cero.
-/// En general el nombre dado a las variables es sugestivo. Se detallan algunas de las más importantes: 
-///1.	Las variables numux y nudmx, corresponden al número de tarjetas con archivos en SUDS multiplexado y demultiplexado respectivamente (relacionadas en archivo inicio.txt). 
-///2.	Totven, el total de la ventana de tiempo (60 segundos por defecto). contampl, el número de lecturas de amplitud. id: corresponde al número de traza o estación, visible actualmente. Por defecto es 1 ya que normalmente la traza 0 corresponde al código del tiempo (IRIG).
-///3.	bxi, byi, etc. se usan como variables iniciales en algunos paneles cuando se hace la distinción entre la bajada del botón del ratón y su subida, como por ejemplo cuando se arrastra, donde ambas posiciones son distintas.
-///4.	estru30 corresponde a la variable asociada con la estructura 30 del formato SUDS, la cual corresponde a la corrección del tiempo. Esta estructura es muy importante en los formatos SUDS multiplexados, ya que normalmente la tarjeta digitalizadora toma el tiempo del computador, el cual comúnmente está desfasado varios segundos con respecto al tiempo exacto.
-///5.	clR, clG y clB, corresponden a los colores de las pepas en código RGB. Tarmux, tardmx, guardan la letra de las tarjetas digitalizadoras.
-///6.	nutra: es el número de canales totales, contabilizando todas las tarjetas digitalizadoras.
-///7.	nucla, nuvol, el número de clasificaciones y volcanes respectivamente. vol es el volcán actual.
-///8.	El arreglo volcán, guarda las 4 letras de los volcanes (35 como máximo). El arreglo cl, guarda las 2 letras de las clasificaciones (25 clasificaciones como máximo).
-///9.	Las variables que terminan en ...estaloc, están asociadas con los botones que asocian una estación a un cajón y dicho cajón a un volcán (archivo estaloc.txt).
-///10.	tie1 y tie2, corresponden al tiempo inicial y final de las ventanas de los archivos clasificados.
-///11.	Los arreglos: by (número de bytes de los datos); ra (rata de muestreo); ga (ganancia); tim (tiempo de cada traza); 
-///12.	cu (datos en cuentas); est (nombre de las trazas); comp (componentes de las trazas); 
-///13.	tar (letra que identifica a la tarjeta digitalizadora). fcnan: factor para conversión de cuentas a nanómetros/segundo.
-/// </summary>
+
 namespace Proceso20
 {
     
@@ -1064,7 +1043,28 @@ namespace Proceso20
         Util util = new Util();
         Fourier four = new Fourier();
         protected PerformanceCounter ramCounter = new PerformanceCounter("Memory", "Available MBytes");
-
+        /// <summary>
+        /// Este formulario corresponde al menú principal, donde se puede escoger la fecha de interés y la estación deseada,
+        /// para posteriormente clasificar los sismos y leer los parámetros sísmicos básicos. El Form2.cs corresponde al lector
+        /// de arribos para la localización con el hypo71 y el form3.cs, al atenuador. Util.cs, contiene utilidades usadas en los 3 formularios.
+        /// El tiempo en formato SUDS, corresponde al número de segundos, desde el 1 de enero de 1900 a las 0 horas.
+        /// El tiempo del formato GCF (Guralp Compressed Format) corresponde al número de segundos desde el 1 de enero de 1970 a las 0 horas.
+        /// El tiempo en visual c# corresponde al número de centenares de nanosegundos desde el año cero.
+        /// En general el nombre dado a las variables es sugestivo. Se detallan algunas de las más importantes: 
+        ///1.	Las variables numux y nudmx, corresponden al número de tarjetas con archivos en SUDS multiplexado y demultiplexado respectivamente (relacionadas en archivo inicio.txt). 
+        ///2.	Totven, el total de la ventana de tiempo (60 segundos por defecto). contampl, el número de lecturas de amplitud. id: corresponde al número de traza o estación, visible actualmente. Por defecto es 1 ya que normalmente la traza 0 corresponde al código del tiempo (IRIG).
+        ///3.	bxi, byi, etc. se usan como variables iniciales en algunos paneles cuando se hace la distinción entre la bajada del botón del ratón y su subida, como por ejemplo cuando se arrastra, donde ambas posiciones son distintas.
+        ///4.	estru30 corresponde a la variable asociada con la estructura 30 del formato SUDS, la cual corresponde a la corrección del tiempo. Esta estructura es muy importante en los formatos SUDS multiplexados, ya que normalmente la tarjeta digitalizadora toma el tiempo del computador, el cual comúnmente está desfasado varios segundos con respecto al tiempo exacto.
+        ///5.	clR, clG y clB, corresponden a los colores de las pepas en código RGB. Tarmux, tardmx, guardan la letra de las tarjetas digitalizadoras.
+        ///6.	nutra: es el número de canales totales, contabilizando todas las tarjetas digitalizadoras.
+        ///7.	nucla, nuvol, el número de clasificaciones y volcanes respectivamente. vol es el volcán actual.
+        ///8.	El arreglo volcán, guarda las 4 letras de los volcanes (35 como máximo). El arreglo cl, guarda las 2 letras de las clasificaciones (25 clasificaciones como máximo).
+        ///9.	Las variables que terminan en ...estaloc, están asociadas con los botones que asocian una estación a un cajón y dicho cajón a un volcán (archivo estaloc.txt).
+        ///10.	tie1 y tie2, corresponden al tiempo inicial y final de las ventanas de los archivos clasificados.
+        ///11.	Los arreglos: by (número de bytes de los datos); ra (rata de muestreo); ga (ganancia); tim (tiempo de cada traza); 
+        ///12.	cu (datos en cuentas); est (nombre de las trazas); comp (componentes de las trazas); 
+        ///13.	tar (letra que identifica a la tarjeta digitalizadora). fcnan: factor para conversión de cuentas a nanómetros/segundo.
+        /// </summary>
         public Form1()
         {
             InitializeComponent();
@@ -3178,6 +3178,7 @@ namespace Proceso20
             yaInterp = false;
             suma = 0;
             valDR = 0;
+            
             if (panelParti.Visible == true)
                 panelParti.Visible = false;
             if (siNeic == true)
@@ -17075,15 +17076,15 @@ namespace Proceso20
             util.VerMapa(panelPartiEN, volcan[k][0], laE, loE, "", difmpt, laE, loE, Color.LightGray);
         }
         /// <summary>
-        /// 
+        /// Este botón hace visible el panelMapaMundo en caso de que haya estaciones NEIC (que exista el archivo /pro/tab/estaciones.dat)
+        /// y abre en el navegador web predeterminado la página http://earthquake.usgs.gov/earthquakes/recenteqsww/Quakes/quakes_all.php.
         /// </summary>
         /// <param name="sender">El objeto que lanza el evento.</param>
         /// <param name="e">El evento que se lanzó.</param>
         private void boNeic_MouseDown(object sender, MouseEventArgs e)
         {
-            MessageBox.Show("este es boneic");
             if (nomweb == "") return;
-
+           
             if (RevisarEstacionNeic() == false)
             {
                 boNeic.Visible = false;
@@ -17098,7 +17099,10 @@ namespace Proceso20
             System.Diagnostics.Process.Start(nomweb);
             return;
         }
-
+        /// <summary>
+        /// Verifica la existencia del archivo /pro/tab/estaciones.dat.
+        /// </summary>
+        /// <returns>Retorna true en caso de encontrarlo, false en caso contrario.</returns>
         bool RevisarEstacionNeic()
         {
             string li = "";
@@ -17132,7 +17136,9 @@ namespace Proceso20
             return (res);
         }
         /// <summary>
-        /// 
+        /// El texbox textBoxNeic es el que aparece en el panelMapaMundo y es donde se ingresa el dato del sismo distante que 
+        /// se quiere mostrar, con este dato se determina el mapa a dibujar en el panelMapaMundo con base a los datos de la
+        /// página http://earthquake.usgs.gov/earthquakes/recenteqsww/Quakes/quakes_all.php.
         /// </summary>
         /// <param name="sender">El objeto que lanza el evento.</param>
         /// <param name="e">El evento que se lanzó.</param>
@@ -17259,7 +17265,8 @@ namespace Proceso20
                 return;
             }
             if (!File.Exists(".\\tab\\estaciones.dat") || !File.Exists(".\\tab\\P.txt")) return;
-            if (siCajTeo == false) CrearCajonesTeoricos(panelCajTeo);
+            if (siCajTeo == false) 
+                CrearCajonesTeoricos(panelCajTeo);
 
             DirectoryInfo dir = new DirectoryInfo(".\\tab");
             FileInfo[] fcc = dir.GetFiles("*.txt");
@@ -17405,7 +17412,7 @@ namespace Proceso20
             return;
         }
         /// <summary>
-        /// 
+        /// Cierra el panelMapaMundo.
         /// </summary>
         /// <param name="sender">El objeto que lanza el evento.</param>
         /// <param name="e">El evento que se lanzó.</param>
@@ -17420,7 +17427,7 @@ namespace Proceso20
             deltAK135 = 0;
         }
         /// <summary>
-        /// 
+        /// Se encarga de dibujar al panelMapaMundo el cual esta situado en la esquina superior derecha de la pantalla.
         /// </summary>
         /// <param name="sender">El objeto que lanza el evento.</param>
         /// <param name="e">El evento que se lanzó.</param>
@@ -17432,6 +17439,8 @@ namespace Proceso20
 
             //MessageBox.Show(listBox1.Items[listBox1.SelectedIndex].ToString());
             an = int.Parse(listBox1.Items[listBox1.SelectedIndex].ToString().Substring(0, 2));
+            //string st = "14/07/24 7:10";
+            //an = int.Parse(st.Substring(0, 2));
             if (an < 80) an += 2000;
             else an += 1900;
             me = int.Parse(listBox1.Items[listBox1.SelectedIndex].ToString().Substring(3, 2));
@@ -17456,7 +17465,11 @@ namespace Proceso20
             util.MapaMundo(panelMapaMundi);
             util.SismoNEIC(panelMapaMundi, lafN, lofN, zzfN, mgfN, laNeic, loNeic);
         }
-
+        /// <summary>
+        /// Crea los checkbox que representan los archivos.txt alojados en la carpeta .\bin\Debug\tab,
+        /// que se usan para presentar los tipos de arribo a ese sismo.
+        /// </summary>
+        /// <param name="panel">Panel donde se crean los checkBox, (panelCajTeo).</param>
         void CrearCajonesTeoricos(Panel panel)
         {
             int i, j, cont;
@@ -17500,7 +17513,9 @@ namespace Proceso20
 
         }
         /// <summary>
-        /// 
+        /// Se lanza cuando se cambia de estado a cualquiera de los checkBox cbx,
+        /// y determina el checkbox especifico que tuvo este evento, si el inidice de dicho checkBox
+        /// es diferente de -1 llama al método PonerTeorico().
         /// </summary>
         /// <param name="sender">El objeto que lanza el evento.</param>
         /// <param name="e">El evento que se lanzó.</param>
@@ -17519,12 +17534,20 @@ namespace Proceso20
                     break;
                 }
             }
-            if (j == -1) return;
+            if (j == -1) 
+                return;
             PonerTeorico();
 
             return;
         }
-
+        /// <summary>
+        /// Está pendiente su documentación.
+        /// </summary>
+        /// <param name="la1"></param>
+        /// <param name="lo1"></param>
+        /// <param name="laf"></param>
+        /// <param name="lof"></param>
+        /// <returns></returns>
         double DeltaEstacion(double la1, double lo1, double laf, double lof)
         {
             double delta = 0, fac, fac2, phi1, phi2, difLon, res;
@@ -17539,8 +17562,9 @@ namespace Proceso20
 
             return (delta);
         }
-
-
+        /// <summary>
+        /// Está pendiente su documentación.
+        /// </summary>
         void PonerTeorico()
         {
             int i, k, ancho;
@@ -17642,14 +17666,15 @@ namespace Proceso20
 
             return;
         }
-
+        /// <summary>
+        /// Asigna los colores del texto y fondo de los checkBox cbx, además de virificar cuales están checked = true.
+        /// </summary>
         void ChequearCajones()
         {
             int k;
             Color colo;
             Color[] col;
-
-
+            
             if (siCajTeo == false) return;
 
             col = new Color[24];
@@ -17698,7 +17723,7 @@ namespace Proceso20
             }
         }
         /// <summary>
-        /// 
+        /// Cierra el panelCajTeo.
         /// </summary>
         /// <param name="sender">El objeto que lanza el evento.</param>
         /// <param name="e">El evento que se lanzó.</param>
@@ -17708,17 +17733,19 @@ namespace Proceso20
             panelMapaMundo.Visible = false;
         }
         /// <summary>
-        /// 
+        /// Actualiza el contenido gráfico del penel1 si el panel panelcladib está oculto, en caso contrario lanza el método TrazasClas().
         /// </summary>
         /// <param name="sender">El objeto que lanza el evento.</param>
         /// <param name="e">El evento que se lanzó.</param>
         private void boPaintEsp_Click(object sender, EventArgs e)
         {
-            if (panelcladib.Visible == false) panel1.Invalidate();
-            else TrazasClas();
+            if (panelcladib.Visible == false) 
+                panel1.Invalidate();
+            else 
+                TrazasClas();
         }
         /// <summary>
-        /// 
+        /// Actualiza el estilo gráfico del Form1 cuando este cambia de tamaño.
         /// </summary>
         /// <param name="sender">El objeto que lanza el evento.</param>
         /// <param name="e">El evento que se lanzó.</param>
@@ -17739,7 +17766,7 @@ namespace Proceso20
             panel1a.Invalidate();
         }
         /// <summary>
-        /// 
+        /// Oculata el panel1a.
         /// </summary>
         /// <param name="sender">El objeto que lanza el evento.</param>
         /// <param name="e">El evento que se lanzó.</param>
@@ -17750,7 +17777,7 @@ namespace Proceso20
             panel1.Size = new Size(panel1.Size.Width, Height - 57);
         }
         /// <summary>
-        /// 
+        /// Es el botón de las tarjetas, muestra o esconde los paneles que indican la selección de tarjetas.
         /// </summary>
         /// <param name="sender">El objeto que lanza el evento.</param>
         /// <param name="e">El evento que se lanzó.</param>
@@ -17758,17 +17785,20 @@ namespace Proceso20
         {
             if (e.Button == MouseButtons.Left)
             {
-                if (panelTar.Visible == false) panelTar.Visible = true;
-                else panelTar.Visible = false;
+                if (panelTar.Visible == false) 
+                    panelTar.Visible = true;
+                else 
+                    panelTar.Visible = false;
             }
             else if (archgcfaux.Length > 0)
             {
-                if (panelTarAux.Visible == false) panelTarAux.Visible = true;
+                if (panelTarAux.Visible == false) 
+                    panelTarAux.Visible = true;
                 else panelTarAux.Visible = false;
             }
         }
         /// <summary>
-        /// 
+        /// No hace nada.
         /// </summary>
         /// <param name="sender">El objeto que lanza el evento.</param>
         /// <param name="e">El evento que se lanzó.</param>
@@ -17778,15 +17808,17 @@ namespace Proceso20
             //MessageBox.Show("hola ch="+ch.Text);
         }
         /// <summary>
-        /// 
+        /// Está pendiente su documentación.
         /// </summary>
         /// <param name="sender">El objeto que lanza el evento.</param>
         /// <param name="e">El evento que se lanzó.</param>
         private void boMx_MouseDown(object sender, MouseEventArgs e)
         {
+            MessageBox.Show("Hola soy " + boMx.Text);
             cfilx = '0';
             respuesta = false;
-            if (e.Button == MouseButtons.Left) M = (short)(M * 2);
+            if (e.Button == MouseButtons.Left) 
+                M = (short)(M * 2);
             else M = (short)(M / 2.0);
             if (M < 128) M = 1024;
             else if (M > 1024) M = 128;
@@ -17798,12 +17830,13 @@ namespace Proceso20
             //boResFiltX.Visible = false;
         }
         /// <summary>
-        /// 
+        /// Filtra bajos en el panel1a.
         /// </summary>
         /// <param name="sender">El objeto que lanza el evento.</param>
         /// <param name="e">El evento que se lanzó.</param>
         private void boFilBajX_Click(object sender, EventArgs e)
         {
+            MessageBox.Show("Hola soy " + boFilBajX.Text);
             if (filtx == true)
             {
                 filtx = false;
@@ -17833,12 +17866,13 @@ namespace Proceso20
             panel1a.Invalidate();
         }
         /// <summary>
-        /// 
+        /// Filtra altos en el panel1a.
         /// </summary>
         /// <param name="sender">El objeto que lanza el evento.</param>
         /// <param name="e">El evento que se lanzó.</param>
         private void boFilAltX_Click(object sender, EventArgs e)
         {
+            MessageBox.Show("Hola soy " + boFilAltX.Text);   
             if (filtx == true)
             {
                 filtx = false;
@@ -17868,12 +17902,13 @@ namespace Proceso20
             panel1a.Invalidate();
         }
         /// <summary>
-        /// 
+        /// Filtra banda en el panel1a.
         /// </summary>
         /// <param name="sender">El objeto que lanza el evento.</param>
         /// <param name="e">El evento que se lanzó.</param>
         private void boFilBanX_Click(object sender, EventArgs e)
         {
+            MessageBox.Show("Hola soy " + boFilBanX.Text); 
             if (filtx == true)
             {
                 filtx = false;
@@ -17903,14 +17938,14 @@ namespace Proceso20
             panel1a.Invalidate();
         }
         /// <summary>
-        /// 
+        /// Setea el valor de la variable Fcx1 que determina la frecuencia de corte en el panel auxiliar.
         /// </summary>
         /// <param name="sender">El objeto que lanza el evento.</param>
         /// <param name="e">El evento que se lanzó.</param>
         private void textBox1_KeyDown(object sender, KeyEventArgs e)
         {
             double dd;
-
+            MessageBox.Show("Holaaaaaaaaaaaaaa");
             cfilx = '0';
             respuesta = false;
             if (e.KeyCode == Keys.Enter)
@@ -17928,7 +17963,7 @@ namespace Proceso20
             }
         }
         /// <summary>
-        /// 
+        /// Setea el valor de la variable Fcx2 que determina la frecuencia de corte 2 en el panel auxiliar.
         /// </summary>
         /// <param name="sender">El objeto que lanza el evento.</param>
         /// <param name="e">El evento que se lanzó.</param>
@@ -17953,7 +17988,7 @@ namespace Proceso20
             }
         }
         /// <summary>
-        /// 
+        /// Setea el valor de la variable Fcx1 que determina la frecuencia de corte en el panel auxiliar.
         /// </summary>
         /// <param name="sender">El objeto que lanza el evento.</param>
         /// <param name="e">El evento que se lanzó.</param>
@@ -17974,7 +18009,7 @@ namespace Proceso20
             Fcx1 = dd;
         }
         /// <summary>
-        /// 
+        /// Setea el valor de la variable Fcx2 que determina la frecuencia de corte 2 en el panel auxiliar.
         /// </summary>
         /// <param name="sender">El objeto que lanza el evento.</param>
         /// <param name="e">El evento que se lanzó.</param>
@@ -17993,18 +18028,26 @@ namespace Proceso20
             }
             Fcx2 = dd;
         }
-
+        /// <summary>
+        /// Muestra en el textBox1 la frecuencia de corte 1 para el filtro del panel auxiliar.
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void textBox1_Validated(object sender, EventArgs e)
         {
             textBox1.Text = string.Format("{0:00.00}", Fcx1);
         }
-
+        /// <summary>
+        /// Muestra en el textBox2 la frecuencia de corte 2 para el filtro del panel auxiliar.
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void textBox2_Validated(object sender, EventArgs e)
         {
             textBox2.Text = string.Format("{0:00.00}", Fcx2);
         }
         /// <summary>
-        /// 
+        /// Llama al método VerRespuestaFiltro().
         /// </summary>
         /// <param name="sender">El objeto que lanza el evento.</param>
         /// <param name="e">El evento que se lanzó.</param>
@@ -18012,7 +18055,9 @@ namespace Proceso20
         {
             VerRespuestaFiltro();
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
         void VerRespuestaFiltro()
         {
             int i, j, xf, yf, x1, x2, y1, y2, yini, xini;
