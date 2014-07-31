@@ -341,6 +341,9 @@ namespace Proceso20
         /// Muestras iniciales para filtro.
         /// </summary>
         short M = 256;
+        /// <summary>
+        /// Se utila para determinar que tipo de filtro usar dependiendo su valor, 1 = pasabajos, 2 = pasa altos, 3 =pasa banda.
+        /// </summary>
         char cfilx = '0';
         double factmm = -1.0;
         double tigrabacion = 0;
@@ -857,6 +860,9 @@ namespace Proceso20
         bool calcfilt = false;
         bool tipofilt = true;
         bool octainterp = false;
+        /// <summary>
+        /// Indica que se cálculo la interpolación.
+        /// </summary>
         bool interpol = false;
         bool filtcod = false;
         bool calcfiltcod = false;
@@ -984,6 +990,9 @@ namespace Proceso20
         /// Corresponde a la muestra de la traza que corresponde al inicio de la interpolacion.
         /// </summary>
         int ip1;
+        /// <summary>
+        /// Corresponde a la muestra de la traza que corresponde al final de la interpolacion.
+        /// </summary>
         int ip2;  // variables que guardan el numero de muestra del intervalo seleccionado
         int ipb1;
         int ipb2;
@@ -993,7 +1002,10 @@ namespace Proceso20
         float frInterp = 0.5F;
         double promInterp;
         double promDesplz;
-        double facNanInt = -1.0; // variabe que guarda el valor de conversion a nanometros/segundo para la interpolacion
+        /// <summary>
+        /// Guarda el valor de conversión a nanometros/segundo para la interpolación.
+        /// </summary>
+        double facNanInt = -1.0;
         /// <summary>
         /// Guarda los valores de interpolación (spl).
         /// </summary>
@@ -17808,13 +17820,12 @@ namespace Proceso20
             //MessageBox.Show("hola ch="+ch.Text);
         }
         /// <summary>
-        /// Está pendiente su documentación.
+        /// Modifica el número de muestras (la variable M) a usar para el filtro.
         /// </summary>
         /// <param name="sender">El objeto que lanza el evento.</param>
         /// <param name="e">El evento que se lanzó.</param>
         private void boMx_MouseDown(object sender, MouseEventArgs e)
         {
-            MessageBox.Show("Hola soy " + boMx.Text);
             cfilx = '0';
             respuesta = false;
             if (e.Button == MouseButtons.Left) 
@@ -17836,7 +17847,6 @@ namespace Proceso20
         /// <param name="e">El evento que se lanzó.</param>
         private void boFilBajX_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Hola soy " + boFilBajX.Text);
             if (filtx == true)
             {
                 filtx = false;
@@ -17871,8 +17881,7 @@ namespace Proceso20
         /// <param name="sender">El objeto que lanza el evento.</param>
         /// <param name="e">El evento que se lanzó.</param>
         private void boFilAltX_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show("Hola soy " + boFilAltX.Text);   
+        { 
             if (filtx == true)
             {
                 filtx = false;
@@ -17908,7 +17917,7 @@ namespace Proceso20
         /// <param name="e">El evento que se lanzó.</param>
         private void boFilBanX_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Hola soy " + boFilBanX.Text); 
+            
             if (filtx == true)
             {
                 filtx = false;
@@ -18056,7 +18065,8 @@ namespace Proceso20
             VerRespuestaFiltro();
         }
         /// <summary>
-        /// 
+        /// Dependiendo del valor de cfilx (1,2,3) determina qué tipo de filtro aplicar a la traza del panel1a,
+        /// paso seguido determina los puntos a aplicar el filtro y grafica dichos puntos en el panel1a.
         /// </summary>
         void VerRespuestaFiltro()
         {
@@ -18221,12 +18231,14 @@ namespace Proceso20
             return;
         }
         /// <summary>
-        /// 
+        /// Sirve para controlar el estado de la variable interpol y VerEspectro, ademas de desplegar u oclutar algúnos componentes
+        /// dependiendo del botón con el que se le de click.
         /// </summary>
         /// <param name="sender">El objeto que lanza el evento.</param>
         /// <param name="e">El evento que se lanzó.</param>
         private void boInterp_MouseDown(object sender, MouseEventArgs e)
         {
+            
             boGraInterpol.BackColor = Color.Wheat;
             if (interpol == false)
             {
@@ -18274,12 +18286,13 @@ namespace Proceso20
             }
         }
         /// <summary>
-        /// 
+        /// Cierra el panel panelInterP donde se nmuestra la interpolación de la porción de traza seleccionada.
         /// </summary>
         /// <param name="sender">El objeto que lanza el evento.</param>
         /// <param name="e">El evento que se lanzó.</param>
         private void boXInterp_Click(object sender, EventArgs e)
         {
+            MessageBox.Show(boXInterp.Text);
             suma = 0;
             yaInterp = false;
             suma = 0;
@@ -18290,13 +18303,14 @@ namespace Proceso20
             panelBarEspInterp.Visible = false;
             boEspInterP.Visible = false;
             boGraInterpol.BackColor = Color.Wheat;
-            if (panelParti.Visible == true) panelParti.Visible = false;
+            if (panelParti.Visible == true) 
+                panelParti.Visible = false;
         }
         /// <summary>
-        /// 
+        /// Realiza una interpolación en los datos de la traza identificada por el valor del parámetro idd utilizando el octave.
         /// </summary>
         /// <param name="idd">Indica el id de la estación que se está clasificando.</param>
-        /// <returns></returns>
+        /// <returns>true en caso de que la interpolación se realice exitosamente, false en caso contrario.</returns>
         bool CalculoInterpolacion(int idd)
         {
             int i, j, mxx, mnn, tot1, tot2, cuenta;
@@ -18439,7 +18453,11 @@ namespace Proceso20
 
             return (true);
         }
-
+        /// <summary>
+        /// Dibuja la traza en el panel de interpolación.
+        /// </summary>
+        /// <param name="i1"></param>
+        /// <param name="i2"></param>
         void DibujoInterpolacion(int i1, int i2)
         {
             int i, j, xf, yf, mxx, mnn, pro;
@@ -18574,7 +18592,7 @@ namespace Proceso20
         private void boRa1_Click(object sender, EventArgs e)
         {
             bool si = false;
-
+            MessageBox.Show("si buenas");
             NoMostrar = true;
             boGraInterpol.Visible = false;
             boIntegra.Visible = false;
@@ -18636,10 +18654,9 @@ namespace Proceso20
             if (si == true) panelInterP.Invalidate();
         }
         /// <summary>
-        /// 
+        /// Actualiza los gráficos del panel panelInterP.
         /// </summary>
         /// <param name="sender"></param>
-        /// <param name="e"></param>/// <param name="sender"></param>
         /// <param name="e"></param>
         private void panelInterP_Paint(object sender, PaintEventArgs e)
         {
