@@ -929,6 +929,9 @@ namespace Proceso20
         short N = -1;
         short E = -1;
         short Z = -1;
+        /// <summary>
+        /// id de la traza para el movimiento de particulas.
+        /// </summary>
         short idmpt = -1;
         short volmpt = -1;
         /// <summary>
@@ -984,14 +987,16 @@ namespace Proceso20
         double mnesp;
         bool silog = false;
         bool vacioesp = false;
-
+        /// <summary>
+        /// Factor para la rata de muestreo de la interpolación.
+        /// </summary>
         byte facRaInterp = 5;  //variables de la Interpolacion;
         /// <summary>
-        /// Corresponde a la muestra de la traza que corresponde al inicio de la interpolacion.
+        /// Corresponde a la muestra de la traza que indica el inicio de la interpolacion.
         /// </summary>
         int ip1;
         /// <summary>
-        /// Corresponde a la muestra de la traza que corresponde al final de la interpolacion.
+        /// Corresponde a la muestra de la traza que indica el final de la interpolacion.
         /// </summary>
         int ip2;  // variables que guardan el numero de muestra del intervalo seleccionado
         int ipb1;
@@ -1018,6 +1023,9 @@ namespace Proceso20
         /// Variable que guarda el tiempo de los datos interpolados.
         /// </summary>
         double[] timspl;/*,nnm*/  // variables que guardan el tiempo y traza integrada respectivamente.
+        /// <summary>
+        /// Guarda los valores de desplazamiento de cuentas.
+        /// </summary>
         double[] dzp/*,nnm*/;  // variables que guardan el tiempo y traza integrada respectivamente.
         double[] timsplintp = new double[1];
         bool sei = true;
@@ -18454,10 +18462,10 @@ namespace Proceso20
             return (true);
         }
         /// <summary>
-        /// Dibuja la traza en el panel de interpolación.
+        /// Dibuja en el panel de interpolación (panelInterP) la representación de la traza interpolada.
         /// </summary>
-        /// <param name="i1"></param>
-        /// <param name="i2"></param>
+        /// <param name="i1">Punto en la traza desde donde se inicia el cálculo de la interpolación.</param>
+        /// <param name="i2">Punto en la traza desde donde se finaliza el cálculo de la interpolación.</param>
         void DibujoInterpolacion(int i1, int i2)
         {
             int i, j, xf, yf, mxx, mnn, pro;
@@ -18585,14 +18593,15 @@ namespace Proceso20
             return;
         }
         /// <summary>
-        /// 
+        /// Modifica el valor de la variable facRaInterp haciendo la igual a 5, esta variable usa como factor 
+        /// de rata de muestreo para la interpolación, además llama al método calcularInterpolacion con el id
+        /// de la traza que se esta clasificando en el panel principal.
         /// </summary>
         /// <param name="sender">El objeto que lanza el evento.</param>
         /// <param name="e">El evento que se lanzó.</param>
         private void boRa1_Click(object sender, EventArgs e)
         {
             bool si = false;
-            MessageBox.Show("si buenas");
             NoMostrar = true;
             boGraInterpol.Visible = false;
             boIntegra.Visible = false;
@@ -18605,10 +18614,14 @@ namespace Proceso20
             boRa2.BackColor = Color.SeaShell;
             boRa3.BackColor = Color.SeaShell;
             si = CalculoInterpolacion(id);
-            if (si == true) panelInterP.Invalidate();
+            if (si == true) { 
+                panelInterP.Invalidate();
+            }
         }
         /// <summary>
-        /// 
+        /// Modifica el valor de la variable facRaInterp haciendo la igual a 10, esta variable usa como factor 
+        /// de rata de muestreo para la interpolación, además llama al método calcularInterpolacion con el id
+        /// de la traza que se esta clasificando en el panel principal.
         /// </summary>
         /// <param name="sender">El objeto que lanza el evento.</param>
         /// <param name="e">El evento que se lanzó.</param>
@@ -18631,7 +18644,9 @@ namespace Proceso20
             if (si == true) panelInterP.Invalidate();
         }
         /// <summary>
-        /// 
+        /// Modifica el valor de la variable facRaInterp haciendo la igual a 15, esta variable usa como factor 
+        /// de rata de muestreo para la interpolación, además llama al método calcularInterpolacion con el id
+        /// de la traza que se esta clasificando en el panel principal.
         /// </summary>
         /// <param name="sender">El objeto que lanza el evento.</param>
         /// <param name="e">El evento que se lanzó.</param>
@@ -18690,11 +18705,14 @@ namespace Proceso20
             xf = panelInterP.Width - 20;
             yf = panelInterP.Height - 20;
 
-            if (NoInterpol == false) factorata = facRaInterp;
-            else factorata = 1;
+            if (NoInterpol == false) 
+                factorata = facRaInterp;
+            else 
+                factorata = 1;
             ini = (ipb1 - ip1) * factorata;
             fin = (ipb2 - ip1) * factorata;
-            if (fin > spl.Length) fin = spl.Length;
+            if (fin > spl.Length) 
+                fin = spl.Length;
             ttt = (timspl[fin - 1] - timspl[ini]);
             fax = ttt / (double)(xf);
             tiempo = timspl[ini] + (ixpb - 10.0) * fax;
@@ -18753,7 +18771,7 @@ namespace Proceso20
             return;
         }
         /// <summary>
-        /// 
+        /// En el panel que muestra la interpolación desplaza la gráfica de la traza hacia la izquierda.
         /// </summary>
         /// <param name="sender">El objeto que lanza el evento.</param>
         /// <param name="e">El evento que se lanzó.</param>
@@ -18781,7 +18799,7 @@ namespace Proceso20
             if (panelDesplazamiento.Visible == true) panelDesplazamiento.Invalidate();
         }
         /// <summary>
-        /// 
+        /// En el panel que muestra la interpolación desplaza la gráfica de la traza hacia la derecha.
         /// </summary>
         /// <param name="sender">El objeto que lanza el evento.</param>
         /// <param name="e">El evento que se lanzó.</param>
@@ -18807,7 +18825,7 @@ namespace Proceso20
             if (panelDesplazamiento.Visible == true) panelDesplazamiento.Invalidate();
         }
         /// <summary>
-        /// 
+        /// Obtiene el valor de verdad del checkBoxSeis y lanza el método ChequeoGraInterpol().
         /// </summary>
         /// <param name="sender">El objeto que lanza el evento.</param>
         /// <param name="e">El evento que se lanzó.</param>
@@ -18817,7 +18835,7 @@ namespace Proceso20
             ChequeoGraInterpol();
         }
         /// <summary>
-        /// 
+        /// Obtiene el valor de verdad del checkBoxAscii y lanza el método ChequeoGraInterpol().
         /// </summary>
         /// <param name="sender">El objeto que lanza el evento.</param>
         /// <param name="e">El evento que se lanzó.</param>
@@ -18827,7 +18845,7 @@ namespace Proceso20
             ChequeoGraInterpol();
         }
         /// <summary>
-        /// 
+        /// Obtiene el valor de verdad del checkBoxSuds y lanza el método ChequeoGraInterpol().
         /// </summary>
         /// <param name="sender">El objeto que lanza el evento.</param>
         /// <param name="e">El evento que se lanzó.</param>
@@ -18836,16 +18854,21 @@ namespace Proceso20
             sud = checkBoxSuds.Checked;
             ChequeoGraInterpol();
         }
-
+        /// <summary>
+        /// Despliega o esconde el botón boGraInterpol dependiendo de el estado de los 
+        /// checkBox checkBoxSuds, checkBoxAscii y checkBoxSeis.
+        /// </summary>
         void ChequeoGraInterpol()
         {
-            if (sei == false && sud == false && asc == false) boGraInterpol.Visible = false;
-            else boGraInterpol.Visible = true;
+            if (sei == false && sud == false && asc == false) 
+                boGraInterpol.Visible = false;
+            else
+                boGraInterpol.Visible = true;
 
             return;
         }
         /// <summary>
-        /// 
+        /// Llama los métodos para grabar la interpolación en la base en cada formato diferente (Seisan, ascii, Suds).
         /// </summary>
         /// <param name="sender">El objeto que lanza el evento.</param>
         /// <param name="e">El evento que se lanzó.</param>
@@ -18858,10 +18881,11 @@ namespace Proceso20
 
             ll = (long)(Fei + tim[id][ip1] * 10000000.0);
             DateTime fech = new DateTime(ll);
-            f1 = string.Format("{0:yyyy}-{0:MM}-{0:dd}", fech);
+            f1 = string.Format("{0:yyyy}-{0:MM}-{0:dd}", fech); //fecha inicial de la traza interpolada 
             if (sei == true)
             {
-                if (!Directory.Exists(".\\sei")) Directory.CreateDirectory(".\\sei");
+                if (!Directory.Exists(".\\sei")) 
+                    Directory.CreateDirectory(".\\sei");
                 f2 = string.Format("-{0:HH}{0:mm}-{0:ss}S.", fech) + "XXXX__001";
                 nom = f1 + f2;
                 GrabaSeisan(nom, false);
@@ -18903,7 +18927,13 @@ namespace Proceso20
 
             return;
         }
-
+        /// <summary>
+        /// Graba en la base los datos de la interpolación en formato ascii.
+        /// </summary>
+        /// <param name="nom">Nombre con el que se desea guardar el archivo.</param>
+        /// <param name="cond">Se utiliza para verificar si además de guardar los datos de la interpolación
+        /// de velocidad de cuentas también se guardan los datos de desplazamiento de cuentas,
+        /// esto último en caso de que cond sea true.</param>
         void GrabaAscii(string nom, bool cond)
         {
             int i;
@@ -18964,7 +18994,13 @@ namespace Proceso20
 
             return;
         }
-
+        /// <summary>
+        /// Graba en la base los datos de la interpolación en formato suds extención .dmx.
+        /// </summary>
+        /// <param name="nom">Nombre con el que se desea guardar el archivo.</param>
+        /// <param name="cond">Se utiliza para verificar si además de guardar los datos de la interpolación
+        /// de velocidad de cuentas también se guardan los datos de desplazamiento de cuentas,
+        /// esto último en caso de que cond sea true.</param>
         void GrabaSudsInterpol(string nom, bool cond)
         {
             string dir1;
@@ -19114,7 +19150,13 @@ namespace Proceso20
 
             return;
         }
-
+        /// <summary>
+        /// Graba en la base los datos de la interpolación en formato Seisan.
+        /// </summary>
+        /// <param name="nomar">Nombre con el que se desea guardar el archivo.</param>
+        /// <param name="cond">Se utiliza para verificar si además de guardar los datos de la interpolación
+        /// de velocidad de cuentas también se guardan los datos de desplazamiento de cuentas,
+        /// esto último en caso de que cond sea true.</param>
         void GrabaSeisan(string nomar, bool cond)
         {
             int i, j, k, año;
@@ -19150,7 +19192,8 @@ namespace Proceso20
             mi = string.Format("{0:mm}", fech);
             se = string.Format("{0:ss}.{0:fff}", fech);
 
-            if (File.Exists(nomar)) File.Delete(nomar);
+            if (File.Exists(nomar)) 
+                File.Delete(nomar);
             FileInfo ar = new FileInfo(nomar);
             BinaryWriter br = new BinaryWriter(ar.OpenWrite());
 
@@ -19297,7 +19340,7 @@ namespace Proceso20
             return;
         }
         /// <summary>
-        /// 
+        /// Llama al método IntegracionSpl(spl), además esconde o despliega el panelDesplazamiento.
         /// </summary>
         /// <param name="sender">El objeto que lanza el evento.</param>
         /// <param name="e">El evento que se lanzó.</param>
