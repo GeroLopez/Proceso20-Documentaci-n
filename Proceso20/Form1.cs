@@ -19,7 +19,7 @@ using System.Net.Mime;
 
 namespace Proceso20
 {
-    
+
     public partial class Form1 : Form
     {
         /// <summary>
@@ -3198,7 +3198,7 @@ namespace Proceso20
             yaInterp = false;
             suma = 0;
             valDR = 0;
-            
+
             if (panelParti.Visible == true)
                 panelParti.Visible = false;
             if (siNeic == true)
@@ -11532,12 +11532,12 @@ namespace Proceso20
                     str2 = est[i].Substring(0, 5).ToCharArray();
                     str2[4] = '\0';
                     str3[0] = comp[i];// hasta aqui el statident del suds
-                    if (ga[i] <= 0) 
+                    if (ga[i] <= 0)
                         ga[i] = 1;
                     str25 = ga[i];
-                    if (by[i] == 4) 
+                    if (by[i] == 4)
                         str17 = 'l';
-                    else 
+                    else
                         str17 = 'i';
                     str26 = (int)(tie1);
                     br.Write(str1);
@@ -11592,9 +11592,9 @@ namespace Proceso20
                     br.Write(tag3);
                     br.Write(tag4);
                     // estru 7
-                    if (by[i] == 4) 
+                    if (by[i] == 4)
                         sie3 = 'l';
-                    else 
+                    else
                         sie3 = 'i';
                     sie7 = (uint)(lar);
                     sie8 = (float)(ra[i]);
@@ -12736,7 +12736,7 @@ namespace Proceso20
         /// <param name="sender">El objeto que lanza el evento.</param>
         /// <param name="e">El evento que se lanzó.</param>
         private void bo1_MouseDown(object sender, MouseEventArgs e)
-        {       
+        {
             short i;
             filtcod = false;
             calcfiltcod = false;
@@ -13392,7 +13392,7 @@ namespace Proceso20
             return;
         }
         /// <summary>
-        /// Se revisa que la estacion tenga factor de conversion de cuentas a milimetros en los analogicos.
+        /// Se revisa que la estación tenga factor de conversion de cuentas a milimetros en los analogicos.
         /// </summary>
         void ChequeoFactormm()
         {
@@ -13844,7 +13844,7 @@ namespace Proceso20
                 li = "";
                 if (LisVis.Count > 0) siMLvista = true;
             }
-            if (File.Exists(".\\oct\\maglocal.txt")) 
+            if (File.Exists(".\\oct\\maglocal.txt"))
                 File.Delete(".\\oct\\maglocal.txt");
 
             if (copiarMod == false)
@@ -14267,7 +14267,7 @@ namespace Proceso20
             {
                 MLsi = false;
                 boMLVista.BackColor = Color.White;
-                if (File.Exists(".\\oct\\maglocalVista.txt")) 
+                if (File.Exists(".\\oct\\maglocalVista.txt"))
                     File.Delete(".\\oct\\maglocalVista.txt");
             }
             //MessageBox.Show("1");
@@ -14282,7 +14282,7 @@ namespace Proceso20
             int i;
             string ss;
             Color col;
-                                
+
             ss = "Debe correr el Hypo para ver el Mapa";
             tip.IsBalloon = false;
             tip.InitialDelay = 0;
@@ -14300,9 +14300,9 @@ namespace Proceso20
 
             for (i = 0; i <= nuvol; i++)
             {
-                if (volcan[i][0] != Maparr) 
+                if (volcan[i][0] != Maparr)
                     col = Color.Gray;
-                else 
+                else
                     col = Color.Red;
                 SolidBrush bro = new SolidBrush(col);
                 dc.DrawString(volcan[i].Substring(0, 1), new Font("Times New Roman", 9), bro, 2, i * 11);
@@ -14320,7 +14320,7 @@ namespace Proceso20
             try
             {
                 i = (int)(e.Y / 11.0);
-                if (i > nuvol + 1 || i < 0) 
+                if (i > nuvol + 1 || i < 0)
                     return;
                 Maparr = volcan[i][0];
                 boMapVista.Text = "-" + volcan[i].Substring(0, 1) + "-";
@@ -14339,7 +14339,7 @@ namespace Proceso20
         /// <param name="e">El evento que se lanzó.</param>
         private void boTraVista_MouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Left) 
+            if (e.Button == MouseButtons.Left)
                 durac += durac * 0.2;
             else durac -= durac * 0.2;
             salto = true;
@@ -14352,24 +14352,25 @@ namespace Proceso20
         /// <param name="e">El evento que se lanzó.</param>
         private void boDesTraVista_MouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Left) 
+            if (e.Button == MouseButtons.Left)
                 initic += durac * 0.05;
-            else 
+            else
                 initic -= durac * 0.05;
             salto = true;
         }
         /// <summary>
-        /// 
+        /// Gráfica una un circulo en el panelVista tomando como centro el lugar del sismo.
         /// </summary>
         /// <param name="panel">Panel donde se grafica el mapa.</param>
-        /// <param name="can"></param>
+        /// <param name="can">Cantidad de estaciones en el archivo estavista.txt.</param>
         /// <param name="facmap"></param>
-        /// <param name="la"></param>
-        /// <param name="lo"></param>
-        /// <param name="laa"></param>
-        /// <param name="loo"></param>
-        /// <param name="idcan"></param>
-        void Circulos(Panel panel, short can, double facmap, double[] la, double[] lo,double laa, double loo, int[] idcan)
+        /// <param name="la">Arreglo con los valores de latitud de los sismos ordenados por orden de arribo.</param>
+        /// <param name="lo">Arreglo con los valores de longitud de los sismos ordenados por orden de arribo.</param>
+        /// <param name="laa">Promedio de latitudes.</param>
+        /// <param name="loo">Promedio de longitudes.</param>
+        /// <param name="idcan">Asocia la traza con el sismo con su estación respectiva en el archivo estavista.txt,
+        ///  en otras palabras contiene el id de la estación a la que pertenece una traza con respecto al archivo estavista.</param>
+        void Circulos(Panel panel, short can, double facmap, double[] la, double[] lo, double laa, double loo, int[] idcan)
         {
             int i, x1, y1, xf, yf, iniX, iniY, dif;
             double km = 0, fcpi, fclo, f1, kmm = 9999999999999.9;
@@ -14412,7 +14413,7 @@ namespace Proceso20
                 }
             }
             lapiz.Dispose();
-            
+
             if (kmm < 9999999999999.9)
             {
                 ss += " " + string.Format("{0:0.00} Km", km);
@@ -14570,7 +14571,7 @@ namespace Proceso20
         /// <param name="sender">El objeto que lanza el evento.</param>
         /// <param name="e">El evento que se lanzó.</param>
         private void boFast_MouseDown(object sender, MouseEventArgs e)
-        { 
+        {
             if (e.Button == MouseButtons.Left) velo -= 1000;
             else velo -= 10000;
             if (velo < 1000) velo = 1000;
@@ -14786,21 +14787,21 @@ namespace Proceso20
             {
                 pan = panel1;
                 panelBar = panelBarEsp1;
-                if (panelcladib.Visible == false) 
+                if (panelcladib.Visible == false)
                     idd = id;
-                else 
+                else
                     idd = idc;
             }
             else if (CualPanel == 1)
             {
                 pan = panel1a;
                 panelBar = panelBarEsp1a;
-                if (panelcladib.Visible == false) 
-                idd = ida;
-                else 
-                idd = idc;
+                if (panelcladib.Visible == false)
+                    idd = ida;
+                else
+                    idd = idc;
             }
-            else 
+            else
                 return;
             Espectro(pan, panelBar, idd, false);
         }
@@ -14811,7 +14812,7 @@ namespace Proceso20
         /// <param name="e">El evento que se lanzó.</param>
         private void boEspe_MouseDown(object sender, MouseEventArgs e)
         {
-           
+
             if (VerEspectro == false)
             {
                 VerEspectro = true;
@@ -14845,14 +14846,14 @@ namespace Proceso20
             int x, y, nn;
             Panel panel;
 
-            if (silog == true) 
+            if (silog == true)
                 return;
-            if (panelcladib.Visible == true) 
+            if (panelcladib.Visible == true)
                 panel = panelcladib;
-            else 
+            else
                 panel = panel1;
             nn = np;
-            if (nn < 1024) 
+            if (nn < 1024)
                 nn = 1024;
             x = (int)(nn * 0.05);
             panelValFFt.Size = new Size(x, panelValFFt.Height);
@@ -14872,13 +14873,13 @@ namespace Proceso20
         /// <param name="e">El evento que se lanzó.</param>
         private void panelFFTzoom_MouseUp(object sender, MouseEventArgs e)
         {
-            if (silog == true) 
+            if (silog == true)
                 return;
             panelValFFt.Visible = false;
             panelBarEsp.Visible = false;
-            if (silog == false) 
+            if (silog == false)
                 GraficaEspectro(id, vaesp, checkBoxFFT1.Checked, vacioesp);
-            else 
+            else
                 GraficaEspectroLog(id, vaesp, vacioesp);
         }
         /// <summary>
@@ -14891,7 +14892,7 @@ namespace Proceso20
         {
             int x, y;
 
-            if (silog == true) 
+            if (silog == true)
                 return;
             x = (int)(e.X + panel1.Location.X + panelFFTzoom.Location.X - panelValFFt.Size.Width / 2.0);
             y = panelFFTzoom.Location.Y - panelValFFt.Height;
@@ -15503,7 +15504,7 @@ namespace Proceso20
             }
         }
         /// <summary>
-        /// 
+        /// Calcula el movimiento de partículas para una traza en específico y despliega el resultado en pantalla. 
         /// </summary>
         void MovimientoParticula()
         {
@@ -15667,9 +15668,9 @@ namespace Proceso20
             else volmpt = nuvol;
             NoMostrar = true;
             util.VerMapa(panelPartiEN, volcan[k][0], laE, loE, "", difmpt, laE, loE, Color.LightGray);
-            if (mptintp == false) 
+            if (mptintp == false)
                 TrazaComponente();
-            else 
+            else
                 TrazaComponenteInterp();
 
             ca = velompt.ToString() + " ms";
@@ -16652,10 +16653,10 @@ namespace Proceso20
             else
                 k = nuvol;
             NoMostrar = true;
-            util.VerMapa(panelPartiEN, volcan[k][0], laE, loE,"", difmpt, laE, loE, Color.LightGray);
-            if (mptintp == false) 
+            util.VerMapa(panelPartiEN, volcan[k][0], laE, loE, "", difmpt, laE, loE, Color.LightGray);
+            if (mptintp == false)
                 TrazaComponente();
-            else 
+            else
                 TrazaComponenteInterp();
             Graphics dc2 = panelPartiNZ.CreateGraphics();
             Graphics dc3 = panelPartiEZ.CreateGraphics();
@@ -16846,9 +16847,9 @@ namespace Proceso20
             bo2Mpt.BackColor = Color.White;
             bo5Mpt.BackColor = Color.White;
             bo10Mpt.BackColor = Color.Plum;
-            if (mptintp == false) 
+            if (mptintp == false)
                 TrazaComponente();
-            else 
+            else
                 TrazaComponenteInterp();
         }
 
@@ -16905,7 +16906,7 @@ namespace Proceso20
             mufmpt = 0;
             pausmpt = false;
             boPausMpt.BackColor = Color.PaleGoldenrod;
-            if (panelInterP.Visible == false) 
+            if (panelInterP.Visible == false)
                 Clasificar();
         }
         /// <summary>
@@ -17003,9 +17004,9 @@ namespace Proceso20
             int xf;
             double fax, dd, fac;
 
-            if (e.X < 40) 
+            if (e.X < 40)
                 return;
-            if (mptintp == false) 
+            if (mptintp == false)
                 fac = 1.0;
             else
                 fac = facRaInterp;
@@ -17013,15 +17014,15 @@ namespace Proceso20
             fax = (double)(durmpt) / (double)(xf);
             dd = (e.X - 40) * fax;
             if (dd > (double)(durmpt)) return;
-            if (e.Button == MouseButtons.Left) 
+            if (e.Button == MouseButtons.Left)
                 muimpt = (int)(dd * ra[N] * fac);
-            else 
+            else
                 mufmpt = (int)(dd * ra[N] * fac);
-            if (mufmpt <= muimpt) 
+            if (mufmpt <= muimpt)
                 mufmpt = 0;
-            if (mptintp == false) 
+            if (mptintp == false)
                 TrazaComponente();
-            else 
+            else
                 TrazaComponenteInterp();
         }
         /// <summary>
@@ -17077,7 +17078,7 @@ namespace Proceso20
         /// <param name="e">El evento que se lanzó.</param>
         private void boModX_Click(object sender, EventArgs e)
         {
-            
+
             int k;
 
             if (modX == false)
@@ -17104,7 +17105,7 @@ namespace Proceso20
         private void boNeic_MouseDown(object sender, MouseEventArgs e)
         {
             if (nomweb == "") return;
-           
+
             if (RevisarEstacionNeic() == false)
             {
                 boNeic.Visible = false;
@@ -17285,7 +17286,7 @@ namespace Proceso20
                 return;
             }
             if (!File.Exists(".\\tab\\estaciones.dat") || !File.Exists(".\\tab\\P.txt")) return;
-            if (siCajTeo == false) 
+            if (siCajTeo == false)
                 CrearCajonesTeoricos(panelCajTeo);
 
             DirectoryInfo dir = new DirectoryInfo(".\\tab");
@@ -17554,19 +17555,20 @@ namespace Proceso20
                     break;
                 }
             }
-            if (j == -1) 
+            if (j == -1)
                 return;
             PonerTeorico();
 
             return;
         }
         /// <summary>
-        /// Está pendiente su documentación.
+        /// Retorna un delta que calcula a partir de 2 coordenadas cada una de llas con su respectivo valor
+        /// de latitud y longitud.
         /// </summary>
-        /// <param name="la1"></param>
-        /// <param name="lo1"></param>
-        /// <param name="laf"></param>
-        /// <param name="lof"></param>
+        /// <param name="la1">Latitud de la coordenada 1.</param>
+        /// <param name="lo1">Longitud de la coordenada 1.</param>
+        /// <param name="laf">Latitud de la coordenada 2.</param>
+        /// <param name="lof">Longitud de la coordenada 2.</param>
         /// <returns></returns>
         double DeltaEstacion(double la1, double lo1, double laf, double lof)
         {
@@ -17694,7 +17696,7 @@ namespace Proceso20
             int k;
             Color colo;
             Color[] col;
-            
+
             if (siCajTeo == false) return;
 
             col = new Color[24];
@@ -17759,9 +17761,9 @@ namespace Proceso20
         /// <param name="e">El evento que se lanzó.</param>
         private void boPaintEsp_Click(object sender, EventArgs e)
         {
-            if (panelcladib.Visible == false) 
+            if (panelcladib.Visible == false)
                 panel1.Invalidate();
-            else 
+            else
                 TrazasClas();
         }
         /// <summary>
@@ -17805,14 +17807,14 @@ namespace Proceso20
         {
             if (e.Button == MouseButtons.Left)
             {
-                if (panelTar.Visible == false) 
+                if (panelTar.Visible == false)
                     panelTar.Visible = true;
-                else 
+                else
                     panelTar.Visible = false;
             }
             else if (archgcfaux.Length > 0)
             {
-                if (panelTarAux.Visible == false) 
+                if (panelTarAux.Visible == false)
                     panelTarAux.Visible = true;
                 else panelTarAux.Visible = false;
             }
@@ -17836,7 +17838,7 @@ namespace Proceso20
         {
             cfilx = '0';
             respuesta = false;
-            if (e.Button == MouseButtons.Left) 
+            if (e.Button == MouseButtons.Left)
                 M = (short)(M * 2);
             else M = (short)(M / 2.0);
             if (M < 128) M = 1024;
@@ -17889,7 +17891,7 @@ namespace Proceso20
         /// <param name="sender">El objeto que lanza el evento.</param>
         /// <param name="e">El evento que se lanzó.</param>
         private void boFilAltX_Click(object sender, EventArgs e)
-        { 
+        {
             if (filtx == true)
             {
                 filtx = false;
@@ -17925,7 +17927,7 @@ namespace Proceso20
         /// <param name="e">El evento que se lanzó.</param>
         private void boFilBanX_Click(object sender, EventArgs e)
         {
-            
+
             if (filtx == true)
             {
                 filtx = false;
@@ -18246,7 +18248,7 @@ namespace Proceso20
         /// <param name="e">El evento que se lanzó.</param>
         private void boInterp_MouseDown(object sender, MouseEventArgs e)
         {
-            
+
             boGraInterpol.BackColor = Color.Wheat;
             if (interpol == false)
             {
@@ -18311,7 +18313,7 @@ namespace Proceso20
             panelBarEspInterp.Visible = false;
             boEspInterP.Visible = false;
             boGraInterpol.BackColor = Color.Wheat;
-            if (panelParti.Visible == true) 
+            if (panelParti.Visible == true)
                 panelParti.Visible = false;
         }
         /// <summary>
@@ -18614,7 +18616,8 @@ namespace Proceso20
             boRa2.BackColor = Color.SeaShell;
             boRa3.BackColor = Color.SeaShell;
             si = CalculoInterpolacion(id);
-            if (si == true) { 
+            if (si == true)
+            {
                 panelInterP.Invalidate();
             }
         }
@@ -18705,13 +18708,13 @@ namespace Proceso20
             xf = panelInterP.Width - 20;
             yf = panelInterP.Height - 20;
 
-            if (NoInterpol == false) 
+            if (NoInterpol == false)
                 factorata = facRaInterp;
-            else 
+            else
                 factorata = 1;
             ini = (ipb1 - ip1) * factorata;
             fin = (ipb2 - ip1) * factorata;
-            if (fin > spl.Length) 
+            if (fin > spl.Length)
                 fin = spl.Length;
             ttt = (timspl[fin - 1] - timspl[ini]);
             fax = ttt / (double)(xf);
@@ -18860,7 +18863,7 @@ namespace Proceso20
         /// </summary>
         void ChequeoGraInterpol()
         {
-            if (sei == false && sud == false && asc == false) 
+            if (sei == false && sud == false && asc == false)
                 boGraInterpol.Visible = false;
             else
                 boGraInterpol.Visible = true;
@@ -18884,7 +18887,7 @@ namespace Proceso20
             f1 = string.Format("{0:yyyy}-{0:MM}-{0:dd}", fech); //fecha inicial de la traza interpolada 
             if (sei == true)
             {
-                if (!Directory.Exists(".\\sei")) 
+                if (!Directory.Exists(".\\sei"))
                     Directory.CreateDirectory(".\\sei");
                 f2 = string.Format("-{0:HH}{0:mm}-{0:ss}S.", fech) + "XXXX__001";
                 nom = f1 + f2;
@@ -19192,7 +19195,7 @@ namespace Proceso20
             mi = string.Format("{0:mm}", fech);
             se = string.Format("{0:ss}.{0:fff}", fech);
 
-            if (File.Exists(nomar)) 
+            if (File.Exists(nomar))
                 File.Delete(nomar);
             FileInfo ar = new FileInfo(nomar);
             BinaryWriter br = new BinaryWriter(ar.OpenWrite());
@@ -19362,7 +19365,13 @@ namespace Proceso20
                 boEspInterP.Visible = false;
             }
         }
-
+        /// <summary>
+        /// Calcula el promedio a partir de los datos suministrados como parámetros.
+        /// </summary>
+        /// <param name="canti">Valor utilizado para ser el denominador con el que se calcula el promedio.</param>
+        /// <param name="dat">Datos que se suman para obtener el númerador con el que se calcula el promedio.</param>
+        /// <param name="cond">Se utiliza para determinar la cantidad de datos del vector dat[] a sumar. </param>
+        /// <returns></returns>
         double Promedio(int canti, double[] dat, bool cond)
         {
             int i, ini, fin;
@@ -19379,12 +19388,16 @@ namespace Proceso20
                 fin = dat.Length;
             }
             sum = 0;
-            for (i = ini; i < fin; i++) sum += dat[i];
+            for (i = ini; i < fin; i++) 
+                sum += dat[i];
             prom = sum / (double)(canti);
 
             return (prom);
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="spl"></param>
         void IntegracionSpl(int[] spl)
         {
             int i, lar, cont;
@@ -19991,7 +20004,7 @@ namespace Proceso20
         private void Form1_Deactivate(object sender, EventArgs e)
         {
             if (inicio == false) return;
-            if (sidesactiva == true) 
+            if (sidesactiva == true)
                 desactivado = true;
         }
         /// <summary>
@@ -20678,7 +20691,7 @@ namespace Proceso20
         /// <param name="e">El evento que se lanzó.</param>
         private void boMenosDR_MouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Left) 
+            if (e.Button == MouseButtons.Left)
                 promDR += 1.0;
             else promDR += 10.0;
             panelDR.Invalidate();
@@ -20713,7 +20726,7 @@ namespace Proceso20
         /// <param name="e">El evento que se lanzó.</param>
         private void boMenosmenosDR_MouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Left) 
+            if (e.Button == MouseButtons.Left)
                 promDR += 50.0;
             else
                 promDR += 500.0;
@@ -20896,13 +20909,15 @@ namespace Proceso20
         /// <param name="e">El evento que se lanzó.</param>
         private void boTarCarga_MouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Right) 
+            if (e.Button == MouseButtons.Right)
                 panelTar.Visible = false;
-            if (listBox1.SelectedIndex < 0) 
+            if (listBox1.SelectedIndex < 0)
                 listBox1.SelectedIndex = 0;
             SeleccionarMinuto(false);
         }
-
+        /// <summary>
+        /// Envia un email desde la dirección alvaropabloacevedo@gmail.com hacia observatoriosingeominas@gmail.com.
+        /// </summary>
         void EnviarMensaje0()
         {
             try
@@ -20960,9 +20975,9 @@ namespace Proceso20
         /// <param name="e">El evento que se lanzó.</param>
         private void checkBoxHz_CheckedChanged(object sender, EventArgs e)
         {
-            if (checkBoxHz.Checked == true) 
+            if (checkBoxHz.Checked == true)
                 PromedioFiltrado();
-            else 
+            else
                 promDR = promEst[id];
             panelDR.Invalidate();
         }
@@ -21556,7 +21571,8 @@ namespace Proceso20
             tip.Show("Horas que se añaden al sismo", panel1, 1200);
         }
         /// <summary>
-        /// 
+        /// Carga en memoria las trazas en formato GCF, dependiendo del color de este botón escoge si las carga
+        /// desde el archivo original (archigcf.txt) o el auxiliar (archigcfaux.txt).
         /// </summary>
         /// <param name="sender">El objeto que lanza el evento.</param>
         /// <param name="e">El evento que se lanzó.</param>
@@ -21579,7 +21595,8 @@ namespace Proceso20
             if (nugcf > 0)
             {
                 yagcf = new bool[nugcf];
-                for (i = 0; i < nugcf; i++) yagcf[i] = false;
+                for (i = 0; i < nugcf; i++) 
+                    yagcf[i] = false;
             }
             dimensionar = false;
             DimensionarPanelTarjetas();
