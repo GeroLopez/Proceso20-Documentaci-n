@@ -924,10 +924,23 @@ namespace Proceso20
 
         int[][] va = new int[3][]; // variables para movimiento de particulas
         int[] mimpt = new int[3];
+        /// <summary>
+        /// Almacena los valores minimos de traza para el movimiento de particulas por cada componente en este orden
+        /// componente N, E y Z.
+        /// </summary>
         int[] mnmpt = new int[3];
         short velompt = 50;
+        /// <summary>
+        /// Valor identificador de la componente N.
+        /// </summary>
         short N = -1;
+        /// <summary>
+        /// Valor identificador de la componente E.
+        /// </summary>
         short E = -1;
+        /// <summary>
+        /// Valor identificador de la componente Z.
+        /// </summary>
         short Z = -1;
         /// <summary>
         /// id de la traza para el movimiento de particulas.
@@ -960,6 +973,11 @@ namespace Proceso20
         double faympt;
         double timpt;
         bool pausmpt = false;
+        /// <summary>
+        /// Indica si se ha determinado el valor para el cero de la señal por componente para realizar el cálculo 
+        /// del movimiento de particulas y el cálculo de la interpolación, en caso de que ya se haya determinado
+        /// false en caso de que no.
+        /// </summary>
         bool sicerompt = false;
         bool moverparti = false;
         bool puntompt = true;
@@ -2198,7 +2216,8 @@ namespace Proceso20
             return;
         }
         /// <summary>
-        /// Marca o desmarca el checkBox que representa una tarjeta, y modifica el valor booleano del arreglo que representa la tarjeta específica del checkBox.
+        /// Marca o desmarca el checkBox que representa una tarjeta, y modifica el valor booleano del arreglo 
+        /// que representa la tarjeta específica del checkBox.
         /// </summary>
         /// <param name="sender">El objeto que lanza el evento.</param>
         /// <param name="e">El evento que se lanzó.</param>
@@ -2333,8 +2352,8 @@ namespace Proceso20
         /// <param name="sender">El objeto que lanza el evento.</param>
         /// <param name="e">El evento que se lanzó.</param>
         private void boGcfTar_MouseDown(object sender, MouseEventArgs e)
-        {//Este es botón inferior que permite deseleccionar o seleccionar estaciones
-            //en formato GCF.
+        {
+            
             if (QuitarGcf == true)
             {
                 QuitarGcf = false;
@@ -3049,7 +3068,7 @@ namespace Proceso20
                 boNeic.Visible = false;
                 i = 0;
                 if (disparo == false)
-                    i = lecturas(cond); // lectura de trazas
+                    i = lecturas(cond); // lectura de trazas Aca agrega items a el listBox2
                 else
                     i = LecturaDisparo();
                 if (i == 0)
@@ -15504,7 +15523,7 @@ namespace Proceso20
             }
         }
         /// <summary>
-        /// Calcula el movimiento de partículas para una traza en específico y despliega el resultado en pantalla. 
+        /// Cálcula el movimiento de partículas para una traza en específico y despliega el resultado en pantalla. 
         /// </summary>
         void MovimientoParticula()
         {
@@ -15700,16 +15719,18 @@ namespace Proceso20
             return;
         }
         /// <summary>
-        /// 
+        /// Este método es el encargado gestionar el cálculo de la interpolación a una porción de 
+        /// traza para cada una de sus componentes E, N y Z (en caso de tenerlas), y de generar 
+        /// la gráfica respectiva de esa interpolación en el panel que corresponde a cada componente. 
         /// </summary>
         void TrazaComponenteInterp()
         {
             int i, j, k, xf, yf, x, y, idt;
             int cero = 0;
             double mmxN, mmnN, mmxE, mmnE, mmxZ, mmnZ;
-            int[] mi, mf, numu;
+            int[] mi, mf, numu; //minutoInicial   minutoFinal  número de muestras
             double fax, fay, pico;
-            double[] mx, mn;
+            double[] mx, mn; //valor máximo   valor minimo
             double[][] val = new double[3][];
             Panel[] panel = new Panel[3];
             Point[] dat;
@@ -15732,13 +15753,17 @@ namespace Proceso20
             for (i = 0; i < 3; i++)
             {
                 val[i] = new double[1];
-                if (i == 0) idt = N;
-                else if (i == 1) idt = E;
-                else idt = Z;
+                if (i == 0)
+                    idt = N;
+                else if (i == 1)
+                    idt = E;
+                else
+                    idt = Z;
 
                 mi[i] = (int)((timpt - timspl[0]) * ra[idt] * facRaInterp) + suma;
 
-                if (mi[i] < 0) mi[i] = 0;
+                if (mi[i] < 0)
+                    mi[i] = 0;
                 mimpt[i] = mi[i];
 
                 mf[i] = (int)(mi[i] + (durmpt * ra[idt] * facRaInterp));
@@ -15765,9 +15790,11 @@ namespace Proceso20
                 mn[i] = mx[i];
                 for (j = 1; j < numu[i]; j++)
                 {
-                    if (mx[i] < val[i][j]) mx[i] = val[i][j];
-                    else if (mn[i] > val[i][j]) mn[i] = val[i][j];
-                }
+                    if (mx[i] < val[i][j])
+                        mx[i] = val[i][j];
+                    else if (mn[i] > val[i][j])
+                        mn[i] = val[i][j];
+                }/// encuentra los valores minimo y máximo de la porción de traza por componente
             }
             yaInterp = true;
 
@@ -15778,7 +15805,9 @@ namespace Proceso20
             }
 
             pico = mx[0] - mn[0];
-            for (i = 1; i < 3; i++) if (pico < (mx[i] - mn[i])) pico = mx[i] - mn[i];
+            for (i = 1; i < 3; i++)
+                if (pico < (mx[i] - mn[i]))
+                    pico = mx[i] - mn[i];
             fay = ((double)(yf) / pico);
             faympt = fay;
 
@@ -15899,9 +15928,12 @@ namespace Proceso20
 
             for (i = 0; i < 3; i++)
             {
-                if (i == 0) idt = N;
-                else if (i == 1) idt = E;
-                else idt = Z;
+                if (i == 0) 
+                    idt = N;
+                else if (i == 1) 
+                    idt = E;
+                else
+                    idt = Z;
                 if (sifilt == false)
                 {
                     mi[i] = (int)((timpt - tim[idt][0]) * ra[idt]) + suma;
@@ -15910,12 +15942,15 @@ namespace Proceso20
                 {
                     mi[i] = (int)((timpt - tie1) * ra[idt]) + suma;
                 }
-                if (mi[i] < 0) mi[i] = 0;
+                if (mi[i] < 0)
+                    mi[i] = 0;
                 mimpt[i] = mi[i];
                 mf[i] = (int)(mi[i] + (durmpt * ra[idt]));
-                if (mf[i] > cu[idt].Length) mf[i] = cu[idt].Length;
+                if (mf[i] > cu[idt].Length)
+                    mf[i] = cu[idt].Length;
                 numu[i] = mf[i] - mi[i];
-                if (numu[i] < 10) return;
+                if (numu[i] < 10) 
+                    return;
 
                 if (sifilt == false)
                 {
@@ -15923,8 +15958,10 @@ namespace Proceso20
                     mn[i] = mx[i];
                     for (j = mi[i] + 1; j < mf[i]; j++)
                     {
-                        if (mx[i] < cu[idt][j]) mx[i] = cu[idt][j];
-                        else if (mn[i] > cu[idt][j]) mn[i] = cu[idt][j];
+                        if (mx[i] < cu[idt][j])
+                            mx[i] = cu[idt][j];
+                        else if (mn[i] > cu[idt][j])
+                            mn[i] = cu[idt][j];
                     }
                 }
                 else
@@ -15946,7 +15983,9 @@ namespace Proceso20
             }
 
             pico = mx[0] - mn[0];
-            for (i = 1; i < 3; i++) if (pico < (mx[i] - mn[i])) pico = mx[i] - mn[i];
+            for (i = 1; i < 3; i++) 
+                if (pico < (mx[i] - mn[i])) 
+                    pico = mx[i] - mn[i];
             //fay = ampmpt * (yf / (double)(pico));
             fay = (yf / (double)(pico));
             faympt = fay;
@@ -15959,8 +15998,10 @@ namespace Proceso20
                     mmnN = mmxN;
                     for (i = mi[0] + 1; i < mi[0] + 50; i++)
                     {
-                        if (mmxN < cu[N][i]) mmxN = cu[N][i];
-                        else if (mmnN > cu[N][i]) mmnN = cu[N][i];
+                        if (mmxN < cu[N][i]) 
+                            mmxN = cu[N][i];
+                        else if (mmnN > cu[N][i]) 
+                            mmnN = cu[N][i];
                     }
                     ceroN = (int)((mmxN + mmnN) / 2.0);
 
@@ -15968,8 +16009,10 @@ namespace Proceso20
                     mmnE = mmxE;
                     for (i = mi[1] + 1; i < mi[1] + 50; i++)
                     {
-                        if (mmxE < cu[E][i]) mmxE = cu[E][i];
-                        else if (mmnE > cu[E][i]) mmnE = cu[E][i];
+                        if (mmxE < cu[E][i]) 
+                            mmxE = cu[E][i];
+                        else if (mmnE > cu[E][i]) 
+                            mmnE = cu[E][i];
                     }
                     ceroE = (int)((mmxE + mmnE) / 2.0);
 
@@ -19388,7 +19431,7 @@ namespace Proceso20
                 fin = dat.Length;
             }
             sum = 0;
-            for (i = ini; i < fin; i++) 
+            for (i = ini; i < fin; i++)
                 sum += dat[i];
             prom = sum / (double)(canti);
 
@@ -20033,8 +20076,8 @@ namespace Proceso20
         /// <param name="e">El evento que se lanzó.</param>
         private void boFIR_MouseDown(object sender, MouseEventArgs e)
         {
-            int yf, iniy;
-            double fay;
+            //int yf, iniy;
+            ///double fay;
 
             if (e.Button == MouseButtons.Left)
             {
@@ -21595,7 +21638,7 @@ namespace Proceso20
             if (nugcf > 0)
             {
                 yagcf = new bool[nugcf];
-                for (i = 0; i < nugcf; i++) 
+                for (i = 0; i < nugcf; i++)
                     yagcf[i] = false;
             }
             dimensionar = false;
