@@ -1049,8 +1049,14 @@ namespace Proceso20
         bool sei = true;
         bool asc = false;
         bool sud = false;
+        /// <summary>
+        /// Determina si se dibujan o no las guias en el panel de interpolación.
+        /// </summary>
         bool guiainterp = false;
         bool especinterP = false;
+        /// <summary>
+        /// Determina si se realizó o no una interpolación.
+        /// </summary>
         bool NoInterpol = false;
 
         //Desplazamiento Rducido DR
@@ -11881,7 +11887,8 @@ namespace Proceso20
             catch
             {
             }
-            if (panelCajTeo.Visible == true) PonerTeorico();
+            if (panelCajTeo.Visible == true) 
+                PonerTeorico();
 
             return;
         }
@@ -15899,7 +15906,9 @@ namespace Proceso20
             return;
         }
         /// <summary>
-        /// 
+        /// Se encarga en determinar la porción de traza para cada una de sus componentes E, N y Z 
+        /// (en caso de tenerlas) que se va a graficar en los paneles panelPartiTraN, panelPartiTraE 
+        /// y panelPartiTraZ respectivamente.
         /// </summary>
         void TrazaComponente()
         {
@@ -16106,9 +16115,12 @@ namespace Proceso20
                 dc.DrawString(est[idt].Substring(0, 4), new Font("Times New Roman", 9, FontStyle.Bold), bro, 2, (int)(yf / 2.0));
                 bro.Dispose();
 
-                if (i == 0) cero = ceroN;
-                else if (i == 1) cero = ceroE;
-                else cero = ceroZ;
+                if (i == 0) 
+                    cero = ceroN;
+                else if (i == 1) 
+                    cero = ceroE;
+                else 
+                    cero = ceroZ;
                 x = 40;
                 y = (int)((5.0) + yf - (cero - mn[i]) * fay);
                 dc.DrawLine(lapRed, x, y, panel[i].Width - 10, y);
@@ -18773,10 +18785,12 @@ namespace Proceso20
                 do
                 {
                     k *= 2;
-                    if (k > (spl.Length - mui)) break;
+                    if (k > (spl.Length - mui)) 
+                        break;
                     j = k;
                 } while (k < (spl.Length - mui));
-                if (j < 256) return;
+                if (j < 256) 
+                    return;
                 panelEspectros.Visible = true;
                 DosEspectros(mui, j);
                 return;
@@ -18800,19 +18814,23 @@ namespace Proceso20
                 boIzqInterp.Visible = true;
                 boderInterp.Visible = true;
             }
-            if (ipb2 > ip2) ipb2 = ip2;
+            if (ipb2 > ip2) 
+                ipb2 = ip2;
 
             if (particula == true)
             {
                 idmpt = (short)(id);
                 timpt = tiempo1;
-                if (e.Button == MouseButtons.Left) mptintp = true;
-                else mptintp = false;
+                if (e.Button == MouseButtons.Left) 
+                    mptintp = true;
+                else 
+                    mptintp = false;
                 MovimientoParticula();
             }
 
             panelInterP.Invalidate();
-            if (panelDesplazamiento.Visible == true) panelDesplazamiento.Invalidate();
+            if (panelDesplazamiento.Visible == true) 
+                panelDesplazamiento.Invalidate();
 
             return;
         }
@@ -19807,7 +19825,10 @@ namespace Proceso20
             if (si == true) panelInterP.Invalidate();
         }
         /// <summary>
-        /// 
+        /// Cambia el estado de verdad de la variable especinterP la cual se usa para determinar si se 
+        /// debe calcular o no el espectro a la traza en el panel de interpolación, graficamente este 
+        /// cambio se nota porque el botón boEspInterP obriene un color diferente, verde cuando especinterP
+        /// es true y rosa cuando especinterP es false.
         /// </summary>
         /// <param name="sender">El objeto que lanza el evento.</param>
         /// <param name="e">El evento que se lanzó.</param>
@@ -20253,7 +20274,8 @@ namespace Proceso20
         /// <param name="e">El evento que se lanzó.</param>
         private void boFilBan_Click(object sender, EventArgs e)
         {
-            if (cfilt != '3') yafilt = false;
+            if (cfilt != '3') 
+                yafilt = false;
             cfilt = '3';
             if (sifilt == false)
             {
