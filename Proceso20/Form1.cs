@@ -1010,11 +1010,11 @@ namespace Proceso20
         /// </summary>
         byte facRaInterp = 5;  //variables de la Interpolacion;
         /// <summary>
-        /// Corresponde a la muestra de la traza que indica el inicio de la interpolacion.
+        /// Corresponde a la muestra de la traza que indica el inicio de la interpolación.
         /// </summary>
         int ip1;
         /// <summary>
-        /// Corresponde a la muestra de la traza que indica el final de la interpolacion.
+        /// Corresponde a la muestra de la traza que indica el final de la interpolación.
         /// </summary>
         int ip2;  // variables que guardan el numero de muestra del intervalo seleccionado
         int ipb1;
@@ -2359,7 +2359,7 @@ namespace Proceso20
         /// <param name="e">El evento que se lanzó.</param>
         private void boGcfTar_MouseDown(object sender, MouseEventArgs e)
         {
-            
+
             if (QuitarGcf == true)
             {
                 QuitarGcf = false;
@@ -11887,7 +11887,7 @@ namespace Proceso20
             catch
             {
             }
-            if (panelCajTeo.Visible == true) 
+            if (panelCajTeo.Visible == true)
                 PonerTeorico();
 
             return;
@@ -15937,9 +15937,9 @@ namespace Proceso20
 
             for (i = 0; i < 3; i++)
             {
-                if (i == 0) 
+                if (i == 0)
                     idt = N;
-                else if (i == 1) 
+                else if (i == 1)
                     idt = E;
                 else
                     idt = Z;
@@ -15958,7 +15958,7 @@ namespace Proceso20
                 if (mf[i] > cu[idt].Length)
                     mf[i] = cu[idt].Length;
                 numu[i] = mf[i] - mi[i];
-                if (numu[i] < 10) 
+                if (numu[i] < 10)
                     return;
 
                 if (sifilt == false)
@@ -15992,8 +15992,8 @@ namespace Proceso20
             }
 
             pico = mx[0] - mn[0];
-            for (i = 1; i < 3; i++) 
-                if (pico < (mx[i] - mn[i])) 
+            for (i = 1; i < 3; i++)
+                if (pico < (mx[i] - mn[i]))
                     pico = mx[i] - mn[i];
             //fay = ampmpt * (yf / (double)(pico));
             fay = (yf / (double)(pico));
@@ -16007,9 +16007,9 @@ namespace Proceso20
                     mmnN = mmxN;
                     for (i = mi[0] + 1; i < mi[0] + 50; i++)
                     {
-                        if (mmxN < cu[N][i]) 
+                        if (mmxN < cu[N][i])
                             mmxN = cu[N][i];
-                        else if (mmnN > cu[N][i]) 
+                        else if (mmnN > cu[N][i])
                             mmnN = cu[N][i];
                     }
                     ceroN = (int)((mmxN + mmnN) / 2.0);
@@ -16018,9 +16018,9 @@ namespace Proceso20
                     mmnE = mmxE;
                     for (i = mi[1] + 1; i < mi[1] + 50; i++)
                     {
-                        if (mmxE < cu[E][i]) 
+                        if (mmxE < cu[E][i])
                             mmxE = cu[E][i];
-                        else if (mmnE > cu[E][i]) 
+                        else if (mmnE > cu[E][i])
                             mmnE = cu[E][i];
                     }
                     ceroE = (int)((mmxE + mmnE) / 2.0);
@@ -16115,11 +16115,11 @@ namespace Proceso20
                 dc.DrawString(est[idt].Substring(0, 4), new Font("Times New Roman", 9, FontStyle.Bold), bro, 2, (int)(yf / 2.0));
                 bro.Dispose();
 
-                if (i == 0) 
+                if (i == 0)
                     cero = ceroN;
-                else if (i == 1) 
+                else if (i == 1)
                     cero = ceroE;
-                else 
+                else
                     cero = ceroZ;
                 x = 40;
                 y = (int)((5.0) + yf - (cero - mn[i]) * fay);
@@ -18785,11 +18785,11 @@ namespace Proceso20
                 do
                 {
                     k *= 2;
-                    if (k > (spl.Length - mui)) 
+                    if (k > (spl.Length - mui))
                         break;
                     j = k;
                 } while (k < (spl.Length - mui));
-                if (j < 256) 
+                if (j < 256)
                     return;
                 panelEspectros.Visible = true;
                 DosEspectros(mui, j);
@@ -18814,22 +18814,22 @@ namespace Proceso20
                 boIzqInterp.Visible = true;
                 boderInterp.Visible = true;
             }
-            if (ipb2 > ip2) 
+            if (ipb2 > ip2)
                 ipb2 = ip2;
 
             if (particula == true)
             {
                 idmpt = (short)(id);
                 timpt = tiempo1;
-                if (e.Button == MouseButtons.Left) 
+                if (e.Button == MouseButtons.Left)
                     mptintp = true;
-                else 
+                else
                     mptintp = false;
                 MovimientoParticula();
             }
 
             panelInterP.Invalidate();
-            if (panelDesplazamiento.Visible == true) 
+            if (panelDesplazamiento.Visible == true)
                 panelDesplazamiento.Invalidate();
 
             return;
@@ -19458,7 +19458,7 @@ namespace Proceso20
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="spl"></param>
+        /// <param name="spl">vector que almacenas los datos resultado de una interpolación.</param>
         void IntegracionSpl(int[] spl)
         {
             int i, lar, cont;
@@ -19466,8 +19466,10 @@ namespace Proceso20
             double[] val, sspl, val2;
 
             inc = 0.1;
-            if (NoInterpol == false) dd = ra[id] * facRaInterp;
-            else dd = ra[id];
+            if (NoInterpol == false)
+                dd = ra[id] * facRaInterp;
+            else
+                dd = ra[id];
             facra = 1.0 / dd;
             lar = spl.Length - 1;
             dzp = new double[lar];
@@ -19476,12 +19478,14 @@ namespace Proceso20
             val2 = new double[spl.Length]; // provicional
             sspl = new double[spl.Length];
 
-            for (i = 0; i < spl.Length; i++) sspl[i] = (double)(spl[i]);
+            for (i = 0; i < spl.Length; i++)
+                sspl[i] = (double)(spl[i]);
             cont = 0;
             promInterp = Promedio(150, sspl, true);
             do
             {
-                for (i = 0; i < spl.Length; i++) val[i] = sspl[i] - promInterp;
+                for (i = 0; i < spl.Length; i++)
+                    val[i] = sspl[i] - promInterp;
 
                 dzp[0] = 0;
                 for (i = 1; i < lar - 1; i++)
@@ -19492,8 +19496,10 @@ namespace Proceso20
                 prom2 = Promedio(100, dzp, false);
                 dif = prom2 - prom1;
                 cont += 1;
-                if (dif > 1.0) promInterp = promInterp + inc;
-                else if (dif < -1.0) promInterp = promInterp - inc;
+                if (dif > 1.0)
+                    promInterp = promInterp + inc;
+                else if (dif < -1.0)
+                    promInterp = promInterp - inc;
                 else break;
             } while (cont < 1000);
             promDesplz = prom1;
@@ -19501,8 +19507,12 @@ namespace Proceso20
 
             return;
         }
-
-        void DibujoDesplazamiento(int i1, int i2)
+        /// <summary>
+        /// Realiza el gráfico de la porción de la traza que se ha interpolado con el fin de mostrar su desplazamiento.
+        /// </summary>
+        /// <param name="i1">Corresponde a la muestra de la traza que indica el inicio de la interpolación.</param>
+        /// <param name="i2">Corresponde a la muestra de la traza que indica el final de la interpolación.</param>
+        void DibujoDesplazamiento(int i1, int i2)//ipb1,ipb2
         {
             int i, j, xf, yf;
             int x1, y1, yini;
@@ -19531,14 +19541,17 @@ namespace Proceso20
                     break;
                 }
             }
-            if (ispl2 == -1) ispl2 = spl.Length - 1;
+            if (ispl2 == -1)
+                ispl2 = spl.Length - 1;
 
             mxx = dzp[ispl1];
             mnn = mxx;
             for (i = ispl1 + 1; i < ispl2; i++)
             {
-                if (mxx < dzp[i]) mxx = dzp[i];
-                else if (mnn > dzp[i]) mnn = dzp[i];
+                if (mxx < dzp[i])
+                    mxx = dzp[i];
+                else if (mnn > dzp[i])
+                    mnn = dzp[i];
             }
 
             pro = (mxx + mnn) / 2.0;
@@ -19572,20 +19585,21 @@ namespace Proceso20
             catch
             {
             }
-
             lap.Dispose();
-
             return;
         }
         /// <summary>
-        /// 
+        /// Llama al método CalculoInterpolacion(id) pasando como parámetro el id de la estación que tiene seleccionada,
+        /// en caso de que el checkBoxFiltAlta este seleccionado en el método CalculoInterpolacion(id) se aplica un filtro
+        /// pasa altos pasando como parámetro para este el factor de rata de muestreo para la interpolación * el factor 
+        /// de rata de muestreo específico para la estación seleccionada; pero si el checkBoxFiltAlta no está seleccionado
+        /// solo se pasa como parámetro al filtro pasa altos el valor de la rata de muestreo especifico de la estación.
         /// </summary>
         /// <param name="sender">El objeto que lanza el evento.</param>
         /// <param name="e">El evento que se lanzó.</param>
         private void checkBoxFiltAlta_CheckedChanged(object sender, EventArgs e)
         {
             bool si = false;
-
             boGraInterpol.Visible = false;
             boIntegra.Visible = false;
             panelDesplazamiento.Visible = false;
@@ -19596,7 +19610,7 @@ namespace Proceso20
                 panelInterP.Invalidate();
         }
         /// <summary>
-        /// 
+        /// Llama al método que dibuja el desplazamiento una traza.
         /// </summary>
         /// <param name="sender">El objeto que lanza el evento.</param>
         /// <param name="e">El evento que se lanzó.</param>
@@ -19604,7 +19618,10 @@ namespace Proceso20
         {
             DibujoDesplazamiento(ipb1, ipb2);
         }
-
+        /// <summary>
+        /// Dibuja una linea vertical sobre el panel de interpolación en el punto donde se da click.
+        /// </summary>
+        /// <param name="e">Evento que se lanza cuando da click sobre el panel de interpolación.</param>
         void DibujarGuiaIterp(MouseEventArgs e)
         {
             Graphics dc = panelDesplazamiento.CreateGraphics();
@@ -19626,7 +19643,12 @@ namespace Proceso20
             ixpb = e.X;
         }
         /// <summary>
-        /// 
+        /// Este método puede tener 3 funcionalidades diferentes que son:
+        /// 1.	Graficar una línea vertical sobre el panel que sirve como guía en caso de que guiainterp sea true.
+        /// 2.	Determinar los índices que indican el inicio y el fin del tramo de traza interpolado en la matriz 
+        /// tim[][] en caso de que el click sea con el botón izquierdo.
+        /// 3.	Graficar un ToolTip indicando el valor de las cuentas y posiciones en longitud y latitud en caso 
+        /// de que el click sea con el botón derecho.
         /// </summary>
         /// <param name="sender">El objeto que lanza el evento.</param>
         /// <param name="e">El evento que se lanzó.</param>
@@ -19659,14 +19681,16 @@ namespace Proceso20
                 ii1 = ip1;
                 ii2 = ip2;
             }
-            if (ii2 > ip2) ii2 = ip2;
+            if (ii2 > ip2)
+                ii2 = ip2;
 
             if (e.Button == MouseButtons.Left)
             {
                 ipb1 = ii1;
                 ipb2 = ii2;
                 panelInterP.Invalidate();
-                if (panelDesplazamiento.Visible == true) panelDesplazamiento.Invalidate();
+                if (panelDesplazamiento.Visible == true)
+                    panelDesplazamiento.Invalidate();
             }
             else
             {
@@ -19680,13 +19704,14 @@ namespace Proceso20
                     {
                         if (volcan[i][0] == VD[id])
                         {
-                            disla = Math.Abs(latvol[i] - laD[id]) * 110.9;
-                            dislo = Math.Abs(lonvol[i] - loD[id]) * fcdislo;
+                            disla = Math.Abs(latvol[i] - laD[id]) * 110.9;//latitud
+                            dislo = Math.Abs(lonvol[i] - loD[id]) * fcdislo;//longitud
                             break;
                         }
                     }
                 }
-                else disla = -1.0;
+                else
+                    disla = -1.0;
                 ispl1 = 0;
                 for (i = 0; i < spl.Length; i++)
                 {
@@ -19705,7 +19730,8 @@ namespace Proceso20
                         break;
                     }
                 }
-                if (ispl2 == -1) ispl2 = spl.Length - 1;
+                if (ispl2 == -1)
+                    ispl2 = spl.Length - 1;
 
                 j1 = ipb1 - ip1;
                 j2 = ipb2 - ip1;
@@ -19784,7 +19810,8 @@ namespace Proceso20
             }
         }
         /// <summary>
-        /// 
+        /// Controla el valor de verdad de la variable guiainterp cambiando dicho valor
+        /// cada vez que se hace click en este botón.
         /// </summary>
         /// <param name="sender">El objeto que lanza el evento.</param>
         /// <param name="e">El evento que se lanzó.</param>
@@ -19802,18 +19829,22 @@ namespace Proceso20
             }
         }
         /// <summary>
-        /// 
+        /// Controla el cambio de frecuencia que se usa en la interpolación dependiendo el botón del mouse con 
+        /// el que se de click.
         /// </summary>
         /// <param name="sender">El objeto que lanza el evento.</param>
         /// <param name="e">El evento que se lanzó.</param>
         private void boFrInterp_MouseDown(object sender, MouseEventArgs e)
         {
             bool si = false;
-
-            if (e.Button == MouseButtons.Left) frInterp += 1.5F;
-            else frInterp -= 3.0F;
-            if (frInterp < 0.5F) frInterp = 0.5F;
-            else if (frInterp > 30.0F) frInterp = 30.0F;
+            if (e.Button == MouseButtons.Left) 
+                frInterp += 1.5F;
+            else
+                frInterp -= 3.0F;
+            if (frInterp < 0.5F) 
+                frInterp = 0.5F;
+            else if (frInterp > 30.0F) 
+                frInterp = 30.0F;
             boFrInterp.Text = string.Format("{0:0.0}", frInterp);
             if (panelDesplazamiento.Visible == true)
             {
@@ -19822,7 +19853,8 @@ namespace Proceso20
                 panelBarEspInterp.Visible = false;
             }
             si = CalculoInterpolacion(id);
-            if (si == true) panelInterP.Invalidate();
+            if (si == true) 
+                panelInterP.Invalidate();
         }
         /// <summary>
         /// Cambia el estado de verdad de la variable especinterP la cual se usa para determinar si se 
@@ -19845,7 +19877,11 @@ namespace Proceso20
                 boEspInterP.BackColor = Color.MistyRose;
             }
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="nmi"></param>
+        /// <param name="npp"></param>
         void DosEspectros(int nmi, int npp)
         {
             int i, j, k, nmf, x, y, xf, yf, iniy;
@@ -19858,7 +19894,8 @@ namespace Proceso20
             rata = ra[id] * facRaInterp;
 
             vaesp = new double[npp];
-            for (i = 0; i < npp; i++) vaesp[i] = spl[i + nmi] - promInterp; // aqui a veces el programa se  vuela !!
+            for (i = 0; i < npp; i++) 
+                vaesp[i] = spl[i + nmi] - promInterp; // aqui a veces el programa se  vuela !!
             vaesp = four.RealFFTAmpli(vaesp, true);
 
             vacioesp = false;
@@ -19980,7 +20017,7 @@ namespace Proceso20
 
         }
         /// <summary>
-        /// 
+        /// Grafica una linea vertical que sirve como guia en el panel.
         /// </summary>
         /// <param name="sender">El objeto que lanza el evento.</param>
         /// <param name="e">El evento que se lanzó.</param>
@@ -20067,7 +20104,8 @@ namespace Proceso20
         /// <param name="e">El evento que se lanzó.</param>
         private void Form1_Deactivate(object sender, EventArgs e)
         {
-            if (inicio == false) return;
+            if (inicio == false) 
+                return;
             if (sidesactiva == true)
                 desactivado = true;
         }
@@ -20274,7 +20312,7 @@ namespace Proceso20
         /// <param name="e">El evento que se lanzó.</param>
         private void boFilBan_Click(object sender, EventArgs e)
         {
-            if (cfilt != '3') 
+            if (cfilt != '3')
                 yafilt = false;
             cfilt = '3';
             if (sifilt == false)
