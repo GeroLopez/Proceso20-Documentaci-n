@@ -2322,8 +2322,10 @@ namespace Proceso20
             //inferior del panel en cuestión, se encuentre en rojo o verde, respectivamente.
 
             NoMostrar = true;
-            if (e.Button == MouseButtons.Right && CajonGcf == false) CajonGcf = true;
-            else CajonGcf = false;
+            if (e.Button == MouseButtons.Right && CajonGcf == false)
+                CajonGcf = true;
+            else
+                CajonGcf = false;
         }
         /// <summary>
         /// Cambia el valor del vector booleano cajgcf en una posición dependiente de la casilla donde
@@ -2333,11 +2335,14 @@ namespace Proceso20
         /// <param name="e">El evento que se lanzó.</param>
         private void cajon_MouseMove(object sender, MouseEventArgs e)
         {
-            if (CajonGcf == false) return;
+            if (CajonGcf == false)
+                return;
             NoMostrar = true;
             CheckBox cc = (CheckBox)sender;
-            if (QuitarGcf == true) cc.Checked = false;
-            else cc.Checked = true;
+            if (QuitarGcf == true)
+                cc.Checked = false;
+            else
+                cc.Checked = true;
             try
             {
                 cajgcf[cc.TabIndex - cajinigcf] = cc.Checked;
@@ -2454,7 +2459,8 @@ namespace Proceso20
         private void bMas_Click(object sender, EventArgs e)
         {//Este botón permite visualizar o esconder los botones de volcanes cuando su número sea
             //mayor a 14
-            if (panel3.Visible == false) panel3.Visible = true;
+            if (panel3.Visible == false)
+                panel3.Visible = true;
             else
             {
                 panel3.Visible = false;
@@ -2726,7 +2732,7 @@ namespace Proceso20
                 {
                     try
                     {
-                        LeeSeisan(); // trazas en formato GCF
+                        LeeSeisan(); // trazas en formato SEISAN
                     }
                     catch
                     {
@@ -3074,7 +3080,9 @@ namespace Proceso20
                 boNeic.Visible = false;
                 i = 0;
                 if (disparo == false)
+                {
                     i = lecturas(cond); // lectura de trazas Aca agrega items a el listBox2
+                }
                 else
                     i = LecturaDisparo();
                 if (i == 0)
@@ -7998,7 +8006,8 @@ namespace Proceso20
             }
             if (feant1 != fe1 || feant2 != fe2)
                 util.borra(panel1, colfondo);
-            else panel1.Invalidate();
+            else
+                panel1.Invalidate();
             if (panelcla.Visible == true)
             {
                 xx = panelcla.Size.Width - 30;
@@ -8177,7 +8186,7 @@ namespace Proceso20
         /// de tiempo que se encuentran clasificados. En Datos.txt se encuentran los tiempos
         /// en formato visual c#.
         /// </summary>
-        /// <returns>Retona true en caso de encontrar trazas ya clasificadas, false en caso de no encontrar trazas clasificadas.</returns>
+        /// <returns>Retorna true en caso de encontrar trazas ya clasificadas, false en caso de no encontrar trazas clasificadas.</returns>
         bool Reviarch()
         {// rutina que revisa los archivos de clasificacion con el fin de averiguar los intervalos
             // de tiempo que se encuentran clasificados. En Datos.txt se encuentran los tiempos
@@ -11263,8 +11272,10 @@ namespace Proceso20
             hoo = ss.Substring(8, 2) + ":" + ss.Substring(10, 2) + ":" + ss.Substring(12, 2) + " ";
             if (dur < 10000) esp = " ";
             else esp = "";
-            if (nue < 100) esp2 = " ";
-            else esp2 = "";
+            if (nue < 100)
+                esp2 = " ";
+            else
+                esp2 = "";
             //ca = string.Format("{0:0000}",dur)+esp+usu.Substring(0,3)+" "+string.Format("{0:00}", nue);
             ca = string.Format("{0:0000}", dur) + esp + usu.Substring(0, 3) + esp2 + string.Format("{0:00}", nue);
             lincla = fee + hoo + sis + " " + letiem + tar[nucod] + marca + " " + ca;
@@ -11369,34 +11380,47 @@ namespace Proceso20
                     sp = (float)(Sti - Pti);
                     if (sp < 0 || sp > 999.0) sp = 0;
                 }
-                else sp = 0;
+                else
+                    sp = 0;
                 if (tremor == true)
                 {
-                    if (contremor == 0) aste = "*";
-                    else aste = "+";
+                    if (contremor == 0)
+                        aste = "*";
+                    else
+                        aste = "+";
                 }
-                else aste = " ";
-                if (factmm < 0) factmm = 0;
+                else
+                    aste = " ";
+                if (factmm < 0)
+                    factmm = 0;
                 ca = string.Format("{0,13:0.00}", tie1) + " " + string.Format("{0,6:0}", codd) + " ";
                 ca += clasi.Substring(0, 3) + aste;
                 //MessageBox.Show("ampp="+ampp.ToString()+" ga="+ga[nucod].ToString()+" factmm="+factmm.ToString()+" mm="+mm.ToString());
-                if (mm < 99999999.9) ca += String.Format("{0,10:0.0}", mm) + " ";
-                else ca += string.Format("{0:E3}", mm) + " ";
+                if (mm < 99999999.9)
+                    ca += String.Format("{0,10:0.0}", mm) + " ";
+                else
+                    ca += string.Format("{0:E3}", mm) + " ";
                 ca += string.Format("{0,5:0.00}", periodo) + " " + string.Format("{0,5:0.00}", fre) + " ";
                 ca += string.Format("{0,6:0.00}", sp) + " ";
-                if (refe == true) ca += "*";
-                else ca += " ";
+                if (refe == true)
+                    ca += "*";
+                else
+                    ca += " ";
                 ca += est[nucod].Substring(0, 4) + " " + string.Format("{0,9:0}", ampp) + " ";
                 ca += string.Format("{0:00}", ga[nucod]) + " " + sis + " " + string.Format("{0,13:0.00}", Ati) + " ";
-                if (by[nucod] == 2) ca += 'C' + " ";
-                else ca += 'B' + " ";
+                if (by[nucod] == 2)
+                    ca += 'C' + " ";
+                else
+                    ca += 'B' + " ";
                 ca += string.Format("{0,13:0.00}", Pti) + " " + string.Format("{0,13:0.00}", Cti) + " ";
                 ca += string.Format("{0,6:0.00}", ra[nucod]) + " " + usu.Substring(0, 3) + " " + tar[nucod];
 
                 if (filtcod == true)
                 {
-                    if (tipofiltcod == false) ca += " B ";
-                    else ca += " A ";
+                    if (tipofiltcod == false)
+                        ca += " B ";
+                    else
+                        ca += " A ";
                     ca += string.Format("{0:00.00} {1:0}", Fccod, polocod);
                 }
 
@@ -19837,13 +19861,13 @@ namespace Proceso20
         private void boFrInterp_MouseDown(object sender, MouseEventArgs e)
         {
             bool si = false;
-            if (e.Button == MouseButtons.Left) 
+            if (e.Button == MouseButtons.Left)
                 frInterp += 1.5F;
             else
                 frInterp -= 3.0F;
-            if (frInterp < 0.5F) 
+            if (frInterp < 0.5F)
                 frInterp = 0.5F;
-            else if (frInterp > 30.0F) 
+            else if (frInterp > 30.0F)
                 frInterp = 30.0F;
             boFrInterp.Text = string.Format("{0:0.0}", frInterp);
             if (panelDesplazamiento.Visible == true)
@@ -19853,7 +19877,7 @@ namespace Proceso20
                 panelBarEspInterp.Visible = false;
             }
             si = CalculoInterpolacion(id);
-            if (si == true) 
+            if (si == true)
                 panelInterP.Invalidate();
         }
         /// <summary>
@@ -19894,7 +19918,7 @@ namespace Proceso20
             rata = ra[id] * facRaInterp;
 
             vaesp = new double[npp];
-            for (i = 0; i < npp; i++) 
+            for (i = 0; i < npp; i++)
                 vaesp[i] = spl[i + nmi] - promInterp; // aqui a veces el programa se  vuela !!
             vaesp = four.RealFFTAmpli(vaesp, true);
 
@@ -20104,7 +20128,7 @@ namespace Proceso20
         /// <param name="e">El evento que se lanzó.</param>
         private void Form1_Deactivate(object sender, EventArgs e)
         {
-            if (inicio == false) 
+            if (inicio == false)
                 return;
             if (sidesactiva == true)
                 desactivado = true;
@@ -21122,7 +21146,11 @@ namespace Proceso20
                 lista.Clear();
             }
         }
-
+        /// <summary>
+        /// Determina si el archivo es de tipo SEISAN o si es de tipo SUDS
+        /// </summary>
+        /// <returns>el valor en ascci de la primera letra leida del archivo que contiene un sismo,
+        /// P en caso de que el archivo sea de tipo SEISAN, o S en caso de que sea de tipo SUDS.</returns>
         int ChequeoArchivoSismo()
         {
             int i;
@@ -21135,12 +21163,16 @@ namespace Proceso20
             ch = br.ReadChar();
             br.Close();
             i = (int)ch;
-            /*MessageBox.Show("i=" + i.ToString());
+            MessageBox.Show("i=" + i.ToString());
             if (ch == 'P') MessageBox.Show("Seisan");
-            else if (ch == 'S') MessageBox.Show("SUDS");*/
+            else if (ch == 'S') MessageBox.Show("SUDS");
             return (i);
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns>el valor en ascci de la primera letra leida del archivo que contiene un sismo,
+        /// P en caso de que el archivo sea de tipo SEISAN, o S en caso de que sea de tipo SUDS.</returns>
         int LecturaDisparo()
         {
             int i, j, jj, nuu, fe, fe1, fe2;
@@ -21248,11 +21280,13 @@ namespace Proceso20
                 }
             }
 
-            if (panel2.Visible == true) panel2.Visible = false;
+            if (panel2.Visible == true) 
+                panel2.Visible = false;
             cargar = true;
             promEst = new int[nutra];
             invertido = new bool[nutra];
-            for (i = 0; i < nutra; i++) invertido[i] = false;
+            for (i = 0; i < nutra; i++) 
+                invertido[i] = false;
             li = "";
             if (File.Exists(".\\pro\\invertido.txt"))
             {
@@ -21401,15 +21435,22 @@ namespace Proceso20
                 for (iii = 0; iii < nucan; iii++)
                 {
                     ca2 = Encoding.ASCII.GetString(br.ReadBytes(88));
-                    if (char.IsLetter(ca2[8])) nuletra = 8;
-                    else nuletra = 7;
+                    if (char.IsLetter(ca2[8])) 
+                        nuletra = 8;
+                    else
+                        nuletra = 7;
                     esta[iii] = ca2.Substring(0, 3) + ca2.Substring(nuletra, 1);
-                    if (ca2[8] == 'N') compo[iii] = 'n';
-                    else if (ca2[8] == 'E') compo[iii] = 'e';
-                    else compo[iii] = 'z';
+                    if (ca2[8] == 'N') 
+                        compo[iii] = 'n';
+                    else if (ca2[8] == 'E') 
+                        compo[iii] = 'e';
+                    else 
+                        compo[iii] = 'z';
                     an2 = int.Parse(ca2.Substring(10, 2));
-                    if (ca2[9] == '1') an2 += 2000;
-                    else an2 += 1900;
+                    if (ca2[9] == '1') 
+                        an2 += 2000;
+                    else
+                        an2 += 1900;
                     me2 = int.Parse(ca2.Substring(17, 2));
                     di2 = int.Parse(ca2.Substring(20, 2));
                     ho2 = int.Parse(ca2.Substring(23, 2));
@@ -21540,7 +21581,8 @@ namespace Proceso20
                             }
                         }
                     }*/
-                    if (si == false) est[nutra] = estt[iii].Substring(0, 4) + " ";
+                    if (si == false)
+                        est[nutra] = estt[iii].Substring(0, 4) + " ";
                     cus = new int[lara];
                     tims = new double[lara];
                     siEst[nutra] = true;
@@ -21590,11 +21632,15 @@ namespace Proceso20
                     }
 
                     inicio = (int)((tinicio - tims[0]) * ra[nutra]);
-                    if (inicio < 0) inicio = 0;
-                    if (tims[lara - 1] - tifinal < 0) fin = lara;
-                    else fin = (int)(lara - ((tims[lara - 1] - tifinal) * ra[nutra]));
+                    if (inicio < 0) 
+                        inicio = 0;
+                    if (tims[lara - 1] - tifinal < 0) 
+                        fin = lara;
+                    else
+                        fin = (int)(lara - ((tims[lara - 1] - tifinal) * ra[nutra]));
                     //MessageBox.Show("inicio="+inicio.ToString()+" fin="+fin.ToString());
-                    if (inicio >= fin) continue;
+                    if (inicio >= fin) 
+                        continue;
                     i = fin - inicio;
                     tim[nutra] = new double[i];
                     cu[nutra] = new int[i];

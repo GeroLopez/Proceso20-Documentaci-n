@@ -59,7 +59,12 @@ namespace Proceso20
 
             return;
         }
-
+        /// <summary>
+        /// Grafica un mensaje sobre el panel pasado como parámetro.
+        /// </summary>
+        /// <param name="panel">panel donde se desea graficar.</param>
+        /// <param name="mensa">mensaje a mostrar.</param>
+        /// <param name="cond">se utiliza para determinar la posición donde se dibuja sobre el panel.</param>
         public void Mensaje(Panel panel, string mensa, bool cond)
         {
             int xf, yf, x1, y1;
@@ -98,7 +103,7 @@ namespace Proceso20
         /// <param name="ll2">Tiempo en formato C# del momento hasta donde se deben mostrar las trazas (fecha final).</param>
         /// <param name="cl">Arreglo de strings que contiene el tipo de clasificaciones que hay guardados para los volcanes, VT, LP, TL etc.</param>
         /// <param name="volcan">Arreglo de strings que contiene los volcanes que se encuentran en la base, RUIZ, MACHIN etc.</param>
-        /// <returns></returns>
+        /// <returns>La cantidad de sismos clasificados en el archivo cla.txt.</returns>
         public ushort Leerbase(Panel panel, string rutbas, long ll1, long ll2, string[] cl, string[] volcan)
         {
             // rutina que chequea si a determinado minuto corresponde sismos clasificados y si 
