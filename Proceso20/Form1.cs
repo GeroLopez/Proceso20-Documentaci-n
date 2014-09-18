@@ -6956,7 +6956,8 @@ namespace Proceso20
                     radlowcod.BackColor = Color.White;
                     radhicod.BackColor = Color.White;
                 }
-                else DibujoClascoda();
+                else 
+                    DibujoClascoda();
             }
             return;
         }
@@ -21147,7 +21148,7 @@ namespace Proceso20
             }
         }
         /// <summary>
-        /// Determina si el archivo es de tipo SEISAN o si es de tipo SUDS
+        /// Determina si el archivo es de tipo SEISAN o si es de tipo SUDS.
         /// </summary>
         /// <returns>el valor en ascci de la primera letra leida del archivo que contiene un sismo,
         /// P en caso de que el archivo sea de tipo SEISAN, o S en caso de que sea de tipo SUDS.</returns>
@@ -21169,10 +21170,12 @@ namespace Proceso20
             return (i);
         }
         /// <summary>
-        /// 
+        /// Se encarga de llamar al método que lee los archivos de tipo SEISAN, además actualiza el listBox2
+        /// con las estaciones que leen SEISAN y configura variables de factores de conversión para posteriores
+        /// manipulaciones a las trazas SEISAN.
         /// </summary>
-        /// <returns>el valor en ascci de la primera letra leida del archivo que contiene un sismo,
-        /// P en caso de que el archivo sea de tipo SEISAN, o S en caso de que sea de tipo SUDS.</returns>
+        /// <returns>Si el archivo del sismo es de tipo SEISAN retorna el valor en ascci
+        /// de la letra P (80), en caso contrario retorna 0. </returns>
         int LecturaDisparo()
         {
             int i, j, jj, nuu, fe, fe1, fe2;
@@ -21201,8 +21204,10 @@ namespace Proceso20
             for (i = 1; i < nutra; i++)
             {
                 largo = tim[i].Length - 1;
-                if (timin > tim[i][0]) timin = tim[i][0];
-                if (timaxmin > tim[i][largo]) timaxmin = tim[i][largo];
+                if (timin > tim[i][0]) 
+                    timin = tim[i][0];
+                if (timaxmin > tim[i][largo]) 
+                    timaxmin = tim[i][largo];
             }
 
             for (i = 0; i < nutra; i++)
@@ -21256,9 +21261,11 @@ namespace Proceso20
                                     try
                                     {
                                         fcnan[j] = double.Parse(pa[2]);
-                                        if (pa.Length >= 10) Unidad[j] = pa[9];
+                                        if (pa.Length >= 10) 
+                                            Unidad[j] = pa[9];
                                         //MessageBox.Show(fclist[jj].ToString() + "\n" + pa[9]);
-                                        if (pa.Length >= 9) fcDR[j] = double.Parse(pa[8]);
+                                        if (pa.Length >= 9) 
+                                            fcDR[j] = double.Parse(pa[8]);
                                         laD[j] = double.Parse(pa[5]);
                                         loD[j] = double.Parse(pa[6]);
                                         VD[j] = pa[7][0];
@@ -21326,7 +21333,11 @@ namespace Proceso20
 
             return (nuu);
         }
-
+        /// <summary>
+        /// Se encarga de leer los archivos de sismos de tipo SEISAN y cargar en memoria los datos necesarios
+        /// para su manipulación y clasificación, estos datos los guarda en las variables cu[][], tim[][], ra[], by[], nutra entre otras.
+        /// ESTA PENDIENTE UNA REVISIÓN A FONDO DE SU FUNCIONAMIENTO.
+        /// </summary>
         void LeeSeisanUno()
         {
             int i, iii, j, jj, k, kk, kkk, nucan = 0, fin = 0;
@@ -21359,7 +21370,8 @@ namespace Proceso20
             string nom, ca, ca2;
 
             nom = listBox1.SelectedItem.ToString();
-            if (!File.Exists(nom)) return;
+            if (!File.Exists(nom)) 
+                return;
 
             try
             {
@@ -21657,7 +21669,7 @@ namespace Proceso20
             return;
         }
         /// <summary>
-        /// 
+        /// Cambia el texto del textBoxDisparo.
         /// </summary>
         /// <param name="sender">El objeto que lanza el evento.</param>
         /// <param name="e">El evento que se lanzó.</param>
