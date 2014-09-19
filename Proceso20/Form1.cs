@@ -6935,8 +6935,10 @@ namespace Proceso20
             {
                 panelEsta.Visible = true;
                 i = util.EscribePanelEsta(panelEsta, nutra, est, siEst);
-                if (i == 1) boTodas.BackColor = Color.PaleVioletRed;
-                else boTodas.BackColor = Color.White;
+                if (i == 1) 
+                    boTodas.BackColor = Color.PaleVioletRed;
+                else
+                    boTodas.BackColor = Color.White;
             }
             else
             {
@@ -6971,7 +6973,8 @@ namespace Proceso20
         {
             int i, j, k, val;
 
-            if (panelEsta.Visible == false) return;
+            if (panelEsta.Visible == false) 
+                return;
 
             i = e.Y / 10;
             j = e.X / 35;
