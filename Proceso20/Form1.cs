@@ -11853,7 +11853,7 @@ namespace Proceso20
             return;
         }
         /// <summary>
-        /// hace llamado a la rutina que invierte el color del fondo
+        /// Hace llamado a la rutina que invierte el color del fondo
         /// </summary>
         /// <param name="sender">El objeto que lanza el evento.</param>
         /// <param name="e">El evento que se lanzó.</param>
@@ -13337,7 +13337,7 @@ namespace Proceso20
 
         }
         /// <summary>
-        /// Encoger hueco.
+        /// Sirve para reducir el tamaño del hueco.
         /// </summary>
         /// <param name="sender">El objeto que lanza el evento.</param>
         /// <param name="e">El evento que se lanzó.</param>

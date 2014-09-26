@@ -91,7 +91,6 @@ namespace Proceso20
 
             return;
         }
-
         /// <summary>
         /// Revisa si a determinado minuto corresponde sismos clasificados y si tienen lectura de amplitud y de coda,
         /// en otras palabras chequea y cuenta los minutos que correspondan a sismos clasificados en la base,
@@ -421,7 +420,7 @@ namespace Proceso20
             for (ii = 0; ii < 8; ii++)
             {
                 k = (int)(marcachar[ii]);
-                if (k == 42) 
+                if (k == 42)
                     kk = 0;
                 else
                     kk = k - 47;
@@ -491,7 +490,7 @@ namespace Proceso20
             yf = panel.Size.Height;
 
             jb = tim.Length - 1;
-            if (esp == 0) 
+            if (esp == 0)
                 fay = (yf - 45.0) / (double)(denom);
             else
                 fay = esp;
@@ -570,9 +569,9 @@ namespace Proceso20
                 xf = panel.Size.Width;
                 yf = panel.Size.Height;
                 jb = tim.Length - 1;
-                if (esp == 0) 
+                if (esp == 0)
                     fay = (yf - 45.0) / (double)(denom);
-                else 
+                else
                     fay = esp;
                 fax = xf / dur;
                 tf = tim[jb - 1];
@@ -580,7 +579,7 @@ namespace Proceso20
                 Graphics dc = panel.CreateGraphics();
                 Pen lapiz = new Pen(Color.Black, 1);
 
-                if (tam == 2.0F) 
+                if (tam == 2.0F)
                     tam = 1.9F;
 
                 if (contampl > 0)
@@ -596,14 +595,14 @@ namespace Proceso20
                             kk = -1;
                             for (i = 0; i < nucla; i++)
                             {
-                                if (letampl[j] == cl[i][1]) 
+                                if (letampl[j] == cl[i][1])
                                     kk = i;
                             }
                             if (cond == true && kk > -1)
                             {
                                 kkk = kk;
                                 kk = -1;
-                                if (volampl[j] == voll) 
+                                if (volampl[j] == voll)
                                     kk = kkk;
                             }
                             if (kk > -1)
@@ -654,13 +653,21 @@ namespace Proceso20
 
             return;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="panelEsta"></param>
+        /// <param name="nutra"></param>
+        /// <param name="est"></param>
+        /// <param name="siEst"></param>
+        /// <param name="pol"></param>
+        /// <returns></returns>
         public int EscribePanelEstaHP(Panel panelEsta, ushort nutra, string[] est, bool[] siEst, char[] pol)
         {
             int i, ii, j, k, xx, yy, kk, xf, yf;
             string esta = "", ca = "";
 
-            if (panelEsta.Visible == false) 
+            if (panelEsta.Visible == false)
                 return (-1);
 
             xf = panelEsta.Size.Width;
@@ -785,9 +792,22 @@ namespace Proceso20
 
             return (kk);
         }
-
-
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="panel"></param>
+        /// <param name="nomvol"></param>
+        /// <param name="facm"></param>
+        /// <param name="la"></param>
+        /// <param name="lo"></param>
+        /// <param name="lasi"></param>
+        /// <param name="losi"></param>
+        /// <param name="coltopo"></param>
+        /// <param name="cond"></param>
+        /// <param name="laR"></param>
+        /// <param name="loR"></param>
+        /// <param name="laER"></param>
+        /// <param name="loER"></param>
         public void Topo(Panel panel, string nomvol, double facm, double la, double lo,
             double lasi, double losi, Color coltopo, bool cond, double laR, double loR,
               double laER, double loER)
@@ -951,7 +971,14 @@ namespace Proceso20
 
             return;
         } // topo
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="panel"></param>
+        /// <param name="facm"></param>
+        /// <param name="la"></param>
+        /// <param name="lo"></param>
+        /// <param name="map"></param>
         public void TopoMapaArribos(Panel panel, double facm, double la, double lo,
              char map)
         {
@@ -1106,7 +1133,15 @@ namespace Proceso20
 
             return;
         } // topoArribos
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="panel"></param>
+        /// <param name="facm"></param>
+        /// <param name="la"></param>
+        /// <param name="lo"></param>
+        /// <param name="lae"></param>
+        /// <param name="loe"></param>
         public void EstacionesArribos(Panel panel, double facm, double la, double lo, double[] lae,
               double[] loe)
         {
@@ -1142,7 +1177,14 @@ namespace Proceso20
 
             return;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="panel"></param>
+        /// <param name="facm"></param>
+        /// <param name="laa"></param>
+        /// <param name="loo"></param>
+        /// <param name="map"></param>
         public void FocosArribos(Panel panel, double facm, double laa, double loo, char map)
         {
             int i, iniX, iniY, xf, yf, x1, y1, nu;
@@ -1220,7 +1262,10 @@ namespace Proceso20
 
             lap.Dispose();
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="panel"></param>
         public void ColocarMLVista(Panel panel)
         {
             double dd;
@@ -1256,7 +1301,10 @@ namespace Proceso20
 
             return;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         int MejorRms()
         {
             int i, nu = -1;
@@ -1293,7 +1341,16 @@ namespace Proceso20
 
             return (nu);
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="panel"></param>
+        /// <param name="facm"></param>
+        /// <param name="la"></param>
+        /// <param name="lo"></param>
+        /// <param name="lae"></param>
+        /// <param name="loe"></param>
+        /// <param name="col"></param>
         public void UnaEstacionArribo(Panel panel, double facm, double la, double lo, double lae,
              double loe, Color col)
         {
@@ -1325,7 +1382,17 @@ namespace Proceso20
 
             return;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="panel"></param>
+        /// <param name="nomvol"></param>
+        /// <param name="facMapa"></param>
+        /// <param name="la"></param>
+        /// <param name="lo"></param>
+        /// <param name="lasi"></param>
+        /// <param name="losi"></param>
+        /// <param name="fclo"></param>
         void PonerImagen(Panel panel, string nomvol, double facMapa,
             double la, double lo, double lasi, double losi, double fclo)
         {
@@ -1468,7 +1535,26 @@ namespace Proceso20
             lap[2].Dispose();
             return;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="laff"></param>
+        /// <param name="loff"></param>
+        /// <param name="lae"></param>
+        /// <param name="loe"></param>
+        /// <param name="siFac"></param>
+        /// <param name="fac"></param>
+        /// <param name="can"></param>
+        /// <param name="siest"></param>
+        /// <param name="lectu"></param>
+        /// <param name="ga"></param>
+        /// <param name="tle1"></param>
+        /// <param name="tle2"></param>
+        /// <param name="tini"></param>
+        /// <param name="usu"></param>
+        /// <param name="sis"></param>
+        /// <param name="tar"></param>
+        /// <param name="est"></param>
         public void GraMatlab(double laff, double loff, double[] lae, double[] loe, bool[] siFac,
            double[] fac, int can, bool[] siest, int[] lectu, short[] ga, double[] tle1, double[] tle2,
            double tini, string usu, string sis, char tar, string[] est)
@@ -1561,7 +1647,18 @@ namespace Proceso20
 
             return;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="panel"></param>
+        /// <param name="nmvol"></param>
+        /// <param name="la"></param>
+        /// <param name="lo"></param>
+        /// <param name="pun"></param>
+        /// <param name="diff"></param>
+        /// <param name="laat"></param>
+        /// <param name="loot"></param>
+        /// <param name="col"></param>
         public void VerMapa(Panel panel, char nmvol, double la, double lo, string pun, double diff,
            double laat, double loot, Color col)
         {
@@ -1742,7 +1839,30 @@ namespace Proceso20
 
             return;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="panel"></param>
+        /// <param name="panel2"></param>
+        /// <param name="laff"></param>
+        /// <param name="loff"></param>
+        /// <param name="la"></param>
+        /// <param name="lo"></param>
+        /// <param name="diff"></param>
+        /// <param name="can"></param>
+        /// <param name="siFac"></param>
+        /// <param name="fac"></param>
+        /// <param name="lae"></param>
+        /// <param name="loe"></param>
+        /// <param name="clR"></param>
+        /// <param name="clG"></param>
+        /// <param name="clB"></param>
+        /// <param name="lectu"></param>
+        /// <param name="ga"></param>
+        /// <param name="xx"></param>
+        /// <param name="yy"></param>
+        /// <param name="siest"></param>
+        /// <param name="col"></param>
         public void Dibampl(Panel panel, Panel panel2, double laff, double loff, double la, double lo,
            double diff, int can, bool[] siFac, double[] fac, double[] lae, double[] loe,
              byte[] clR, Byte[] clG, byte[] clB, int[] lectu, short[] ga, int xx, int yy, bool[] siest,
@@ -1835,7 +1955,13 @@ namespace Proceso20
 
             return;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="tii"></param>
+        /// <param name="sis"></param>
+        /// <param name="rutbas"></param>
+        /// <returns></returns>
         public bool EliminaClasificacion(double tii, string sis, string rutbas)
         {
             long ll;
@@ -2020,7 +2146,14 @@ namespace Proceso20
 
             return (true);
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="cu"></param>
+        /// <param name="timblo"></param>
+        /// <param name="ct"></param>
+        /// <param name="ra"></param>
+        /// <returns></returns>
         public double[] Codigo_Irig_E(int[] cu, double timblo, double ct, double ra)
         {
             int i, ii, j, jj, k, kk, nublo, año, lar, segm, mmx, mmn, PROM;
@@ -2223,7 +2356,10 @@ namespace Proceso20
 
             return (dift);
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="panel"></param>
         public void MapaMundo(Panel panel)
         {
             int j = 0, k = 0, xf, yf, x1 = 0, y1 = 0, x2 = 0, y2 = 0;
@@ -2277,7 +2413,16 @@ namespace Proceso20
 
             return;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="panel"></param>
+        /// <param name="lat"></param>
+        /// <param name="lon"></param>
+        /// <param name="zz"></param>
+        /// <param name="mag"></param>
+        /// <param name="laNeic"></param>
+        /// <param name="loNeic"></param>
         public void SismoNEIC(Panel panel, double lat, Double lon, double zz, double mag,
               float laNeic, float loNeic)
         {
@@ -2319,7 +2464,13 @@ namespace Proceso20
 
             return;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="M"></param>
+        /// <param name="rat"></param>
+        /// <param name="Fc"></param>
+        /// <returns></returns>
         public double[] HBajo(short M, float rat, double Fc)
         {
             int i, j;
@@ -2356,14 +2507,21 @@ namespace Proceso20
 
             h = new double[M];
             h = HBajo(M, rat, Fc);
-            for (i = 0; i < M; i++) 
+            for (i = 0; i < M; i++)
                 h[i] = -h[i];
             j = (int)(M / 2.0);
             h[j] = h[j] + 1.0;
 
             return (h);
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="M"></param>
+        /// <param name="rat"></param>
+        /// <param name="Fc1"></param>
+        /// <param name="Fc2"></param>
+        /// <returns></returns>
         public double[] HBand(short M, float rat, double Fc1, double Fc2)
         {
             int i, j;
@@ -2383,7 +2541,14 @@ namespace Proceso20
 
             return (h);
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="dat"></param>
+        /// <param name="M"></param>
+        /// <param name="rat"></param>
+        /// <param name="Fc"></param>
+        /// <returns></returns>
         public int[] PasaBajos(int[] dat, short M, float rat, double Fc)
         {
             int i, j, k;
@@ -2428,7 +2593,7 @@ namespace Proceso20
 
             h = new double[M];
             cf = new int[dat.Length];
-            for (i = 0; i < dat.Length; i++) 
+            for (i = 0; i < dat.Length; i++)
                 cf[i] = 0;
             h = HAlto(M, rat, Fc);
             for (j = (int)(M / 2.0); j < (dat.Length - (int)(M / 2.0)); j++)
@@ -2441,7 +2606,15 @@ namespace Proceso20
 
             return (cf);
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="dat"></param>
+        /// <param name="M"></param>
+        /// <param name="rat"></param>
+        /// <param name="Fc1"></param>
+        /// <param name="Fc2"></param>
+        /// <returns></returns>
         public int[] PasaBanda(int[] dat, short M, float rat, double Fc1, double Fc2)
         {
             int i, j, k;
@@ -2465,11 +2638,5 @@ namespace Proceso20
 
             return (cf);
         }
-
-
-
-
-
-
     }
 }
