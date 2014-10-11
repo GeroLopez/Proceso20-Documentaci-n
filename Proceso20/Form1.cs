@@ -85,7 +85,7 @@ namespace Proceso20
         /// </summary>
         bool cajseis = false;
         /// <summary>
-        /// Indica el movimiento de particulas en las componentes.
+        /// Indica el movimiento de particulas para una porción de traza interpolada.
         /// </summary>
         bool mptintp = false;
         /// <summary>
@@ -338,7 +338,7 @@ namespace Proceso20
         /// </summary>
         double Fcx2 = 8.0;
         /// <summary>
-        /// Muestras iniciales para filtro.
+        /// Se utiliza como medida para el cáculo de filtros.
         /// </summary>
         short M = 256;
         /// <summary>
@@ -886,6 +886,9 @@ namespace Proceso20
         /// Indica si la traza en el panelcoda se debe dibujar de forma analógica o no.
         /// </summary>
         bool analogcoda = false;
+        /// <summary>
+        /// Se utiliza para verificar si se despliega o no el panel vista donde se muestra un mapa.
+        /// </summary>
         bool vista = false;
         bool pausa = false;
         bool stop = false;
@@ -896,7 +899,13 @@ namespace Proceso20
         bool respuesta = false;
         bool DesRed = false;
         bool copiarMod = false;
+        /// <summary>
+        /// Se hace true cuando en el archivo inicio.txt se encuentra la palabra USUARIO.
+        /// </summary>
         bool sidesactiva = false;
+        /// <summary>
+        /// Determina si el programa cargo satisfactoriamente.
+        /// </summary>
         bool inicio = false;
         bool NoMostrar = false;
         bool CajonGcf = false;
@@ -1053,6 +1062,9 @@ namespace Proceso20
         /// Determina si se dibujan o no las guias en el panel de interpolación.
         /// </summary>
         bool guiainterp = false;
+        /// <summary>
+        /// Se utiliza para controlar si se calcula o no el espectro a una traza que se esta interpolando.
+        /// </summary>
         bool especinterP = false;
         /// <summary>
         /// Determina si se realizó o no una interpolación.
@@ -1076,10 +1088,35 @@ namespace Proceso20
         int[][] cff;  // variables para el filtro
         int[] mxF, mnF;
         //short MM = 256;
+        /// <summary>
+        /// Frecuencia de corte para los filtros del panel1 visualizados en el panel panelcladib.
+        /// </summary>
         float Fc1 = 2.0F;
         float Fc2 = 8.0F;
+        /// <summary>
+        /// Es el indicador del tipo de filtro que se aplica en el panel de clasificación (panelcladib)
+        /// sus valores cambian entre 0 y 3 de la siguiente forma:
+        /// 0 en caso de que no se haya aplicado ningun filtro al panelcladib
+        /// 1 en caso de que no se haya aplicado el filtro pasa bajos al panelcladib
+        /// 2 en caso de que no se haya aplicado el filtro pasa altos al panelcladib
+        /// 3 en caso de que no se haya aplicado el filtro pasa banda al panelcladib.
+        /// </summary>
         char cfilt = '0';
+        /// <summary>
+        /// Indica si ya se solicito el cálculo de algún filtro, esta variable se utiliza con fines
+        /// de controlar la apariencia de los botones con los que se solicitan los filtros.
+        /// tomara el valor de true cuando se de click sobre alguno de los botones de filtros.
+        /// false en caso de que se de click sobre un botón de filtro y el valor de sifilt sea true.
+        ///
+        /// </summary>
         bool sifilt = false;
+        /// <summary>
+        /// Indica si ya se solicito el cálculo de algún filtro, esta variable se utiliza con fines de 
+        /// controlar la ejecución del método que calcula el filtro,
+        /// se hace true justo despúes de calcular el filtro especificado,
+        /// toma el valor false cuando se da click sobre alguno de los botones de filtros.
+        /// 
+        /// </summary>
         bool yafilt = false;
 
         Point[] Cladat = new Point[2];
@@ -18484,6 +18521,8 @@ namespace Proceso20
                     boMptIntp.Visible = true;
                 else
                     boMptIntp.Visible = false;
+
+                boMptIntp.Visible = true;//This is my
             }
             else
             { //aqui la señal NO queda interpolada pero se utiliza la misma variable.
@@ -20059,7 +20098,11 @@ namespace Proceso20
                 lap.Dispose();
             }
         }
-
+        /// <summary>
+        /// no hace nada.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void boObserva_MouseDown(object sender, MouseEventArgs e)
         {
         }
@@ -20068,8 +20111,9 @@ namespace Proceso20
         /// </summary>
         /// <param name="sender">El objeto que lanza el evento.</param>
         /// <param name="e">El evento que se lanzó.</param>
-        private void splitContainer1_Panel2_MouseDown(object sender, MouseEventArgs e)
+        private void splitContainer1_Panel2_MouseDown(object sender, MouseEventArgs e)//PANEL DEL MAPA
         {
+            
             int xf1, yf1, x1, y1, xf, yf, iniX, iniY, grala, gralo;
             double dif, laa2, loo2, laa, loo, km, laa1, loo1, minla, minlo, dd;
             double fcpi, fclo, disla, dislo, fcdislo;
@@ -20126,7 +20170,7 @@ namespace Proceso20
             tip.SetToolTip(splitContainer1.Panel2, ss);
         }
         /// <summary>
-        /// 
+        /// Este evento se lanza cuando se desactiva el Form1.
         /// </summary>
         /// <param name="sender">El objeto que lanza el evento.</param>
         /// <param name="e">El evento que se lanzó.</param>
@@ -20138,7 +20182,8 @@ namespace Proceso20
                 desactivado = true;
         }
         /// <summary>
-        /// 
+        /// Asigna el valor a la varialbe usu (usuario) mediante la clase Usuario que despliega una interfaz gráfica
+        /// que captura el nombre de usuario.
         /// </summary>
         void Param()
         {
@@ -20157,12 +20202,14 @@ namespace Proceso20
             return;
         }
         /// <summary>
-        /// 
+        /// Despliega u oculta el panel panelFilt el cual muestra los botones para elegir el tipo de filtro a aplicar 
+        /// a la porción de traza que se esta clasificando.
         /// </summary>
         /// <param name="sender">El objeto que lanza el evento.</param>
         /// <param name="e">El evento que se lanzó.</param>
         private void boFIR_MouseDown(object sender, MouseEventArgs e)
         {
+           
             //int yf, iniy;
             ///double fay;
 
@@ -20192,7 +20239,9 @@ namespace Proceso20
             }
 
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
         void AplicarFiltro()
         {
             int i, j, k, nmi, nmf;
@@ -20206,7 +20255,8 @@ namespace Proceso20
                 mxF = new int[nutra];
                 mnF = new int[nutra];
                 cff = new int[nutra][];
-                for (i = 0; i < nutra; i++) cff[i] = new int[cu[i].Length];
+                for (i = 0; i < nutra; i++)
+                    cff[i] = new int[cu[i].Length];
                 yafilt = true;
             }
 
@@ -20214,7 +20264,7 @@ namespace Proceso20
             for (i = 0; i < nutra; i++)
             {
                 nmi = (int)((tie1 - tim[i][0]) * ra[i]);                 // muestra inferior del panel de clasificacion
-                nmf = (int)((tie2 - tim[i][0]) * ra[i]);                 // muestra superio)r
+                nmf = (int)((tie2 - tim[i][0]) * ra[i]);                 // muestra superior
                 if ((int)(nmf) > tim[i].Length || nmf < 0)
                 {
                     ccf[i] = new int[1];
@@ -20231,9 +20281,15 @@ namespace Proceso20
                 }
             }
 
-            if (cfilt == '1') for (i = 0; i < nutra; i++) cff[i] = util.PasaBajos(ccf[i], M, (float)(ra[i]), Fc1);
-            else if (cfilt == '2') for (i = 0; i < nutra; i++) cff[i] = util.PasaAltos(ccf[i], M, (float)(ra[i]), Fc1);
-            else if (cfilt == '3') for (i = 0; i < nutra; i++) cff[i] = util.PasaBanda(ccf[i], M, (float)(ra[i]), Fc1, Fc2);
+            if (cfilt == '1') 
+                for (i = 0; i < nutra; i++) 
+                    cff[i] = util.PasaBajos(ccf[i], M, (float)(ra[i]), Fc1);
+            else if (cfilt == '2') 
+                for (i = 0; i < nutra; i++) 
+                    cff[i] = util.PasaAltos(ccf[i], M, (float)(ra[i]), Fc1);
+            else if (cfilt == '3') 
+                for (i = 0; i < nutra; i++) 
+                    cff[i] = util.PasaBanda(ccf[i], M, (float)(ra[i]), Fc1, Fc2);
             else
             {
                 panel2.Visible = false;
@@ -20253,16 +20309,24 @@ namespace Proceso20
             panel2.Visible = false;
         }
         /// <summary>
-        /// 
+        /// Modifica el valor de la variable M entre 128, 256 y 512, dicha variable se pasa como argumento
+        /// a los métodos que calculan filtros, además segun su valor cambia el color de los  
+        /// texbox1 y texbox2, cabe aclarar que dichos textbox no son los que se visualizan en el panelFilt
+        /// donde si estan los botones de filtros, estos textbox son los que aparecen en el segundo panel que se usa para
+        /// visualizar, trazas el panel panel1a.
         /// </summary>
         /// <param name="sender">El objeto que lanza el evento.</param>
         /// <param name="e">El evento que se lanzó.</param>
         private void boM_MouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Left) M = (short)(M * 2);
-            else M = (short)(M / 2.0);
-            if (M > 512) M = 128;
-            else if (M < 128) M = 512;
+            if (e.Button == MouseButtons.Left) 
+                M = (short)(M * 2);
+            else 
+                M = (short)(M / 2.0);
+            if (M > 512) 
+                M = 128;
+            else if (M < 128) 
+                M = 512;
             boM.Text = M.ToString();
             cfilt = '0';
             sifilt = false;
@@ -20274,18 +20338,21 @@ namespace Proceso20
             textBox2.BackColor = Color.White;
         }
         /// <summary>
-        /// 
+        /// Controla la solicitud de cálculo del filtro pasa bajos en el panelcladib y
+        /// llama el método encargado de dibujar las trazas nuevas a partir de la aplicación del filtro.
         /// </summary>
         /// <param name="sender">El objeto que lanza el evento.</param>
         /// <param name="e">El evento que se lanzó.</param>
         private void boFilBaj_Click(object sender, EventArgs e)
         {
-            if (cfilt != '1') yafilt = false;
+            if (cfilt != '1') 
+                yafilt = false;
             cfilt = '1';
             if (sifilt == false)
             {
                 sifilt = true;
-                if (yafilt == false) AplicarFiltro();
+                if (yafilt == false) 
+                    AplicarFiltro();
                 boFilBaj.BackColor = Color.Green;
                 boFilAlt.BackColor = Color.White;
                 boFilBan.BackColor = Color.White;
@@ -20304,7 +20371,8 @@ namespace Proceso20
             DibujoTrazas();
         }
         /// <summary>
-        /// 
+        /// Controla la solicitud de cálculo del filtro pasa altos en el panelcladib y
+        /// llama el método encargado de dibujar las trazas nuevas a partir de la aplicación del filtro.
         /// </summary>
         /// <param name="sender">El objeto que lanza el evento.</param>
         /// <param name="e">El evento que se lanzó.</param>
@@ -20315,7 +20383,8 @@ namespace Proceso20
             if (sifilt == false)
             {
                 sifilt = true;
-                if (yafilt == false) AplicarFiltro();
+                if (yafilt == false) 
+                    AplicarFiltro();
                 boFilBaj.BackColor = Color.White;
                 boFilAlt.BackColor = Color.Green;
                 boFilBan.BackColor = Color.White;
@@ -20334,7 +20403,8 @@ namespace Proceso20
             DibujoTrazas();
         }
         /// <summary>
-        /// 
+        /// Controla la solicitud de cálculo del filtro pasa banda en el panelcladib y
+        /// llama el método encargado de dibujar las trazas nuevas a partir de la aplicación del filtro.
         /// </summary>
         /// <param name="sender">El objeto que lanza el evento.</param>
         /// <param name="e">El evento que se lanzó.</param>
@@ -20346,7 +20416,8 @@ namespace Proceso20
             if (sifilt == false)
             {
                 sifilt = true;
-                if (yafilt == false) AplicarFiltro();
+                if (yafilt == false) 
+                    AplicarFiltro();
                 boFilBaj.BackColor = Color.White;
                 boFilAlt.BackColor = Color.White;
                 boFilBan.BackColor = Color.Green;
@@ -20365,7 +20436,8 @@ namespace Proceso20
             DibujoTrazas();
         }
         /// <summary>
-        /// 
+        /// Modifica el valor de la frecuencia de corte 1 Fc1 utilizada en los filtros 
+        /// del panelcladib.
         /// </summary>
         /// <param name="sender">El objeto que lanza el evento.</param>
         /// <param name="e">El evento que se lanzó.</param>
@@ -20387,13 +20459,19 @@ namespace Proceso20
             textBox3.BackColor = Color.White;
             textBox4.BackColor = Color.White;
         }
-
+        /// <summary>
+        /// Verifica que el valor escrito en el textBox3 cumpla con el formato 
+        /// que se necesita para el cálculo de los filtros.
+        /// </summary>
+        /// <param name="sender">El objeto que lanza el evento.</param>
+        /// <param name="e">El evento que se lanzó.</param>
         private void textBox3_Validated(object sender, EventArgs e)
         {
             textBox3.Text = string.Format("{0:00.00}", Fc1);
         }
         /// <summary>
-        /// 
+        /// Modifica el valor de la frecuencia de corte 2 Fc2 utilizada en los filtros 
+        /// del panelcladib.
         /// </summary>
         /// <param name="sender">El objeto que lanza el evento.</param>
         /// <param name="e">El evento que se lanzó.</param>
@@ -20415,13 +20493,18 @@ namespace Proceso20
             textBox3.BackColor = Color.White;
             textBox4.BackColor = Color.White;
         }
-
+        /// <summary>
+        /// Verifica que el valor escrito en el textBox4 cumpla con el formato 
+        /// que se necesita para el cálculo de los filtros.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void textBox4_Validated(object sender, EventArgs e)
         {
             textBox4.Text = string.Format("{0:00.00}", Fc2);
         }
         /// <summary>
-        /// 
+        /// Asigna el valor encontrado en el textBox3 a la frcuencia de corte 1 Fc1.
         /// </summary>
         /// <param name="sender">El objeto que lanza el evento.</param>
         /// <param name="e">El evento que se lanzó.</param>
@@ -20440,12 +20523,13 @@ namespace Proceso20
                 {
                     return;
                 }
-                if (ff < Fc2) Fc1 = ff;
+                if (ff < Fc2) 
+                    Fc1 = ff;
                 textBox3.Text = string.Format("{0:00.00}", Fc1);
             }
         }
         /// <summary>
-        /// 
+        /// Asigna el valor encontrado en el textBox4 a la frcuencia de corte 2 Fc2.
         /// </summary>
         /// <param name="sender">El objeto que lanza el evento.</param>
         /// <param name="e">El evento que se lanzó.</param>
@@ -20469,7 +20553,8 @@ namespace Proceso20
             }
         }
         /// <summary>
-        /// 
+        /// El botón boMptIntp controla el valor de la variable particula con la cual se determina si se calcula o 
+        /// no el movimiento de particulas a una porción de traza interpolada.
         /// </summary>
         /// <param name="sender">El objeto que lanza el evento.</param>
         /// <param name="e">El evento que se lanzó.</param>
@@ -20545,11 +20630,13 @@ namespace Proceso20
             }
             i = (int)(durmpt * 0.05 * ra[Z] * fac) + suma;
             suma = i;
-            if (mptintp == false) TrazaComponente();
-            else TrazaComponenteInterp();
+            if (mptintp == false) 
+                TrazaComponente();
+            else 
+                TrazaComponenteInterp();
         }
         /// <summary>
-        /// 
+        /// Controla la visualización del espectro en el panelcladib.
         /// </summary>
         /// <param name="sender">El objeto que lanza el evento.</param>
         /// <param name="e">El evento que se lanzó.</param>
@@ -20568,7 +20655,8 @@ namespace Proceso20
                 movespcla = false;
                 boEspCla.BackColor = Color.White;
                 boEspe.BackColor = Color.WhiteSmoke;
-                if (panelcladib.Visible == true) TrazasClas();
+                if (panelcladib.Visible == true) 
+                    TrazasClas();
                 yloc = -1;
             }
         }
@@ -20580,7 +20668,6 @@ namespace Proceso20
         private void boDR_MouseDown(object sender, MouseEventArgs e)
         {
             string ss = "";
-
             if (fcnan[id] <= 0)
             {
                 ss = "NO hay Factor!..";
