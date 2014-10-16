@@ -794,7 +794,7 @@ namespace Proceso20
         /// </summary>
         public string[] Unidad;
         /// <summary>
-        /// 
+        /// Guarda Iniciales de volcanes asociados a cada estación o un * en caso de no tener asociada una estación.
         /// </summary>
         char[] VD;
         /// <summary>
@@ -960,8 +960,17 @@ namespace Proceso20
         /// Duración del movimiento de particulas.
         /// </summary>
         float durmpt = 5.0F;
+        /// <summary>
+        /// 
+        /// </summary>
         int muimpt = 0;
+        /// <summary>
+        /// 
+        /// </summary>
         int muinimpt = 0;
+        /// <summary>
+        /// 
+        /// </summary>
         int mufmpt = 0;
         /// <summary>
         /// Valor del cero de la señal en la componente N de una traza para el cálculo del movimiento de particulas.
@@ -1070,13 +1079,32 @@ namespace Proceso20
         /// Determina si se realizó o no una interpolación.
         /// </summary>
         bool NoInterpol = false;
-
-        //Desplazamiento Rducido DR
+        /// <summary>
+        /// Se utiliza para el cálculo de Desplazamiento Reducido DR sus posibles valores son:
+        /// 0 indica que no se va a calcular el Desplazamiento Reducido.
+        /// 1 indica que se va hacer el cálculo del Desplazamiento Reducido por el método 1 (revisar manual proceso20).
+        /// 2 indica que se va hacer el cálculo del Desplazamiento Reducido por el método 2 (revisar manual proceso20).
+        /// </summary>
         byte DR = 0;
+        /// <summary>
+        /// 
+        /// </summary>
         int xiDR;
+        /// <summary>
+        /// 
+        /// </summary>
         int yiDR;
+        /// <summary>
+        /// Representa el cero de la señal de la traza especifica de la estación seleccionada, se utiliza en el cálculo de desplazamiento reducido.
+        /// </summary>
         double promDR;
+        /// <summary>
+        /// Indica el momento desde el cual se empezó la selección de la porción de traza a la que se le calcularia el desplazamiento reducido.
+        /// </summary>
         double tDR1;
+        /// <summary>
+        /// Indica el momento desde el cual terminó la selección de la porción de traza a la que se le calcularia el desplazamiento reducido.
+        /// </summary>
         double tDR2;
         double mxz;
         double mnz;
@@ -6972,7 +7000,7 @@ namespace Proceso20
             {
                 panelEsta.Visible = true;
                 i = util.EscribePanelEsta(panelEsta, nutra, est, siEst);
-                if (i == 1) 
+                if (i == 1)
                     boTodas.BackColor = Color.PaleVioletRed;
                 else
                     boTodas.BackColor = Color.White;
@@ -6995,7 +7023,7 @@ namespace Proceso20
                     radlowcod.BackColor = Color.White;
                     radhicod.BackColor = Color.White;
                 }
-                else 
+                else
                     DibujoClascoda();
             }
             return;
@@ -7010,7 +7038,7 @@ namespace Proceso20
         {
             int i, j, k, val;
 
-            if (panelEsta.Visible == false) 
+            if (panelEsta.Visible == false)
                 return;
 
             i = e.Y / 10;
@@ -20113,7 +20141,7 @@ namespace Proceso20
         /// <param name="e">El evento que se lanzó.</param>
         private void splitContainer1_Panel2_MouseDown(object sender, MouseEventArgs e)//PANEL DEL MAPA
         {
-            
+
             int xf1, yf1, x1, y1, xf, yf, iniX, iniY, grala, gralo;
             double dif, laa2, loo2, laa, loo, km, laa1, loo1, minla, minlo, dd;
             double fcpi, fclo, disla, dislo, fcdislo;
@@ -20209,7 +20237,7 @@ namespace Proceso20
         /// <param name="e">El evento que se lanzó.</param>
         private void boFIR_MouseDown(object sender, MouseEventArgs e)
         {
-           
+
             //int yf, iniy;
             ///double fay;
 
@@ -20281,14 +20309,14 @@ namespace Proceso20
                 }
             }
 
-            if (cfilt == '1') 
-                for (i = 0; i < nutra; i++) 
+            if (cfilt == '1')
+                for (i = 0; i < nutra; i++)
                     cff[i] = util.PasaBajos(ccf[i], M, (float)(ra[i]), Fc1);
-            else if (cfilt == '2') 
-                for (i = 0; i < nutra; i++) 
+            else if (cfilt == '2')
+                for (i = 0; i < nutra; i++)
                     cff[i] = util.PasaAltos(ccf[i], M, (float)(ra[i]), Fc1);
-            else if (cfilt == '3') 
-                for (i = 0; i < nutra; i++) 
+            else if (cfilt == '3')
+                for (i = 0; i < nutra; i++)
                     cff[i] = util.PasaBanda(ccf[i], M, (float)(ra[i]), Fc1, Fc2);
             else
             {
@@ -20319,13 +20347,13 @@ namespace Proceso20
         /// <param name="e">El evento que se lanzó.</param>
         private void boM_MouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Left) 
+            if (e.Button == MouseButtons.Left)
                 M = (short)(M * 2);
-            else 
+            else
                 M = (short)(M / 2.0);
-            if (M > 512) 
+            if (M > 512)
                 M = 128;
-            else if (M < 128) 
+            else if (M < 128)
                 M = 512;
             boM.Text = M.ToString();
             cfilt = '0';
@@ -20345,13 +20373,13 @@ namespace Proceso20
         /// <param name="e">El evento que se lanzó.</param>
         private void boFilBaj_Click(object sender, EventArgs e)
         {
-            if (cfilt != '1') 
+            if (cfilt != '1')
                 yafilt = false;
             cfilt = '1';
             if (sifilt == false)
             {
                 sifilt = true;
-                if (yafilt == false) 
+                if (yafilt == false)
                     AplicarFiltro();
                 boFilBaj.BackColor = Color.Green;
                 boFilAlt.BackColor = Color.White;
@@ -20383,7 +20411,7 @@ namespace Proceso20
             if (sifilt == false)
             {
                 sifilt = true;
-                if (yafilt == false) 
+                if (yafilt == false)
                     AplicarFiltro();
                 boFilBaj.BackColor = Color.White;
                 boFilAlt.BackColor = Color.Green;
@@ -20416,7 +20444,7 @@ namespace Proceso20
             if (sifilt == false)
             {
                 sifilt = true;
-                if (yafilt == false) 
+                if (yafilt == false)
                     AplicarFiltro();
                 boFilBaj.BackColor = Color.White;
                 boFilAlt.BackColor = Color.White;
@@ -20523,7 +20551,7 @@ namespace Proceso20
                 {
                     return;
                 }
-                if (ff < Fc2) 
+                if (ff < Fc2)
                     Fc1 = ff;
                 textBox3.Text = string.Format("{0:00.00}", Fc1);
             }
@@ -20630,9 +20658,9 @@ namespace Proceso20
             }
             i = (int)(durmpt * 0.05 * ra[Z] * fac) + suma;
             suma = i;
-            if (mptintp == false) 
+            if (mptintp == false)
                 TrazaComponente();
-            else 
+            else
                 TrazaComponenteInterp();
         }
         /// <summary>
@@ -20655,13 +20683,17 @@ namespace Proceso20
                 movespcla = false;
                 boEspCla.BackColor = Color.White;
                 boEspe.BackColor = Color.WhiteSmoke;
-                if (panelcladib.Visible == true) 
+                if (panelcladib.Visible == true)
                     TrazasClas();
                 yloc = -1;
             }
         }
         /// <summary>
-        /// 
+        /// Se encarga de definir el tipo de método que se va a utilizar para el cálculo de desplazamiento reducido en una porción de traza,
+        /// o en caso de que ya se haya calculado se indica que no se va a calcular más, esto lo hace modificando el valor de la variable DR entre:
+        /// 0 (no se calcula)
+        /// 1 (se utiliza el método 1)
+        /// 2 (se utiliza el método 2).
         /// </summary>
         /// <param name="sender">El objeto que lanza el evento.</param>
         /// <param name="e">El evento que se lanzó.</param>
@@ -20719,7 +20751,10 @@ namespace Proceso20
                 }
             }
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="cuu"> </param>
         void UnaEstacionDesplazamiento(int[] cuu)
         {
             int i, j, k, nmi, nmf, xf, yf, iniy;
@@ -20733,27 +20768,35 @@ namespace Proceso20
                 panelDR.Visible = true;
                 panelDR.BringToFront();
                 nmi = (int)((tDR1 - tim[id][0]) * ra[id]);
-                if (nmi < 0) nmi = 0;
+                if (nmi < 0) 
+                    nmi = 0;
                 nmf = (int)((tDR2 - tim[id][0]) * ra[id]);
-                if (nmf > cuu.Length) nmf = cuu.Length;
-                if (nmf - nmi < 10) return;
+                if (nmf > cuu.Length) 
+                    nmf = cuu.Length;
+                if (nmf - nmi < 10) 
+                    return;
                 cDR = new double[nmf - nmi];
                 zDR = new double[nmf - nmi];
                 k = 0;
-                for (i = nmi; i < nmf; i++) cDR[k++] = (double)(cuu[i] - promDR);
+                for (i = nmi; i < nmf; i++)
+                    cDR[k++] = (double)(cuu[i] - promDR);//valores de la cuenta menos el promedio
                 facra = 1.0 / ra[id];
                 zDR[0] = 0;
-                for (i = 1; i < cDR.Length; i++) zDR[i] = zDR[i - 1] + ((cDR[i - 1] + cDR[i]) / 2.0) * facra; // integracion de la señal
+                for (i = 1; i < cDR.Length; i++) 
+                    zDR[i] = zDR[i - 1] + ((cDR[i - 1] + cDR[i]) / 2.0) * facra; // integración de la señal
                 //MessageBox.Show("id=" + id.ToString() + " nmi="+nmi.ToString()+" nmf="+nmf.ToString()+" prom="+promEst[id].ToString()+"   "+est[id]);
                 xf = panelDR.Width - 80;
                 yf = panelDR.Height - 30;
                 fax = xf / (tim[id][nmf] - tim[id][nmi]);
                 mxz = zDR[0];
                 mnz = zDR[0];
+                /// determina los valores máximo y mínimo de la señal integrada
                 for (i = 0; i < zDR.Length; i++)
                 {
-                    if (mxz < zDR[i]) mxz = zDR[i];
-                    else if (mnz > zDR[i]) mnz = zDR[i];
+                    if (mxz < zDR[i]) 
+                        mxz = zDR[i];
+                    else if (mnz > zDR[i]) 
+                        mnz = zDR[i];
                 }
                 pro = (mxz + mnz) / 2.0;
                 iniy = 10 + (int)((yf / 2.0));
@@ -20777,7 +20820,8 @@ namespace Proceso20
                 SolidBrush br = new SolidBrush(Color.Blue);
                 dc.DrawString(est[id].Substring(0, 4), new Font("Times New Roman", 10, FontStyle.Bold), br, 2, (int)(yf / 2.0));
 
-                if (VD[id] == '*') return;
+                if (VD[id] == '*') 
+                    return;
                 j = -1;
                 for (i = 0; i < nuvol; i++)
                 {
@@ -20787,7 +20831,8 @@ namespace Proceso20
                         break;
                     }
                 }
-                if (j == -1) return;
+                if (j == -1) 
+                    return;
                 fcpi = Math.PI / 180.0;
                 fcdislo = fcpi * Math.Cos(laD[id] * fcpi) * 6367.449;
                 for (i = 0; i <= nuvol; i++)
@@ -20811,7 +20856,9 @@ namespace Proceso20
 
             return;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
         void DibujoVelocidadDR()
         {
             int xf, yf;
@@ -20875,8 +20922,10 @@ namespace Proceso20
                 boMenosmenosDR.Visible = true;
                 checkBoxHz.Visible = true;
                 panelDR.BackColor = Color.Lavender;
-                if (checkBoxHz.Checked == true) UnaEstacionDesplazamiento(cfD);
-                else UnaEstacionDesplazamiento(cu[id]);
+                if (checkBoxHz.Checked == true) 
+                    UnaEstacionDesplazamiento(cfD);
+                else 
+                    UnaEstacionDesplazamiento(cu[id]);
             }
             else if (DR == 2)
             {
@@ -21104,7 +21153,9 @@ namespace Proceso20
             {
             }
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
         void EscriDR()
         {
             string ca;
@@ -21134,7 +21185,8 @@ namespace Proceso20
             SeleccionarMinuto(false);
         }
         /// <summary>
-        /// Envia un email desde la dirección alvaropabloacevedo@gmail.com hacia observatoriosingeominas@gmail.com.
+        /// Envia un email desde la dirección alvaropabloacevedo@gmail.com hacia observatoriosingeominas@gmail.com
+        /// este método es una prueba del envio de correos desde la aplicación.
         /// </summary>
         void EnviarMensaje0()
         {
@@ -21294,9 +21346,9 @@ namespace Proceso20
             for (i = 1; i < nutra; i++)
             {
                 largo = tim[i].Length - 1;
-                if (timin > tim[i][0]) 
+                if (timin > tim[i][0])
                     timin = tim[i][0];
-                if (timaxmin > tim[i][largo]) 
+                if (timaxmin > tim[i][largo])
                     timaxmin = tim[i][largo];
             }
 
@@ -21351,10 +21403,10 @@ namespace Proceso20
                                     try
                                     {
                                         fcnan[j] = double.Parse(pa[2]);
-                                        if (pa.Length >= 10) 
+                                        if (pa.Length >= 10)
                                             Unidad[j] = pa[9];
                                         //MessageBox.Show(fclist[jj].ToString() + "\n" + pa[9]);
-                                        if (pa.Length >= 9) 
+                                        if (pa.Length >= 9)
                                             fcDR[j] = double.Parse(pa[8]);
                                         laD[j] = double.Parse(pa[5]);
                                         loD[j] = double.Parse(pa[6]);
@@ -21377,12 +21429,12 @@ namespace Proceso20
                 }
             }
 
-            if (panel2.Visible == true) 
+            if (panel2.Visible == true)
                 panel2.Visible = false;
             cargar = true;
             promEst = new int[nutra];
             invertido = new bool[nutra];
-            for (i = 0; i < nutra; i++) 
+            for (i = 0; i < nutra; i++)
                 invertido[i] = false;
             li = "";
             if (File.Exists(".\\pro\\invertido.txt"))
@@ -21460,7 +21512,7 @@ namespace Proceso20
             string nom, ca, ca2;
 
             nom = listBox1.SelectedItem.ToString();
-            if (!File.Exists(nom)) 
+            if (!File.Exists(nom))
                 return;
 
             try
@@ -21537,19 +21589,19 @@ namespace Proceso20
                 for (iii = 0; iii < nucan; iii++)
                 {
                     ca2 = Encoding.ASCII.GetString(br.ReadBytes(88));
-                    if (char.IsLetter(ca2[8])) 
+                    if (char.IsLetter(ca2[8]))
                         nuletra = 8;
                     else
                         nuletra = 7;
                     esta[iii] = ca2.Substring(0, 3) + ca2.Substring(nuletra, 1);
-                    if (ca2[8] == 'N') 
+                    if (ca2[8] == 'N')
                         compo[iii] = 'n';
-                    else if (ca2[8] == 'E') 
+                    else if (ca2[8] == 'E')
                         compo[iii] = 'e';
-                    else 
+                    else
                         compo[iii] = 'z';
                     an2 = int.Parse(ca2.Substring(10, 2));
-                    if (ca2[9] == '1') 
+                    if (ca2[9] == '1')
                         an2 += 2000;
                     else
                         an2 += 1900;
@@ -21734,14 +21786,14 @@ namespace Proceso20
                     }
 
                     inicio = (int)((tinicio - tims[0]) * ra[nutra]);
-                    if (inicio < 0) 
+                    if (inicio < 0)
                         inicio = 0;
-                    if (tims[lara - 1] - tifinal < 0) 
+                    if (tims[lara - 1] - tifinal < 0)
                         fin = lara;
                     else
                         fin = (int)(lara - ((tims[lara - 1] - tifinal) * ra[nutra]));
                     //MessageBox.Show("inicio="+inicio.ToString()+" fin="+fin.ToString());
-                    if (inicio >= fin) 
+                    if (inicio >= fin)
                         continue;
                     i = fin - inicio;
                     tim[nutra] = new double[i];
