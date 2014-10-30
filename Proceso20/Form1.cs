@@ -97,7 +97,8 @@ namespace Proceso20
         /// </summary>
         ushort contampl = 0;
         /// <summary>
-        /// Indica la estación que se tiene seleccionada y se esta clasificando en el panel principal. 
+        /// Indica el número de traza que se visualiza y se esta clasificando en el panel principal,
+        /// este se modifica cada vez que se escoje una estación diferente. 
         /// </summary>
         ushort id = 1;
         /// <summary>
@@ -557,7 +558,7 @@ namespace Proceso20
         /// </summary>
         char tardis = 'Z';// tarjeta por defecto para disparos
         /// <summary>
-        /// 
+        /// Representa la cantidad de horas que se quieran añadir al tiempo del sismo cuando se utiliza la carga de sismos mediante el botón disparo.
         /// </summary>
         float UTdisp = 0;
         /// <summary>
@@ -782,11 +783,11 @@ namespace Proceso20
         /// </summary>
         public double[] fcDR;
         /// <summary>
-        /// 
+        /// Guarda el valor de latitud respectiva de cada estación.
         /// </summary>
         public double[] laD;
         /// <summary>
-        /// 
+        /// Guarda el valor de longitud respectiva de cada estación.
         /// </summary>
         public double[] loD;
         /// <summary>
@@ -794,7 +795,7 @@ namespace Proceso20
         /// </summary>
         public string[] Unidad;
         /// <summary>
-        /// Guarda Iniciales de volcanes asociados a cada estación o un * en caso de no tener asociada una estación.
+        /// Guarda la inicial de los volcanes asociados a cada estación o un * en caso de no tener asociada una estación.
         /// </summary>
         char[] VD;
         /// <summary>
@@ -811,6 +812,9 @@ namespace Proceso20
         ArrayList huecolist = new ArrayList();
         int[] cf;
         int[] cfx;
+        /// <summary>
+        /// Representa la traza de la estación seleccionada despues de la aplicación del filtro pasa altos.
+        /// </summary>
         int[] cfD;
         /// <summary>
         /// Contiene los nombres de las estaciones.
@@ -1039,6 +1043,9 @@ namespace Proceso20
         int ipb2;
         int ixpb;
         int suma = 0;
+        /// <summary>
+        /// Indica el promedio de velocidad en el cálculo de desplazamiento reducido.
+        /// </summary>
         int proVelDR = 0;
         float frInterp = 0.5F;
         double promInterp;
@@ -1108,7 +1115,13 @@ namespace Proceso20
         double tDR2;
         double mxz;
         double mnz;
+        /// <summary>
+        /// Indica el valor que se obtiene del cálculo del Desplazamiento Reducido (DR).
+        /// </summary>
         double valDR = 0;
+        /// <summary>
+        /// Desplazamiento reducido en micrómetros.
+        /// </summary>
         double microDR = 0;
         double[] zDR;
 
@@ -20106,7 +20119,11 @@ namespace Proceso20
 
             return;
         }
-
+/// <summary>
+/// no hace nada
+/// </summary>
+/// <param name="sender"></param>
+/// <param name="e"></param>
         private void panelEspectros_MouseDown(object sender, MouseEventArgs e)
         {
 
@@ -20752,9 +20769,11 @@ namespace Proceso20
             }
         }
         /// <summary>
-        /// 
+        /// Integra la señal que se está calculando desplazamiento reducido, la muestra en el panelDR,
+        /// cálcula la distancia en kilómetros del volcán asociado a la estación y muestra los datos de desplazamiento reducido en el panelDR.
+        /// En el manual de proceso20 el método UnaEstacionDesplazamiento es el que se describe como método uno para obtención de desplazamiento reducido.
         /// </summary>
-        /// <param name="cuu"> </param>
+        /// <param name="cuu">Arreglo que con los valores de cuentas de la traza que se esta visualizando.</param>
         void UnaEstacionDesplazamiento(int[] cuu)
         {
             int i, j, k, nmi, nmf, xf, yf, iniy;
@@ -20857,7 +20876,9 @@ namespace Proceso20
             return;
         }
         /// <summary>
-        /// 
+        /// Determina el promedio de velocidad del desplazamiento reducido (proVelDR) el cual se utiliza
+        /// en el cálculo del desplazamiento reducido. En el manual de proceso20 el método DibujoVelocidadDR
+        /// es el que se describe como método 2 para obtención de desplazamiento reducido.
         /// </summary>
         void DibujoVelocidadDR()
         {
@@ -20867,16 +20888,18 @@ namespace Proceso20
             double fax, fy;
             Point[] dat;
 
-            nmi = (int)((tDR1 - tim[id][0]) * ra[id]);
+            nmi = (int)((tDR1 - tim[id][0]) * ra[id]); //determina inicio del arrastre
             if (nmi < 0) nmi = 0;
-            nmf = (int)((tDR2 - tim[id][0]) * ra[id]);
-            if (nmf > cu[id].Length) nmf = cu[id].Length;
-            if (nmf - nmi < 5) return;
+            nmf = (int)((tDR2 - tim[id][0]) * ra[id]); //determina final del arrastre
+            if (nmf > cu[id].Length) 
+                nmf = cu[id].Length;
+            if (nmf - nmi < 5)
+                return;
             //facra = 1.0 / ra[id];
             xf = panelDR.Width - 80;
             yf = panelDR.Height - 30;
-            fax = xf / (tim[id][nmf] - tim[id][nmi]);
-
+            fax = xf / (tim[id][nmf] - tim[id][nmi]); //
+            //determina los valores máximo y mínimo en el intervalo de traza arrastrado
             mmx = cu[id][nmi];
             mmn = mmx;
             for (i = nmi + 1; i < nmf; i++)
@@ -20885,15 +20908,17 @@ namespace Proceso20
                 else if (mmn > cu[id][i]) mmn = cu[id][i];
             }
             proVelDR = (int)((mmx + mmn) / 2.0);
-            if (mmx - proVelDR != 0) fy = ((yf / 2.5) / ((mmx - proVelDR)));
-            else fy = 1;
+            if (mmx - proVelDR != 0) 
+                fy = ((yf / 2.5) / ((mmx - proVelDR)));
+            else 
+                fy = 1;
             iniy = (int)(yf / 2.0) + 15;
 
             Graphics dc = panelDR.CreateGraphics();
             SolidBrush brr = new SolidBrush(Color.NavajoWhite);
             dc.FillRectangle(brr, 0, 0, panelDR.Width, panelDR.Height);
             brr.Dispose();
-            Pen lap = new Pen(Color.Black, 1);
+            Pen lap = new Pen(Color.Red, 1);
             dat = new Point[nmf - nmi];
             k = 0;
             for (i = nmi; i < nmf; i++)
@@ -20908,7 +20933,8 @@ namespace Proceso20
             return;
         }
         /// <summary>
-        /// 
+        /// Es el encargado de la actualización gráfica del panelDR,dependiendo el valor de la variable
+        /// DR (puede ser 1, 2, 0) aplica un método distinto para el calculo del desplazamiento reducido.
         /// </summary>
         /// <param name="sender">El objeto que lanza el evento.</param>
         /// <param name="e">El evento que se lanzó.</param>
@@ -21033,13 +21059,16 @@ namespace Proceso20
             //string ca, lin = "";
 
 
-            if (VD[id] == '*') return;
+            if (VD[id] == '*') 
+                return;
             try
             {
                 if (DR == 1)
                 {
-                    if (checkBoxHz.Checked == true) UnaEstacionDesplazamiento(cfD);
-                    else UnaEstacionDesplazamiento(cu[id]);
+                    if (checkBoxHz.Checked == true) 
+                        UnaEstacionDesplazamiento(cfD);
+                    else
+                        UnaEstacionDesplazamiento(cu[id]);
                 }
                 fcpi = Math.PI / 180.0;
                 fcdislo = fcpi * Math.Cos(laD[id] * fcpi) * 6367.449;
@@ -21109,7 +21138,7 @@ namespace Proceso20
 
                     frms = 1.0 / (2.0 * Math.Sqrt(2.0));
                     microDR = (((max - min) * fcnan[id]) / (double)(ga[id])) * 0.001;// conversion a micrometros
-                    valDR = (((max - min) * fcnan[id] / (double)(ga[id])) * 0.0000001) * frms * cm;
+                    valDR =   (((max - min) * fcnan[id] / (double)(ga[id])) * 0.0000001) * frms * cm;
                     fac = cm / (4.0 * Math.PI * Math.Sqrt(2.0) * 10000000.0 / fcnan[id]);
                     EscriDR();
                 }
@@ -21154,13 +21183,14 @@ namespace Proceso20
             }
         }
         /// <summary>
-        /// 
+        /// Escribe el valor de desplazamiento reducido en cm cuadrados y en micrómetros en el panelDR (panel donde se muestra el desplazamiento reducido).
         /// </summary>
         void EscriDR()
         {
             string ca;
 
-            if (valDR <= 0) return;
+            if (valDR <= 0) 
+                return;
             Graphics dc = panelDR.CreateGraphics();
             SolidBrush br0 = new SolidBrush(Color.Lavender);
             dc.FillRectangle(br0, 200, 0, 400, 20);
@@ -21261,12 +21291,17 @@ namespace Proceso20
             boAnotacion.Visible = false;
         }
         /// <summary>
-        /// 
+        /// Al activar el botón Disparo, se presenta un cuadro de diálogo,
+        /// donde el usuario debe buscar la carpeta donde se encuentran los sismos de interés y aceptar.
+        /// Si todo está bien, aparece a la derecha, el listado de sismos.
+        /// Por el momento sólo se acepta el formato SEISAN (tipo Earthworm).
+        /// Basta activar el sismo de intrés y continuar como usualmente se trabaja el Proceso.
         /// </summary>
         /// <param name="sender">El objeto que lanza el evento.</param>
         /// <param name="e">El evento que se lanzó.</param>
         private void boDisparo_MouseDown(object sender, MouseEventArgs e)
         {
+
             ArrayList lista = new ArrayList();
 
             lista.Clear();
@@ -21827,12 +21862,14 @@ namespace Proceso20
             }
         }
         /// <summary>
-        /// 
+        /// El textBoxUT representa la cantidad de horas que se quieran añadir al tiempo del sismo, que se carga con el botón disparo
+        /// de tal modo que sea concordante con la hora de la Base (UT, Hora Local).
+        /// Este método modifica el valor de las horas a agregar.
         /// </summary>
         /// <param name="sender">El objeto que lanza el evento.</param>
         /// <param name="e">El evento que se lanzó.</param>
         private void textBoxUT_TextChanged(object sender, EventArgs e)
-        {
+        { 
             float ff;
             try
             {
@@ -21848,7 +21885,7 @@ namespace Proceso20
             }
         }
         /// <summary>
-        /// 
+        /// Es para seleccionar la letra identificadora de los archivos de factores cuando se cargan sismos con el botón disparo.
         /// </summary>
         /// <param name="sender">El objeto que lanza el evento.</param>
         /// <param name="e">El evento que se lanzó.</param>
