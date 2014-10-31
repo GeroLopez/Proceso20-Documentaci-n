@@ -166,7 +166,13 @@ namespace Proceso20
         /// Se usa para condicionar la visualización del espectro de las trazas.
         /// </summary>
         bool VerEspectro = false;
+        /// <summary>
+        /// 
+        /// </summary>
         bool moveresp = false;
+        /// <summary>
+        /// 
+        /// </summary>
         bool movespcla = false;
         /// <summary>
         /// Maneja el tiempo en UT para los tiempos teoricos del Neic.
@@ -328,7 +334,13 @@ namespace Proceso20
         /// Tiempo final del tremor.
         /// </summary>
         double tifintremor = 0;
+        /// <summary>
+        /// 
+        /// </summary>
         double contremor = 0;
+        /// <summary>
+        /// 
+        /// </summary>
         double incTremor = 120.0;
         /// <summary>
         /// Frecuencias de corte para filtro en el panel auxiliar.
@@ -346,7 +358,13 @@ namespace Proceso20
         /// Se utila para determinar que tipo de filtro usar dependiendo su valor, 1 = pasabajos, 2 = pasa altos, 3 =pasa banda.
         /// </summary>
         char cfilx = '0';
+        /// <summary>
+        /// 
+        /// </summary>
         double factmm = -1.0;
+        /// <summary>
+        /// 
+        /// </summary>
         double tigrabacion = 0;
         /// <summary>
         /// Es una variable usada en la rutina Vista.
@@ -472,7 +490,13 @@ namespace Proceso20
         /// 
         /// </summary>
         bool cambio = false;
+        /// <summary>
+        /// 
+        /// </summary>
         bool leido = false;
+        /// <summary>
+        /// 
+        /// </summary>
         bool disparo = false;
         /// <summary>
         /// Variable utilizada para la validación de guardado de detalles de Magnitud local en la base.
@@ -522,8 +546,13 @@ namespace Proceso20
         /// Cantidad de estaciones analogas.
         /// </summary>
         short nuanalog = 0;
-
+        /// <summary>
+        /// 
+        /// </summary>
         string[] rutmux;
+        /// <summary>
+        /// 
+        /// </summary>
         string[] rutdmx;
         /// <summary>
         /// Extención de archivo de los formatos de las trazas en formato MUX.
@@ -740,9 +769,21 @@ namespace Proceso20
         /// 
         /// </summary>
         public string[] estaloc;
+        /// <summary>
+        /// 
+        /// </summary>
         public string[] volestaloc;
+        /// <summary>
+        /// 
+        /// </summary>
         public short[] nuestaloc;
+        /// <summary>
+        /// 
+        /// </summary>
         public short totestaloc = 0;
+        /// <summary>
+        /// 
+        /// </summary>
         public short totvolestaloc = 0;
         /// <summary>
         /// Tiempo de la traza justo cuando se comienza el arrastre para la selección de un periodo de tiempo.
@@ -779,7 +820,7 @@ namespace Proceso20
         /// </summary>
         public double[] fcnan;
         /// <summary>
-        /// 
+        /// factores para el método que calcula el desplazamiento reducido (esta descripción es minima).
         /// </summary>
         public double[] fcDR;
         /// <summary>
@@ -810,7 +851,13 @@ namespace Proceso20
         /// Contiene la lista con los huecos encontrados en cada traza.
         /// </summary>
         ArrayList huecolist = new ArrayList();
+        /// <summary>
+        /// 
+        /// </summary>
         int[] cf;
+        /// <summary>
+        /// 
+        /// </summary>
         int[] cfx;
         /// <summary>
         /// Representa la traza de la estación seleccionada despues de la aplicación del filtro pasa altos.
@@ -820,15 +867,33 @@ namespace Proceso20
         /// Contiene los nombres de las estaciones.
         /// </summary>
         public string[] est = new string[Ma];
+        /// <summary>
+        /// 
+        /// </summary>
         public char[] comp = new char[Ma];
+        /// <summary>
+        /// 
+        /// </summary>
         public char[] tar = new char[Ma];
         /// <summary>
         /// Indica que estaciones están seleccionadas como activas.
         /// </summary>
         public Boolean[] siEst = new Boolean[Ma];
+        /// <summary>
+        /// Indica si hay o no rotos en la traza por cada estación.
+        /// </summary>
         Boolean[] siRoto = new Boolean[Ma];
+        /// <summary>
+        /// 
+        /// </summary>
         Boolean[] siTraslapo = new Boolean[Ma];
+        /// <summary>
+        /// 
+        /// </summary>
         Boolean[] no30 = new Boolean[Ma];
+        /// <summary>
+        /// 
+        /// </summary>
         string[] estanolec = new string[1];
 
         // archivos HTML
@@ -1094,11 +1159,13 @@ namespace Proceso20
         /// </summary>
         byte DR = 0;
         /// <summary>
-        /// 
+        /// Registra la posición en x en pixeles del lugar donde se da click sobre el panelDR,
+        /// este valor se tiene en cuenta para el cálculo del desplazamiento reducido en una traza.
         /// </summary>
         int xiDR;
         /// <summary>
-        /// 
+        /// Registra la posición en y en pixeles del lugar donde se da click sobre el panelDR,
+        /// este valor se tiene en cuenta para el cálculo del desplazamiento reducido en una traza. 
         /// </summary>
         int yiDR;
         /// <summary>
@@ -1113,7 +1180,13 @@ namespace Proceso20
         /// Indica el momento desde el cual terminó la selección de la porción de traza a la que se le calcularia el desplazamiento reducido.
         /// </summary>
         double tDR2;
+        /// <summary>
+        /// 
+        /// </summary>
         double mxz;
+        /// <summary>
+        /// 
+        /// </summary>
         double mnz;
         /// <summary>
         /// Indica el valor que se obtiene del cálculo del Desplazamiento Reducido (DR).
@@ -1123,11 +1196,15 @@ namespace Proceso20
         /// Desplazamiento reducido en micrómetros.
         /// </summary>
         double microDR = 0;
+        /// <summary>
+        /// 
+        /// </summary>
         double[] zDR;
 
         // variables para filtro en panel de Clasificación
         int[][] cff;  // variables para el filtro
-        int[] mxF, mnF;
+        int[] mxF;
+        int[] mnF;
         //short MM = 256;
         /// <summary>
         /// Frecuencia de corte para los filtros del panel1 visualizados en el panel panelcladib.
@@ -9222,7 +9299,9 @@ namespace Proceso20
             return;
         }
         /// <summary>
-        /// Esta pendiente
+        /// Es el encargado de filtrar con un pasa altos la traza de la estación actual y almacenar 
+        /// la traza filtrada en el vector cfD, además determina cual es el cero de la señal de la 
+        /// traza en ese momento seleccionada el cual guarda en la variable promDR que se utiliza en el cálculo del desplazamiento reducido. 
         /// </summary>
         void PromedioFiltrado()
         {
@@ -21037,7 +21116,7 @@ namespace Proceso20
             yiDR = e.Y;
         }
         /// <summary>
-        /// 
+        /// Se 
         /// </summary>
         /// <param name="sender">El objeto que lanza el evento.</param>
         /// <param name="e">El evento que se lanzó.</param>
@@ -21070,8 +21149,8 @@ namespace Proceso20
                     else
                         UnaEstacionDesplazamiento(cu[id]);
                 }
-                fcpi = Math.PI / 180.0;
-                fcdislo = fcpi * Math.Cos(laD[id] * fcpi) * 6367.449;
+                fcpi = Math.PI / 180.0; //factor pi
+                fcdislo = fcpi * Math.Cos(laD[id] * fcpi) * 6367.449; // factor  longitud
                 for (i = 0; i <= nuvol; i++)
                 {
                     if (volcan[i][0] == VD[id])
@@ -21091,10 +21170,13 @@ namespace Proceso20
                 Pen lap = new Pen(Color.DarkOrange, 1);
 
                 nmi = (int)((tDR1 - tim[id][0]) * ra[id]);
-                if (nmi < 0) nmi = 0;
+                if (nmi < 0) 
+                    nmi = 0;
                 nmf = (int)((tDR2 - tim[id][0]) * ra[id]);
-                if (nmf > cu[id].Length) nmf = cu[id].Length;
-                if (nmf - nmi < 5) return;
+                if (nmf > cu[id].Length) 
+                    nmf = cu[id].Length;
+                if (nmf - nmi < 5) 
+                    return;
                 fax = xf / (tim[id][nmf] - tim[id][nmi]);
                 t1 = tim[id][nmi] + (xiDR - 70.0) / fax;
                 t2 = tim[id][nmi] + (e.X - 70.0) / fax;
@@ -21111,8 +21193,10 @@ namespace Proceso20
                 mnn = mxx;
                 for (i = nmi + 1; i < nmf; i++)
                 {
-                    if (mxx < cu[id][i]) mxx = cu[id][i];
-                    else if (mnn > cu[id][i]) mnn = cu[id][i];
+                    if (mxx < cu[id][i]) 
+                        mxx = cu[id][i];
+                    else if (mnn > cu[id][i]) 
+                        mnn = cu[id][i];
                 }
                 dat = new Point[nf - ni];
 
@@ -21846,7 +21930,7 @@ namespace Proceso20
             return;
         }
         /// <summary>
-        /// Cambia el texto del textBoxDisparo.
+        /// Cambia el texto del textBoxDisparo, esto es para seleccionar la letra identificadora de los archivos de factores.
         /// </summary>
         /// <param name="sender">El objeto que lanza el evento.</param>
         /// <param name="e">El evento que se lanzó.</param>
@@ -21898,7 +21982,7 @@ namespace Proceso20
             tip.Show("Letra de Tarjeta para Factores", panel1, 1200);
         }
         /// <summary>
-        /// 
+        /// Da una indicación de que se debe escribir en el textBoxUT.
         /// </summary>
         /// <param name="sender">El objeto que lanza el evento.</param>
         /// <param name="e">El evento que se lanzó.</param>
@@ -21942,7 +22026,7 @@ namespace Proceso20
             DimensionarPanelTarjetas();
         }
         /// <summary>
-        /// Esconde el panel panelTarAux.Visible.
+        /// Esconde el panel panelTarAux.
         /// </summary>
         /// <param name="sender">El objeto que lanza el evento.</param>
         /// <param name="e">El evento que se lanzó.</param>
