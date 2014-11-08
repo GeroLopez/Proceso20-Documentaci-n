@@ -1202,9 +1202,18 @@ namespace Proceso20
         double[] zDR;
 
         // variables para filtro en panel de Clasificación
-        int[][] cff;  // variables para el filtro
-        int[] mxF;
-        int[] mnF;
+        /// <summary>
+        /// Almacena la traza que se está clasificando  después de  aplicarle un filtro (pasa altos, pasa bajos, pasa banda).
+        /// </summary>
+        int[][] cff;
+        /// <summary>
+        /// Almacena el valor MÁXIMO de cuenta de cada traza a la que se le ha aplicado un filtro.
+        /// </summary>
+        int[] mxF;// variable para el filtro
+        /// <summary>
+        /// Almacena el valor MÍNNIMO de cuenta de cada traza a la que se le ha aplicado un filtro.
+        /// </summary>
+        int[] mnF;// variable para el filtro
         //short MM = 256;
         /// <summary>
         /// Frecuencia de corte para los filtros del panel1 visualizados en el panel panelcladib.
@@ -20231,13 +20240,14 @@ namespace Proceso20
         {
         }
         /// <summary>
-        /// 
+        /// Sobre el mapa que se despliega después de marcar el botón vista y dar click sobre un sismo en el panel principal,
+        /// es allí donde al momento de dar click sobre dicho mapa se despliega un tooTip mostrando la información de 
+        /// localización (latitud y longitud) de ese punto del mapa. 
         /// </summary>
         /// <param name="sender">El objeto que lanza el evento.</param>
         /// <param name="e">El evento que se lanzó.</param>
         private void splitContainer1_Panel2_MouseDown(object sender, MouseEventArgs e)//PANEL DEL MAPA
         {
-
             int xf1, yf1, x1, y1, xf, yf, iniX, iniY, grala, gralo;
             double dif, laa2, loo2, laa, loo, km, laa1, loo1, minla, minlo, dd;
             double fcpi, fclo, disla, dislo, fcdislo;
@@ -20364,7 +20374,13 @@ namespace Proceso20
 
         }
         /// <summary>
-        /// 
+        /// Se encarga de aplicar un filtro a TODAS las trazas, dicho filtro depende del valor de la variable cfilt,
+        /// si cfilt = 1 aplica pasa altos,
+        /// si es 2 aplica pasa bajos,
+        /// si es 3 aplica pasa banda,
+        /// al final determina los valores máximo y mínimo de cuenta de cada traza después de pasar por el filtro y
+        /// estos valores quedan almacenados en mxF[] y mnF[] respectivamente donde cada posición de estos vectores
+        /// están asociados a la posición de su respectiva traza en la matriz cu[].
         /// </summary>
         void AplicarFiltro()
         {
@@ -20426,8 +20442,10 @@ namespace Proceso20
                 mnF[i] = mxF[i];
                 for (j = M + 1; j < cff[i].Length - M; j++)
                 {
-                    if (mxF[i] < cff[i][j]) mxF[i] = cff[i][j];
-                    else if (mnF[i] > cff[i][j]) mnF[i] = cff[i][j];
+                    if (mxF[i] < cff[i][j]) 
+                        mxF[i] = cff[i][j];
+                    else if (mnF[i] > cff[i][j]) 
+                        mnF[i] = cff[i][j];
                 }
             }
             panel2.Visible = false;
@@ -20977,7 +20995,7 @@ namespace Proceso20
             //facra = 1.0 / ra[id];
             xf = panelDR.Width - 80;
             yf = panelDR.Height - 30;
-            fax = xf / (tim[id][nmf] - tim[id][nmi]); //
+            fax = xf / (tim[id][nmf] - tim[id][nmi]); // ACA BOTA ERROR DE INDICE DE MATRIZ
             //determina los valores máximo y mínimo en el intervalo de traza arrastrado
             mmx = cu[id][nmi];
             mmn = mmx;
@@ -21116,7 +21134,9 @@ namespace Proceso20
             yiDR = e.Y;
         }
         /// <summary>
-        /// Se 
+        /// En este método básicamente realiza el cálculo del desplazamiento reducido por los dos métodos mencionados en el manual de proceso20,
+        /// cuando DR==1 lo hace por el método 1, pero cuando DR== 2 lo hace por el método 2, cada uno de ellos tratando los datos de la traza de
+        /// formas diferentes, finalmente dibuja el resultado en el panelDR.
         /// </summary>
         /// <param name="sender">El objeto que lanza el evento.</param>
         /// <param name="e">El evento que se lanzó.</param>
