@@ -12123,8 +12123,10 @@ namespace Proceso20
                 bo2.BackColor = Color.White;
                 bo3.BackColor = Color.White;
             }
-            if (panelAmp.Visible == true) DibujoCodaAmp();
-            if (nuhueco > 0) DibujarHuecosCoda();
+            if (panelAmp.Visible == true) 
+                DibujoCodaAmp();
+            if (nuhueco > 0) 
+                DibujarHuecosCoda();
         }
         /// <summary>
         /// Repinta el panel de amplitud.
@@ -12403,7 +12405,8 @@ namespace Proceso20
             if (Fccod <= 0) Fccod = 0.5;
             else if (Fccod >= ra[nucod] / 2.0) Fccod = ra[nucod] / 2.0 - 0.5;
             bohzcod.Text = string.Format("{0:0.0Hz}", Fccod);
-            if (filtcod == true) CalculoFiltroCoda(nucod);
+            if (filtcod == true) 
+                CalculoFiltroCoda(nucod);
             panelcoda.Invalidate();
         }
         /// <summary>
