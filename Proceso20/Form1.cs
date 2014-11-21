@@ -14582,7 +14582,7 @@ namespace Proceso20
             salto = true;
         }
         /// <summary>
-        /// Gráfica una un circulo en el panelVista tomando como centro el lugar del sismo.
+        /// Gráfica un circulo en el panelVista tomando como centro el lugar del sismo.
         /// </summary>
         /// <param name="panel">Panel donde se grafica el mapa.</param>
         /// <param name="can">Cantidad de estaciones en el archivo estavista.txt.</param>
