@@ -8190,7 +8190,7 @@ namespace Proceso20
         }
         /// <summary>
         /// Presta la funcionalidad donde se puede escoger la duración en minutos de las lineas de
-        /// visualizacion, el espaciamiento entre lineas, la duración total de visualización
+        /// visualización, el espaciamiento entre lineas, la duración total de visualización
         /// y el tamaño de las pepas.
         /// </summary>
         void Parametros()
