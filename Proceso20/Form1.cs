@@ -9216,7 +9216,7 @@ namespace Proceso20
                         panelcoda.Invalidate();
                     }
                 }
-                else if (siArch == true) // si la opcion de mostrar la duracion de los archivos esta activa.
+                else if (siArch == true) // si la opcion de mostrar la duración de los archivos esta activa.
                 {
                     for (i = 0; i < contarch; i++)
                     {
