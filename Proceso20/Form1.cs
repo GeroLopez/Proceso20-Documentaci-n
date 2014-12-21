@@ -11026,7 +11026,7 @@ namespace Proceso20
             return;
         }
         /// <summary>
-        /// Fin del intervalo de lectura del panel de amplitud. Dicho intervalo equivale al Periodo. 
+        /// Marca el fin del intervalo de lectura del panel de amplitud. Dicho intervalo equivale al Periodo. 
         /// Se busca además el valor máximo de cuentas pico a pico.
         /// </summary>
         /// <param name="sender">El objeto que lanza el evento.</param>
@@ -12028,7 +12028,7 @@ namespace Proceso20
             Invertir();
         }
         /// <summary>
-        /// Repinta los paneles principales (panel1)y (panel1a).
+        /// Repinta los paneles principales (panel1) y (panel1a).
         /// </summary>
         /// <param name="sender">El objeto que lanza el evento.</param>
         /// <param name="e">El evento que se lanzó.</param>
