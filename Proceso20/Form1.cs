@@ -12422,7 +12422,8 @@ namespace Proceso20
             if (polocod < 2) polocod = 2;
             else if (polocod > 8) polocod = 8;
             bopolcod.Text = string.Format("{0:0}", polocod);
-            if (filtcod == true) CalculoFiltroCoda(nucod);
+            if (filtcod == true) 
+                CalculoFiltroCoda(nucod);
             panelcoda.Invalidate();
         }
         /// <summary>
@@ -12954,7 +12955,7 @@ namespace Proceso20
         /// <summary>
         /// Este botón corresponde a la componente Z,
         /// este es visible en el panelcoda cuando se esta clasificando una traza que tenga la componente Z 
-        /// y hace que se despliegue la traza de la componente Z de la estación que se esta casificando.
+        /// y hace que se despliegue la traza de la componente Z de la estación que se esta clasificando.
         /// </summary>
         /// <param name="sender">El objeto que lanza el evento.</param>
         /// <param name="e">El evento que se lanzó.</param>
@@ -12984,7 +12985,7 @@ namespace Proceso20
         /// <summary>
         /// Este botón corresponde a la componente N,
         /// este es visible en el panelcoda cuando se esta clasificando una traza que tenga la componente N 
-        /// y hace que se despliegue la traza de la componente N de la estación que se esta casificando.
+        /// y hace que se despliegue la traza de la componente N de la estación que se esta clasificando.
         /// </summary>
         /// <param name="sender">El objeto que lanza el evento.</param>
         /// <param name="e">El evento que se lanzó.</param>
@@ -13014,7 +13015,7 @@ namespace Proceso20
         /// <summary>
         /// Este botón corresponde a la componente E,
         /// este es visible en el panelcoda cuando se esta clasificando una traza que tenga la componente E 
-        /// y hace que se despliegue la traza de la componente E de la estación que se esta casificando.
+        /// y hace que se despliegue la traza de la componente E de la estación que se esta clasificando.
         /// </summary>
         /// <param name="sender">El objeto que lanza el evento.</param>
         /// <param name="e">El evento que se lanzó.</param>
