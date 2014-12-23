@@ -14662,7 +14662,8 @@ namespace Proceso20
 
             if (disparo == true) return;
 
-            if (e.KeyChar == '1') Uno();
+            if (e.KeyChar == '1') 
+                Uno();
             else if (e.KeyChar == 'A' || e.KeyChar == 'a') Aumentar(null);
             else if (e.KeyChar == 'B' || e.KeyChar == 'b') Bajar(null);
             else if (e.KeyChar == 'D' || e.KeyChar == 'd') Disminuir(null);
