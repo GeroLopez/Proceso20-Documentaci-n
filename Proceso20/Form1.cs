@@ -14780,7 +14780,7 @@ namespace Proceso20
             }
         }
         /// <summary>
-        /// Desacelera la visualizacion de los primeros arribos.
+        /// Desacelera la visualización de los primeros arribos.
         /// </summary>
         /// <param name="sender">El objeto que lanza el evento.</param>
         /// <param name="e">El evento que se lanzó.</param>
@@ -14791,7 +14791,7 @@ namespace Proceso20
             salto = true;
         }
         /// <summary>
-        /// Acelera la visualizacion de los primeros arribos.
+        /// Acelera la visualización de los primeros arribos.
         /// </summary>
         /// <param name="sender">El objeto que lanza el evento.</param>
         /// <param name="e">El evento que se lanzó.</param>
@@ -14803,7 +14803,7 @@ namespace Proceso20
             salto = true;
         }
         /// <summary>
-        /// Aumenta la dimension del mapa.
+        /// Aumenta la dimensión del mapa.
         /// </summary>
         /// <param name="sender">El objeto que lanza el evento.</param>
         /// <param name="e">El evento que se lanzó.</param>
@@ -16961,7 +16961,7 @@ namespace Proceso20
             boPausMpt.BackColor = Color.PaleGoldenrod;
         }
         /// <summary>
-        /// Pausa el cálculo de movimiento de partículas, cuando se de click sobre el botón start se continua desde el punto dode se pauso,
+        /// Pausa el cálculo de movimiento de partículas, cuando se de click sobre el botón start se continua desde el punto donde se pauso,
         /// pero la animación borra la grafica del cálculo de los puntos anteriores.
         /// </summary>
         /// <param name="sender">El objeto que lanza el evento.</param>
@@ -17042,7 +17042,7 @@ namespace Proceso20
         }
         /// <summary>
         /// Modifica el valor de la variable durmpt haciendola = 2.0F en caso de que el click sea con el botón izquierdo del mouse,
-        /// o si es con el derecho y su valor actual es mayor de 2.0F,en caso de que se de el click con el botón derecho y que su
+        /// o si es con el derecho y su valor actual es mayor de 2.0F, en caso de que se de el click con el botón derecho y que su
         /// valor sea menor que 2.0F y mayor que 0.5F le resta 0.5F y grafica las trazas involucradas en el movimiento de particulas.
         /// </summary>
         /// <param name="sender">El objeto que lanza el evento.</param>
@@ -17057,8 +17057,10 @@ namespace Proceso20
                 if (durmpt > 2.0F)
                 {
                     durmpt = 2.0F;
-                    if (mptintp == false) TrazaComponente();
-                    else TrazaComponenteInterp();
+                    if (mptintp == false) 
+                        TrazaComponente();
+                    else
+                        TrazaComponenteInterp();
                     return;
                 }
                 else if (durmpt > 0.5F) durmpt -= 0.5F;
