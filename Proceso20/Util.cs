@@ -2357,16 +2357,16 @@ namespace Proceso20
             return (dift);
         }
         /// <summary>
-        /// 
+        /// Dibuja en el panelMapaMundi las coordenadas de latitud y longitud registradas en el archivo mundo.txt
         /// </summary>
-        /// <param name="panel"></param>
+        /// <param name="panel">Panel donde se dibujan las coordenasdas registradas en el archivo ".\\coor\\mundo.txt"</param>
         public void MapaMundo(Panel panel)
         {
             int j = 0, k = 0, xf, yf, x1 = 0, y1 = 0, x2 = 0, y2 = 0;
             double lat = 0, lon = 0, faclon, facla, facpi;
             string lin = "";
             bool condi = false;
-
+            //el archivo mundo.txt contiene las  coordenadas del mapa mundi
             if (!File.Exists(".\\coor\\mundo.txt")) return;
             xf = panel.Width;
             yf = panel.Height;
@@ -2390,13 +2390,18 @@ namespace Proceso20
                     if (lin[0] == '#') condi = false;
                     else
                     {
-                        for (j = 0; j < lin.Length; j++) if (char.IsControl(lin[j])) break;
-                        for (k = j + 1; k < lin.Length; k++) if (char.IsControl(lin[k])) break;
+                        for (j = 0; j < lin.Length; j++) 
+                            if (char.IsControl(lin[j])) 
+                                break;
+                        for (k = j + 1; k < lin.Length; k++) 
+                            if (char.IsControl(lin[k])) 
+                                break;
                         lon = double.Parse(lin.Substring(0, j - 1));
                         lat = double.Parse(lin.Substring(j, k - j));
                         x1 = (int)((xf / 2.0) + lon * faclon);
                         y1 = (int)((yf / 2.0) - Math.Sin(lat * facpi) * facla);
-                        if (condi == true) dc.DrawLine(lapiz, x1, y1, x2, y2);
+                        if (condi == true) 
+                            dc.DrawLine(lapiz, x1, y1, x2, y2);
                         x2 = x1;
                         y2 = y1;
                         condi = true;
@@ -2414,15 +2419,15 @@ namespace Proceso20
             return;
         }
         /// <summary>
-        /// 
+        /// Dibuja sismo en el panelMapaMundi.
         /// </summary>
-        /// <param name="panel"></param>
-        /// <param name="lat"></param>
-        /// <param name="lon"></param>
-        /// <param name="zz"></param>
-        /// <param name="mag"></param>
-        /// <param name="laNeic"></param>
-        /// <param name="loNeic"></param>
+        /// <param name="panel">Panel donde se dibujan las coordenasdas registradas en el archivo ".\\coor\\mundo.txt"</param>
+        /// <param name="lat">Latitud del sismo distante</param>
+        /// <param name="lon">Longitud del sismo distante</param>
+        /// <param name="zz">Profundidad del sismo</param>
+        /// <param name="mag">Magnitud del sismo</param>
+        /// <param name="laNeic">Latitud de la estación seleccionada en el panel de clasificación.</param>
+        /// <param name="loNeic">Longitud de la estación seleccionada en el panel de clasificación.</param>
         public void SismoNEIC(Panel panel, double lat, Double lon, double zz, double mag,
               float laNeic, float loNeic)
         {
@@ -2469,7 +2474,7 @@ namespace Proceso20
         /// </summary>
         /// <param name="M"></param>
         /// <param name="rat"></param>
-        /// <param name="Fc"></param>
+        /// <param name="Fc">Frecuencias de corte para filtro en el panel auxiliar (panel1a).</param>
         /// <returns></returns>
         public double[] HBajo(short M, float rat, double Fc)
         {
@@ -2498,7 +2503,7 @@ namespace Proceso20
         /// </summary>
         /// <param name="M"></param>
         /// <param name="rat"></param>
-        /// <param name="Fc"></param>
+        /// <param name="Fc">Frecuencias de corte para filtro en el panel auxiliar (panel1a)</param>
         /// <returns></returns>
         public double[] HAlto(short M, float rat, double Fc)
         {
@@ -2519,8 +2524,8 @@ namespace Proceso20
         /// </summary>
         /// <param name="M"></param>
         /// <param name="rat"></param>
-        /// <param name="Fc1"></param>
-        /// <param name="Fc2"></param>
+        /// <param name="Fc1">Frecuencias de corte para filtro en el panel auxiliar (panel1a)</param>
+        /// <param name="Fc2">Frecuencias de corte para filtro en el panel auxiliar (panel1a)</param>
         /// <returns></returns>
         public double[] HBand(short M, float rat, double Fc1, double Fc2)
         {
@@ -2547,7 +2552,7 @@ namespace Proceso20
         /// <param name="dat"></param>
         /// <param name="M"></param>
         /// <param name="rat"></param>
-        /// <param name="Fc"></param>
+        /// <param name="Fc">Frecuencias de corte para filtro en el panel auxiliar (panel1a)</param>
         /// <returns></returns>
         public int[] PasaBajos(int[] dat, short M, float rat, double Fc)
         {
@@ -2582,7 +2587,7 @@ namespace Proceso20
         /// <param name="dat"></param>
         /// <param name="M"></param>
         /// <param name="rat"></param>
-        /// <param name="Fc"></param>
+        /// <param name="Fc">Frecuencias de corte para filtro en el panel auxiliar (panel1a)</param>
         /// <returns></returns>
         public int[] PasaAltos(int[] dat, short M, float rat, double Fc)
         {
@@ -2612,8 +2617,8 @@ namespace Proceso20
         /// <param name="dat"></param>
         /// <param name="M"></param>
         /// <param name="rat"></param>
-        /// <param name="Fc1"></param>
-        /// <param name="Fc2"></param>
+        /// <param name="Fc1">Frecuencias de corte para filtro en el panel auxiliar (panel1a)</param>
+        /// <param name="Fc2">Frecuencias de corte para filtro en el panel auxiliar (panel1a)</param>
         /// <returns></returns>
         public int[] PasaBanda(int[] dat, short M, float rat, double Fc1, double Fc2)
         {

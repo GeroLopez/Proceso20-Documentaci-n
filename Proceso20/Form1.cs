@@ -17377,7 +17377,7 @@ namespace Proceso20
             return;
         }
         /// <summary>
-        /// Verifica la existencia del archivo /pro/tab/estaciones.dat.
+        /// Verifica la existencia del archivo /pro/tab/estaciones.dat y verifica que la estación seleccionada actualmente este en el archivo estaciones.dat.
         /// </summary>
         /// <returns>Retorna true en caso de encontrarlo, false en caso contrario.</returns>
         bool RevisarEstacionNeic()
@@ -17689,7 +17689,7 @@ namespace Proceso20
             return;
         }
         /// <summary>
-        /// Cierra el panelMapaMundo.
+        /// Cierra el panelMapaMundo, el cual esta situado en la parte superior derecha de la pantalla y esta asociado al botón boNeic.
         /// </summary>
         /// <param name="sender">El objeto que lanza el evento.</param>
         /// <param name="e">El evento que se lanzó.</param>
@@ -17704,7 +17704,8 @@ namespace Proceso20
             deltAK135 = 0;
         }
         /// <summary>
-        /// Se encarga de dibujar al panelMapaMundo el cual esta situado en la esquina superior derecha de la pantalla.
+        /// Se encarga de dibujar el panelMapaMundo el cual esta situado en la esquina superior derecha de la pantalla
+        /// donde se muestra el año, mes, día, hora y minuto en UT, correspondiente al inicio de la ventana del sismo en pantalla. 
         /// </summary>
         /// <param name="sender">El objeto que lanza el evento.</param>
         /// <param name="e">El evento que se lanzó.</param>
@@ -17841,7 +17842,7 @@ namespace Proceso20
             return (delta);
         }
         /// <summary>
-        /// Está pendiente su documentación.
+        /// Esta pendiente su documentación.
         /// </summary>
         void PonerTeorico()
         {
@@ -18359,9 +18360,12 @@ namespace Proceso20
             fx = (float)(fax / M);
 
             h = new double[M];
-            if (cfilx == '1') h = util.HBajo(M, (float)(ra[ida]), Fcx1);
-            else if (cfilx == '2') h = util.HAlto(M, (float)(ra[ida]), Fcx1);
-            else if (cfilx == '3') h = util.HBand(M, (float)(ra[ida]), Fcx1, Fcx2);
+            if (cfilx == '1') 
+                h = util.HBajo(M, (float)(ra[ida]), Fcx1);
+            else if (cfilx == '2') 
+                h = util.HAlto(M, (float)(ra[ida]), Fcx1);
+            else if (cfilx == '3') 
+                h = util.HBand(M, (float)(ra[ida]), Fcx1, Fcx2);
             else return;
 
             suma = 0;
