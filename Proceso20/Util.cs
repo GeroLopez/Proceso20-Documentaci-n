@@ -20,9 +20,9 @@ namespace Proceso20
         /// </summary>
         const double Feisuds = 621355968000000000.0;  // permite convertir del tiempo visual c# al tiempo en SUDS
         /// <summary>
-        /// Crea un proceso cmd para ejecutar líneas de comandos. 
+        /// Crea un proceso cmd para ejecutar la línea de comando que se pasa como parámetro. 
         /// </summary>
-        /// <param name="strCmdLine">Linea que se ejecuta en la consola de octave</param>
+        /// <param name="strCmdLine">línea a ejecutar en la consola cmd.</param>
         /// <param name="cond">Valor que se utiliza para decidir si se despliega la ventana del proceso creado.
         /// True si no quiere mostrar la ventana, false si quiere desplegar la ventana.</param>
         public void Dos(string strCmdLine, bool cond)

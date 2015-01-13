@@ -18952,7 +18952,7 @@ namespace Proceso20
             ixpb = e.X;
         }
         /// <summary>
-        /// 
+        /// Este método se lanza al soltar el mouse después de dar click sobre el panelInterP, necesita ser analizado mas afondo.
         /// </summary>
         /// <param name="sender">El objeto que lanza el evento.</param>
         /// <param name="e">El evento que se lanzó.</param>
@@ -20085,7 +20085,7 @@ namespace Proceso20
             }
         }
         /// <summary>
-        /// 
+        /// Este método debe ser analizado con detalle.
         /// </summary>
         /// <param name="nmi"></param>
         /// <param name="npp"></param>
@@ -20218,11 +20218,11 @@ namespace Proceso20
 
             return;
         }
-/// <summary>
-/// no hace nada
-/// </summary>
-/// <param name="sender"></param>
-/// <param name="e"></param>
+        /// <summary>
+        /// no hace nada
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void panelEspectros_MouseDown(object sender, MouseEventArgs e)
         {
 
