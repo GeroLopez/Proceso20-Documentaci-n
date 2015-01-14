@@ -21041,8 +21041,8 @@ namespace Proceso20
             return;
         }
         /// <summary>
-        /// Es el encargado de la actualización gráfica del panelDR,dependiendo el valor de la variable
-        /// DR (puede ser 1, 2, 0) aplica un método distinto para el calculo del desplazamiento reducido.
+        /// Es el encargado de la actualización gráfica del panelDR, dependiendo el valor de la variable
+        /// DR (puede ser 1, 2, 0) aplica un método distinto para el cálculo del desplazamiento reducido.
         /// </summary>
         /// <param name="sender">El objeto que lanza el evento.</param>
         /// <param name="e">El evento que se lanzó.</param>
