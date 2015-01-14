@@ -19096,7 +19096,8 @@ namespace Proceso20
             if (panelDesplazamiento.Visible == true) panelDesplazamiento.Invalidate();
         }
         /// <summary>
-        /// Obtiene el valor de verdad del checkBoxSeis y lanza el método ChequeoGraInterpol().
+        /// Obtiene el valor de verdad del checkBoxSeis y lanza el método ChequeoGraInterpol()  este checkBox
+        /// se usa para determinar si una traza después de ser interpolada se graba en formato SEISAN.
         /// </summary>
         /// <param name="sender">El objeto que lanza el evento.</param>
         /// <param name="e">El evento que se lanzó.</param>
@@ -19106,7 +19107,8 @@ namespace Proceso20
             ChequeoGraInterpol();
         }
         /// <summary>
-        /// Obtiene el valor de verdad del checkBoxAscii y lanza el método ChequeoGraInterpol().
+        /// Obtiene el valor de verdad del checkBoxAscii y lanza el método ChequeoGraInterpol() este checkBox
+        /// se usa para determinar si una traza después de ser interpolada se graba en formato Ascii.
         /// </summary>
         /// <param name="sender">El objeto que lanza el evento.</param>
         /// <param name="e">El evento que se lanzó.</param>
@@ -19116,7 +19118,8 @@ namespace Proceso20
             ChequeoGraInterpol();
         }
         /// <summary>
-        /// Obtiene el valor de verdad del checkBoxSuds y lanza el método ChequeoGraInterpol().
+        /// Obtiene el valor de verdad del checkBoxSuds y lanza el método ChequeoGraInterpol() este checkBox
+        /// se usa para determinar si una traza después de ser interpolada se graba en formato Suds.
         /// </summary>
         /// <param name="sender">El objeto que lanza el evento.</param>
         /// <param name="e">El evento que se lanzó.</param>
@@ -19139,7 +19142,7 @@ namespace Proceso20
             return;
         }
         /// <summary>
-        /// Llama los métodos para grabar la interpolación en la base en cada formato diferente (Seisan, ascii, Suds).
+        /// Llama los métodos para grabar la interpolación de una traza en la base en cada formato diferente (Seisan, ascii, Suds).
         /// </summary>
         /// <param name="sender">El objeto que lanza el evento.</param>
         /// <param name="e">El evento que se lanzó.</param>
@@ -19202,9 +19205,8 @@ namespace Proceso20
         /// Graba en la base los datos de la interpolación en formato ascii.
         /// </summary>
         /// <param name="nom">Nombre con el que se desea guardar el archivo.</param>
-        /// <param name="cond">Se utiliza para verificar si además de guardar los datos de la interpolación
-        /// de velocidad de cuentas también se guardan los datos de desplazamiento de cuentas,
-        /// esto último en caso de que cond sea true.</param>
+        /// <param name="cond">Se utiliza para determinar el tamalo en Bytes que se debe asignar a la variable br (BinaryWriter)
+        /// en el momento de escribir el archivo que contendra la traza, en caso de ser true representa un tipo long, si es false representa un tipo int.</param>
         void GrabaAscii(string nom, bool cond)
         {
             int i;
@@ -19269,9 +19271,8 @@ namespace Proceso20
         /// Graba en la base los datos de la interpolación en formato suds extención .dmx.
         /// </summary>
         /// <param name="nom">Nombre con el que se desea guardar el archivo.</param>
-        /// <param name="cond">Se utiliza para verificar si además de guardar los datos de la interpolación
-        /// de velocidad de cuentas también se guardan los datos de desplazamiento de cuentas,
-        /// esto último en caso de que cond sea true.</param>
+        /// <param name="cond">Se utiliza para determinar el tamalo en Bytes que se debe asignar a la variable br (BinaryWriter)
+        /// en el momento de escribir el archivo que contendra la traza, en caso de ser true representa un tipo long, si es false representa un tipo int.</param>
         void GrabaSudsInterpol(string nom, bool cond)
         {
             string dir1;
@@ -19422,12 +19423,11 @@ namespace Proceso20
             return;
         }
         /// <summary>
-        /// Graba en la base los datos de la interpolación en formato Seisan.
+        /// Graba en la base los datos de la interpolación de una traza en formato Seisan.
         /// </summary>
         /// <param name="nomar">Nombre con el que se desea guardar el archivo.</param>
-        /// <param name="cond">Se utiliza para verificar si además de guardar los datos de la interpolación
-        /// de velocidad de cuentas también se guardan los datos de desplazamiento de cuentas,
-        /// esto último en caso de que cond sea true.</param>
+        /// <param name="cond">Se utiliza para determinar el tamalo en Bytes que se debe asignar a la variable br (BinaryWriter)
+        /// en el momento de escribir el archivo que contendra la traza, en caso de ser true representa un tipo long, si es false representa un tipo int.</param>
         void GrabaSeisan(string nomar, bool cond)
         {
             int i, j, k, año;
@@ -19663,7 +19663,7 @@ namespace Proceso20
             return (prom);
         }
         /// <summary>
-        /// 
+        /// Está pendiente la documentación de este método.
         /// </summary>
         /// <param name="spl">vector que almacenas los datos resultado de una interpolación.</param>
         void IntegracionSpl(int[] spl)
