@@ -26,63 +26,85 @@ function FileEntry (pageIndex, pageID, pageName, priImage, secImage)
 var viewMgr = null;
 
 var g_FileList = new  Array(
- new FileEntry (1, 0, "Form1_Load", "xaml_1.htm", "png_1.htm"),
- new FileEntry (2, 6, "bMas_Click", "xaml_2.htm", "png_2.htm"),
- new FileEntry (3, 7, "listBox2_SelectedIndexChanged", "xaml_3.htm", "png_3.htm"),
- new FileEntry (4, 8, "bcla_Click", "xaml_4.htm", "png_4.htm"),
- new FileEntry (5, 9, "listBox1_SelectedIndexChanged", "xaml_5.htm", "png_5.htm"),
- new FileEntry (6, 10, "best_MouseDown", "xaml_6.htm", "png_6.htm"),
- new FileEntry (7, 11, "boEsta_Click", "xaml_7.htm", "png_7.htm"),
- new FileEntry (8, 12, "boTodas_Click", "xaml_8.htm", "png_8.htm"),
- new FileEntry (9, 13, "bozoom_Click", "xaml_9.htm", "png_9.htm"),
- new FileEntry (10, 14, "boclaizq_MouseDown", "xaml_10.htm", "png_10.htm"),
- new FileEntry (11, 15, "bocladil_MouseDown", "xaml_11.htm", "png_11.htm"),
- new FileEntry (12, 16, "boclader_MouseDown", "xaml_12.htm", "png_12.htm"),
- new FileEntry (13, 17, "boclaenc_MouseDown", "xaml_13.htm", "png_13.htm"),
- new FileEntry (14, 18, "panelEsta_MouseDown", "xaml_14.htm", "png_14.htm"),
- new FileEntry (15, 20, "butfech_Click", "xaml_15.htm", "png_15.htm"),
- new FileEntry (16, 21, "bopep_MouseDown", "xaml_16.htm", "png_16.htm"),
- new FileEntry (17, 22, "panel1a_MouseDown", "xaml_17.htm", "png_17.htm"),
- new FileEntry (18, 23, "panel1a_MouseMove", "xaml_18.htm", "png_18.htm"),
- new FileEntry (19, 24, "panel1a_MouseUp", "xaml_19.htm", "png_19.htm"),
- new FileEntry (20, 25, "panel1_MouseMove", "xaml_20.htm", "png_20.htm"),
- new FileEntry (21, 26, "panel1_MouseDown", "xaml_21.htm", "png_21.htm"),
- new FileEntry (22, 27, "panel1_MouseUp", "xaml_22.htm", "png_22.htm"),
- new FileEntry (23, 28, "panelcladib_MouseDown", "xaml_23.htm", "png_23.htm"),
- new FileEntry (24, 29, "panelcladib_MouseUp", "xaml_24.htm", "png_24.htm"),
- new FileEntry (25, 30, "panelcladib_MouseMove", "xaml_25.htm", "png_25.htm"),
- new FileEntry (26, 31, "boXcod_Click", "xaml_26.htm", "png_26.htm"),
- new FileEntry (27, 32, "panelAmp_MouseUp", "xaml_27.htm", "png_27.htm"),
- new FileEntry (28, 33, "bovar_Click", "xaml_28.htm", "png_28.htm"),
- new FileEntry (29, 34, "boPSW_Click", "xaml_29.htm", "png_29.htm"),
- new FileEntry (30, 35, "boScilab_Click", "xaml_30.htm", "png_30.htm"),
- new FileEntry (31, 36, "boInv_Click", "xaml_31.htm", "png_31.htm"),
- new FileEntry (32, 37, "panel1_Paint", "xaml_32.htm", "png_32.htm"),
- new FileEntry (33, 38, "panel1a_Paint", "xaml_33.htm", "png_33.htm"),
- new FileEntry (34, 39, "Dibujo panelcoda", "xaml_34.htm", "png_34.htm"),
- new FileEntry (35, 40, "panelAmp_Paint", "xaml_35.htm", "png_35.htm"),
- new FileEntry (36, 41, "boFc_MouseDown", "xaml_36.htm", "png_36.htm"),
- new FileEntry (37, 42, "boPolo_MouseDown", "xaml_37.htm", "png_37.htm"),
- new FileEntry (38, 43, "boFiltro_MouseDown", "xaml_38.htm", "png_38.htm"),
- new FileEntry (39, 44, "Filtros", "xaml_39.htm", "png_39.htm"),
- new FileEntry (40, 45, "Filtros coda", "xaml_40.htm", "png_40.htm"),
- new FileEntry (41, 46, "boClaSola_Click", "xaml_41.htm", "png_41.htm"),
- new FileEntry (42, 47, "boTremor_MouseDown", "xaml_42.htm", "png_42.htm"),
- new FileEntry (43, 48, "boAnalogico_Click", "xaml_43.htm", "png_43.htm"),
- new FileEntry (44, 49, "boNano_Click", "xaml_44.htm", "png_44.htm"),
- new FileEntry (45, 50, "Form1_KeyPress", "xaml_45.htm", "png_45.htm"),
- new FileEntry (46, 51, "backgroundWorker1_DoWork", "xaml_46.htm", "png_46.htm"),
- new FileEntry (47, 52, "splitContainer1_Panel1_MouseUp", "xaml_47.htm", "png_47.htm"),
- new FileEntry (48, 53, "checkBoxLogEsp_CheckedChanged", "xaml_48.htm", "png_48.htm"),
- new FileEntry (49, 54, "Métodos Espectro", "xaml_49.htm", "png_49.htm"),
- new FileEntry (50, 55, "boStartMpt_Click", "xaml_50.htm", "png_50.htm"),
- new FileEntry (51, 56, "Movimiento de partículas", "xaml_51.htm", "png_51.htm"),
- new FileEntry (52, 57, "boModX_Click", "xaml_52.htm", "png_52.htm"),
- new FileEntry (53, 58, "boNeic_MouseDown", "xaml_53.htm", "png_53.htm"),
- new FileEntry (54, 59, "textBoxNeic_TextChanged", "xaml_54.htm", "png_54.htm"),
- new FileEntry (55, 4, "Varios en común", "xaml_55.htm", "png_55.htm"),
- new FileEntry (56, 5, "Página-50", "xaml_56.htm", "png_56.htm"),
- new FileEntry (57, 19, "Diagrama General", "xaml_57.htm", "png_57.htm")
+ new FileEntry (1, 5, "Diagramas específicos Proceso20", "xaml_1.htm", "png_1.htm"),
+ new FileEntry (2, 0, "Form1_Load", "xaml_2.htm", "png_2.htm"),
+ new FileEntry (3, 6, "bMas_Click", "xaml_3.htm", "png_3.htm"),
+ new FileEntry (4, 7, "listBox2_SelectedIndexChanged", "xaml_4.htm", "png_4.htm"),
+ new FileEntry (5, 8, "bcla_Click", "xaml_5.htm", "png_5.htm"),
+ new FileEntry (6, 9, "listBox1_SelectedIndexChanged", "xaml_6.htm", "png_6.htm"),
+ new FileEntry (7, 10, "best_MouseDown", "xaml_7.htm", "png_7.htm"),
+ new FileEntry (8, 11, "boEsta_Click", "xaml_8.htm", "png_8.htm"),
+ new FileEntry (9, 12, "boTodas_Click", "xaml_9.htm", "png_9.htm"),
+ new FileEntry (10, 13, "bozoom_Click", "xaml_10.htm", "png_10.htm"),
+ new FileEntry (11, 14, "boclaizq_MouseDown", "xaml_11.htm", "png_11.htm"),
+ new FileEntry (12, 15, "bocladil_MouseDown", "xaml_12.htm", "png_12.htm"),
+ new FileEntry (13, 16, "boclader_MouseDown", "xaml_13.htm", "png_13.htm"),
+ new FileEntry (14, 17, "boclaenc_MouseDown", "xaml_14.htm", "png_14.htm"),
+ new FileEntry (15, 18, "panelEsta_MouseDown", "xaml_15.htm", "png_15.htm"),
+ new FileEntry (16, 20, "butfech_Click", "xaml_16.htm", "png_16.htm"),
+ new FileEntry (17, 21, "bopep_MouseDown", "xaml_17.htm", "png_17.htm"),
+ new FileEntry (18, 22, "panel1a_MouseDown", "xaml_18.htm", "png_18.htm"),
+ new FileEntry (19, 23, "panel1a_MouseMove", "xaml_19.htm", "png_19.htm"),
+ new FileEntry (20, 24, "panel1a_MouseUp", "xaml_20.htm", "png_20.htm"),
+ new FileEntry (21, 25, "panel1_MouseMove", "xaml_21.htm", "png_21.htm"),
+ new FileEntry (22, 26, "panel1_MouseDown", "xaml_22.htm", "png_22.htm"),
+ new FileEntry (23, 27, "panel1_MouseUp", "xaml_23.htm", "png_23.htm"),
+ new FileEntry (24, 28, "panelcladib_MouseDown", "xaml_24.htm", "png_24.htm"),
+ new FileEntry (25, 29, "panelcladib_MouseUp", "xaml_25.htm", "png_25.htm"),
+ new FileEntry (26, 30, "panelcladib_MouseMove", "xaml_26.htm", "png_26.htm"),
+ new FileEntry (27, 31, "boXcod_Click", "xaml_27.htm", "png_27.htm"),
+ new FileEntry (28, 32, "panelAmp_MouseUp", "xaml_28.htm", "png_28.htm"),
+ new FileEntry (29, 33, "bovar_Click", "xaml_29.htm", "png_29.htm"),
+ new FileEntry (30, 34, "boPSW_Click", "xaml_30.htm", "png_30.htm"),
+ new FileEntry (31, 35, "boScilab_Click", "xaml_31.htm", "png_31.htm"),
+ new FileEntry (32, 36, "boInv_Click", "xaml_32.htm", "png_32.htm"),
+ new FileEntry (33, 37, "panel1_Paint", "xaml_33.htm", "png_33.htm"),
+ new FileEntry (34, 38, "panel1a_Paint", "xaml_34.htm", "png_34.htm"),
+ new FileEntry (35, 39, "Dibujo panelcoda", "xaml_35.htm", "png_35.htm"),
+ new FileEntry (36, 40, "panelAmp_Paint", "xaml_36.htm", "png_36.htm"),
+ new FileEntry (37, 41, "boFc_MouseDown", "xaml_37.htm", "png_37.htm"),
+ new FileEntry (38, 42, "boPolo_MouseDown", "xaml_38.htm", "png_38.htm"),
+ new FileEntry (39, 43, "boFiltro_MouseDown", "xaml_39.htm", "png_39.htm"),
+ new FileEntry (40, 44, "Filtros", "xaml_40.htm", "png_40.htm"),
+ new FileEntry (41, 45, "Filtros coda", "xaml_41.htm", "png_41.htm"),
+ new FileEntry (42, 46, "boClaSola_Click", "xaml_42.htm", "png_42.htm"),
+ new FileEntry (43, 47, "boTremor_MouseDown", "xaml_43.htm", "png_43.htm"),
+ new FileEntry (44, 48, "boAnalogico_Click", "xaml_44.htm", "png_44.htm"),
+ new FileEntry (45, 49, "boNano_Click", "xaml_45.htm", "png_45.htm"),
+ new FileEntry (46, 50, "Form1_KeyPress", "xaml_46.htm", "png_46.htm"),
+ new FileEntry (47, 51, "backgroundWorker1_DoWork", "xaml_47.htm", "png_47.htm"),
+ new FileEntry (48, 52, "splitContainer1_Panel1_MouseUp", "xaml_48.htm", "png_48.htm"),
+ new FileEntry (49, 53, "checkBoxLogEsp_CheckedChanged", "xaml_49.htm", "png_49.htm"),
+ new FileEntry (50, 54, "Métodos Espectro", "xaml_50.htm", "png_50.htm"),
+ new FileEntry (51, 55, "boStartMpt_Click", "xaml_51.htm", "png_51.htm"),
+ new FileEntry (52, 56, "Movimiento de partículas", "xaml_52.htm", "png_52.htm"),
+ new FileEntry (53, 57, "boModX_Click", "xaml_53.htm", "png_53.htm"),
+ new FileEntry (54, 58, "boNeic_MouseDown", "xaml_54.htm", "png_54.htm"),
+ new FileEntry (55, 59, "textBoxNeic_TextChanged", "xaml_55.htm", "png_55.htm"),
+ new FileEntry (56, 60, "panelMapaMundo_Paint", "xaml_56.htm", "png_56.htm"),
+ new FileEntry (57, 61, "Botones de filtros", "xaml_57.htm", "png_57.htm"),
+ new FileEntry (58, 62, "boResFiltX_Click", "xaml_58.htm", "png_58.htm"),
+ new FileEntry (59, 63, "botones rata de muestreo interpolación", "xaml_59.htm", "png_59.htm"),
+ new FileEntry (60, 64, "panelInterP_MouseUp", "xaml_60.htm", "png_60.htm"),
+ new FileEntry (61, 65, "casillas verificación para grabar trazas interpoladas", "xaml_61.htm", "png_61.htm"),
+ new FileEntry (62, 66, "boGraInterpol_Click", "xaml_62.htm", "png_62.htm"),
+ new FileEntry (63, 67, "boIntegra_MouseDown", "xaml_63.htm", "png_63.htm"),
+ new FileEntry (64, 68, "checkBoxFiltAlta_CheckedChanged", "xaml_64.htm", "png_64.htm"),
+ new FileEntry (65, 69, "boFrInterp_MouseDown", "xaml_65.htm", "png_65.htm"),
+ new FileEntry (66, 70, "boFIR_MouseDown", "xaml_66.htm", "png_66.htm"),
+ new FileEntry (67, 71, "boFilBaj_Click", "xaml_67.htm", "png_67.htm"),
+ new FileEntry (68, 72, "boFilAlt_Click", "xaml_68.htm", "png_68.htm"),
+ new FileEntry (69, 73, "boFilBan_Click", "xaml_69.htm", "png_69.htm"),
+ new FileEntry (70, 74, "boDerMpt_MouseDown", "xaml_70.htm", "png_70.htm"),
+ new FileEntry (71, 75, "boIzqMpt_MouseDown", "xaml_71.htm", "png_71.htm"),
+ new FileEntry (72, 76, "boEspCla_MouseDown", "xaml_72.htm", "png_72.htm"),
+ new FileEntry (73, 77, "panelDR_Paint", "xaml_73.htm", "png_73.htm"),
+ new FileEntry (74, 78, "panelDR_MouseUp", "xaml_74.htm", "png_74.htm"),
+ new FileEntry (75, 79, "boTarCarga_MouseDown", "xaml_75.htm", "png_75.htm"),
+ new FileEntry (76, 80, "checkBoxHz_CheckedChanged", "xaml_76.htm", "png_76.htm"),
+ new FileEntry (77, 81, "textBoxUT_TextChanged", "xaml_77.htm", "png_77.htm"),
+ new FileEntry (78, 82, "boTarAux_Click", "xaml_78.htm", "png_78.htm"),
+ new FileEntry (79, 4, "Varios en común", "xaml_79.htm", "png_79.htm")
 
 );
 
@@ -809,7 +831,7 @@ function CreateHLObj (hlNode)
 	</head>
 	
 	<frameset id="frmstOuter" cols="237,*">
-		<frame src="Diagrama Proceso20 2.0_archivos/toolbar.htm" name="frmToolbar" id="frmToolbar" title="Este marco contiene herramientas para manipular el dibujo." frameborder="6" bordercolor="#999999" scrolling="si" marginheight="0" marginwidth="0" >
+		<frame src="Diagrama Proceso20 2.0_archivos/toolbar.htm" name="frmToolbar" id="frmToolbar" title="Este marco contiene herramientas para manipular el dibujo." frameborder="6" bordercolor="#999999" scrolling="yes" marginheight="0" marginwidth="0" >
 		<frame src="Diagrama Proceso20 2.0_archivos/png_1.htm" name="frmDrawing" title="Este marco contiene las páginas del dibujo." marginheight="10" marginwidth="10" onload="if (parent.isUpLevel) FramePageLoaded()" >
 
 		<noframes>
@@ -817,63 +839,85 @@ function CreateHLObj (hlNode)
 
 				<h1>Diagrama Proceso20 2.0</h1>
 				<ul>
-				<li><a href="Diagrama Proceso20 2.0_archivos/png_1.htm">Form1_Load</a></li>
-				<li><a href="Diagrama Proceso20 2.0_archivos/png_2.htm">bMas_Click</a></li>
-				<li><a href="Diagrama Proceso20 2.0_archivos/png_3.htm">listBox2_SelectedIndexChanged</a></li>
-				<li><a href="Diagrama Proceso20 2.0_archivos/png_4.htm">bcla_Click</a></li>
-				<li><a href="Diagrama Proceso20 2.0_archivos/png_5.htm">listBox1_SelectedIndexChanged</a></li>
-				<li><a href="Diagrama Proceso20 2.0_archivos/png_6.htm">best_MouseDown</a></li>
-				<li><a href="Diagrama Proceso20 2.0_archivos/png_7.htm">boEsta_Click</a></li>
-				<li><a href="Diagrama Proceso20 2.0_archivos/png_8.htm">boTodas_Click</a></li>
-				<li><a href="Diagrama Proceso20 2.0_archivos/png_9.htm">bozoom_Click</a></li>
-				<li><a href="Diagrama Proceso20 2.0_archivos/png_10.htm">boclaizq_MouseDown</a></li>
-				<li><a href="Diagrama Proceso20 2.0_archivos/png_11.htm">bocladil_MouseDown</a></li>
-				<li><a href="Diagrama Proceso20 2.0_archivos/png_12.htm">boclader_MouseDown</a></li>
-				<li><a href="Diagrama Proceso20 2.0_archivos/png_13.htm">boclaenc_MouseDown</a></li>
-				<li><a href="Diagrama Proceso20 2.0_archivos/png_14.htm">panelEsta_MouseDown</a></li>
-				<li><a href="Diagrama Proceso20 2.0_archivos/png_15.htm">butfech_Click</a></li>
-				<li><a href="Diagrama Proceso20 2.0_archivos/png_16.htm">bopep_MouseDown</a></li>
-				<li><a href="Diagrama Proceso20 2.0_archivos/png_17.htm">panel1a_MouseDown</a></li>
-				<li><a href="Diagrama Proceso20 2.0_archivos/png_18.htm">panel1a_MouseMove</a></li>
-				<li><a href="Diagrama Proceso20 2.0_archivos/png_19.htm">panel1a_MouseUp</a></li>
-				<li><a href="Diagrama Proceso20 2.0_archivos/png_20.htm">panel1_MouseMove</a></li>
-				<li><a href="Diagrama Proceso20 2.0_archivos/png_21.htm">panel1_MouseDown</a></li>
-				<li><a href="Diagrama Proceso20 2.0_archivos/png_22.htm">panel1_MouseUp</a></li>
-				<li><a href="Diagrama Proceso20 2.0_archivos/png_23.htm">panelcladib_MouseDown</a></li>
-				<li><a href="Diagrama Proceso20 2.0_archivos/png_24.htm">panelcladib_MouseUp</a></li>
-				<li><a href="Diagrama Proceso20 2.0_archivos/png_25.htm">panelcladib_MouseMove</a></li>
-				<li><a href="Diagrama Proceso20 2.0_archivos/png_26.htm">boXcod_Click</a></li>
-				<li><a href="Diagrama Proceso20 2.0_archivos/png_27.htm">panelAmp_MouseUp</a></li>
-				<li><a href="Diagrama Proceso20 2.0_archivos/png_28.htm">bovar_Click</a></li>
-				<li><a href="Diagrama Proceso20 2.0_archivos/png_29.htm">boPSW_Click</a></li>
-				<li><a href="Diagrama Proceso20 2.0_archivos/png_30.htm">boScilab_Click</a></li>
-				<li><a href="Diagrama Proceso20 2.0_archivos/png_31.htm">boInv_Click</a></li>
-				<li><a href="Diagrama Proceso20 2.0_archivos/png_32.htm">panel1_Paint</a></li>
-				<li><a href="Diagrama Proceso20 2.0_archivos/png_33.htm">panel1a_Paint</a></li>
-				<li><a href="Diagrama Proceso20 2.0_archivos/png_34.htm">Dibujo panelcoda</a></li>
-				<li><a href="Diagrama Proceso20 2.0_archivos/png_35.htm">panelAmp_Paint</a></li>
-				<li><a href="Diagrama Proceso20 2.0_archivos/png_36.htm">boFc_MouseDown</a></li>
-				<li><a href="Diagrama Proceso20 2.0_archivos/png_37.htm">boPolo_MouseDown</a></li>
-				<li><a href="Diagrama Proceso20 2.0_archivos/png_38.htm">boFiltro_MouseDown</a></li>
-				<li><a href="Diagrama Proceso20 2.0_archivos/png_39.htm">Filtros</a></li>
-				<li><a href="Diagrama Proceso20 2.0_archivos/png_40.htm">Filtros coda</a></li>
-				<li><a href="Diagrama Proceso20 2.0_archivos/png_41.htm">boClaSola_Click</a></li>
-				<li><a href="Diagrama Proceso20 2.0_archivos/png_42.htm">boTremor_MouseDown</a></li>
-				<li><a href="Diagrama Proceso20 2.0_archivos/png_43.htm">boAnalogico_Click</a></li>
-				<li><a href="Diagrama Proceso20 2.0_archivos/png_44.htm">boNano_Click</a></li>
-				<li><a href="Diagrama Proceso20 2.0_archivos/png_45.htm">Form1_KeyPress</a></li>
-				<li><a href="Diagrama Proceso20 2.0_archivos/png_46.htm">backgroundWorker1_DoWork</a></li>
-				<li><a href="Diagrama Proceso20 2.0_archivos/png_47.htm">splitContainer1_Panel1_MouseUp</a></li>
-				<li><a href="Diagrama Proceso20 2.0_archivos/png_48.htm">checkBoxLogEsp_CheckedChanged</a></li>
-				<li><a href="Diagrama Proceso20 2.0_archivos/png_49.htm">Métodos Espectro</a></li>
-				<li><a href="Diagrama Proceso20 2.0_archivos/png_50.htm">boStartMpt_Click</a></li>
-				<li><a href="Diagrama Proceso20 2.0_archivos/png_51.htm">Movimiento de partículas</a></li>
-				<li><a href="Diagrama Proceso20 2.0_archivos/png_52.htm">boModX_Click</a></li>
-				<li><a href="Diagrama Proceso20 2.0_archivos/png_53.htm">boNeic_MouseDown</a></li>
-				<li><a href="Diagrama Proceso20 2.0_archivos/png_54.htm">textBoxNeic_TextChanged</a></li>
-				<li><a href="Diagrama Proceso20 2.0_archivos/png_55.htm">Varios en común</a></li>
-				<li><a href="Diagrama Proceso20 2.0_archivos/png_56.htm">Página-50</a></li>
-				<li><a href="Diagrama Proceso20 2.0_archivos/png_57.htm">Diagrama General</a></li>
+				<li><a href="Diagrama Proceso20 2.0_archivos/png_1.htm">Diagramas específicos Proceso20</a></li>
+				<li><a href="Diagrama Proceso20 2.0_archivos/png_2.htm">Form1_Load</a></li>
+				<li><a href="Diagrama Proceso20 2.0_archivos/png_3.htm">bMas_Click</a></li>
+				<li><a href="Diagrama Proceso20 2.0_archivos/png_4.htm">listBox2_SelectedIndexChanged</a></li>
+				<li><a href="Diagrama Proceso20 2.0_archivos/png_5.htm">bcla_Click</a></li>
+				<li><a href="Diagrama Proceso20 2.0_archivos/png_6.htm">listBox1_SelectedIndexChanged</a></li>
+				<li><a href="Diagrama Proceso20 2.0_archivos/png_7.htm">best_MouseDown</a></li>
+				<li><a href="Diagrama Proceso20 2.0_archivos/png_8.htm">boEsta_Click</a></li>
+				<li><a href="Diagrama Proceso20 2.0_archivos/png_9.htm">boTodas_Click</a></li>
+				<li><a href="Diagrama Proceso20 2.0_archivos/png_10.htm">bozoom_Click</a></li>
+				<li><a href="Diagrama Proceso20 2.0_archivos/png_11.htm">boclaizq_MouseDown</a></li>
+				<li><a href="Diagrama Proceso20 2.0_archivos/png_12.htm">bocladil_MouseDown</a></li>
+				<li><a href="Diagrama Proceso20 2.0_archivos/png_13.htm">boclader_MouseDown</a></li>
+				<li><a href="Diagrama Proceso20 2.0_archivos/png_14.htm">boclaenc_MouseDown</a></li>
+				<li><a href="Diagrama Proceso20 2.0_archivos/png_15.htm">panelEsta_MouseDown</a></li>
+				<li><a href="Diagrama Proceso20 2.0_archivos/png_16.htm">butfech_Click</a></li>
+				<li><a href="Diagrama Proceso20 2.0_archivos/png_17.htm">bopep_MouseDown</a></li>
+				<li><a href="Diagrama Proceso20 2.0_archivos/png_18.htm">panel1a_MouseDown</a></li>
+				<li><a href="Diagrama Proceso20 2.0_archivos/png_19.htm">panel1a_MouseMove</a></li>
+				<li><a href="Diagrama Proceso20 2.0_archivos/png_20.htm">panel1a_MouseUp</a></li>
+				<li><a href="Diagrama Proceso20 2.0_archivos/png_21.htm">panel1_MouseMove</a></li>
+				<li><a href="Diagrama Proceso20 2.0_archivos/png_22.htm">panel1_MouseDown</a></li>
+				<li><a href="Diagrama Proceso20 2.0_archivos/png_23.htm">panel1_MouseUp</a></li>
+				<li><a href="Diagrama Proceso20 2.0_archivos/png_24.htm">panelcladib_MouseDown</a></li>
+				<li><a href="Diagrama Proceso20 2.0_archivos/png_25.htm">panelcladib_MouseUp</a></li>
+				<li><a href="Diagrama Proceso20 2.0_archivos/png_26.htm">panelcladib_MouseMove</a></li>
+				<li><a href="Diagrama Proceso20 2.0_archivos/png_27.htm">boXcod_Click</a></li>
+				<li><a href="Diagrama Proceso20 2.0_archivos/png_28.htm">panelAmp_MouseUp</a></li>
+				<li><a href="Diagrama Proceso20 2.0_archivos/png_29.htm">bovar_Click</a></li>
+				<li><a href="Diagrama Proceso20 2.0_archivos/png_30.htm">boPSW_Click</a></li>
+				<li><a href="Diagrama Proceso20 2.0_archivos/png_31.htm">boScilab_Click</a></li>
+				<li><a href="Diagrama Proceso20 2.0_archivos/png_32.htm">boInv_Click</a></li>
+				<li><a href="Diagrama Proceso20 2.0_archivos/png_33.htm">panel1_Paint</a></li>
+				<li><a href="Diagrama Proceso20 2.0_archivos/png_34.htm">panel1a_Paint</a></li>
+				<li><a href="Diagrama Proceso20 2.0_archivos/png_35.htm">Dibujo panelcoda</a></li>
+				<li><a href="Diagrama Proceso20 2.0_archivos/png_36.htm">panelAmp_Paint</a></li>
+				<li><a href="Diagrama Proceso20 2.0_archivos/png_37.htm">boFc_MouseDown</a></li>
+				<li><a href="Diagrama Proceso20 2.0_archivos/png_38.htm">boPolo_MouseDown</a></li>
+				<li><a href="Diagrama Proceso20 2.0_archivos/png_39.htm">boFiltro_MouseDown</a></li>
+				<li><a href="Diagrama Proceso20 2.0_archivos/png_40.htm">Filtros</a></li>
+				<li><a href="Diagrama Proceso20 2.0_archivos/png_41.htm">Filtros coda</a></li>
+				<li><a href="Diagrama Proceso20 2.0_archivos/png_42.htm">boClaSola_Click</a></li>
+				<li><a href="Diagrama Proceso20 2.0_archivos/png_43.htm">boTremor_MouseDown</a></li>
+				<li><a href="Diagrama Proceso20 2.0_archivos/png_44.htm">boAnalogico_Click</a></li>
+				<li><a href="Diagrama Proceso20 2.0_archivos/png_45.htm">boNano_Click</a></li>
+				<li><a href="Diagrama Proceso20 2.0_archivos/png_46.htm">Form1_KeyPress</a></li>
+				<li><a href="Diagrama Proceso20 2.0_archivos/png_47.htm">backgroundWorker1_DoWork</a></li>
+				<li><a href="Diagrama Proceso20 2.0_archivos/png_48.htm">splitContainer1_Panel1_MouseUp</a></li>
+				<li><a href="Diagrama Proceso20 2.0_archivos/png_49.htm">checkBoxLogEsp_CheckedChanged</a></li>
+				<li><a href="Diagrama Proceso20 2.0_archivos/png_50.htm">Métodos Espectro</a></li>
+				<li><a href="Diagrama Proceso20 2.0_archivos/png_51.htm">boStartMpt_Click</a></li>
+				<li><a href="Diagrama Proceso20 2.0_archivos/png_52.htm">Movimiento de partículas</a></li>
+				<li><a href="Diagrama Proceso20 2.0_archivos/png_53.htm">boModX_Click</a></li>
+				<li><a href="Diagrama Proceso20 2.0_archivos/png_54.htm">boNeic_MouseDown</a></li>
+				<li><a href="Diagrama Proceso20 2.0_archivos/png_55.htm">textBoxNeic_TextChanged</a></li>
+				<li><a href="Diagrama Proceso20 2.0_archivos/png_56.htm">panelMapaMundo_Paint</a></li>
+				<li><a href="Diagrama Proceso20 2.0_archivos/png_57.htm">Botones de filtros</a></li>
+				<li><a href="Diagrama Proceso20 2.0_archivos/png_58.htm">boResFiltX_Click</a></li>
+				<li><a href="Diagrama Proceso20 2.0_archivos/png_59.htm">botones rata de muestreo interpolación</a></li>
+				<li><a href="Diagrama Proceso20 2.0_archivos/png_60.htm">panelInterP_MouseUp</a></li>
+				<li><a href="Diagrama Proceso20 2.0_archivos/png_61.htm">casillas verificación para grabar trazas interpoladas</a></li>
+				<li><a href="Diagrama Proceso20 2.0_archivos/png_62.htm">boGraInterpol_Click</a></li>
+				<li><a href="Diagrama Proceso20 2.0_archivos/png_63.htm">boIntegra_MouseDown</a></li>
+				<li><a href="Diagrama Proceso20 2.0_archivos/png_64.htm">checkBoxFiltAlta_CheckedChanged</a></li>
+				<li><a href="Diagrama Proceso20 2.0_archivos/png_65.htm">boFrInterp_MouseDown</a></li>
+				<li><a href="Diagrama Proceso20 2.0_archivos/png_66.htm">boFIR_MouseDown</a></li>
+				<li><a href="Diagrama Proceso20 2.0_archivos/png_67.htm">boFilBaj_Click</a></li>
+				<li><a href="Diagrama Proceso20 2.0_archivos/png_68.htm">boFilAlt_Click</a></li>
+				<li><a href="Diagrama Proceso20 2.0_archivos/png_69.htm">boFilBan_Click</a></li>
+				<li><a href="Diagrama Proceso20 2.0_archivos/png_70.htm">boDerMpt_MouseDown</a></li>
+				<li><a href="Diagrama Proceso20 2.0_archivos/png_71.htm">boIzqMpt_MouseDown</a></li>
+				<li><a href="Diagrama Proceso20 2.0_archivos/png_72.htm">boEspCla_MouseDown</a></li>
+				<li><a href="Diagrama Proceso20 2.0_archivos/png_73.htm">panelDR_Paint</a></li>
+				<li><a href="Diagrama Proceso20 2.0_archivos/png_74.htm">panelDR_MouseUp</a></li>
+				<li><a href="Diagrama Proceso20 2.0_archivos/png_75.htm">boTarCarga_MouseDown</a></li>
+				<li><a href="Diagrama Proceso20 2.0_archivos/png_76.htm">checkBoxHz_CheckedChanged</a></li>
+				<li><a href="Diagrama Proceso20 2.0_archivos/png_77.htm">textBoxUT_TextChanged</a></li>
+				<li><a href="Diagrama Proceso20 2.0_archivos/png_78.htm">boTarAux_Click</a></li>
+				<li><a href="Diagrama Proceso20 2.0_archivos/png_79.htm">Varios en común</a></li>
 
 				</ul>
 			</body>

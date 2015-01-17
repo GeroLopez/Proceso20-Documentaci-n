@@ -6827,7 +6827,7 @@ namespace Proceso20
             return;
         }
         /// <summary>
-        /// Rutina que magnifica el panel de clasificacion a toda la pantalla.
+        /// Rutina que magnifica el panel de clasificación a toda la pantalla.
         /// </summary>
         /// <param name="sender">El objeto que lanza el evento.</param>
         /// <param name="e">El evento que se lanzó.</param>
@@ -7017,7 +7017,7 @@ namespace Proceso20
 
         }
         /// <summary>
-        /// Disminuir ventana tiempo en Clasificar o si se quiere 'estira' la señal.
+        /// Disminuye la ventana de tiempo en Clasificar o si se quiere 'estira' la señal.
         /// </summary>
         /// <param name="sender">El objeto que lanza el evento.</param>
         /// <param name="e">El evento que se lanzó.</param>
@@ -7043,7 +7043,7 @@ namespace Proceso20
 
         }
         /// <summary>
-        /// Aumentar ventana tiempo en Clasificar, o si se quiere, 'comprime' la señal.
+        /// Aumenta la ventana de tiempo en Clasificar, o si se quiere, 'comprime' la señal.
         /// </summary>
         /// <param name="sender">El objeto que lanza el evento.</param>
         /// <param name="e">El evento que se lanzó.</param>
@@ -16340,7 +16340,7 @@ namespace Proceso20
             return;
         }
         /// <summary>
-        /// 
+        /// Este método debe ser revisado a fondo.
         /// </summary>
         /// <param name="vN"></param>
         /// <param name="vE"></param>
@@ -16631,7 +16631,7 @@ namespace Proceso20
             return;
         }
         /// <summary>
-        /// 
+        /// Este método debe ser revisado a fondo.
         /// </summary>
         /// <param name="vN"></param>
         /// <param name="vE"></param>
